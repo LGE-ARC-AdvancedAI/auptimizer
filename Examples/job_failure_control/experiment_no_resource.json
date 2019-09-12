@@ -1,0 +1,26 @@
+{
+  "proposer": "random",
+  "n_samples": 30,
+  "random_seed": 1,
+  "script": "rosenbrock_hpo.py",
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    }
+  ],
+  "n_parallel": 4,
+  "target":"min"
+}

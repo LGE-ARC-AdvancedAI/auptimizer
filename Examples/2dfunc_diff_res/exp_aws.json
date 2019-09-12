@@ -1,0 +1,36 @@
+{
+    "workingdir": "/home/ubuntu/",
+    "proposer": "random",
+    "n_samples": 10,
+    "resource_args": {
+		"shutdown":true,
+		"retry": 5
+    },
+	"runtime_args": {
+		"prescript": "source .profile",
+		"postscript": "echo 'DONE'"
+	},
+    "random_seed": 1,
+    "script": "./rosenbrock_hpo.py",
+    "parameter_config": [
+	{
+	    "name": "x",
+	    "range": [
+		-5,
+		5
+	    ],
+	    "type": "float"
+	},
+	{
+	    "name": "y",
+	    "range": [
+		-5,
+		5
+	    ],
+	    "type": "float"
+	}
+    ],
+    "resource": "aws",
+    "n_parallel": 1,
+    "target":"min"
+}

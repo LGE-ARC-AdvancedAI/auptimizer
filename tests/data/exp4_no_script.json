@@ -1,0 +1,12 @@
+{
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        0,
+        10
+      ],
+      "type": "float"
+    }
+  ]
+}

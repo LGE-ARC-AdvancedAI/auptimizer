@@ -1,0 +1,51 @@
+{
+  "proposer": "sequence",
+  "script": "mnist_hpo_demo.py",
+  "resource": "aws",
+  "n_parallel": 8,
+  "target":"max",
+  "parameter_config": [
+    {
+      "name": "dropout",
+      "range": [0.0, 0.5],
+      "type": "float",
+      "n":3
+    },
+    {
+      "name": "learning_rate",
+      "range": [
+        0.001,
+        0.01
+      ],
+      "type": "float",
+      "n":3
+    },
+    {
+      "name": "conv1",
+      "range": [
+        20,
+        50
+      ],
+      "type": "int",
+      "n":3
+    },
+    {
+      "name": "conv2",
+      "range": [
+        40,
+        80
+      ],
+      "type": "int",
+      "n":3
+    },
+    {
+      "name": "fc1",
+      "range": [
+        700,
+        2000
+      ],
+      "type": "int",
+      "n":3
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "proposer": "sequence",
+  "script": "premade_estimator_hpo.py",
+  "parameter_config": [
+    {
+      "name": "layer1",
+      "range": [
+        2,
+        6
+      ],
+      "type": "int"
+    },
+    {
+      "name": "layer2",
+      "range": [
+        2,
+        6
+      ],
+      "type": "int"
+    }
+  ],
+  "resource": "gpu",
+  "n_parallel": 2,
+  "target":"max"
+}
