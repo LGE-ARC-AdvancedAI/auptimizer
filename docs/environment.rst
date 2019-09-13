@@ -2,9 +2,9 @@ Setup environment
 =================
 
 **Auptimizer** needs to be initialized properly before use, either through `python -m aup.setup` for interactive setup or `python -m aup.setup <config.ini>` with the specified configuration file. \
-**We recommend users to use the interactive setup for the first time**.
+**We recommend users use the interactive setup when using auptimizer for the first time**.
 
-The configuration file is to set up **all** environment-related information for **Auptimizer**, such as number of CPUs, GPUs, or remote servers.
+The configuration file is used to set up **all** environment-related information for **Auptimizer**, such as number of CPUs, GPUs, or remote servers.
 All your experiments and jobs will use the configuration.
 
 Configuration Options
@@ -75,15 +75,15 @@ The format of the file must be one of the following:
   + `<username>@<instance_id>:port <ssh_key_file>`
 
 with each instance on a separate line, or if you setup the configuration interactively, you can provide them as
-comma-separated values. The ``username`` is the one used to log in the instance.  The ``instance_id`` can be the EC2
+comma-separated values. The ``username`` is the one used to log into the instance.  The ``instance_id`` can be the EC2
 instance ID, IP, or public DNS.
 
-Refer to ``Examples/2dfunc_diff_res/aws.txt`` as example..
+Refer to ``Examples/2dfunc_diff_res/aws.txt`` for an example.
 
 3. Either you need to install **Auptimizer** on every node, or you need to copy ``<repo>/src/aup.py`` to your remote working
 directory.
 
-4. Also the environment of the instances might be *sourced* correspondingly for environment variables, e.g. ``PATH``.  For
+4. Finally, the environment of the instances might be *sourced* correspondingly for environment variables, e.g. ``PATH``.  For
 instance, if you want to activate virtualenv on the instance before job running, use `prescript` in experiment.json (See
 :ref:`AWSRuntimeAnchor` for more detail).
 
@@ -98,7 +98,7 @@ GPU Mapping Configuration (``--gpu``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To run jobs on multiple GPUs, we need to specify a GPU mapping file with ``--gpu <gpu_mapping_file>``.
-This file is a text file containing the IDs of GPU cards to use (for ``CUDA_VISIBLE_DEVICES``).
+This file is a text file containing the IDs of GPU cards to use (in ``CUDA_VISIBLE_DEVICES``).
 Specifically, each line contains a GPU id as an integer.
 
 + For single GPU without parallel execution, use ``Examples/2dfunc_diff_res/plainGPU.txt``.
@@ -117,7 +117,7 @@ Node Mapping Configuration (``--node``)
 Similar to GPU mapping, users can specify the computing nodes to be used with ``--node <node mapping file>`` during setup
 
 A node configuration file contains each node per line (e.g., ``username@hostname``.)
-And an SSH connection without password authentication is required
+An SSH connection without password authentication is required
 (use ``ssh-keygen`` to create keyless access).
 
 The format of the file must be one of the followings:
@@ -149,8 +149,8 @@ Optional arguments
 Examples
 ~~~~~~~~
 
-We provide examples of using different resources for **Auptimizer**.
-Please refer to ``Examples/2dfunc_diff_res/README.md`` for more details.
+Please refer to ``Examples/2dfunc_diff_res/README.md`` for examples of 
+how to use different resources with **Auptimizer**.
 
 
 Database Setup
@@ -159,7 +159,7 @@ Database Setup
 During the setup, **Auptimizer** creates a SQL database to track the jobs and experiments (currently
 only ``sqlite`` is supported).
 Typically, users do not need to manually access it.
-Here we provide a little more detail for users to retrieve additional records for their analysis.
+Here we provide a little more detail for users to retrieve additional records for their analyses.
 
 The database contains ``job``, ``experiment``, ``user``, and ``resource`` tables. The schema is described below:
 
@@ -181,7 +181,7 @@ This will parse the ``.aup/env.ini`` file to create the new database.
 Refresh tables with additional modification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following argument can be customized by changing them in the
+The following argument can be customized by changing it in the
 headings or from the command line to overwrite the ``aup.setup`` configuration:
 
 +-----------------------+-----------------------+-----------------------+

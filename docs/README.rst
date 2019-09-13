@@ -18,8 +18,8 @@ Currently, **Auptimizer** helps with:
 -  **Getting the best models in minimum time** - Generate optimal models
    and achieve better performance by employing state-of-the-art HPO
    techniques. Auptimizer provides a single seamless access point to
-   top-notch HPO algorithms, including Bayesian optimization,
-   multi-armed bandit, and even your own proprietary solution.
+   top-notch HPO algorithms, including Bayesian optimization and
+   multi-armed bandit. You can even integrate your own proprietary solution.
 
 Best of all, **Auptimizer** offers a consistent interface that allows
 users to switch between different HPO algorithms and computing resources
@@ -88,10 +88,10 @@ License
 `BSD 3-Clause License <./LICENSE>`__
 
 .. |BSD 3-Clause License| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
-   :target: https://opensource.org/licenses/BSD-3-Clause
+    :target: https://opensource.org/licenses/BSD-3-Clause
 .. |pipeline status| image:: https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master
+   :target: https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer
 .. |coverage report| image:: https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer
 .. |repo url| image:: https://img.shields.io/badge/github-repo-information.svg
-   :target: https://github.com/LGE-ARC-AdvancedAI/auptimizer
-
-		      
+    :target: https://github.com/LGE-ARC-AdvancedAI/auptimizer

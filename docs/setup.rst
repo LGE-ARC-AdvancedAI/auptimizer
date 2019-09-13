@@ -22,11 +22,11 @@ Environment Setup
 ~~~~~~~~~~~~~~~~~
 
 Currently, **Auptimizer** relies on an environment folder to access the system resources and track experiment history.
-Using `python -m aup.setup` will guide you through the setup steps.
-And :doc:`environment` has more detailed explanation on the different configurations.
+Using `python -m aup.setup` will guide you through the setup.
+:doc:`environment` has more detailed explanations about the different configurations.
 
-There are two places to save the environment file, **Auptimizer** will first search the folder named `.aup` in your working folder (where you run your command) and then your home folder (`~`).
+There are two places you can save the environment file - **Auptimizer** will first search the folder named `.aup` in your working folder (where you run your command) and then your home folder (`~`).
 Otherwise, you specify it at runtime with the `--aup` argument.
-An error will be thrown if it is not found.
+An error will be thrown if this environment file cannot be found.
 
-Now, you are ready to use **Auptimizer** for your experiment.  See :doc:`experiment` to learn how to change your code.
+You are now ready to use **Auptimizer** for your experiment.  See :doc:`experiment` to learn how to change your code.

@@ -38,7 +38,7 @@ The output file name is defined in ``experiment_auto.json`` as ``script``.
 Manual modification
 ~~~~~~~~~~~~~~~~~~~
 
-We also provide a modified version for users' reference. In the ``rosenbrock_hpo.py``, we show how to convert the function for **Auptimizer** tuning:
+We also provide a modified version for users' reference. In ``rosenbrock_hpo.py``, we show how to convert the function for tuning with **Auptimizer**.
 
 For the end-user’s experiment, simply replacing the ``rosenbrock()`` function with their code is enough to use **Auptimizer** (**Need to return the score in that function**).
 

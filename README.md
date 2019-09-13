@@ -9,7 +9,7 @@
 Currently, **Auptimizer** helps with:
 
 + **Automating tedious experimentation** - Start using Auptimizer by changing just a few lines of your code. It will
-  run and record the sophisticated hyperparameter optimization (HPO) experiments for you, resulting in effortless
+  run and record sophisticated hyperparameter optimization (HPO) experiments for you, resulting in effortless
   consistency and reproducibility.
 
 + **Making the best use of your compute-resources** - Whether you are using a couple of GPUs or AWS, Auptimizer will
@@ -17,7 +17,7 @@ Currently, **Auptimizer** helps with:
 
 + **Getting the best models in minimum time** - Generate optimal models and achieve better performance by employing
   state-of-the-art HPO techniques. Auptimizer provides a single seamless access point to top-notch HPO algorithms,
-  including Bayesian optimization, multi-armed bandit.You can even integrate your own proprietary solution.
+  including Bayesian optimization, multi-armed bandit. You can even integrate your own proprietary solution.
 
 Best of all, **Auptimizer** offers a consistent interface that allows users to switch between different HPO algorithms
 and computing resources with minimal changes to their existing code.

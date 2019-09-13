@@ -44,7 +44,7 @@ How to modify existing code for Auptimizer
 Auto code conversion
 --------------------
 
-**Auptimizer** converts code to run under if the training script is well defined as follows::
+**Auptimizer** converts code to run if the training script is well defined as follows::
 
   python -m aup.convert <script> <exp_json> <func_name> -o [output]
 
