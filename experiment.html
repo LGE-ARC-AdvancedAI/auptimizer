@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Create and run a new experiment &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configure HPO Algorithm" href="algorithm.html" />
+    <link rel="prev" title="Set up environment" href="environment.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Create and run a new experiment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-modify-existing-code-for-auptimizer">How to modify existing code for Auptimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auto-code-conversion">Auto code conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runtime">Runtime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#additional-arguments">Additional arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-runtime-configuration-for-node-aws">Additional runtime configuration for node/AWS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Create and run a new experiment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/experiment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="create-and-run-a-new-experiment">
+<h1>Create and run a new experiment<a class="headerlink" href="#create-and-run-a-new-experiment" title="Permalink to this headline">¶</a></h1>
+<p><strong>Auptimizer</strong> needs a modified training script and an experiment specification file before use.</p>
+<div class="section" id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
+<p>For data science applications, the <strong>user</strong> (AI scientist/engineer) solves a given data mining problem with a specified
+machine learning model.</p>
+<p>A script (<strong>code</strong>) is written and some hyperparameters are identified to be explored during model training.</p>
+<p>Typically, the user carries out an <strong>experiment</strong> to examine a range of hyperparameter combinations  and measures the
+<strong>performance</strong> of the model on a hold-out dataset. For example, testing a deep learning model by exploring the learning
+rate between 0 and 1, and dropout between 0.4 and 0.6. the performance is measured by accuracy.</p>
+<p>Each individual training process for a given selection of hyperparameters (e.g., learning rate = 0.1, dropout = 0.5)  is
+called a <strong>job</strong>.</p>
+<p>All jobs run on an assigned computational <strong>resource</strong>, e.g. CPU, GPU. And after all jobs are finished, the user
+retrieves the best model from the training history for further analysis or application.</p>
+</div>
+<div class="section" id="how-to-modify-existing-code-for-auptimizer">
+<h2>How to modify existing code for Auptimizer<a class="headerlink" href="#how-to-modify-existing-code-for-auptimizer" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>create the <code class="docutils literal notranslate"><span class="pre">experiment.json</span></code> file to specify the experiment and hyperparameters.  Using</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m aup.init
+</pre></div>
+</div>
+<p>will guide you interactively.  The structure is generally the same for most algorithms with minor modifications.  See
+<a class="reference internal" href="algorithm.html"><span class="doc">Configure HPO Algorithm</span></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>To change your existing code, you can use <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.convert</span></code> to convert your code (as described in <a class="reference internal" href="#auto-code-conversion">Auto code conversion</a>).  If you plan to change it manually, the general flow of the conversion process is as follows:</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>parse the configuration file (first argument from command line, i.e. <code class="docutils literal notranslate"><span class="pre">sys.argv[1]</span></code>) using <code class="docutils literal notranslate"><span class="pre">aup.BasicConfig.load(sys.argv[1])</span></code>.  And use the hyperparameters parsed from the <code class="docutils literal notranslate"><span class="pre">BasicConfig</span></code> in your code, such as <code class="docutils literal notranslate"><span class="pre">config.param_name</span></code> or <code class="docutils literal notranslate"><span class="pre">config['param_name']</span></code>, where <code class="docutils literal notranslate"><span class="pre">param_name</span></code> need to be consistent with the one  used in <code class="docutils literal notranslate"><span class="pre">experiment.json</span></code>.</p></li>
+<li><p>to report the result by using <code class="docutils literal notranslate"><span class="pre">aup.print_result</span></code>.</p></li>
+<li><p>Add Shebang line <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">python</span></code> and make the script executable (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+x</span> <span class="pre">script.py</span></code>).</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Your experiment is now ready to run via <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup</span> <span class="pre">experiment.json</span></code>. For more details, see <a class="reference internal" href="#runtime">Runtime</a>.</p></li>
+</ol>
+</div>
+<div class="section" id="auto-code-conversion">
+<h2>Auto code conversion<a class="headerlink" href="#auto-code-conversion" title="Permalink to this headline">¶</a></h2>
+<p><strong>Auptimizer</strong> converts code to run if the training script is well defined as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">convert</span> <span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">exp_json</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">func_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="p">[</span><span class="n">output</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">script</span></code> the original script used for training, it must contain the function with name <code class="docutils literal notranslate"><span class="pre">func_name</span></code>.  Also no “__main__” inside the script.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exp_json</span></code> experiment configuration defined by the user.  It must contain the hyperparameters used by <code class="docutils literal notranslate"><span class="pre">func_name</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func_name</span></code> the entry function used for training. It uses all hyperparameters defined in <code class="docutils literal notranslate"><span class="pre">exp_json</span></code>. All other inputs need to be optional and not overlapping with the hyperparameter names.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output</span></code> optional name for output <code class="docutils literal notranslate"><span class="pre">code</span></code>.  If not specified, it creates a file with the name specified in <code class="docutils literal notranslate"><span class="pre">exp_json</span></code>.</p></li>
+</ul>
+<p>Check out the folder <code class="docutils literal notranslate"><span class="pre">Examples/2dfunc_diff_opt/README.md</span></code> in the repository for example usage.</p>
+</div>
+<div class="section" id="runtime">
+<h2>Runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h2>
+<p>Once the experiment has been correctly set up, it is very easy to start the experiment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span> <span class="n">experiment</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<div class="section" id="additional-arguments">
+<h3>Additional arguments<a class="headerlink" href="#additional-arguments" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--test</span></code>: will run in test mode by executing one job</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--aup</span></code>: manually specify the <code class="docutils literal notranslate"><span class="pre">.aup</span></code> folder</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--log</span></code>: set log level to <code class="docutils literal notranslate"><span class="pre">[debug,info,warn,error]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--sleep</span></code>: time delay for sequential jobs (avoid database collision)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--ignore_fail</span></code>: ignore failures in job execution</p></li>
+</ul>
+</div>
+<div class="section" id="additional-runtime-configuration-for-node-aws">
+<span id="awsruntimeanchor"></span><h3>Additional runtime configuration for node/AWS<a class="headerlink" href="#additional-runtime-configuration-for-node-aws" title="Permalink to this headline">¶</a></h3>
+<p>The user should either have Auptimizer installed on the remote machine, or at minimum, copy the <a class="reference download internal" download="" href="_downloads/bfa70e2935b9c76e2cee204d476f102b/aup.py"><code class="xref download docutils literal notranslate"><span class="pre">Auptimizer</span> <span class="pre">file</span> <span class="pre">for</span> <span class="pre">remote</span> <span class="pre">machine</span></code></a> to the remote machine that can be imported by the jobs.</p>
+<p>Additional configuration for node/AWS environment for runtime can be put under the <code class="docutils literal notranslate"><span class="pre">runtime_args</span></code> in the <code class="docutils literal notranslate"><span class="pre">experiment.json</span></code>.
+This is important for setting up the environment, etc. on the remote machine.
+The specific arguments are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prescript</span></code>: any script to be run before the job. (use ; to separate different commands)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postscript</span></code>: any script to be run after the job.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overwrite</span></code>: remove the existing job file if exists.  Otherwise, it will use the existing file on the node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: other environment variables, listed as dictionary <cite>{“CUDA_VISIBLE_DEVICES”:”0”}</cite></p></li>
+</ul>
+<p>Other resource-related arguments are under <cite>resource_args</cite> (not for node resource):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">retry</span></code>: number of 30s to wait if AWS instance has no response.  default is 10 for 3mins.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code>: turn off AWS instance after run.</p></li>
+</ul>
+<p>See <code class="docutils literal notranslate"><span class="pre">Examples/2dfunc_diff_res/</span></code> for more references.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="algorithm.html" class="btn btn-neutral float-right" title="Configure HPO Algorithm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="environment.html" class="btn btn-neutral float-left" title="Set up environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

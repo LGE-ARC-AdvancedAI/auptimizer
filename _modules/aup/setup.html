@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.setup &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../errors.html">Errors and Solutions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>aup.setup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aup.setup</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
+<span class="sd">  SPDX-License-Identifier: BSD-3-Clause</span>
+
+<span class="sd">Setup scripts for Auptimizer</span>
+<span class="sd">============================</span>
+
+<span class="sd">:mod:`aup.setup` is the entry point to set up the `.aup` environment.</span>
+
+<span class="sd">See :doc:`environment` for more details.</span>
+
+<span class="sd">Run it as::</span>
+
+<span class="sd">  python -m aup.setup [env_template] ...</span>
+
+<span class="sd">The templates are at ``Examples/2dfunc_diff_res/*.ini``.</span>
+
+<span class="sd">Additional arguments</span>
+<span class="sd">--------------------</span>
+
+<span class="sd">.. program-output:: python3 -m aup.setup -h</span>
+
+<span class="sd">APIs</span>
+<span class="sd">----</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">rmtree</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">coloredlogs</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">six.moves.configparser</span> <span class="k">import</span> <span class="n">ConfigParser</span>
+
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">get_default_username</span><span class="p">,</span> <span class="n">LOG_LEVEL</span>
+
+<span class="c1"># Name of resources in .aup database</span>
+<span class="n">GPU_RESOURCE_NAME</span> <span class="o">=</span> <span class="s2">&quot;gpu_mapping&quot;</span>
+<span class="n">NODE_RESOURCE_NAME</span> <span class="o">=</span> <span class="s2">&quot;node_mapping&quot;</span>
+<span class="n">AWS_RESOURCE_NAME</span> <span class="o">=</span> <span class="s2">&quot;aws_mapping&quot;</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;aup.setup&quot;</span><span class="p">)</span>
+
+<span class="n">PYTHON_EXEC</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
+
+<span class="k">def</span> <span class="nf">_create_folder</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a folder&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">folder</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;~&quot;</span><span class="p">:</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Folder </span><span class="si">%s</span><span class="s2"> exists, please remove folder or use --overwrite&quot;</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rmtree</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>   <span class="c1"># pragma: no cover</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Failed to create folder, check the error message below&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">folder</span>
+
+
+<span class="k">def</span> <span class="nf">_set_resource</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">start_rid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update resource allocation in Auptimizer and track resource ID&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">resource</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Remove conflict resource </span><span class="si">%s</span><span class="s2"> in Auptimizer.&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">remove_option</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">resource</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;No resources for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">resources</span><span class="p">[</span><span class="n">start_rid</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">start_rid</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Assign resource </span><span class="si">%s</span><span class="s2"> as </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">resources</span><span class="p">))</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">resources</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">start_rid</span>
+
+
+<div class="viewcode-block" id="interactive_env"><a class="viewcode-back" href="../../aup.setup.html#aup.setup.interactive_env">[docs]</a><span class="k">def</span> <span class="nf">interactive_env</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">)</span>
+    <span class="n">aup_path</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Auptimizer Environment path - Auptimizer_PATH (Default is `.aup`):&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;.aup&quot;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Auptimizer_PATH&quot;</span><span class="p">,</span> <span class="n">aup_path</span><span class="p">)</span>
+    <span class="n">aup_tmp</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Auptimizer Temp folder - TMP_FOLDER (/tmp/auptmp):&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;/tmp/auptmp&quot;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;TMP_FOLDER&quot;</span><span class="p">,</span> <span class="n">aup_tmp</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;SQL_ENGINE&quot;</span><span class="p">,</span> <span class="s2">&quot;sqlite&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="interactive_setup"><a class="viewcode-back" href="../../aup.setup.html#aup.setup.interactive_setup">[docs]</a><span class="k">def</span> <span class="nf">interactive_setup</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interactive user interface to get parameters for setup</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hit ENTER to use default values in brackets.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">env</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Load existing Auptimizer environment (env.ini file path), hit ENTER to initialize a new one:&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">interactive_env</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">env</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Environment file </span><span class="si">%s</span><span class="s2"> does not exist, exit!&quot;</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Failed to load environment template </span><span class="si">%s</span><span class="s2"> using ConfigParser&quot;</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="n">cpu</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Number of CPUs for parallel jobs (</span><span class="si">%d</span><span class="s2">):&quot;</span> <span class="o">%</span> <span class="n">cpu</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cpu</span><span class="p">)</span>
+    <span class="n">gpu</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;GPU template file or comma-separated IDs (</span><span class="si">%s</span><span class="s2">):&quot;</span> <span class="o">%</span> <span class="n">gpu</span><span class="p">)</span> <span class="ow">or</span> <span class="n">gpu</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Node template file (</span><span class="si">%s</span><span class="s2">) or comma-separated nodes (user@ip:[port] [keyfile]):&quot;</span> <span class="o">%</span> <span class="n">node</span><span class="p">)</span> <span class="ow">or</span> <span class="n">node</span>
+    <span class="n">aws</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;AWS template file (</span><span class="si">%s</span><span class="s2">) or comma-separated nodes (user@ip):[port] [keyfile]):&quot;</span> <span class="o">%</span> <span class="n">aws</span><span class="p">)</span> <span class="ow">or</span> <span class="n">aws</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Username (</span><span class="si">%s</span><span class="s2">):&quot;</span> <span class="o">%</span> <span class="n">user</span><span class="p">)</span> <span class="ow">or</span> <span class="n">user</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Overwrite (y/N)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span>
+
+    <span class="k">return</span> <span class="n">config</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span></div>
+
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../aup.setup.html#aup.setup.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set up .aup environment</span>
+
+<span class="sd">    :param config: env config</span>
+<span class="sd">    :param cpu: number of cpu jobs</span>
+<span class="sd">    :param gpu: gpu configuration file, &#39;none&#39; if not exist</span>
+<span class="sd">    :param node: node file, &#39;none&#39; if not exist</span>
+<span class="sd">    :param aws: aws file</span>
+<span class="sd">    :param user: username, user specified &gt; OS USER variable &gt; &#39;default&#39;</span>
+<span class="sd">    :param overwrite: overwrite existing .aup environment</span>
+<span class="sd">    :param log: log level for setupdb</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">_create_folder</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Auptimizer_PATH&quot;</span><span class="p">),</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Auptimizer_PATH&quot;</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">)</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">_create_folder</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;TMP_FOLDER&quot;</span><span class="p">),</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;TMP_FOLDER&quot;</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">)</span>
+
+    <span class="n">pending_commands</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">rid</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">rid</span> <span class="o">=</span> <span class="n">_set_resource</span><span class="p">(</span><span class="n">gpu</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">GPU_RESOURCE_NAME</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span>
+    <span class="n">rid</span> <span class="o">=</span> <span class="n">_set_resource</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">NODE_RESOURCE_NAME</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span>
+    <span class="n">rid</span> <span class="o">=</span> <span class="n">_set_resource</span><span class="p">(</span><span class="n">aws</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">AWS_RESOURCE_NAME</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Create </span><span class="si">%d</span><span class="s2"> resources&quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;SQL_ENGINE&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;sqlite&quot;</span><span class="p">:</span>
+        <span class="n">tmp_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Auptimizer_PATH&quot;</span><span class="p">),</span> <span class="s2">&quot;sqlite3.db&quot;</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;SQLITE_FILE&quot;</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">)</span>
+        <span class="n">pending_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PYTHON_EXEC</span> <span class="o">+</span> <span class="s2">&quot; -m aup.setupdb.sqlite </span><span class="si">%s</span><span class="s2"> --user </span><span class="si">%s</span><span class="s2"> --cpu </span><span class="si">%d</span><span class="s2"> --log </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Auptimizer_PATH&quot;</span><span class="p">),</span> <span class="s2">&quot;env.ini&quot;</span><span class="p">),</span> <span class="n">user</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">log</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;SQL engine </span><span class="si">%s</span><span class="s2"> is not implemented&quot;</span><span class="p">,</span>
+                     <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;SQL_ENGINE&quot;</span><span class="p">))</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Auptimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Auptimizer_PATH&quot;</span><span class="p">),</span> <span class="s2">&quot;env.ini&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Write env.ini to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">env_path</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Following commands are being executed:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">command</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pending_commands</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Executing command: &quot;</span> <span class="o">+</span> <span class="n">command</span><span class="p">)</span>
+        <span class="n">rflag</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rflag</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Failed in setup commands</span><span class="se">\n</span><span class="s2">Following commands need finish manually (and debug):</span><span class="se">\n</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pending_commands</span><span class="p">[</span><span class="n">i</span><span class="p">:]))</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Continuous Training Engine Setup&quot;</span><span class="p">,</span>
+               <span class="n">context_settings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">help_option_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">]))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;env&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--cpu&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of cores&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--gpu&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;GPU file path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--node&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Node file path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--aws&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;AWS file path&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--user&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;User account for Auptimizer&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--overwrite&#39;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;overwrite existing folder (and records!)&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--log&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Log level&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="sd">&quot;&quot;&quot; Create environment based on env file for Auptimizer</span>
+
+<span class="sd">    \b</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        env {str}: Auptimizer config folder path. Default to create at `./.aup/`.  Leave empty to create a new one.</span>
+<span class="sd">                   Or use the path of the filename (env.ini) to load predefined values (also use --overwrite).</span>
+
+<span class="sd">    \b</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: If failed to load the existing Auptimizer configuration file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">coloredlogs</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">LOG_LEVEL</span><span class="p">[</span><span class="n">log</span><span class="p">],</span>
+                        <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(levelname)s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">get_default_username</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">optionxform</span> <span class="o">=</span> <span class="nb">str</span>
+
+    <span class="k">if</span> <span class="n">env</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>  <span class="c1"># interactive</span>
+        <span class="n">config</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> \
+            <span class="n">interactive_setup</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">env</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Load default env.ini file.&quot;</span><span class="p">)</span>
+                <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;env.ini&quot;</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;failed to read </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+    <span class="n">setup</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">gpu</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">aws</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

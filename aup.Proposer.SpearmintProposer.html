@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.Proposer.SpearmintProposer &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aup.Proposer.EASProposer" href="aup.Proposer.EASProposer.html" />
+    <link rel="prev" title="aup.Proposer.SequenceProposer" href="aup.Proposer.SequenceProposer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment Tracking package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="aup.Proposer.html#proposers">Proposers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+        
+          <li><a href="aup.Proposer.html">aup.Proposer package</a> &raquo;</li>
+        
+      <li>aup.Proposer.SpearmintProposer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/aup.Proposer.SpearmintProposer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-aup.Proposer.SpearmintProposer"></span><div class="section" id="aup-proposer-spearmintproposer">
+<h1>aup.Proposer.SpearmintProposer<a class="headerlink" href="#aup-proposer-spearmintproposer" title="Permalink to this headline">¶</a></h1>
+<p>Re-implementation of Spearmint.  Most of the Spearmint code has not been changed
+Mainly wrap main.py</p>
+<p>Be aware - all variables are vectorized except size=1 case.  (different from spearmint original implementation)</p>
+<p>The original source is forked from <a class="reference external" href="https://github.com/JasperSnoek/spearmint/tree/master/spearmint">Spearmint github commit 70309f0</a>.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-parameters">
+<h3>General parameters<a class="headerlink" href="#general-parameters" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 21%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>proposer</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>spearmint</p></td>
+</tr>
+<tr class="row-odd"><td><p>engine</p></td>
+<td><p>GPEIOptChooser</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>engine_config</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>Options for spearmint chooser</p></td>
+</tr>
+<tr class="row-odd"><td><p>grid_size</p></td>
+<td><p>20000</p></td>
+<td><p>Option for spearmint</p></td>
+</tr>
+<tr class="row-even"><td><p>n_samples</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>Total number of trials to sample</p></td>
+</tr>
+<tr class="row-odd"><td><p>random_seed</p></td>
+<td><p>0</p></td>
+<td><p>[Optional] seed for random generator</p></td>
+</tr>
+<tr class="row-even"><td><p>spearmint_dir</p></td>
+<td><p>spearmint</p></td>
+<td><p>Spearmint working directory</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="specific-parameters-for-parameter-config">
+<h3>Specific parameters for <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code><a class="headerlink" href="#specific-parameters-for-parameter-config" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>name of the variable, will be used in the job config, i.e. training code</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>type of the parameter to be sampled: choose from “float”,”int”,”choice”</p></td>
+</tr>
+<tr class="row-even"><td><p>range</p></td>
+<td><p>range of the parameter.  For “choice”, list all the feasible values</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="apis">
+<h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer">
+<em class="property">class </em><code class="sig-name descname">SpearmintProposer</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
+<dl class="method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.get_param">
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get new proposed parameter values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.reload">
+<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload Proposer state from path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – path to reload</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save Proposer state to path.</p>
+<p><strong>Some proposer can not generate new parameters after saving.</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – path to save</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.setup_config">
+<em class="property">static </em><code class="sig-name descname">setup_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.setup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.setup_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">score</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update scores in proposer history</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score</strong> (<em>float</em>) – score returned by Job</p></li>
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – Finished job</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.verify_config">
+<code class="sig-name descname">verify_config</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.verify_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.verify_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the input configuration is enough for the proposer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>dict</em>) – Experiment configuration of <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>config</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="aup.Proposer.EASProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.EASProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aup.Proposer.SequenceProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.SequenceProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

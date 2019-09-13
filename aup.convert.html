@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Convert python code for Auptimizer automatically &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Auptimizer main entry" href="aup.__main__.html" />
+    <link rel="prev" title="Initialize experiment" href="aup.init.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#main-entry">Main Entry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.setup.html">Setup scripts for Auptimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.init.html">Initialize experiment</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Convert python code for Auptimizer automatically</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-arguments">Additional arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apis">APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer main entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.visualize.html">Visualize one experiment result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb.html">Database Setup and Reset</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+        
+      <li>Convert python code for Auptimizer automatically</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/aup.convert.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-aup.convert"></span><div class="section" id="convert-python-code-for-auptimizer-automatically">
+<h1>Convert python code for Auptimizer automatically<a class="headerlink" href="#convert-python-code-for-auptimizer-automatically" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference internal" href="experiment.html"><span class="doc">Create and run a new experiment</span></a> for how to convert a job to a <strong>Auptimizer</strong> Experiment.</p>
+<div class="section" id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">convert</span><span class="o">.</span><span class="n">py</span> <span class="n">origin</span><span class="o">.</span><span class="n">py</span> <span class="n">experiment</span><span class="o">.</span><span class="n">json</span> <span class="n">demo_func</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-arguments">
+<h2>Additional arguments<a class="headerlink" href="#additional-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: convert.py [OPTIONS] SCRIPT EXP_JSON FUNC_NAME
+
+  Convert script for Auptimizer
+
+  Arguments:
+      script {str} -- Script name to train an ML model and return result
+      exp_json {str} -- JSON file name contrains experiment configuration (e.g. hyperparameter)
+      func_name {str} -- Name of the main function in the script for the training
+
+  Raises:
+      Exception: If the script is not self-executable.
+
+Options:
+  -o, --output TEXT  output file name
+  -h, --help         Show this message and exit.
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>See <cite>Examples/demo</cite>:</p>
+</div>
+<div class="section" id="apis">
+<h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="aup.convert.add_func">
+<code class="sig-name descname">add_func</code><span class="sig-paren">(</span><em class="sig-param">script</em>, <em class="sig-param">func_name</em>, <em class="sig-param">variables</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds wrapper function to the python script.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.convert.add_main">
+<code class="sig-name descname">add_main</code><span class="sig-paren">(</span><em class="sig-param">script</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a main function to the executable Python file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.convert.add_shenbang">
+<code class="sig-name descname">add_shenbang</code><span class="sig-paren">(</span><em class="sig-param">script</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_shenbang"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_shenbang" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the Python script executable.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.convert.get_output_name">
+<code class="sig-name descname">get_output_name</code><span class="sig-paren">(</span><em class="sig-param">experiment_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_output_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_output_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Python script to be executed from the experiment json file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.convert.get_param">
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param">experiment_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse experiment file to retrieve hyperparameter names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>experiment_file</strong> – JSON file of the experiment</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of variable names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[String]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="aup.__main__.html" class="btn btn-neutral float-right" title="Auptimizer main entry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aup.init.html" class="btn btn-neutral float-left" title="Initialize experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

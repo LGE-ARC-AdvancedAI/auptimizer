@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Resource Managers &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aup.ET - Experiment Tracking package" href="aup.ET.html" />
+    <link rel="prev" title="aup.EE.Job module" href="aup.EE.Job.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aup.EE.html#overview">Overview</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="aup.EE.html#apis">APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment Tracking package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+        
+          <li><a href="aup.EE.html">aup.EE - Experiment Execution</a> &raquo;</li>
+        
+      <li>Resource Managers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/aup.EE.Resource.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aup.EE.Resource.AbstractResourceManager">
+<span id="resource-managers"></span><h1>Resource Managers<a class="headerlink" href="#module-aup.EE.Resource.AbstractResourceManager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="aup-ee-resource-abstractresourcemanager">
+<h2>aup.EE.Resource.AbstractResourceManager<a class="headerlink" href="#aup-ee-resource-abstractresourcemanager" title="Permalink to this headline">¶</a></h2>
+<p>Abstract Interface of Resource Managers.</p>
+<p>Using <a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.get_resource_manager" title="aup.EE.Resource.AbstractResourceManager.get_resource_manager"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_resource_manager()</span></code></a> to create the corresponding object with the following resource type.</p>
+<p>For different resource supports, see <a class="reference internal" href="environment.html"><span class="doc">Set up environment</span></a>.</p>
+<div class="section" id="apis">
+<h3>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager">
+<em class="property">class </em><code class="sig-name descname">AbstractResourceManager</code><span class="sig-paren">(</span><em class="sig-param">connector</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Create Resource to run jobs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>connector</strong> (<a class="reference internal" href="aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector" title="aup.ET.Connector.AbstractConnector.AbstractConnector"><em>AbstractConnector</em></a>) – Connector to database</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish">
+<code class="sig-name descname">finish</code><span class="sig-paren">(</span><em class="sig-param">eid</em>, <em class="sig-param">maximize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager.finish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish up the resource allocation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – Report Max or Min of resources</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Max/Min result in experiment (job id, score)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None | [int, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish_job">
+<code class="sig-name descname">finish_job</code><span class="sig-paren">(</span><em class="sig-param">jid</em>, <em class="sig-param">score</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager.finish_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish one job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jid</strong> (<em>int</em>) – job ID</p></li>
+<li><p><strong>score</strong> (<em>float | None</em>) – job for the experiment</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.get_available">
+<code class="sig-name descname">get_available</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">rtype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager.get_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.get_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>method to get the available resource to run a job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – username for job running</p></li>
+<li><p><strong>rtype</strong> (<em>str</em>) – resource type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a random selection of all available resource IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run">
+<em class="property">abstract </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">exp_config</em>, <em class="sig-param">call_back_func</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running implemented for the specific resource manager. 
+It is called by <a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run_job" title="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run_job"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_job()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – a job object</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource id returned from <a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.get_available" title="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.get_available"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_available()</span></code></a>.</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – function to trigger after job finished</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run_job">
+<code class="sig-name descname">run_job</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">exp_config</em>, <em class="sig-param">call_back_func</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager.run_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running interface, this is called by <a class="reference internal" href="aup.EE.Experiment.html#module-aup.EE.Experiment" title="aup.EE.Experiment"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aup.EE.Experiment</span></code></a>.</p>
+<p>It is a wrapper for <a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run" title="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – Job to run</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource ID</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – call back function to update result</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.suspend">
+<code class="sig-name descname">suspend</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#AbstractResourceManager.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.suspend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suspend job upon request</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.EE.Resource.AbstractResourceManager.get_resource_manager">
+<code class="sig-name descname">get_resource_manager</code><span class="sig-paren">(</span><em class="sig-param">resource</em>, <em class="sig-param">connector</em>, <em class="sig-param">n_parallel</em>, <em class="sig-param">auppath='.aup'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AbstractResourceManager.html#get_resource_manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AbstractResourceManager.get_resource_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get resource manager for a specific resource type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource</strong> (<em>str</em>) – gpu or cpu type resource</p></li>
+<li><p><strong>connector</strong> (<a class="reference internal" href="aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector" title="aup.ET.Connector.AbstractConnector.AbstractConnector"><em>AbstractConnector</em></a>) – database connector</p></li>
+<li><p><strong>n_parallel</strong> (<em>int</em>) – how many parallel jobs to be run</p></li>
+<li><p><strong>auppath</strong> (<em>str</em>) – aup environment folder</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>resource manager</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager" title="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager">AbstractResourceManager</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.EE.Resource.CPUResourceManager"></span><div class="section" id="aup-ee-resource-cpuresourcemanager">
+<h2>aup.EE.Resource.CPUResourceManager<a class="headerlink" href="#aup-ee-resource-cpuresourcemanager" title="Permalink to this headline">¶</a></h2>
+<p>Resource Manager for CPUs on a single machine.</p>
+<p>However, user can specify arbitrary number for parallel computing, no real control of resources (yet).</p>
+<div class="section" id="id1">
+<h3>APIs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="aup.EE.Resource.CPUResourceManager.CPUResourceManager">
+<em class="property">class </em><code class="sig-name descname">CPUResourceManager</code><span class="sig-paren">(</span><em class="sig-param">connector</em>, <em class="sig-param">n_parallel</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/CPUResourceManager.html#CPUResourceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.CPUResourceManager.CPUResourceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager" title="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Resource.AbstractResourceManager.AbstractResourceManager</span></code></a></p>
+<dl class="method">
+<dt id="aup.EE.Resource.CPUResourceManager.CPUResourceManager.finish">
+<code class="sig-name descname">finish</code><span class="sig-paren">(</span><em class="sig-param">eid</em>, <em class="sig-param">maximize=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/CPUResourceManager.html#CPUResourceManager.finish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.CPUResourceManager.CPUResourceManager.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish up the resource allocation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – Report Max or Min of resources</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Max/Min result in experiment (job id, score)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None | [int, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.CPUResourceManager.CPUResourceManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">exp_config</em>, <em class="sig-param">call_back_func</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/CPUResourceManager.html#CPUResourceManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.CPUResourceManager.CPUResourceManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running implemented for the specific resource manager. 
+It is called by <code class="xref py py-func docutils literal notranslate"><span class="pre">run_job()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – a job object</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource id returned from <code class="xref py py-func docutils literal notranslate"><span class="pre">get_available()</span></code>.</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – function to trigger after job finished</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.EE.Resource.GPUResourceManager"></span><div class="section" id="aup-ee-resource-gpuresourcemanager">
+<h2>aup.EE.Resource.GPUResourceManager<a class="headerlink" href="#aup-ee-resource-gpuresourcemanager" title="Permalink to this headline">¶</a></h2>
+<p>Resource manager for Single GPU machine.</p>
+<p>It supports:</p>
+<ol class="arabic simple">
+<li><p>Multiple Cards</p></li>
+<li><p>Multiple jobs running on a shared card (no control over GPU resource limit)</p></li>
+</ol>
+<div class="section" id="id2">
+<h3>APIs<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="aup.EE.Resource.GPUResourceManager.GPUResourceManager">
+<em class="property">class </em><code class="sig-name descname">GPUResourceManager</code><span class="sig-paren">(</span><em class="sig-param">connector</em>, <em class="sig-param">n_parallel</em>, <em class="sig-param">auppath='.aup'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/GPUResourceManager.html#GPUResourceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.GPUResourceManager.GPUResourceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aup.EE.Resource.CPUResourceManager.CPUResourceManager" title="aup.EE.Resource.CPUResourceManager.CPUResourceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Resource.CPUResourceManager.CPUResourceManager</span></code></a></p>
+<dl class="method">
+<dt id="aup.EE.Resource.GPUResourceManager.GPUResourceManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">exp_config</em>, <em class="sig-param">call_back_func</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/GPUResourceManager.html#GPUResourceManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.GPUResourceManager.GPUResourceManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running implemented for the specific resource manager. 
+It is called by <code class="xref py py-func docutils literal notranslate"><span class="pre">run_job()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – a job object</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource id returned from <code class="xref py py-func docutils literal notranslate"><span class="pre">get_available()</span></code>.</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – function to trigger after job finished</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.EE.Resource.SSHResourceManager"></span><div class="section" id="aup-ee-resource-sshresourcemanager">
+<h2>aup.EE.Resource.SSHResourceManager<a class="headerlink" href="#aup-ee-resource-sshresourcemanager" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>APIs<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="aup.EE.Resource.SSHResourceManager.SSHResourceManager">
+<em class="property">class </em><code class="sig-name descname">SSHResourceManager</code><span class="sig-paren">(</span><em class="sig-param">connector</em>, <em class="sig-param">n_parallel</em>, <em class="sig-param">key='node_mapping'</em>, <em class="sig-param">auppath='.aup'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/SSHResourceManager.html#SSHResourceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.SSHResourceManager.SSHResourceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aup.EE.Resource.CPUResourceManager.CPUResourceManager" title="aup.EE.Resource.CPUResourceManager.CPUResourceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Resource.CPUResourceManager.CPUResourceManager</span></code></a></p>
+<dl class="method">
+<dt id="aup.EE.Resource.SSHResourceManager.SSHResourceManager.load_node_mapping">
+<em class="property">static </em><code class="sig-name descname">load_node_mapping</code><span class="sig-paren">(</span><em class="sig-param">key='node_mapping'</em>, <em class="sig-param">auppath='.aup'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/SSHResourceManager.html#SSHResourceManager.load_node_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.SSHResourceManager.SSHResourceManager.load_node_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads ssh configurations from file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.SSHResourceManager.SSHResourceManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">exp_config</em>, <em class="sig-param">call_back_func</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/SSHResourceManager.html#SSHResourceManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.SSHResourceManager.SSHResourceManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running implemented for the specific resource manager. 
+It is called by <code class="xref py py-func docutils literal notranslate"><span class="pre">run_job()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – a job object</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource id returned from <code class="xref py py-func docutils literal notranslate"><span class="pre">get_available()</span></code>.</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – function to trigger after job finished</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.EE.Resource.SSHResourceManager.parse_hostname">
+<code class="sig-name descname">parse_hostname</code><span class="sig-paren">(</span><em class="sig-param">host</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/SSHResourceManager.html#parse_hostname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.SSHResourceManager.parse_hostname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the host name, in the following formats:</p>
+<ul class="simple">
+<li><p><cite>username&#64;ip</cite> or</p></li>
+<li><p><cite>username&#64;ip:port</cite> or</p></li>
+<li><p><cite>username&#64;ip ssh_key</cite> or</p></li>
+<li><p><cite>username&#64;ip:port ssh_key</cite></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host</strong> (<em>str</em>) – host name string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>username, hostname, port=22, key (parsed from ~/.ssh/id_rsa)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.EE.Resource.AWSResourceManager"></span><div class="section" id="aup-ee-resource-awsresourcemanager">
+<h2>aup.EE.Resource.AWSResourceManager<a class="headerlink" href="#aup-ee-resource-awsresourcemanager" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>APIs<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="aup.EE.Resource.AWSResourceManager.AWSResourceManager">
+<em class="property">class </em><code class="sig-name descname">AWSResourceManager</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AWSResourceManager.html#AWSResourceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AWSResourceManager.AWSResourceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aup.EE.Resource.SSHResourceManager.SSHResourceManager" title="aup.EE.Resource.SSHResourceManager.SSHResourceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Resource.SSHResourceManager.SSHResourceManager</span></code></a></p>
+<dl class="method">
+<dt id="aup.EE.Resource.AWSResourceManager.AWSResourceManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/AWSResourceManager.html#AWSResourceManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.AWSResourceManager.AWSResourceManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running implemented for the specific resource manager. 
+It is called by <code class="xref py py-func docutils literal notranslate"><span class="pre">run_job()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – a job object</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource id returned from <code class="xref py py-func docutils literal notranslate"><span class="pre">get_available()</span></code>.</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – function to trigger after job finished</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.EE.Resource.PassiveResourceManager"></span><div class="section" id="aup-ee-resource-passiveresourcemanger">
+<h2>aup.EE.Resource.PassiveResourceManger<a class="headerlink" href="#aup-ee-resource-passiveresourcemanger" title="Permalink to this headline">¶</a></h2>
+<p>Leave the user to run script interactively.</p>
+<ul class="simple">
+<li><p>It supports only one job running at a time.</p></li>
+<li><p>It prints the command on the screen and asks user to return the value</p></li>
+</ul>
+<div class="section" id="id5">
+<h3>APIs<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="aup.EE.Resource.PassiveResourceManager.PassiveResourceManager">
+<em class="property">class </em><code class="sig-name descname">PassiveResourceManager</code><span class="sig-paren">(</span><em class="sig-param">connector</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/PassiveResourceManager.html#PassiveResourceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.PassiveResourceManager.PassiveResourceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager" title="aup.EE.Resource.AbstractResourceManager.AbstractResourceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Resource.AbstractResourceManager.AbstractResourceManager</span></code></a></p>
+<dl class="method">
+<dt id="aup.EE.Resource.PassiveResourceManager.PassiveResourceManager.get_available">
+<code class="sig-name descname">get_available</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">rtype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/PassiveResourceManager.html#PassiveResourceManager.get_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.PassiveResourceManager.PassiveResourceManager.get_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>method to get the available resource to run a job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – username for job running</p></li>
+<li><p><strong>rtype</strong> (<em>str</em>) – resource type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a random selection of all available resource IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Resource.PassiveResourceManager.PassiveResourceManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">rid</em>, <em class="sig-param">exp_config</em>, <em class="sig-param">call_back_func</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Resource/PassiveResourceManager.html#PassiveResourceManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Resource.PassiveResourceManager.PassiveResourceManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job running implemented for the specific resource manager. 
+It is called by <code class="xref py py-func docutils literal notranslate"><span class="pre">run_job()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – a job object</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – resource id returned from <a class="reference internal" href="#aup.EE.Resource.PassiveResourceManager.PassiveResourceManager.get_available" title="aup.EE.Resource.PassiveResourceManager.PassiveResourceManager.get_available"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_available()</span></code></a>.</p></li>
+<li><p><strong>exp_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – experiment configuration</p></li>
+<li><p><strong>call_back_func</strong> (<em>function object</em>) – function to trigger after job finished</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="aup.ET.html" class="btn btn-neutral float-right" title="aup.ET - Experiment Tracking package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aup.EE.Job.html" class="btn btn-neutral float-left" title="aup.EE.Job module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

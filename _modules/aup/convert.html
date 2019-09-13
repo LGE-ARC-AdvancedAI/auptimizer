@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.convert &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../errors.html">Errors and Solutions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>aup.convert</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aup.convert</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
+<span class="sd">  SPDX-License-Identifier: BSD-3-Clause</span>
+
+<span class="sd">Convert python code for Auptimizer automatically</span>
+<span class="sd">================================================</span>
+
+<span class="sd">See :doc:`experiment` for how to convert a job to a **Auptimizer** Experiment.</span>
+
+<span class="sd">Basic Usage</span>
+<span class="sd">-----------</span>
+
+<span class="sd">::</span>
+
+<span class="sd">    python convert.py origin.py experiment.json demo_func</span>
+
+<span class="sd">Additional arguments</span>
+<span class="sd">--------------------</span>
+
+<span class="sd">.. program-output:: python -m aup.convert -h</span>
+
+<span class="sd">Example</span>
+<span class="sd">-------</span>
+
+<span class="sd">See `Examples/demo`:</span>
+
+
+<span class="sd">APIs</span>
+<span class="sd">----</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">stat</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+
+
+<div class="viewcode-block" id="get_param"><a class="viewcode-back" href="../../aup.convert.html#aup.convert.get_param">[docs]</a><span class="k">def</span> <span class="nf">get_param</span><span class="p">(</span><span class="n">experiment_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parse experiment file to retrieve hyperparameter names</span>
+
+<span class="sd">    :param experiment_file: JSON file of the experiment</span>
+<span class="sd">    :return: list of variable names</span>
+<span class="sd">    :rtype: [String]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">experiment_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;parameter_config&quot;</span><span class="p">]]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;parameter_config&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;parameter_config not in the experiment config&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;name not in parameter_config&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span></div>
+
+
+<div class="viewcode-block" id="get_output_name"><a class="viewcode-back" href="../../aup.convert.html#aup.convert.get_output_name">[docs]</a><span class="k">def</span> <span class="nf">get_output_name</span><span class="p">(</span><span class="n">experiment_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Retrieves the Python script to be executed from the experiment json file&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">experiment_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;script need to be defined in experiment json&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span></div>
+
+
+<div class="viewcode-block" id="add_shenbang"><a class="viewcode-back" href="../../aup.convert.html#aup.convert.add_shenbang">[docs]</a><span class="k">def</span> <span class="nf">add_shenbang</span><span class="p">(</span><span class="n">script</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Makes the Python script executable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">script</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;#!&quot;</span><span class="p">:</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;posix&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;#!/usr/bin/env python</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">script</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Be cautious, add #!&quot;C:</span><span class="se">\\</span><span class="s1">Python33</span><span class="se">\\</span><span class="s1">python.exe&quot;, make sure it executable on Windows&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s1">&#39;#!&quot;C:</span><span class="se">\\</span><span class="s1">Python33</span><span class="se">\\</span><span class="s1">python.exe</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">script</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">script</span></div>
+
+
+<div class="viewcode-block" id="add_main"><a class="viewcode-back" href="../../aup.convert.html#aup.convert.add_main">[docs]</a><span class="k">def</span> <span class="nf">add_main</span><span class="p">(</span><span class="n">script</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a main function to the executable Python file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;__main__&quot;</span> <span class="ow">in</span> <span class="n">script</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;__main__ is already defined in the script.  Make sure no duplicated __main__ blocks in output.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">script</span> <span class="o">+</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\n</span><span class="s2">if __name__ == &quot;__main__&quot;:</span>
+<span class="s2">    import sys</span>
+<span class="s2">    from aup import BasicConfig, print_result</span>
+<span class="s2">    if len(sys.argv) != 2:</span>
+<span class="s2">        print(&quot;config file required&quot;)</span>
+<span class="s2">        exit(1)</span>
+<span class="s2">    config = BasicConfig().load(sys.argv[1])</span>
+<span class="s2">    aup_wrapper(config)</span><span class="se">\n</span><span class="s2">&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="add_func"><a class="viewcode-back" href="../../aup.convert.html#aup.convert.add_func">[docs]</a><span class="k">def</span> <span class="nf">add_func</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds wrapper function to the python script.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arguments</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">=config[&#39;</span><span class="si">{0}</span><span class="s2">&#39;]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">])</span>
+    <span class="n">wrapper_script</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\n</span><span class="s2">def aup_wrapper(config):</span>
+<span class="s2">    res = </span><span class="si">{0}</span><span class="s2">(</span><span class="si">{1}</span><span class="s2">) </span>
+<span class="s2">    print_result(res)</span><span class="se">\n</span><span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">script</span> <span class="o">+</span> <span class="n">wrapper_script</span></div>
+    <span class="c1"># TODO-handle exception: func_name does not have any return value (need some ast parsing)</span>
+    <span class="c1"># TODO-&quot;config&quot; is not used/referenced in &quot;aup_wrapper&quot; function</span>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;auto convert script for Auptimizer&quot;</span><span class="p">,</span>
+               <span class="n">context_settings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">help_option_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">]))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;exp_json&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;func_name&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output file name&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">exp_json</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert script for Auptimizer</span>
+
+<span class="sd">    \b</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        script {str} -- Script name to train an ML model and return result</span>
+<span class="sd">        exp_json {str} -- JSON file name contrains experiment configuration (e.g. hyperparameter)</span>
+<span class="sd">        func_name {str} -- Name of the main function in the script for the training</span>
+
+<span class="sd">    \b</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: If the script is not self-executable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">variable_names</span> <span class="o">=</span> <span class="n">get_param</span><span class="p">(</span><span class="n">exp_json</span><span class="p">)</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">script</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">add_shenbang</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">add_func</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">variable_names</span><span class="p">)</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">add_main</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">get_output_name</span><span class="p">(</span><span class="n">exp_json</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;posix&quot;</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IRWXU</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Non-*nix OS is not fully supported, change permission by yourself.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed at the last step - script </span><span class="si">%s</span><span class="s2"> is not executable&quot;</span> <span class="o">%</span> <span class="n">output</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

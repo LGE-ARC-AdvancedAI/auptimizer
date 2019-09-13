@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.EE.Experiment module &mdash; Auptimizer  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aup.EE.Job module" href="aup.EE.Job.html" />
+    <link rel="prev" title="aup.EE - Experiment Execution" href="aup.EE.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aup.EE.html#overview">Overview</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="aup.EE.html#apis">APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment Tracking package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+        
+          <li><a href="aup.EE.html">aup.EE - Experiment Execution</a> &raquo;</li>
+        
+      <li>aup.EE.Experiment module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/aup.EE.Experiment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-aup.EE.Experiment"></span><div class="section" id="aup-ee-experiment-module">
+<h1>aup.EE.Experiment module<a class="headerlink" href="#aup-ee-experiment-module" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#module-aup.EE.Experiment" title="aup.EE.Experiment"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aup.EE.Experiment</span></code></a> is called by <cite>aup.__main__</cite> to start an experiment.</p>
+<p>See <a class="reference internal" href="algorithm.html"><span class="doc">Configure HPO Algorithm</span></a> for configuration specification.</p>
+<div class="section" id="apis">
+<h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="aup.EE.Experiment.Experiment">
+<em class="property">class </em><code class="sig-name descname">Experiment</code><span class="sig-paren">(</span><em class="sig-param">exp_config</em>, <em class="sig-param">username=None</em>, <em class="sig-param">connector=None</em>, <em class="sig-param">auppath='.aup'</em>, <em class="sig-param">fail_safe=True</em>, <em class="sig-param">sleep_time=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Experiment Class - create and run an experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp_config</strong> (<em>BasicConfig.BasicConfig</em>) – configuration of the experiment</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – username, default: None - will use login username</p></li>
+<li><p><strong>connector</strong> (<a class="reference internal" href="aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector" title="aup.ET.Connector.AbstractConnector.AbstractConnector"><em>AbstractConnector</em></a>) – connector to database</p></li>
+<li><p><strong>auppath</strong> (<em>str</em>) – Auptimizer env.ini file folder, default is either <code class="docutils literal notranslate"><span class="pre">./.aup</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.aup</span></code></p></li>
+<li><p><strong>fail_safe</strong> (<em>bool</em>) – whether exit if job failed. default is True.</p></li>
+<li><p><strong>sleep_time</strong> (<em>int</em>) – time to pause between jobs</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="aup.EE.Experiment.Experiment.finish">
+<code class="sig-name descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.finish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish experiment if no job is running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>job id, best score</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(int, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Experiment.Experiment.resume">
+<code class="sig-name descname">resume</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.resume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore previous experiment, previous job during suspension won’t be run in this round</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – filename (saved by pickle as exp%d.pkl)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Experiment.Experiment.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start experiment</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Experiment.Experiment.submit_job">
+<code class="sig-name descname">submit_job</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.submit_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.submit_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a new job to run if there is resource available</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if job submitted, else False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.EE.Experiment.Experiment.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">score</em>, <em class="sig-param">jid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.update" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Callback function passed to <a class="reference internal" href="aup.EE.Resource.html#module-aup.EE.Resource.AbstractResourceManager" title="aup.EE.Resource.AbstractResourceManager"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aup.EE.Resource.AbstractResourceManager</span></code></a> to</dt><dd><p>update the job history (also proposer and connector)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score</strong> (<em>float</em>) – score returned from job (using <code class="xref py py-func docutils literal notranslate"><span class="pre">aup.utils.print_result()</span></code>)</p></li>
+<li><p><strong>jid</strong> (<em>int</em>) – job id</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="aup.EE.Job.html" class="btn btn-neutral float-right" title="aup.EE.Job module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aup.EE.html" class="btn btn-neutral float-left" title="aup.EE - Experiment Execution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
