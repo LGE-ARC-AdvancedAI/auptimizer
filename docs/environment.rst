@@ -1,5 +1,5 @@
-Setup environment
-=================
+Set up environment
+==================
 
 **Auptimizer** needs to be initialized properly before use, either through `python -m aup.setup` for interactive setup or `python -m aup.setup <config.ini>` with the specified configuration file. \
 **We recommend users use the interactive setup when using auptimizer for the first time**.

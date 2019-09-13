@@ -24,7 +24,8 @@ git config user.name "Travis Builder"
 git config user.email "$EMAIL"
 
 
-cp ../$REPO/README.md .
+sed 's/docs\/images\/demo.gif/_images\/demo.gif/g' ../$REPO/README.md > ./README.md
+
 cp ../$REPO/AuptimizerBlackLong.png .
 cp -R ../$REPO/docs/_build/html/* ./
 git add -A .
