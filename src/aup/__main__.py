@@ -2,7 +2,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Auptimizer main entry
 =====================
@@ -45,8 +45,11 @@ logger = logging.getLogger("aup")
 @click.option("--ignore_fail", is_flag=True, help="Do not exit when a job failed")
 def main(experiment_file, test, user, aup_folder, resume, log, sleep, ignore_fail):
     """Auptimizer main function for HPO experiment
-    
-    \b
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Arguments:
         experiment_file {str} -- Experiment configuration (can be created by `python -m aup.init`).
     """

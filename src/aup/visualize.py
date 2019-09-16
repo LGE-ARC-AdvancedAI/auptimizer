@@ -1,7 +1,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Visualize one experiment result
 ===============================
@@ -44,8 +44,11 @@ logger = logging.getLogger(__name__)
 @click.option("--save", default=None, type=str, help="output file")
 def main(eid, log, scale, save):
     """Visualize result for experiment
-    
-    \b
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Arguments:
         eid {int} -- Experiment ID
     """

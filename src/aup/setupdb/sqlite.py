@@ -2,7 +2,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Set up SQLite database for Auptimizer
 =====================================
@@ -130,8 +130,11 @@ def reset(config):
 # name is no in use.  - all resources are under the name of `localhost`
 def main(env_file, user, cpu, name, log):  # pragma: no cover
     """Create database for **Auptimizer** with specified in env.ini file.
-
-    \b
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Arguments:
         env_file {str}: Auptimizer environment file
     """

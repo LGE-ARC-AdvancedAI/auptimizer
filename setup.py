@@ -8,7 +8,7 @@ setup(
     author="LG Electronics Inc.",
     author_email="",
     
-    license='SPDX-License-Identifier: BSD-3-Clause',
+    license='SPDX-License-Identifier: GPL-3.0-or-later',
     long_description=open('README.md').read(),
 
     url=BASE_URL,

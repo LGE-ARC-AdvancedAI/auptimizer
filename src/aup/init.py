@@ -1,7 +1,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Initialize experiment
 =====================
@@ -89,7 +89,11 @@ def _update(config, name, func, *args, **kwargs):
 @click.option("--reload/--no-reload", default=False, help="reload existing experiment configuration")
 def main(exp, aup, log, overwrite, reload):
     """Initialize experiment configuration for HPO
-
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Raises:
         Exception: If Auptimizer environment is not found.
     """

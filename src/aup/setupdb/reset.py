@@ -2,7 +2,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Reset database
 ==============
@@ -24,8 +24,11 @@ from six.moves.configparser import ConfigParser
 @click.argument("env_file", type=click.Path(exists=True))
 def main(env_file):
     """Reset database defined in env.ini file, history remains.
-    
-    \b
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Arguments:
         env_file {str}: Auptimizer environment file
     """

@@ -1,7 +1,7 @@
 Auptimizer
 ==========
 
-|BSD 3-Clause License| |pipeline status| |coverage report| |repo url|
+|GPL 3.0 License| |pipeline status| |coverage report| |repo url|
 
 **Auptimizer** is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building process.
 Currently, **Auptimizer** helps with:
@@ -85,10 +85,10 @@ Each job’s hyperparameter configuration is saved separately under
 License
 -------
 
-`BSD 3-Clause License <./LICENSE>`__
+`GPL 3.0 License <./LICENSE>`__
 
-.. |BSD 3-Clause License| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
-    :target: https://opensource.org/licenses/BSD-3-Clause
+.. |GPL 3.0 License| image:: https://img.shields.io/badge/License-GPL%203.0-blue.svg
+    :target: https://opensource.org/licenses/GPL-3.0
 .. |pipeline status| image:: https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master
    :target: https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer
 .. |coverage report| image:: https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg

@@ -1,7 +1,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Convert python code for Auptimizer automatically
 ================================================
@@ -121,14 +121,17 @@ def add_func(script, func_name, variables):
               help="output file name")
 def main(script, exp_json, func_name, output):
     """Convert script for Auptimizer
-
-    \b
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Arguments:
         script {str} -- Script name to train an ML model and return result
         exp_json {str} -- JSON file name contrains experiment configuration (e.g. hyperparameter)
         func_name {str} -- Name of the main function in the script for the training
 
-    \b
+    \b\n
     Raises:
         Exception: If the script is not self-executable.
     """

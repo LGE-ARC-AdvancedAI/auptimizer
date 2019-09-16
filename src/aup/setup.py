@@ -1,7 +1,7 @@
 """
 ..
   Copyright (c) 2018 LG Electronics Inc.
-  SPDX-License-Identifier: BSD-3-Clause
+  SPDX-License-Identifier: GPL-3.0-or-later
 
 Setup scripts for Auptimizer
 ============================
@@ -191,8 +191,11 @@ def setup(config, cpu, gpu, node, aws, user, overwrite, log):
 @click.option("--log", default="info", type=click.Choice(LOG_LEVEL.keys()), help="Log level")
 def main(env, cpu, gpu, node, aws, user, overwrite, log):  # pragma: no cover
     """ Create environment based on env file for Auptimizer
-
-    \b
+    \b\n
+    Copyright (C) 2018  LG Electronics Inc.
+    \b\n
+    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;
+    \b\n
     Arguments:
         env {str}: Auptimizer config folder path. Default to create at `./.aup/`.  Leave empty to create a new one.
                    Or use the path of the filename (env.ini) to load predefined values (also use --overwrite).
