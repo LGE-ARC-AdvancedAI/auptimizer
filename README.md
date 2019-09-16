@@ -1,7 +1,7 @@
 # ![Auptimizer Logo](AuptimizerBlackLong.png)
 
 [![Documentation](https://img.shields.io/badge/doc-reference-blue.svg)](https://LGE-ARC-AdvancedAI.github.io/auptimizer)
-[![BSD 3-Clause License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![GPL 3.0 License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](https://opensource.org/licenses/GPL-3.0)
 [![pipeline status](https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master)](https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer)
 [![coverage report](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg)](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer)
 
@@ -67,4 +67,4 @@ More examples are under [Examples](https://github.com/LGE-ARC-AdvancedAI/auptimi
 
 ## License
 
-[BSD 3-Clause License](./LICENSE)
+[GPL 3.0 License](./LICENSE)

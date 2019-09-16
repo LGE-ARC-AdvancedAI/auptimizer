@@ -167,7 +167,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">..</span>
 <span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
-<span class="sd">  SPDX-License-Identifier: BSD-3-Clause</span>
+<span class="sd">  SPDX-License-Identifier: GPL-3.0-or-later</span>
 
 <span class="sd">Convert python code for Auptimizer automatically</span>
 <span class="sd">================================================</span>
@@ -287,14 +287,17 @@
               <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output file name&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">exp_json</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert script for Auptimizer</span>
-
-<span class="sd">    \b</span>
+<span class="sd">    \b\n</span>
+<span class="sd">    Copyright (C) 2018  LG Electronics Inc.</span>
+<span class="sd">    \b\n</span>
+<span class="sd">    GPL-3.0 License. This program comes with ABSOLUTELY NO WARRANTY;</span>
+<span class="sd">    \b\n</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">        script {str} -- Script name to train an ML model and return result</span>
 <span class="sd">        exp_json {str} -- JSON file name contrains experiment configuration (e.g. hyperparameter)</span>
 <span class="sd">        func_name {str} -- Name of the main function in the script for the training</span>
 
-<span class="sd">    \b</span>
+<span class="sd">    \b\n</span>
 <span class="sd">    Raises:</span>
 <span class="sd">        Exception: If the script is not self-executable.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
