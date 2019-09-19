@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-BASE_URL="https://gitlab.lgsvl.net/Auptimizer/CTE"
+BASE_URL="https://github.com/LGE-ARC-AdvancedAI/auptimizer"
 
 setup(
     name='Auptimizer',
@@ -14,7 +14,7 @@ setup(
     url=BASE_URL,
     project_urls={
         "Bug Tracker": BASE_URL+"/issues",
-        "Documentation": BASE_URL+"/blob/master/README.md",
+        "Documentation": "https://lge-arc-advancedai.github.io/auptimizer/",
         "Source Code": BASE_URL,
     },
     # install_requires=open("requirements.txt").readlines(),
