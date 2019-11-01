@@ -6,7 +6,7 @@ setup(
     name='Auptimizer',
     version="1.0",
     author="LG Electronics Inc.",
-    author_email="",
+    author_email="auptimizer@lge.com",
     
     license='SPDX-License-Identifier: GPL-3.0-or-later',
     long_description=open('README.md').read(),
