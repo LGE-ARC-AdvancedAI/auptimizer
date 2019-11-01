@@ -10,7 +10,7 @@ setup(
     
     license='SPDX-License-Identifier: GPL-3.0-or-later',
     long_description=open('README.md').read(),
-
+    long_description_content_type='text/markdown',
     url=BASE_URL,
     project_urls={
         "Bug Tracker": BASE_URL+"/issues",
