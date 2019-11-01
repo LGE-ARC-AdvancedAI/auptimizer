@@ -19,5 +19,7 @@ deploy:
   password: $PYPITOKEN
   on:
     branch: release
+  distributions: "sdist bdist_wheel"
+  skip_existing: true
 after_deploy:
 - "./publish.sh"
