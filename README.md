@@ -38,7 +38,7 @@ neural architecture search. The table below shows a full list of currently suppo
 git clone <REPO URL>
 cd <REPO FOLDER>
 pip install -r requirements.txt
-python setup.py install
+pip install auptimizer
 ```
 
 ## Documentation

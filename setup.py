@@ -4,7 +4,7 @@ BASE_URL="https://github.com/LGE-ARC-AdvancedAI/auptimizer"
 
 setup(
     name='Auptimizer',
-    version="1.0",
+    version="1.0.1",
     author="LG Electronics Inc.",
     author_email="auptimizer@lge.com",
     
