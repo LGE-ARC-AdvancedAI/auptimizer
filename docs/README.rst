@@ -50,10 +50,11 @@ some tweaks for Windows users by their own.
 
 ::
 
-   git clone <REPO URL>
-   cd <REPO FOLDER>
-   pip install -r requirements.txt
    python setup.py install
+
+**Note** Dependencies are not included. Using ``pip install``
+`requirements.txt <https://github.com/LGE-ARC-AdvancedAI/auptimizer/blob/master/requirements.txt>`_ will install
+necessary libraries for all functionalities.
 
 Documentation
 -------------
@@ -95,3 +96,20 @@ License
    :target: https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer
 .. |repo url| image:: https://img.shields.io/badge/github-repo-information.svg
     :target: https://github.com/LGE-ARC-AdvancedAI/auptimizer
+
+
+Cite
+----
+
+If you have used this software for research, please cite the following paper (accepted at IEEE Big Data 2019):
+
+::
+
+   @misc{liu2019auptimizer,
+    title={Auptimizer -- an Extensible, Open-Source Framework for Hyperparameter Tuning},
+    author={Jiayi Liu and Samarth Tripathi and Unmesh Kurup and Mohak Shah},
+    year={2019},
+    eprint={1911.02522},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+   }

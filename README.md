@@ -35,11 +35,12 @@ neural architecture search. The table below shows a full list of currently suppo
 **Auptimizer** currently is well tested on Linux systems, it may require some tweaks for Windows users.
 
 ```
-git clone <REPO URL>
-cd <REPO FOLDER>
-pip install -r requirements.txt
 pip install auptimizer
 ```
+
+**Note** Dependencies are not included. Using `pip install`
+[requirements.txt](https://github.com/LGE-ARC-AdvancedAI/auptimizer/blob/master/requirements.txt) will install
+necessary libraries for all functionalities.
 
 ## Documentation
 
@@ -68,3 +69,19 @@ More examples are under [Examples](https://github.com/LGE-ARC-AdvancedAI/auptimi
 ## License
 
 [GPL 3.0 License](./LICENSE)
+
+
+## Cite
+
+If you have used this software for research, please cite the following paper (accepted at IEEE Big Data 2019):
+
+```
+@misc{liu2019auptimizer,
+    title={Auptimizer -- an Extensible, Open-Source Framework for Hyperparameter Tuning},
+    author={Jiayi Liu and Samarth Tripathi and Unmesh Kurup and Mohak Shah},
+    year={2019},
+    eprint={1911.02522},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+```
