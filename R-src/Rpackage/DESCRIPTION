@@ -1,0 +1,36 @@
+Package: auptimizer
+Title: R Helper Functions for Auptimizer
+Version: 0.0.1
+Authors@R: c(
+    person(given = "Jiayi",
+           family = "Liu",
+           role = c("aut"),
+           email = "Jason.Liu@lge.com",
+           comment = c(ORCID = "0000-0001-6007-5256")),
+    person(given = "Jiayi",
+           family = "Liu",
+           role = c("cre"),
+           email = "auptimizer@lge.com"),
+    person(given = "Sauptik",
+           family = "Dhar",
+           role = c("aut"),
+           email = "Sauptik.Dhar@lge.com"),
+    person(given = "",
+           family = "LG Electronics Inc.",
+           role = c("cph"),
+           email = "auptimizer@lge.com")
+    )
+Description: R helper functions for hyperparameter optimization using Auptimizer <https://github.com/LGE-ARC-AdvancedAI/auptimizer>.
+License: GPL (>=3)
+Encoding: UTF-8
+LazyData: true
+Imports:
+    rjson
+URL: https://github.com/LGE-ARC-AdvancedAI/auptimizer
+BugReports: https://github.com/LGE-ARC-AdvancedAI/auptimizer/issues
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
