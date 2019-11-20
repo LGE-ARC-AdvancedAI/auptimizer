@@ -1,3 +1,5 @@
+# Copyright (c) 2018 LG Electronics Inc.
+# SPDX-License-Identifier: GPL-3.0-or-later
 ridgeRegression<-function(trainX,trainy,valX,valy,lambda){
   #######################################################
   # A Typical Ridge Regression Problem
