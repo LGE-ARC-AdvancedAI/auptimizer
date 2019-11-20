@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-
+# Publish documentation on github.io
+# Copyright (c) 2018 LG Electronics Inc.
+# SPDX-License-Identifier: GPL-3.0-or-later
 set -e 
 
 flag=$(python -c 'import platform; major, minor, patch = platform.python_version_tuple();print(major=="3" and minor=="7")')

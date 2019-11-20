@@ -3,10 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    
+    README
+
 .. include:: README.rst
 
 Additional Resources
 ====================
+
+R User
+------
+
+.. toctree::
+   :maxdepth: 1
+
+   r_user
 
 Examples
 --------

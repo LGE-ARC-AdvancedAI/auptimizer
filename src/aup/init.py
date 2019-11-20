@@ -100,7 +100,7 @@ def main(exp, aup, log, overwrite, reload):
     coloredlogs.install(level=LOG_LEVEL[log], fmt="%(name)s - %(levelname)s - %(message)s")
 
     if os.path.isfile(exp) and not overwrite and not reload:
-        logger.fatal("%s exists! Overwrite or change experiment name!", exp)
+        logger.fatal("%s exists! Overwrite (-o) or change experiment name (-e)!", exp)
         exit(1)
 
     try:
