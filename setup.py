@@ -2,11 +2,28 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 from setuptools import setup, find_packages
 
+
 BASE_URL="https://github.com/LGE-ARC-AdvancedAI/auptimizer"
+
+
+def find_version():
+    # based on https://packaging.python.org/guides/single-sourcing-package-version/
+    # find version number
+    import os
+    import re
+    file = os.path.join(os.path.abspath(os.path.dirname(__file__)), "src", "aup", "__init__.py")
+    with open(file, 'r') as fp:
+        content = fp.read()
+    match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", content, re.M)
+    if match:
+        return match.group(1)
+    else:
+        raise RuntimeError("Failed to find version in __init__.py")
+
 
 setup(
     name='Auptimizer',
-    version="1.0.1",
+    version=find_version(),
     author="LG Electronics Inc.",
     author_email="auptimizer@lge.com",
     
