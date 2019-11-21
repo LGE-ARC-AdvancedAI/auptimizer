@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>aup.ET - Experiment Tracking package &mdash; Auptimizer  documentation</title>
+  <title>Setup for R &mdash; Auptimizer  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="aup.ET.Connector package" href="aup.ET.Connector.html" />
-    <link rel="prev" title="Resource Managers" href="aup.EE.Resource.html" /> 
+    <link rel="next" title="Examples" href="demo.html" />
+    <link rel="prev" title="Auptimizer" href="README.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,8 +90,14 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup for R</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-auptimizer-for-r-user">Install Auptimizer for R User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiment-setup">Experiment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
@@ -107,23 +113,8 @@
 <li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">aup.ET - Experiment Tracking package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="aup.ET.Connector.html">aup.ET.Connector package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
 </ul>
 
             
@@ -169,15 +160,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
-        
-      <li>aup.ET - Experiment Tracking package</li>
+      <li>Setup for R</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/aup.ET.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/r_user.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -190,23 +179,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="aup-et-experiment-tracking-package">
-<h1>aup.ET - Experiment Tracking package<a class="headerlink" href="#aup-et-experiment-tracking-package" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Modules for experiment tracking</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.ET.Connector.html">aup.ET.Connector package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="aup.ET.Connector.html#aup-et-connector-abstractconnector">aup.ET.Connector.AbstractConnector</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aup.ET.Connector.html#apis">APIs</a></li>
-</ul>
+  <div class="section" id="setup-for-r">
+<h1>Setup for R<a class="headerlink" href="#setup-for-r" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-auptimizer-for-r-user">
+<h2>Install Auptimizer for R User<a class="headerlink" href="#install-auptimizer-for-r-user" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;aup&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See below for setting up Auptimizer.</p>
+</div>
+<div class="section" id="experiment-setup">
+<h2>Experiment Setup<a class="headerlink" href="#experiment-setup" title="Permalink to this headline">¶</a></h2>
+<p>Auptimizer is running in Python.  See setup in Python first.</p>
+<p>The main workflow is blow:</p>
+<ol class="arabic simple">
+<li><p>Setup Python Auptimizer environment by <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.setup</span></code></p></li>
+<li><p>Change your R script:</p>
+<ol class="loweralpha simple">
+<li><p>Make all hyperparameters as global variables.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">Rscript</span></code> as the first line.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">source(&quot;auptimizer&quot;)</span></code>.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">get_config()</span></code>, which will automatically update the hyperparameters globally set in step a.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">print_result(score)</span></code> to return the target score you want to optimize for you script.</p></li>
+<li><p>Change file permission as <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+x</span> <span class="pre">&lt;your_R_script&gt;</span></code>.</p></li>
+<li><p>Add them into an Auptimizer experiment by <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.init</span></code>.</p></li>
+</ol>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="aup.ET.Connector.html#aup-et-connector-sqliteconnector">aup.ET.Connector.SQLiteConnector</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aup.ET.Connector.html#id1">APIs</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<li><p>Run Auptimizer as <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup</span> <span class="pre">experiment.json</span></code>.</p></li>
+</ol>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>We provide two simple examples to use auptimizer on <a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/R-src/example">Github</a>.</p>
+</div>
+<div class="section" id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer">Auptimizer Github</a> for more information.</p>
 </div>
 </div>
 
@@ -218,10 +226,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="aup.ET.Connector.html" class="btn btn-neutral float-right" title="aup.ET.Connector package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="demo.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="aup.EE.Resource.html" class="btn btn-neutral float-left" title="Resource Managers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="README.html" class="btn btn-neutral float-left" title="Auptimizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

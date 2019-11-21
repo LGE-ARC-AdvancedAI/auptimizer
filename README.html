@@ -34,7 +34,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup for R" href="r_user.html" />
+    <link rel="prev" title="Auptimizer" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +63,7 @@
             
             
               <div class="version">
-                1.0
+                1.1
               </div>
             
           
@@ -85,7 +87,20 @@
               
             
             
-              <ul>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Auptimizer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cite">Cite</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
 </ul>
 <ul>
@@ -226,12 +241,12 @@ below shows a full list of currently supported techniques.</p>
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p><strong>Auptimizer</strong> currently is well tested on Linux systems, it may require
 some tweaks for Windows users by their own.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">&lt;</span><span class="n">REPO</span> <span class="n">URL</span><span class="o">&gt;</span>
-<span class="n">cd</span> <span class="o">&lt;</span><span class="n">REPO</span> <span class="n">FOLDER</span><span class="o">&gt;</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
+<p><strong>Note</strong> Dependencies are not included. Using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
+<a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/blob/master/requirements.txt">requirements.txt</a> will install
+necessary libraries for all functionalities.</p>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
@@ -261,6 +276,20 @@ some tweaks for Windows users by their own.</p>
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="./LICENSE">GPL 3.0 License</a></p>
 </div>
+<div class="section" id="cite">
+<h2>Cite<a class="headerlink" href="#cite" title="Permalink to this headline">¶</a></h2>
+<p>If you have used this software for research, please cite the following paper (accepted at IEEE Big Data 2019):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span><span class="n">liu2019auptimizer</span><span class="p">,</span>
+ <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Auptimizer</span> <span class="o">--</span> <span class="n">an</span> <span class="n">Extensible</span><span class="p">,</span> <span class="n">Open</span><span class="o">-</span><span class="n">Source</span> <span class="n">Framework</span> <span class="k">for</span> <span class="n">Hyperparameter</span> <span class="n">Tuning</span><span class="p">},</span>
+ <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Jiayi</span> <span class="n">Liu</span> <span class="ow">and</span> <span class="n">Samarth</span> <span class="n">Tripathi</span> <span class="ow">and</span> <span class="n">Unmesh</span> <span class="n">Kurup</span> <span class="ow">and</span> <span class="n">Mohak</span> <span class="n">Shah</span><span class="p">},</span>
+ <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2019</span><span class="p">},</span>
+ <span class="n">eprint</span><span class="o">=</span><span class="p">{</span><span class="mf">1911.02522</span><span class="p">},</span>
+ <span class="n">archivePrefix</span><span class="o">=</span><span class="p">{</span><span class="n">arXiv</span><span class="p">},</span>
+ <span class="n">primaryClass</span><span class="o">=</span><span class="p">{</span><span class="n">cs</span><span class="o">.</span><span class="n">LG</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -268,6 +297,15 @@ some tweaks for Windows users by their own.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="r_user.html" class="btn btn-neutral float-right" title="Setup for R" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Auptimizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

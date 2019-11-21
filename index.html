@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Examples" href="demo.html" /> 
+    <link rel="next" title="Auptimizer" href="README.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.0
+                1.1
               </div>
             
           
@@ -87,6 +87,12 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
 </ul>
 <ul>
@@ -166,7 +172,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="auptimizer">
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="auptimizer">
 <h1>Auptimizer<a class="headerlink" href="#auptimizer" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://opensource.org/licenses/GPL-3.0"><img alt="GPL 3.0 License" src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" /></a> <a class="reference external" href="https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer"><img alt="pipeline status" src="https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer"><img alt="coverage report" src="https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer"><img alt="repo url" src="https://img.shields.io/badge/github-repo-information.svg" /></a></p>
 <p><strong>Auptimizer</strong> is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building process.
@@ -227,12 +235,12 @@ below shows a full list of currently supported techniques.</p>
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p><strong>Auptimizer</strong> currently is well tested on Linux systems, it may require
 some tweaks for Windows users by their own.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">&lt;</span><span class="n">REPO</span> <span class="n">URL</span><span class="o">&gt;</span>
-<span class="n">cd</span> <span class="o">&lt;</span><span class="n">REPO</span> <span class="n">FOLDER</span><span class="o">&gt;</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
+<p><strong>Note</strong> Dependencies are not included. Using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
+<a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/blob/master/requirements.txt">requirements.txt</a> will install
+necessary libraries for all functionalities.</p>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
@@ -262,9 +270,31 @@ some tweaks for Windows users by their own.</p>
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="./LICENSE">GPL 3.0 License</a></p>
 </div>
+<div class="section" id="cite">
+<h2>Cite<a class="headerlink" href="#cite" title="Permalink to this headline">¶</a></h2>
+<p>If you have used this software for research, please cite the following paper (accepted at IEEE Big Data 2019):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span><span class="n">liu2019auptimizer</span><span class="p">,</span>
+ <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Auptimizer</span> <span class="o">--</span> <span class="n">an</span> <span class="n">Extensible</span><span class="p">,</span> <span class="n">Open</span><span class="o">-</span><span class="n">Source</span> <span class="n">Framework</span> <span class="k">for</span> <span class="n">Hyperparameter</span> <span class="n">Tuning</span><span class="p">},</span>
+ <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Jiayi</span> <span class="n">Liu</span> <span class="ow">and</span> <span class="n">Samarth</span> <span class="n">Tripathi</span> <span class="ow">and</span> <span class="n">Unmesh</span> <span class="n">Kurup</span> <span class="ow">and</span> <span class="n">Mohak</span> <span class="n">Shah</span><span class="p">},</span>
+ <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2019</span><span class="p">},</span>
+ <span class="n">eprint</span><span class="o">=</span><span class="p">{</span><span class="mf">1911.02522</span><span class="p">},</span>
+ <span class="n">archivePrefix</span><span class="o">=</span><span class="p">{</span><span class="n">arXiv</span><span class="p">},</span>
+ <span class="n">primaryClass</span><span class="o">=</span><span class="p">{</span><span class="n">cs</span><span class="o">.</span><span class="n">LG</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="additional-resources">
 <h1>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="r-user">
+<h2>R User<a class="headerlink" href="#r-user" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+</div>
+</div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>To quickly get started with <strong>Auptimizer</strong>, you can use the following examples as templates:</p>
@@ -346,7 +376,7 @@ some tweaks for Windows users by their own.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="demo.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="README.html" class="btn btn-neutral float-right" title="Auptimizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
