@@ -126,7 +126,7 @@ class SSHResourceManager(CPUResourceManager):  # pragma: no cover
             config_path = os.path.join(job.path, "jobs", "%d.json" % job.jid)
             log_dump_path = os.path.join(job.path, "jobs", "%d.out" % job.jid)
             res = "ERROR"
-            result = "working_dir:%s\njob:%s\n,config:%s" % (job.path, job.script, config_path)
+            result = "workingdir:%s\njob:%s\n,config:%s" % (job.path, job.script, config_path)
 
             try:  # TODO-change it such that no need to keep ssh connection alive
                 with self.remote_class(self.mapping[rid]) as remote:

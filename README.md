@@ -27,7 +27,7 @@ neural architecture search. The table below shows a full list of currently suppo
 
 | Supported HPO Algorithms      | Supported Infrastructure |
 | ----------- | ----------- |
-| Random<br>Grid<br>[Hyperband](https://github.com/zygmuntz/hyperband)<br>[Hyperopt](https://github.com/hyperopt/hyperopt)<br>[Spearmint](https://github.com/JasperSnoek/spearmint)<br>[EAS (experimental)](https://github.com/han-cai/EAS)<br>Passive      | Multiple CPUs<br>Multiple GPUs<br>Multiple Machines (SSH)<br>AWS EC2 instances |
+| Random<br>Grid<br>[Hyperband](https://github.com/zygmuntz/hyperband)<br>[Hyperopt](https://github.com/hyperopt/hyperopt)<br>[Spearmint](https://github.com/JasperSnoek/spearmint)<br>[BOHB](https://github.com/automl/HpBandSter)<br>[EAS (experimental)](https://github.com/han-cai/EAS)<br>Passive      | Multiple CPUs<br>Multiple GPUs<br>Multiple Machines (SSH)<br>AWS EC2 instances |
 
 
 ## Install

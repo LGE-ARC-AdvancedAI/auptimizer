@@ -1,3 +1,7 @@
+"""
+Copyright (c) 2018 LG Electronics Inc.
+SPDX-License-Identifier: GPL-3.0-or-later
+"""
 from unittest import TestCase
 
 from aup.Proposer import SequenceProposer as sp

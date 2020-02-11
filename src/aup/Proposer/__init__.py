@@ -14,8 +14,11 @@ PROPOSERS = {
     "spearmint": "SpearmintProposer",
     "hyperband": "HyperbandProposer",
     "hyperopt": "HyperoptProposer",
+    "bohb": "BOHBProposer",
     "eas": "EASProposer"
 }
+
+SPECIAL_EXIT_PROPOSERS = ("bohb","hyperband")
 
 
 def get_proposer(proposer):

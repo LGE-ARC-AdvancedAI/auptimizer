@@ -1,0 +1,36 @@
+{
+  "script": "rosenbrock_hpo.py",
+  "resource": "cpu",
+  "n_parallel": 2,
+  "target": "min",
+  "workingdir": "/Users/jason.liu/PycharmProjects/CTE/Examples/job_failure_control",
+  "proposer": "random",
+  "n_samples": 20,
+  "random_seed": 0,
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        0,
+        10
+      ],
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "range": [
+        0,
+        10
+      ],
+      "type": "float"
+    },
+    {
+      "name": "c",
+      "range": [
+        0,
+        1
+      ],
+      "type": "float"
+    }
+  ]
+}

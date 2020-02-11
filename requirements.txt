@@ -15,5 +15,7 @@ paramiko
 boto3
 mock; python_version < '3.3'
 future
+ConfigSpace; python_version >= '3'
 pytest-cov
 codecov
+

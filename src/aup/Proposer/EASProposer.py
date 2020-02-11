@@ -3,6 +3,7 @@
   Copyright (c) 2018 LG Electronics Inc.
   SPDX-License-Identifier: GPL-3.0-or-later
 
+
 aup.Proposer.EASProposer
 ========================
 
@@ -30,15 +31,18 @@ The ``init`` function is used to initialize the parameters and static values for
 The ``get_param`` function uses the ``setup`` function to get different strings representing new NAS architectures based on previous architectures and their performance. A similar paradigm can be adopted for integrating other NAS based algorithms with *Auptimizer*.
 
 """
-
-from .AbstractProposer import AbstractProposer
-from .eas.arch_search import arch_search_convnet_net2net
 import re
 import numpy as np
 
 import logging
 logger = logging.getLogger(__name__)
 
+try:
+    from .AbstractProposer import AbstractProposer
+    from .eas.arch_search import arch_search_convnet_net2net
+except ImportError as e:
+    logger.critical("Error happend during importing. Check 3rd party package dependency")
+    print(e)
 
 class EASProposer(AbstractProposer):
 

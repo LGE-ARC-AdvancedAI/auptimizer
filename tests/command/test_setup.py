@@ -1,3 +1,7 @@
+"""
+Copyright (c) 2018 LG Electronics Inc.
+SPDX-License-Identifier: GPL-3.0-or-later
+"""
 import unittest
 
 from os import path

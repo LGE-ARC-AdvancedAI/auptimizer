@@ -10,8 +10,8 @@ Modified Rosenbrock function with tf.app.flags
 """
 
 import tensorflow as tf
+"""
 from aup import print_result, BasicConfig
-
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
@@ -31,6 +31,28 @@ def main(unused):
     ## 
     val = rosenbrock(FLAGS.x, FLAGS.y)
     print_result(val)
+
+
+if __name__ == "__main__":
+    tf.app.run()
+"""
+
+from aup import aup_flags
+
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+
+flags.DEFINE_float("x", 0, "x value")
+flags.DEFINE_float("y", 0, "y value")
+
+
+def rosenbrock(x, y, a=1, b=100):
+    return (a-x)*(a-x) + b*(y-x*x)*(y-x*x)
+
+
+@aup_flags(FLAGS)
+def main(unused):
+    return rosenbrock(FLAGS.x, FLAGS.y)
 
 
 if __name__ == "__main__":

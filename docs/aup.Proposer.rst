@@ -19,6 +19,7 @@ Proposers
    aup.Proposer.RandomProposer
    aup.Proposer.SequenceProposer
    aup.Proposer.SpearmintProposer
+   aup.Proposer.BOHBProposer
    aup.Proposer.EASProposer
 
 .. automodule:: aup.Proposer.AbstractProposer

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # Modified from https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/convolutional_network.py
+# The trained model is evaluated by a combination of accuracy and FLOP.
 #
 # Original License
 """
@@ -43,6 +44,7 @@ import argparse
 import os
 import sys
 from datetime import datetime
+from math import log
 
 import tensorflow as tf
 # Import MNIST data
@@ -157,7 +159,19 @@ def train():
 
     print("Testing Accuracy:", e['accuracy'])
     
+    
     return e['accuracy']
+
+def get_flop():
+    run_meta = tf.RunMetadata()
+    with tf.Session(graph=tf.Graph()) as sess:
+        x = tf.zeros([1,784])
+        out = conv_net({'images':x}, 10, False, False)
+        
+        opts = tf.profiler.ProfileOptionBuilder.float_operation()    
+        flops = tf.profiler.profile(sess.graph, run_meta=run_meta, cmd='op', options=opts)
+    print("Model FLOPs is %d"%flops.total_float_ops)
+    return flops.total_float_ops
 
 
 def main(_):
@@ -165,7 +179,9 @@ def main(_):
     if tf.gfile.Exists(log_dir):
         tf.gfile.DeleteRecursively(log_dir)
     tf.gfile.MakeDirs(log_dir)
-    return train()
+    acc =  train()
+    flop = get_flop()
+    return (acc-1)/log(flop)  # metric used in AMC
 
 
 if __name__ == '__main__':
@@ -209,4 +225,6 @@ if __name__ == '__main__':
 
     val = main(config)
     print(str(val))
+    
+    
     print_result(val)

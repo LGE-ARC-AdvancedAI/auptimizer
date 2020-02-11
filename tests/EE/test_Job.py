@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+"""
+Copyright (c) 2018 LG Electronics Inc.
+SPDX-License-Identifier: GPL-3.0-or-later
+"""
 from unittest import TestCase
 
 import logging

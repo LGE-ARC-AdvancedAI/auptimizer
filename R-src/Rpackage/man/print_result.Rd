@@ -14,3 +14,16 @@ This function reports the results to Auptimizer.  A numerical score will be conv
 you want to report multiple scores, use ',' to seperate them and only the first value will be used by Auptimzier for
 Optimization.
 }
+\details{
+Assume an R script is used as `./test.R config.json`, the script should look like below:
+
+\preformatted{
+#!Rscript
+
+# hyperparameter definitions
+get_config() 
+# use hyperparamter to train model,
+# after training, return optimization target (e.g. validation accuracy) as score
+print_result(score)
+}
+}

@@ -6,7 +6,8 @@
 Visualize one experiment result
 ===============================
 
-:mod:`aup.visualize` is the entry point to visualize the result from an experiment ``eid``::
+:mod:`aup.visualize` is the entry point to visualize the result from an 
+experiment ``eid``::
 
   python -m aup.visualize <eid>
 

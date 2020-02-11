@@ -15,6 +15,20 @@ get_config(filename, env)
 A matrix of the infile
 }
 \description{
-This function loads a file as a JSON. It assumes that the first argument of the running script is the configuraiton 
-file.  It will parse and inject the hyperparameter variables into the global environment and return them.
+This function loads a configuration file in JSON format. It assumes that the first argument of the running script is
+the configuraiton file.  It will parse and inject the hyperparameter variables into the global environment and return
+them.
+}
+\details{
+Assume an R script is used as `./test.R config.json`, the script should look like below:
+
+\preformatted{
+#!Rscript
+
+# hyperparameter definitions
+get_config() 
+# use hyperparamter to train model, 
+# after training, return optimization target (e.g. validation accuracy) as score
+print_result(score)
+}
 }

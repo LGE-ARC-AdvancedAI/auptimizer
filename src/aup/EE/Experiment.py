@@ -21,7 +21,7 @@ import signal
 import sys
 import time
 
-from ..Proposer import get_proposer
+from ..Proposer import get_proposer, SPECIAL_EXIT_PROPOSERS
 from .Job import Job
 from .Resource import get_resource_manager
 from ..aup import BasicConfig
@@ -163,8 +163,8 @@ class Experiment:
 
         proposal = self.proposer.get()
         if proposal is None:
-            if self.exp_config['proposer'] == "hyperband":
-                logger.info("Hyperband, waiting.")
+            if self.exp_config['proposer'] in SPECIAL_EXIT_PROPOSERS:
+                logger.info("%s is waiting to finish." % self.exp_config['proposer'])
                 return True
             else:
                 logger.warning("Waiting other jobs finished\n"

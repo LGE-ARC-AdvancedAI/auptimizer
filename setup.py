@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 from setuptools import setup, find_packages
 
-
 BASE_URL="https://github.com/LGE-ARC-AdvancedAI/auptimizer"
 
 

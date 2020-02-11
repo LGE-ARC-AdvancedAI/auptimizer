@@ -10,6 +10,7 @@ passive      Manually run job (for debug purpose)
 random       Random search
 sequence     Grid Search
 spearmint    `Spearmint <https://github.com/JasperSnoek/spearmint>`_: Bayesian Optimization based on Gaussian Process
+bohb         `HpBandSter <https://automl.github.io/HpBandSter/build/html/index.html>`_: Bayesian Optimization and HyperBand
 hyperopt     `Hyperopt <http://hyperopt.github.io/hyperopt/>`_: Bayesian Optimization with Tree of Parzen Estimators (TPE)
 hyperband    `Hyperband <https://github.com/zygmuntz/hyperband>`_: Multi-armed bandit approach
 eas          `EAS <https://github.com/han-cai/EAS>`_: Efficient Architecture Search by Network Transformation (Illustration purpose)

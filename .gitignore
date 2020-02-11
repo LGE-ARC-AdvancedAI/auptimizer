@@ -8,6 +8,8 @@ tests/EE/jobs/
 tests/data/jobs/
 .vscode/
 analysis.html
+R-src/*.tar.gz
+R-src/R-src.Rproj
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -116,3 +118,4 @@ venv.bak/
 
 # OS files
 .DS_Store
+.Rproj.user
