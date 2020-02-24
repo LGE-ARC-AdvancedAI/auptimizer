@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>aup.Proposer.HyperoptProposer &mdash; Auptimizer  documentation</title>
+  <title>aup.Proposer.BOHBProposer &mdash; Auptimizer  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="aup.Proposer.RandomProposer" href="aup.Proposer.RandomProposer.html" />
-    <link rel="prev" title="aup.Proposer.HyperbandProposer" href="aup.Proposer.HyperbandProposer.html" /> 
+    <link rel="next" title="aup.Proposer.EASProposer" href="aup.Proposer.EASProposer.html" />
+    <link rel="prev" title="aup.Proposer.SpearmintProposer" href="aup.Proposer.SpearmintProposer.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -173,13 +173,13 @@
         
           <li><a href="aup.Proposer.html">aup.Proposer package</a> &raquo;</li>
         
-      <li>aup.Proposer.HyperoptProposer</li>
+      <li>aup.Proposer.BOHBProposer</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/aup.Proposer.HyperoptProposer.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/aup.Proposer.BOHBProposer.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -192,18 +192,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-aup.Proposer.HyperoptProposer"></span><div class="section" id="aup-proposer-hyperoptproposer">
-<h1>aup.Proposer.HyperoptProposer<a class="headerlink" href="#aup-proposer-hyperoptproposer" title="Permalink to this headline">¶</a></h1>
-<p>This is converted from <a class="reference external" href="https://github.com/hyperopt/hyperopt">Hyperopt repo commit 762e89f</a></p>
+  <span class="target" id="module-aup.Proposer.BOHBProposer"></span><div class="section" id="aup-proposer-bohbproposer">
+<h1>aup.Proposer.BOHBProposer<a class="headerlink" href="#aup-proposer-bohbproposer" title="Permalink to this headline">¶</a></h1>
+<p>BOBH proposer inherited from <a class="reference external" href="https://automl.github.io/HpBandSter/build/html/index.html">HpBandSter</a> to showcase
+the simplicity of Auptimizer to integrate new HPO algorithms.  The <cite>get_params()</cite> method is based on the
+<a class="reference external" href="https://github.com/automl/HpBandSter/blob/master/hpbandster/core/master.py">master.py</a> from the original BOHB implementation.</p>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="general-parameters">
 <h3>General parameters<a class="headerlink" href="#general-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Detailed explanations availale on the <a class="reference external" href="https://automl.github.io/HpBandSter/build/html/optimizers/bohb.html">HpBandSter API documentation page</a>.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 19%" />
-<col style="width: 63%" />
+<col style="width: 25%" />
+<col style="width: 24%" />
+<col style="width: 51%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -212,52 +215,33 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>proposer</p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><p>hyperopt</p></td>
+<tr class="row-even"><td><p>n_iterations</p></td>
+<td><p>4</p></td>
+<td><p>General iterations</p></td>
 </tr>
-<tr class="row-odd"><td><p>random_seed</p></td>
-<td><p>0</p></td>
-<td><p>[Optional] seed for random generator</p></td>
+<tr class="row-odd"><td><p>min_points_in_model</p></td>
+<td><p>None</p></td>
+<td><p>Number of points to construct KDE</p></td>
 </tr>
-<tr class="row-even"><td><p>engine</p></td>
-<td><p>tpe</p></td>
-<td><p>engine to generate configurations for HyperOpt</p></td>
+<tr class="row-even"><td><p>top_n_percent</p></td>
+<td><p>15</p></td>
+<td><p>Percentage to keep</p></td>
 </tr>
-<tr class="row-odd"><td><p>n_samples</p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><p>max_evals in hyperopt</p></td>
+<tr class="row-odd"><td><p>num_samples</p></td>
+<td><p>64</p></td>
+<td><p>Number of samples for EI</p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="specific-parameters-for-parameter-config">
-<h3>Specific parameters for <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code><a class="headerlink" href="#specific-parameters-for-parameter-config" title="Permalink to this headline">¶</a></h3>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Explanation</p></th>
+<tr class="row-even"><td><p>random_fraction</p></td>
+<td><p>0.3333333333333333</p></td>
+<td><p>Fraction to explore randomly</p></td>
 </tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>name</p></td>
-<td><p>name of the variable, will be used in the job config, i.e. training code</p></td>
+<tr class="row-odd"><td><p>bandwidth_factor</p></td>
+<td><p>3</p></td>
+<td><p>Widening factor for KDE</p></td>
 </tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td><p>type of the parameter to be sampled: choose from “float”,”int”,”choice”</p></td>
-</tr>
-<tr class="row-even"><td><p>range</p></td>
-<td><p>range of the parameter.  For “choice”, list all the feasible values</p></td>
+<tr class="row-even"><td><p>min_bandwidth</p></td>
+<td><p>0.001</p></td>
+<td><p>Minimum sample bandwidth</p></td>
 </tr>
 </tbody>
 </table>
@@ -266,18 +250,37 @@
 <div class="section" id="apis">
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer">
-<em class="property">class </em><code class="sig-name descname">HyperoptProposer</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">random_seed=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer" title="Permalink to this definition">¶</a></dt>
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer">
+<em class="property">class </em><code class="sig-name descname">BOHBProposer</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
 <dl class="method">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer.get_param">
-<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer.get_param" title="Permalink to this definition">¶</a></dt>
-<dd><p>Restructure of hyperopt.fmin <cite>run()</cite>, <cite>serial_evaluate()</cite>.</p>
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.active_iterations">
+<code class="sig-name descname">active_iterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.active_iterations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.active_iterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Based on <code class="xref py py-func docutils literal notranslate"><span class="pre">hpbandster.core.master.Master.active_iterations()</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer.reload">
-<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer.reload" title="Permalink to this definition">¶</a></dt>
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.create_configspace">
+<em class="property">static </em><code class="sig-name descname">create_configspace</code><span class="sig-paren">(</span><em class="sig-param">parameter_config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.create_configspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.create_configspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap the Worker’s get_configspace() function for HpBandSter interface</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.get_next_iteration">
+<code class="sig-name descname">get_next_iteration</code><span class="sig-paren">(</span><em class="sig-param">iteration</em>, <em class="sig-param">iteration_kwargs={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.get_next_iteration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.get_next_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copied from <a class="reference external" href="https://github.com/automl/HpBandSter/blob/master/hpbandster/optimizers/bohb.py">https://github.com/automl/HpBandSter/blob/master/hpbandster/optimizers/bohb.py</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.get_param">
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next hyperparameter values, return None when experiment is finished.
+:return: hyperparameters in dictionary</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.reload">
+<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload Proposer state from path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -287,8 +290,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer.save" title="Permalink to this definition">¶</a></dt>
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save Proposer state to path.</p>
 <p><strong>Some proposer can not generate new parameters after saving.</strong></p>
 <dl class="field-list simple">
@@ -299,39 +302,16 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer.setup_config">
-<em class="property">static </em><code class="sig-name descname">setup_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer.setup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer.setup_config" title="Permalink to this definition">¶</a></dt>
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.setup_config">
+<em class="property">static </em><code class="sig-name descname">setup_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.setup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.setup_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">score</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Restructure of hyperopt.fmin <cite>serial_evaluation</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>score</strong> – score returned from the training script</p></li>
-<li><p><strong>job</strong> – job object contains tid for hyperopt internal update</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="aup.Proposer.HyperoptProposer.HyperoptProposer.verify_config">
-<code class="sig-name descname">verify_config</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/HyperoptProposer.html#HyperoptProposer.verify_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.HyperoptProposer.HyperoptProposer.verify_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verify the input configuration is enough for the proposer</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>dict</em>) – Experiment configuration of <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>config</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
+<dt id="aup.Proposer.BOHBProposer.BOHBProposer.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">score</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/BOHBProposer.html#BOHBProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.BOHBProposer.BOHBProposer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap result and transfer to HpBandSter
+:param score: result
+:param job: job contains job id for configuration matching</p>
 </dd></dl>
 
 </dd></dl>
@@ -347,10 +327,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="aup.Proposer.RandomProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.RandomProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="aup.Proposer.EASProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.EASProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="aup.Proposer.HyperbandProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.HyperbandProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="aup.Proposer.SpearmintProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.SpearmintProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

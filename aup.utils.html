@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="aup.setupdb Package" href="aup.setupdb_API.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="aup.Proposer.EASProposer.html" /> 
+    <link rel="prev" title="aup.Proposer.EASProposer" href="aup.Proposer.EASProposer.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -88,7 +88,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
@@ -406,6 +406,28 @@ Search recursively to upper folder</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="aup.aup.aup_args">
+<code class="sig-name descname">aup_args</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#aup_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.aup_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator to wrap optimization target function <cite>func</cite>.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>func {function} – A function computes optimization target with specified hyperparameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="aup.aup.aup_flags">
+<code class="sig-name descname">aup_flags</code><span class="sig-paren">(</span><em class="sig-param">flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#aup_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.aup_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>wrapper function for absl flags (or tf.app).</p>
+<p>It will assign values to flags parameters using the given configuration file as the first argument when executed
+from the command line.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>args {list} – a list of unused arguments passed by app.run()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="aup.aup.print_result">
 <code class="sig-name descname">print_result</code><span class="sig-paren">(</span><em class="sig-param">result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#print_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.print_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to print the result for <code class="xref py py-func docutils literal notranslate"><span class="pre">parse_result()</span></code>.
@@ -431,7 +453,7 @@ This function should be the last line of your training code</p>
         <a href="aup.setupdb_API.html" class="btn btn-neutral float-right" title="aup.setupdb Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="aup.Proposer.EASProposer.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="aup.Proposer.EASProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.EASProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

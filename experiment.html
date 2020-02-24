@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -88,7 +88,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
@@ -102,12 +102,14 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Create and run a new experiment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-modify-existing-code-for-auptimizer">How to modify existing code for Auptimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-conversion-with-decorator">Code conversion with decorator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#auto-code-conversion">Auto code conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#runtime">Runtime</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#run-experiment">Run experiment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#additional-arguments">Additional arguments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-runtime-configuration-for-node-aws">Additional runtime configuration for node/AWS</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#results-further-analysis">Results / further analysis</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
@@ -185,7 +187,13 @@
             
   <div class="section" id="create-and-run-a-new-experiment">
 <h1>Create and run a new experiment<a class="headerlink" href="#create-and-run-a-new-experiment" title="Permalink to this headline">¶</a></h1>
-<p><strong>Auptimizer</strong> needs a modified training script and an experiment specification file before use.</p>
+<p><strong>Auptimizer</strong> needs a modified training script and an experiment specification file before use.
+There are three approaches:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#how-to-modify-existing-code-for-auptimizer">Manual conversion</a>;</p></li>
+<li><p><a class="reference external" href="#code-conversion-with-decorator">Python decorator</a>;</p></li>
+<li><p><a class="reference external" href="#auto-code-conversion">Auto conversion for script (beta)</a>.</p></li>
+</ul>
 <div class="section" id="terminology">
 <h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
 <p>For data science applications, the <strong>user</strong> (AI scientist/engineer) solves a given data mining problem with a specified
@@ -212,7 +220,7 @@ retrieves the best model from the training history for further analysis or appli
 <a class="reference internal" href="algorithm.html"><span class="doc">Configure HPO Algorithm</span></a> for more details.</p>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>To change your existing code, you can use <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.convert</span></code> to convert your code (as described in <a class="reference internal" href="#auto-code-conversion">Auto code conversion</a>).  If you plan to change it manually, the general flow of the conversion process is as follows:</p></li>
+<li><p>To change your existing code, we have tools to convert as described in <a class="reference internal" href="#auto-code-conversion">Auto code conversion</a>.  If you plan to change it manually, the general flow of the conversion process is as follows:</p></li>
 </ol>
 <blockquote>
 <div><ol class="loweralpha simple">
@@ -222,12 +230,20 @@ retrieves the best model from the training history for further analysis or appli
 </ol>
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p>Your experiment is now ready to run via <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup</span> <span class="pre">experiment.json</span></code>. For more details, see <a class="reference internal" href="#runtime">Runtime</a>.</p></li>
+<li><p>Your experiment is now ready to run via <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup</span> <span class="pre">experiment.json</span></code>. For more details, see <a class="reference internal" href="#run-experiment">Run experiment</a>.</p></li>
 </ol>
+</div>
+<div class="section" id="code-conversion-with-decorator">
+<h2>Code conversion with decorator<a class="headerlink" href="#code-conversion-with-decorator" title="Permalink to this headline">¶</a></h2>
+<p>For better control, you can use <cite>aup_args</cite> or <cite>aup_flags</cite> to decorate your code.  The examples are in below:</p>
+<div class="figure align-default" id="id1">
+<img alt="Code comparison" src="_images/comparison.png" />
+<p class="caption"><span class="caption-text">Example of using decorator for code conversion.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="auto-code-conversion">
 <h2>Auto code conversion<a class="headerlink" href="#auto-code-conversion" title="Permalink to this headline">¶</a></h2>
-<p><strong>Auptimizer</strong> converts code to run if the training script is well defined as follows:</p>
+<p>If your training function takes all hyperparameters as input, then  <strong>Auptimizer</strong> converts code to run if the training script is well defined as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">convert</span> <span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">exp_json</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">func_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="p">[</span><span class="n">output</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -239,8 +255,8 @@ retrieves the best model from the training history for further analysis or appli
 </ul>
 <p>Check out the folder <code class="docutils literal notranslate"><span class="pre">Examples/2dfunc_diff_opt/README.md</span></code> in the repository for example usage.</p>
 </div>
-<div class="section" id="runtime">
-<h2>Runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="run-experiment">
+<h2>Run experiment<a class="headerlink" href="#run-experiment" title="Permalink to this headline">¶</a></h2>
 <p>Once the experiment has been correctly set up, it is very easy to start the experiment:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span> <span class="n">experiment</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
@@ -257,8 +273,8 @@ retrieves the best model from the training history for further analysis or appli
 </div>
 <div class="section" id="additional-runtime-configuration-for-node-aws">
 <span id="awsruntimeanchor"></span><h3>Additional runtime configuration for node/AWS<a class="headerlink" href="#additional-runtime-configuration-for-node-aws" title="Permalink to this headline">¶</a></h3>
-<p>The user should either have Auptimizer installed on the remote machine, or at minimum, copy the <a class="reference download internal" download="" href="_downloads/bfa70e2935b9c76e2cee204d476f102b/aup.py"><code class="xref download docutils literal notranslate"><span class="pre">Auptimizer</span> <span class="pre">file</span> <span class="pre">for</span> <span class="pre">remote</span> <span class="pre">machine</span></code></a> to the remote machine that can be imported by the jobs.</p>
-<p>Additional configuration for node/AWS environment for runtime can be put under the <code class="docutils literal notranslate"><span class="pre">runtime_args</span></code> in the <code class="docutils literal notranslate"><span class="pre">experiment.json</span></code>.
+<p>The user should either have Auptimizer installed on the remote machine, or at a minimum, copy the <a class="reference download internal" download="" href="_downloads/bfa70e2935b9c76e2cee204d476f102b/aup.py"><code class="xref download docutils literal notranslate"><span class="pre">Auptimizer</span> <span class="pre">file</span> <span class="pre">for</span> <span class="pre">remote</span> <span class="pre">machine</span></code></a> to the remote machine that can be imported by the jobs.</p>
+<p>Additional configuration for node/AWS environment for runtime can be specified under the <code class="docutils literal notranslate"><span class="pre">runtime_args</span></code> in the <code class="docutils literal notranslate"><span class="pre">experiment.json</span></code>.
 This is important for setting up the environment, etc. on the remote machine.
 The specific arguments are:</p>
 <ul class="simple">
@@ -269,11 +285,20 @@ The specific arguments are:</p>
 </ul>
 <p>Other resource-related arguments are under <cite>resource_args</cite> (not for node resource):</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">retry</span></code>: number of 30s to wait if AWS instance has no response.  default is 10 for 3mins.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">retry</span></code>: number of 30s to wait if AWS instance has no response.  default is 10 (3 minutes).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code>: turn off AWS instance after run.</p></li>
 </ul>
 <p>See <code class="docutils literal notranslate"><span class="pre">Examples/2dfunc_diff_res/</span></code> for more references.</p>
 </div>
+</div>
+<div class="section" id="results-further-analysis">
+<h2>Results / further analysis<a class="headerlink" href="#results-further-analysis" title="Permalink to this headline">¶</a></h2>
+<p>The output of an experiment is saved in two places:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">jobs/</span></code> folder contains the configuration of each job in <code class="docutils literal notranslate"><span class="pre">&lt;job_id&gt;.json</span></code> and output of each job in <code class="docutils literal notranslate"><span class="pre">&lt;job_id&gt;.out</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.aup/sqlite.db</span></code> database file contains the experiment history (configurations and results).  All jobs for different
+experiments are all saved under unique IDs, unless it has been reset.</p></li>
+</ul>
 </div>
 </div>
 

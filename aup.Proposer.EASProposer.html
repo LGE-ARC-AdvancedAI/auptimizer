@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Auptimizer  documentation</title>
+  <title>aup.Proposer.EASProposer &mdash; Auptimizer  documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Utility functions" href="aup.utils.html" />
-    <link rel="prev" title="aup.Proposer.SpearmintProposer" href="aup.Proposer.SpearmintProposer.html" /> 
+    <link rel="prev" title="aup.Proposer.BOHBProposer" href="aup.Proposer.BOHBProposer.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -88,7 +88,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
@@ -107,8 +107,23 @@
 <li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment Tracking package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="aup.Proposer.html#proposers">Proposers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -158,7 +173,7 @@
         
           <li><a href="aup.Proposer.html">aup.Proposer package</a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>aup.Proposer.EASProposer</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -177,7 +192,90 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <span class="target" id="module-aup.Proposer.EASProposer"></span><div class="section" id="aup-proposer-easproposer">
+<h1>aup.Proposer.EASProposer<a class="headerlink" href="#aup-proposer-easproposer" title="Permalink to this headline">¶</a></h1>
+<p>The code is based on <a class="reference external" href="https://github.com/han-cai/EAS">Efficient Architecture Search by Network Transformation, github commit 6ef7229</a>.</p>
+<p>See <a class="reference external" href="https://github.com/han-cai/EAS/blob/master/LICENSE">license</a> for redistribution.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-parameters">
+<h3>General parameters<a class="headerlink" href="#general-parameters" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 21%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>proposer</p></td>
+<td><p>eas</p></td>
+<td><p>Efficient Architecture Search</p></td>
+</tr>
+</tbody>
+</table>
+<p>The Proposer demonstrates how to integrate Neural Architecture Search based approaches with <em>Auptimizer</em>.</p>
+<p>For other purpose, users need to modify this file with the following steps.
+The <code class="docutils literal notranslate"><span class="pre">init</span></code> function is used to initialize the parameters and static values for the algorithm.
+The <code class="docutils literal notranslate"><span class="pre">get_param</span></code> function uses the <code class="docutils literal notranslate"><span class="pre">setup</span></code> function to get different strings representing new NAS architectures based on previous architectures and their performance. A similar paradigm can be adopted for integrating other NAS based algorithms with <em>Auptimizer</em>.</p>
+<dl class="class">
+<dt id="aup.Proposer.EASProposer.EASProposer">
+<em class="property">class </em><code class="sig-name descname">EASProposer</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
+<dl class="method">
+<dt id="aup.Proposer.EASProposer.EASProposer.get_param">
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get new proposed parameter values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.EASProposer.EASProposer.reload">
+<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload Proposer state from path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – path to reload</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.EASProposer.EASProposer.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save Proposer state to path.</p>
+<p><strong>Some proposer can not generate new parameters after saving.</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – path to save</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aup.Proposer.EASProposer.EASProposer.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">score</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update scores in proposer history</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score</strong> (<em>float</em>) – score returned by Job</p></li>
+<li><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – Finished job</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
 
            </div>
            
@@ -189,7 +287,7 @@
         <a href="aup.utils.html" class="btn btn-neutral float-right" title="Utility functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="aup.Proposer.SpearmintProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.SpearmintProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="aup.Proposer.BOHBProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.BOHBProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

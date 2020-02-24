@@ -4,9 +4,12 @@ Setup for R
 Install Auptimizer for R User
 -----------------------------
 
+From the `R-src` folder, run the following command in `R` will install the `Auptimzier` R interface:
+
 .. code:: R
 
-    install.packages('aup')
+    install.packages('devtools')
+    devtools::install('Rpackage')
 
 See below for setting up Auptimizer.
 

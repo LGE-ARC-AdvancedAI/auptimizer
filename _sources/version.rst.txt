@@ -6,6 +6,16 @@ Latest
 
 + :download:`Auptimizer file for remote machine <archive/aup.py>`
 
+version 1.2
+~~~~~~~~~~~
+
++ Add BOHB proposer
++ Add decorator to simplify the experiment setup
++ Minor changes and bug fixes
+
++ :download:`Auptimizer 1.2 wheel python2 <archive/Auptimizer-1.2-py2-none-any.whl>`
++ :download:`Auptimizer 1.2 wheel python3 <archive/Auptimizer-1.2-py3-none-any.whl>`
+
 version 1.1
 ~~~~~~~~~~~~~~
 

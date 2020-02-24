@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Auptimizer &mdash; Auptimizer  documentation</title>
+  <title>Auptimizer Quickstart &mdash; Auptimizer  documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Auptimizer" href="README.html" /> 
+    <link rel="next" title="Auptimizer Quickstart" href="README.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -87,7 +87,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
@@ -153,7 +153,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Auptimizer</li>
+      <li>Auptimizer Quickstart</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -174,8 +174,8 @@
             
   <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="auptimizer">
-<h1>Auptimizer<a class="headerlink" href="#auptimizer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="auptimizer-quickstart">
+<h1>Auptimizer Quickstart<a class="headerlink" href="#auptimizer-quickstart" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://opensource.org/licenses/GPL-3.0"><img alt="GPL 3.0 License" src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" /></a> <a class="reference external" href="https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer"><img alt="pipeline status" src="https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer"><img alt="coverage report" src="https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer"><img alt="repo url" src="https://img.shields.io/badge/github-repo-information.svg" /></a></p>
 <p><strong>Auptimizer</strong> is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building process.
 Currently, <strong>Auptimizer</strong> helps with:</p>
@@ -217,6 +217,7 @@ below shows a full list of currently supported techniques.</p>
 <div class="line"><a class="reference external" href="https://github.com/zygmuntz/hyperband">Hyperband</a></div>
 <div class="line"><a class="reference external" href="https://github.com/hyperopt/hyperopt">Hyperopt</a></div>
 <div class="line"><a class="reference external" href="https://github.com/JasperSnoek/spearmint">Spearmint</a></div>
+<div class="line"><a class="reference external" href="https://github.com/automl/HpBandSter">BOHB</a></div>
 <div class="line"><a class="reference external" href="https://github.com/han-cai/EAS">EAS (experimental)</a></div>
 <div class="line">Passive</div>
 </div>
@@ -235,7 +236,7 @@ below shows a full list of currently supported techniques.</p>
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p><strong>Auptimizer</strong> currently is well tested on Linux systems, it may require
 some tweaks for Windows users by their own.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">auptimizer</span>
 </pre></div>
 </div>
 <p><strong>Note</strong> Dependencies are not included. Using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
@@ -273,14 +274,14 @@ necessary libraries for all functionalities.</p>
 <div class="section" id="cite">
 <h2>Cite<a class="headerlink" href="#cite" title="Permalink to this headline">¶</a></h2>
 <p>If you have used this software for research, please cite the following paper (accepted at IEEE Big Data 2019):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span><span class="n">liu2019auptimizer</span><span class="p">,</span>
- <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Auptimizer</span> <span class="o">--</span> <span class="n">an</span> <span class="n">Extensible</span><span class="p">,</span> <span class="n">Open</span><span class="o">-</span><span class="n">Source</span> <span class="n">Framework</span> <span class="k">for</span> <span class="n">Hyperparameter</span> <span class="n">Tuning</span><span class="p">},</span>
- <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Jiayi</span> <span class="n">Liu</span> <span class="ow">and</span> <span class="n">Samarth</span> <span class="n">Tripathi</span> <span class="ow">and</span> <span class="n">Unmesh</span> <span class="n">Kurup</span> <span class="ow">and</span> <span class="n">Mohak</span> <span class="n">Shah</span><span class="p">},</span>
- <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2019</span><span class="p">},</span>
- <span class="n">eprint</span><span class="o">=</span><span class="p">{</span><span class="mf">1911.02522</span><span class="p">},</span>
- <span class="n">archivePrefix</span><span class="o">=</span><span class="p">{</span><span class="n">arXiv</span><span class="p">},</span>
- <span class="n">primaryClass</span><span class="o">=</span><span class="p">{</span><span class="n">cs</span><span class="o">.</span><span class="n">LG</span><span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@misc{liu2019auptimizer,
+ title={Auptimizer -- an Extensible, Open-Source Framework for Hyperparameter Tuning},
+ author={Jiayi Liu and Samarth Tripathi and Unmesh Kurup and Mohak Shah},
+ year={2019},
+ eprint={1911.02522},
+ archivePrefix={arXiv},
+ primaryClass={cs.LG}
+}
 </pre></div>
 </div>
 </div>
@@ -376,7 +377,7 @@ necessary libraries for all functionalities.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="README.html" class="btn btn-neutral float-right" title="Auptimizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="README.html" class="btn btn-neutral float-right" title="Auptimizer Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

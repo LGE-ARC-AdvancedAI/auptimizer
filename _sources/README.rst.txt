@@ -1,5 +1,5 @@
-Auptimizer
-==========
+Auptimizer Quickstart
+=====================
 
 |GPL 3.0 License| |pipeline status| |coverage report| |repo url|
 
@@ -38,6 +38,7 @@ below shows a full list of currently supported techniques.
 | | `Hyperband <https://github.com/zygmuntz/hyperband>`__        | | Multiple Machines (SSH)         |
 | | `Hyperopt <https://github.com/hyperopt/hyperopt>`__          | | EC2 instances                   |
 | | `Spearmint <https://github.com/JasperSnoek/spearmint>`__     |                                   |
+| | `BOHB <https://github.com/automl/HpBandSter>`__              |                                   |
 | | `EAS (experimental) <https://github.com/han-cai/EAS>`__      |                                   |
 | | Passive                                                      |                                   |
 +----------------------------------------------------------------+-----------------------------------+
@@ -50,7 +51,7 @@ some tweaks for Windows users by their own.
 
 ::
 
-   python setup.py install
+   pip install auptimizer
 
 **Note** Dependencies are not included. Using ``pip install``
 `requirements.txt <https://github.com/LGE-ARC-AdvancedAI/auptimizer/blob/master/requirements.txt>`_ will install
@@ -103,7 +104,7 @@ Cite
 
 If you have used this software for research, please cite the following paper (accepted at IEEE Big Data 2019):
 
-::
+.. code-block:: none
 
    @misc{liu2019auptimizer,
     title={Auptimizer -- an Extensible, Open-Source Framework for Hyperparameter Tuning},

@@ -17,6 +17,8 @@ import logging
 import json
 import pickle
 import sys
+import inspect
+import functools
 
 logger = logging.getLogger("aup-minimal")
 
@@ -123,10 +125,10 @@ class BasicConfig(dict):
         """
         for i in FLAGS:
             if i in self:
-                logger.debug("set %s in FLAGS" % i)
+                logger.debug("set %s in FLAGS", i)
                 setattr(FLAGS, i, self[i])
             else:
-                logger.debug("Use default %s" % i)
+                logger.debug("Use default %s", i)
 
     def __setattr__(self, key, value):
         self.__setitem__(key, value)
@@ -139,3 +141,66 @@ class BasicConfig(dict):
 
     def __hash__(self):
         return super(BasicConfig, self).__hash__()
+
+
+def aup_args(func):
+    """Decorator to wrap optimization target function `func`.
+    
+    Arguments:
+        func {function} -- A function computes optimization target with specified hyperparameters
+    """
+    @functools.wraps(func)
+    def wrapper(filename, **kwargs):
+        """wrapper function
+        
+        Arguments:
+            filename {str} -- configuration file
+            kwargs {dict} -- additional arguments will overwrite existing configuration value
+        Raises:
+            ValueError: if a parameter is not assigned in config
+        """
+        config = BasicConfig().load(filename)
+        if kwargs:
+            logger.critical("Overwritting config values from script, be cautious!")
+            config.update(kwargs)
+        parameters = inspect.signature(func).parameters
+        for p in parameters.items():
+            if p[0] not in config:
+                if p[1].default is inspect.Parameter.empty:
+                    raise ValueError("`%s` is required in `%s()` but is not assigned in config file %s" % 
+                                     (p[0], func.__name__, filename))
+                logger.info("Using default value for %s", p[0])
+        run_config = dict()
+        for p in config:
+            if p in parameters:
+                run_config[p] = config[p]
+            else:
+                logger.warning("%s is not used in optimization"%p)
+        val = func(**run_config)
+        print_result(val)
+    return wrapper
+
+def aup_flags(flags):
+    """wrapper function for absl flags (or tf.app). 
+
+    It will assign values to flags parameters using the given configuration file as the first argument when executed
+    from the command line.
+        
+    Arguments:
+        args {list} -- a list of unused arguments passed by app.run()
+    """
+    def decorator_wrapper(func):
+        @functools.wraps(func)
+        def wrapper(args):
+            config = BasicConfig(**flags.__dict__).load(args[1])
+            flags.__dict__.update()
+            parameters = inspect.signature(func).parameters
+            if parameters:
+                logger.warning("TF FLAG main() should not accept arguments with Auptimizer, it has %s", 
+                               parameters.keys())
+                val = func({p:None for p in parameters})
+            else:
+                val = func()
+            print_result(val)
+        return wrapper
+    return decorator_wrapper
