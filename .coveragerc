@@ -3,6 +3,7 @@ omit =
      ./src/aup/Proposer/spearmint/*
      ./src/aup/Proposer/hyperopt/*
      ./src/aup/Proposer/eas/*
+     ./src/aup/Proposer/hpbandster/*
      ./src/aup/Proposer/EASProposer.py
      ./src/aup/setupdb/reset.py
      ./src/aup/visualize.py
