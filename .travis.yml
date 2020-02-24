@@ -1,6 +1,6 @@
 git:
   depth: false
-  quite: true
+  quiet: true
 branch: master
 language: python
 python:
