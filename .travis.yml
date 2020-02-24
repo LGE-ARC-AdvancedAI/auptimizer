@@ -1,7 +1,10 @@
 git:
   depth: false
   quiet: true
-branch: master
+branches: 
+  only:
+  - master
+  - release
 language: python
 python:
 - '2.7'
