@@ -29,3 +29,11 @@ PackageFileName: spearmint
 PackageDownloadLocation: https://github.com/JasperSnoek/spearmint
 PackageHomePage: https://github.com/JasperSnoek/spearmint
 PackageLicenseConcluded: https://github.com/JasperSnoek/spearmint
+
+## Package Information
+PackageName: HpBandSter
+PackageVersion: 841db4b
+PackageFileName: hpbandster
+PackageDownloadLocation: https://github.com/automl/HpBandSter
+PackageHomePage: https://automl.github.io/HpBandSter/build/html/index.html
+PackageLicenseConcluded: BSD-3
