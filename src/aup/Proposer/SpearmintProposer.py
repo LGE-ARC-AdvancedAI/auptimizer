@@ -110,6 +110,8 @@ class SpearmintProposer(AbstractProposer):
         config['engine'] = get_from_options("HPO Engine, `engine`,", ["GPEIOptChooser"])
         config['engine_config'] = dict()
         config['grid_size'] = int(input("Grid size for hyperparameters, `grid_size`, [20000]:") or 20000)
+        config['n_samples'] = int(input("number of model samples to draw randomly, `n_samples`, [1]:") or 1)
+        config['random_seed'] = int(input("random seed, `random_seed`, [0]:") or 0)
         config.update(AbstractProposer.setup_config())
         for i in config['parameter_config']:
             i.update({'size': 1})
