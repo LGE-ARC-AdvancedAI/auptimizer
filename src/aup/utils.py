@@ -78,15 +78,15 @@ def get_default_username(username=None):
     :param username: username
     :return: username
     """
-    if not username:
-        if "USER" not in os.environ:
+    if username is None:
+        if "USER" not in os.environ or not os.environ["USER"]:
             logger.critical("No USER specified, use `default`.")
             return "default"
         else:
             logging.info("Using default user %s" % os.environ["USER"])
             return os.environ["USER"]
     else:
-        logging.debug("For user %s" % os.environ["USER"])
+        logging.debug("For user %s" % username)
         return username
 
 
