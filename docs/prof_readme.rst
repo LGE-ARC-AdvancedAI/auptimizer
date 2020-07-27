@@ -62,7 +62,7 @@ How Profiler Works
 
 We have conducted over 300 experiments across multiple models, devices,
 and compute settings. Full results are available
-`here. <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples/experiments>`__
+`here. <../Examples/profiler_examples/experiments>`__
 
 
 How to Use Profiler
@@ -112,7 +112,8 @@ Set Up Profiler User Variables
 
 Profiler can accept two arguments as inputs - the environment file
 (necessary) and model name list or file (optional). Refer to
-``env_mnist.template`` and ``env_benchmark.template`` for examples.
+``env_mnist.template`` and ``env_benchmark.template`` in `Profiler
+Examples <../Examples/profiler_examples>`__ for examples.
 
 Create ``env.template``, and add the following variables as needed:
 
@@ -227,19 +228,19 @@ Examples
 
 We present some examples on how to use profiler in
 `Profiler
-Experiments <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples>`__ folder.
+Examples <../Examples/profiler_examples>`__ folder.
 
 
 TensorFlow Lite Inference Benchmarking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To use Profiler on TensorFlow Lite Inference Benchmarking classification
-in the `benchmark <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples/bench>`__ folder.
+in the `benchmark <../Examples/profiler_examples/bench>`__ folder.
 
 1. [Optional] Use the bench/download.sh script (wget must be installed on your system) to download mobilenet_v1_0.75_224 and
    mobilenet_v1_1.0_224 (Alternatively, you can download a different set of TensorFlow Lite models from
    (https://www.tensorflow.org/lite/guide/hosted_models) and save them
-   in `benchmark <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples/bench>`__ folder.)
+   in `benchmark <../Examples/profiler_examples/bench>`__ folder.)
 
 2. If needed, change arguments in ``env_benchmark.template``.
 
@@ -270,7 +271,7 @@ MNIST Training Benchmarking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can also use Profiler to profile training. MNIST classification
-example can be found in the `mnist <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples/mnist>`__ folder.
+example can be found in the `mnist <../Examples/profiler_examples/mnist>`__ folder.
 
 1. [Optional] Download the MNIST dataset from
    (http://yann.lecun.com/exdb/mnist/). Add the ``.gz`` files to the
