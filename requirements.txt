@@ -10,7 +10,7 @@ pandas
 networkx
 hyperopt
 nose
-request
+requests
 paramiko
 boto3
 mock; python_version < '3.3'
