@@ -1,10 +1,13 @@
 Version History
 ===============
 
-Latest
-------
+version 1.3
+~~~~~~~~~~~~
 
-+ :download:`Auptimizer file for remote machine <archive/aup.py>`
++ Add Profiler for profiling model scripts
+
++ :download:`Auptimizer 1.3 wheel python2 <archive/Auptimizer-1.3-py2-none-any.whl>`
++ :download:`Auptimizer 1.3 wheel python3 <archive/Auptimizer-1.3-py3-none-any.whl>`
 
 version 1.2
 ~~~~~~~~~~~
