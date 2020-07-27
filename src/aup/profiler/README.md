@@ -30,7 +30,7 @@ Currently, Profiler can be used to:
       the Docker container.
 
 
-  We have conducted over 300 experiments across multiple models, devices, and compute settings. Full results are available [here] (Examples/profiler_examples/experiments).
+  We have conducted over 300 experiments across multiple models, devices, and compute settings. Full results are available [here](../../../Examples/profiler_examples/experiments).
     
 
 # How to Use Profiler
@@ -65,7 +65,7 @@ The following prerequisites help to simplify the profiling procedure.  Experienc
 ### Set Up Profiler User Variables 
 
 Profiler can accept two arguments as inputs - the environment file (necessary) and model name list or file (optional).
-Refer to `env\_mnist.template` and `env\_benchmark.template` for examples.
+Refer to `env_mnist.template` and `env_benchmark.template` for examples.
 
 Create `env.template`, and add the following variables as needed:
 
@@ -78,7 +78,7 @@ Create `env.template`, and add the following variables as needed:
   3.  `PIPREQUIREMENTS` - **OPTIONAL** Enter all python libraries required to run the application as a space-separated
       string. For example "ipython numpy". These packages will be installed using the command `pip install`, so ensure the libraries are supported. This variable can also be left empty (using “”).
       
-  4.  `PRERUN` - **OPTIONAL** Enter commands to execute before running the applicati0on. `PRERUN` can be used to install any libraries that cannot be installed through `APTREQUIREMENTS` or  `PIPREQUIREMENTS`. For example, if you need a different version of a library than what is available through pip, you can use PRERUN to install it. See `env\_benchmark.template` for an example.
+  4.  `PRERUN` - **OPTIONAL** Enter commands to execute before running the applicati0on. `PRERUN` can be used to install any libraries that cannot be installed through `APTREQUIREMENTS` or  `PIPREQUIREMENTS`. For example, if you need a different version of a library than what is available through pip, you can use PRERUN to install it. See `env_benchmark.template` for an example.
 
   5.  `DIR` - **REQUIRED** Enter the local path to the users consolidated directory containing the application. This
       directory will be copied over to the Docker container.
@@ -141,14 +141,14 @@ See [issues](issues.md) for known issues and solutions.
 
 # Examples 
 
-We present some examples on how to use profiler in [Profiler Experiments] (../../../Examples/profiler_examples) folder.
+We present some examples on how to use profiler in [Profiler Examples](../../../Examples/profiler_examples) folder. This folder also contains the environment files used in the following two examples.
 
 ## TensorFlow Lite Inference Benchmarking
 
 
-To use Profiler on TensorFlow Lite Inference Benchmarking classification in the [benchmark](/bench) folder.
+To use Profiler on TensorFlow Lite for image classification, an example of Inference Benchmarking is located in the [benchmark](../../../Examples/profiler_examples/bench) folder.
 
-1. [Optional]  Use the bench/download.sh script (wget must be installed on your system) to download mobilenet_v1_0.75_224 and mobilenet_v1_1.0_224 (Alternatively, you can download a different set of TensorFlow Lite models from (https://www.tensorflow.org/lite/guide/hosted_models) and save them in [benchmark](./bench) folder.)
+1. [Optional]  Use the bench/download.sh script (wget must be installed on your system) to download mobilenet_v1_0.75_224 and mobilenet_v1_1.0_224 (Alternatively, you can download a different set of TensorFlow Lite models from (https://www.tensorflow.org/lite/guide/hosted_models) and save them in [benchmark](../../../Examples/profiler_examples/bench) folder.)
    
 2. If needed, change arguments in `env_benchmark.template`.
 
@@ -171,7 +171,7 @@ Additionally, a general summary is provided in `out.txt` containing the final st
 
 ## MNIST Training Benchmarking
 
-You can also use Profiler to profile training. MNIST classification example can be found in the [mnist](./mnist) folder.
+You can also use Profiler to profile training. MNIST classification example can be found in the [mnist](../../../Examples/profiler_examples/mnist) folder.
 
 1. [Optional] Download the MNIST dataset from (http://yann.lecun.com/exdb/mnist/). Add the `.gz` files to the data
    folder. Then open `env_mnist.template` file and edit the `DOCKER_ARGS` option with the absolute path to the `data` folder
