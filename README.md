@@ -29,7 +29,11 @@ neural architecture search. The table below shows a full list of currently suppo
 | ----------- | ----------- |
 | Random<br>Grid<br>[Hyperband](https://github.com/zygmuntz/hyperband)<br>[Hyperopt](https://github.com/hyperopt/hyperopt)<br>[Spearmint](https://github.com/JasperSnoek/spearmint)<br>[BOHB](https://github.com/automl/HpBandSter)<br>[EAS (experimental)](https://github.com/han-cai/EAS)<br>Passive      | Multiple CPUs<br>Multiple GPUs<br>Multiple Machines (SSH)<br>AWS EC2 instances |
 
+## Auptimizer v 1.3 has been released: Introducing Profiler
 
+**Profiler** is a simulator for profiling performance of Machine Learning (ML) model scripts. Given compute- and memory resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute- and memory usage for model scripts on the device. These estimations can be used to choose best performing models or, in certain cases, to predict how much compute and memory models will use on the target device. 
+
+Because Profiler mimics the target device environment on the user's development machine, the user can gain insights about the performance and resource needs of a model script without having to deploy it on the target device. By using Profiler,  you can significantly accelerate the model development cycle and find the instant model-device fit. For more information please see [Profiler](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler) .
 ## Install
 
 **Auptimizer** currently is well tested on Linux systems, it may require some tweaks for Windows users.
