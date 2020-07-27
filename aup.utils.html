@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="aup.setupdb Package" href="aup.setupdb_API.html" />
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                1.2
+                1.3
               </div>
             
           
@@ -80,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -101,6 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
@@ -132,6 +137,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -170,7 +176,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
         
@@ -198,7 +204,7 @@
 <p>Supporting functions used by other modules.</p>
 <div class="section" id="apis">
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.check_missing_key">
 <code class="sig-name descname">check_missing_key</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">key</em>, <em class="sig-param">msg</em>, <em class="sig-param">log=&lt;Logger aup.utils (WARNING)&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#check_missing_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.check_missing_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify important key is present, otherwise raise exception</p>
@@ -214,7 +220,7 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.get_default_connector">
 <code class="sig-name descname">get_default_connector</code><span class="sig-paren">(</span><em class="sig-param">auppath='.aup'</em>, <em class="sig-param">log=&lt;Logger aup.utils (WARNING)&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#get_default_connector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.get_default_connector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get default connector based on .env</p>
@@ -234,9 +240,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.get_default_username">
-<code class="sig-name descname">get_default_username</code><span class="sig-paren">(</span><em class="sig-param">username=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#get_default_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.get_default_username" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_default_username</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#get_default_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.get_default_username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get default username for Auptimizer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -248,9 +254,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.get_from_options">
-<code class="sig-name descname">get_from_options</code><span class="sig-paren">(</span><em class="sig-param">msg</em>, <em class="sig-param">values</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#get_from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.get_from_options" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_from_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">values</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#get_from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.get_from_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>helper function to ask from user input, and validate it is one of the permitted values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -266,7 +272,7 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.load_default_env">
 <code class="sig-name descname">load_default_env</code><span class="sig-paren">(</span><em class="sig-param">auppath='.aup'</em>, <em class="sig-param">log=&lt;Logger aup.utils (WARNING)&gt;</em>, <em class="sig-param">use_default=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#load_default_env"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.load_default_env" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load default environment variables for aup.
@@ -288,7 +294,7 @@ Search recursively to upper folder</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.parse_result">
 <code class="sig-name descname">parse_result</code><span class="sig-paren">(</span><em class="sig-param">result</em>, <em class="sig-param">log=&lt;Logger aup.utils (WARNING)&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#parse_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.parse_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse the result printed by <code class="xref py py-func docutils literal notranslate"><span class="pre">print_result()</span></code></p>
@@ -308,7 +314,7 @@ Search recursively to upper folder</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.utils.set_default_keyvalue">
 <code class="sig-name descname">set_default_keyvalue</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em>, <em class="sig-param">d</em>, <em class="sig-param">inplace=True</em>, <em class="sig-param">log=&lt;Logger aup.utils (WARNING)&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#set_default_keyvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.set_default_keyvalue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set default value for dict if key is not defined</p>
@@ -338,7 +344,7 @@ Search recursively to upper folder</p>
 <p>This file can be copied to a remote machine instead of installing the whole Auptimizer package for job execution.</p>
 <div class="section" id="id1">
 <h2>APIs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="aup.aup.BasicConfig">
 <em class="property">class </em><code class="sig-name descname">BasicConfig</code><a class="reference internal" href="_modules/aup/aup.html#BasicConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
@@ -353,9 +359,9 @@ Search recursively to upper folder</p>
 <dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – key-value pairs to initialize the configuration</p>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="aup.aup.BasicConfig.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load config parameters from JSON/pickle file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -370,9 +376,9 @@ Search recursively to upper folder</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="aup.aup.BasicConfig.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save configuration as dict in JSON/pickle</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -381,9 +387,9 @@ Search recursively to upper folder</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="aup.aup.BasicConfig.save_flags">
-<em class="property">static </em><code class="sig-name descname">save_flags</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.save_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.save_flags" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">save_flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.save_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.save_flags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save tf flags for reuse - not used, not tested</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -392,9 +398,9 @@ Search recursively to upper folder</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="aup.aup.BasicConfig.to_flags">
-<code class="sig-name descname">to_flags</code><span class="sig-paren">(</span><em class="sig-param">FLAGS</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.to_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.to_flags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">FLAGS</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#BasicConfig.to_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.BasicConfig.to_flags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update values in FLAGS from BasicConfig</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -405,9 +411,9 @@ Search recursively to upper folder</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.aup.aup_args">
-<code class="sig-name descname">aup_args</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#aup_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.aup_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">aup_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#aup_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.aup_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator to wrap optimization target function <cite>func</cite>.</p>
 <dl class="simple">
 <dt>Arguments:</dt><dd><p>func {function} – A function computes optimization target with specified hyperparameters</p>
@@ -415,9 +421,9 @@ Search recursively to upper folder</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.aup.aup_flags">
-<code class="sig-name descname">aup_flags</code><span class="sig-paren">(</span><em class="sig-param">flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#aup_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.aup_flags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">aup_flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flags</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#aup_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.aup_flags" title="Permalink to this definition">¶</a></dt>
 <dd><p>wrapper function for absl flags (or tf.app).</p>
 <p>It will assign values to flags parameters using the given configuration file as the first argument when executed
 from the command line.</p>
@@ -427,9 +433,9 @@ from the command line.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.aup.print_result">
-<code class="sig-name descname">print_result</code><span class="sig-paren">(</span><em class="sig-param">result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#print_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.print_result" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">print_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/aup.html#print_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.aup.print_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to print the result for <code class="xref py py-func docutils literal notranslate"><span class="pre">parse_result()</span></code>.
 This function should be the last line of your training code</p>
 <dl class="field-list simple">
@@ -462,11 +468,19 @@ This function should be the last line of your training code</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2018, LG Electronics Inc.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -477,7 +491,6 @@ This function should be the last line of your training code</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

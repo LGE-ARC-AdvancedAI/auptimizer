@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Profiler &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer Guide" href="developer_guide.html" />
+    <link rel="prev" title="Configure HPO Algorithm" href="algorithm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-profiler-works">How Profiler Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-profiler">How to Use Profiler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation-and-requirements">Installation and Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-profiler">Using Profiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-up-profiler-user-variables">Set Up Profiler User Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interpreting-results">Interpreting Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow-lite-inference-benchmarking">TensorFlow Lite Inference Benchmarking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mnist-training-benchmarking">MNIST Training Benchmarking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Profiler</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/prof_readme.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="profiler">
+<h1>Profiler<a class="headerlink" href="#profiler" title="Permalink to this headline">¶</a></h1>
+<p><strong>Profiler is a simulator for profiling performance of Machine Learning
+(ML) model scripts.</strong> Given compute- and memory resource constraints for
+a CPU-based Edge device, Profiler can provide estimates of compute- and
+memory usage for model scripts on the device. These estimations can be
+used to choose best performing models or, in certain cases, to predict
+how much compute and memory models will use on the target device.
+Because Profiler mimics the target device environment on the user’s
+development machine, the user can gain insights about the performance
+and resource needs of a model script without having to deploy it on the
+target device.</p>
+<p>Currently, Profiler can be used to:</p>
+<ol class="arabic simple">
+<li><p><strong>Select the most efficient model for your target deployment.</strong> With
+Profiler, you can compare how different models will perform under
+specific compute and memory constraints. Our studies show that the
+ranking of models based on runtime or memory use under Profiler
+mirrors the ranking on a device with the same constraints.</p></li>
+<li><p><strong>Make model script performance and resource requirements at the Edge
+more transparent.</strong> Use Profiler to estimate model script’s runtime
+or memory usage on a device. For similar classes of models (such as
+different versions of MobileNet or ShuffleNet), there is a straight
+line fit between model performance under Profiler and on the target
+device. Once you run two or three models on the device, you can use
+the results to find that straight line and predict a new model’s
+performance with Profiler.</p></li>
+<li><p><strong>Foster lean ML model deployment at the Edge.</strong> By using Profiler,
+you can assess model-device compatibility and select the most
+suitable model for your needs without the hustle of going through
+multiple physical deployment cycles.</p></li>
+</ol>
+<div class="section" id="how-profiler-works">
+<h2>How Profiler Works<a class="headerlink" href="#how-profiler-works" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Simulates Device Constraints.</strong> Profiler allows developers to
+simulate different <strong>compute</strong> and <strong>memory</strong> constraints for the
+execution of the application. This is especially useful for ML model
+deployment, where testing on different edge devices can be tedious
+and require actual deployment to individual devices to ensure
+resource constraints are satisfied. Profiler can help easily
+<em>approximate</em> these constraints on a single host device.</p></li>
+<li><p><strong>Provides Container Support.</strong> Profiler encapsulates the
+application, its requirements, and corresponding data into a Docker
+container. It uses user inputs to build a corresponding Docker Image
+so the application can run independently and without external
+dependencies. It can then easily be scaled and ported to ease future
+development and deployment. Profiler also removes the need for a
+developer to acquaint themselves with internal workings of Docker.</p></li>
+<li><p><strong>Logs Resource Utilization.</strong> Profiler also tracks and records
+various resource utilization statistics of the application for
+debugging purposes. It currently tracks Average CPU Utilization,
+Memory Usage, and Block I/O. The logger also supports setting the
+<code class="docutils literal notranslate"><span class="pre">Sample</span> <span class="pre">Time</span></code> to control how frequently Profiler samples
+utilization statistics from the Docker container.</p></li>
+</ol>
+<p>We have conducted over 300 experiments across multiple models, devices,
+and compute settings. Full results are available
+<a class="reference external" href="../Examples/profiler_examples/experiments">here.</a></p>
+</div>
+<div class="section" id="how-to-use-profiler">
+<h2>How to Use Profiler<a class="headerlink" href="#how-to-use-profiler" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installation-and-requirements">
+<h3>Installation and Requirements<a class="headerlink" href="#installation-and-requirements" title="Permalink to this headline">¶</a></h3>
+<p>Profiler is automatically installed as part of Auptimizer, further
+requiring only Docker installation. Please refer to <a class="reference external" href="https://docs.docker.com/install/">Docker
+installation</a> on how to install
+Docker on your system.</p>
+</div>
+<div class="section" id="using-profiler">
+<h3>Using Profiler<a class="headerlink" href="#using-profiler" title="Permalink to this headline">¶</a></h3>
+<p>Using Profiler is simple and requires only a few steps. Once Docker and
+Auptimizer are installed, all you need to do is:</p>
+<ol class="arabic simple">
+<li><p>Ensure that the prerequisites below are met</p></li>
+<li><p>Set up the Profiler user variables in <code class="docutils literal notranslate"><span class="pre">env.template</span></code></p></li>
+<li><p>Have a script that will train or perform inference on your model</p></li>
+<li><p>run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.profiler</span></code> on your model file(s) (multiple models can be provided as a comma-separated list using the <code class="docutils literal notranslate"><span class="pre">-m</span></code> or <code class="docutils literal notranslate"><span class="pre">--modellist</span></code> flags or as in a txt file using the <code class="docutils literal notranslate"><span class="pre">-f</span></code> or <code class="docutils literal notranslate"><span class="pre">--modelfile</span></code> flags)</p></li>
+</ol>
+<p><strong>Profiler flags:</strong></p>
+<ol class="arabic simple">
+<li><p>-e or –environment : path to the environment file.</p></li>
+<li><p>-f or –modelfile : path to the text file containing different model names on new lines.</p></li>
+<li><p>-m or –modellist : list of model names as comma(‘,’) separated string (no spaces).</p></li>
+</ol>
+</div>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>The following prerequisites help to simplify the profiling procedure.
+Experienced users should feel free to modify it as needed.</p>
+<ol class="arabic simple">
+<li><p>Consolidate your project into a single directory, such that the
+primary application can run without any internal dependencies (the
+data itself can be in a separate location).</p></li>
+<li><p>Consolidate your application into a single entry point for execution.
+Use a wrapper file if needed. This single point of entry is needed
+because Profiler will execute one command to run a single application
+file. The application can accept different models as input.</p></li>
+</ol>
+</div>
+<div class="section" id="set-up-profiler-user-variables">
+<h3>Set Up Profiler User Variables<a class="headerlink" href="#set-up-profiler-user-variables" title="Permalink to this headline">¶</a></h3>
+<p>Profiler can accept two arguments as inputs - the environment file
+(necessary) and model name list or file (optional). Refer to
+<code class="docutils literal notranslate"><span class="pre">env_mnist.template</span></code> and <code class="docutils literal notranslate"><span class="pre">env_benchmark.template</span></code> in <a class="reference external" href="../Examples/profiler_examples">Profiler
+Examples</a> for examples.</p>
+<p>Create <code class="docutils literal notranslate"><span class="pre">env.template</span></code>, and add the following variables as needed:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IMAGEREPO</span></code> - <strong>REQUIRED</strong> Enter the name of base Docker
+repository to use. Refer to <a class="reference external" href="https://hub.docker.com/">https://hub.docker.com/</a> for public
+repositories. Your base image could be anything from
+<code class="docutils literal notranslate"><span class="pre">tensorflow:1.3.0</span></code>, <code class="docutils literal notranslate"><span class="pre">python3</span></code>, <code class="docutils literal notranslate"><span class="pre">ubuntu</span></code> etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">APTREQUIREMENTS</span></code> - <strong>OPTIONAL</strong> Enter all linux packages required
+to run the application as a space-separated string. For example
+“curl vim”. These packages will be installed using the command
+<code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span></code> so ensure the packages are supported. This
+variable can also be left empty (using “”).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PIPREQUIREMENTS</span></code> - <strong>OPTIONAL</strong> Enter all python libraries
+required to run the application as a space-separated string. For
+example “ipython numpy”. These packages will be installed using the
+command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>, so ensure the libraries are supported. This
+variable can also be left empty (using “”).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PRERUN</span></code> - <strong>OPTIONAL</strong> Enter commands to execute before running
+the applicati0on. <code class="docutils literal notranslate"><span class="pre">PRERUN</span></code> can be used to install any libraries
+that cannot be installed through <code class="docutils literal notranslate"><span class="pre">APTREQUIREMENTS</span></code> or
+<code class="docutils literal notranslate"><span class="pre">PIPREQUIREMENTS</span></code>. For example, if you need a different version of
+a library than what is available through pip, you can use PRERUN to
+install it. See <code class="docutils literal notranslate"><span class="pre">env_benchmark.template</span></code> for an example.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DIR</span></code> - <strong>REQUIRED</strong> Enter the local path to the users
+consolidated directory containing the application. This directory
+will be copied over to the Docker container.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> - <strong>REQUIRED</strong> The name of the primary application file,
+along with the path relative to the aforementioned <code class="docutils literal notranslate"><span class="pre">DIR</span></code>. This
+allows the container to find and execute the application file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> - <strong>REQUIRED</strong> The command used to execute the
+aforementioned script. For example <code class="docutils literal notranslate"><span class="pre">python</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SAMPLETIME</span></code> - <strong>REQUIRED</strong> The wait period in seconds, when
+Profiler will query the Docker for resource utilization. Avoid using
+time periods smaller than 3 seconds since Profiler internally uses
+the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stats</span></code> command which takes approximately 3 seconds to
+finish. User can use decimal points.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OUTPUTFILE</span></code> - <strong>REQUIRED</strong> The name of the file which will
+contain all the resource utilization logs with timestamps.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCFILE</span></code> - <strong>REQUIRED</strong> The name of a user-defined Dockerfile,
+path relative to Profiler directory. This command will supersede all
+previous variables and build the Docker image from the <code class="docutils literal notranslate"><span class="pre">DOCFILE</span></code>.
+The user should only use this variable if they have already tested
+their Dockerfile with the application to make sure they are
+compatible.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCKCPUS</span></code> - <strong>OPTIONAL</strong> The amount of CPU processing compute
+power allowed to the application. Must be real number. Can be a
+floating point decimal. For example “2.5”. Refer to
+<a class="reference external" href="https://docs.docker.com/config/containers/resource_constraints/">https://docs.docker.com/config/containers/resource_constraints/</a>. Can
+be empty - no CPU constraint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCKMEMORY</span></code> - <strong>OPTIONAL</strong> The amount of memory allowed to the
+application. Must be a positive integer, followed by a suffix of b,
+k, m, g, to indicate bytes, kilobytes, megabytes, or gigabytes . For
+example “156m”. Refer to
+<a class="reference external" href="https://docs.docker.com/config/containers/resource_constraints/">https://docs.docker.com/config/containers/resource_constraints/</a>. Can
+be empty - no memory constraint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCK_ARGS</span></code> - <strong>OPTIONAL</strong> Additional Docker-related arguments are
+added here. For instance, to allow Docker to run the container with
+the Privileged tag, use <code class="docutils literal notranslate"><span class="pre">--privileged</span></code>. Refer to
+<a class="reference external" href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities</a>.
+To use volume to mount additional folder (e.g. data folder), use
+<code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">/path/in/source:/path/in/destination</span></code>.</p></li>
+</ol>
+<p>If your primary application needs external model weight files as
+arguments, you can further provide a list of the names of model weight
+files. This list can be provided as a list of comma(‘,’) separated
+strings of the model names or a text file with strings of the model
+names, each on a new line.</p>
+</div>
+</div>
+<div class="section" id="interpreting-results">
+<h2>Interpreting Results<a class="headerlink" href="#interpreting-results" title="Permalink to this headline">¶</a></h2>
+<p>A summary of each Profiler run can be found in <code class="docutils literal notranslate"><span class="pre">out.txt</span></code> (the filename
+can be user-specified using the <code class="docutils literal notranslate"><span class="pre">OUTPUTFILE</span></code> argument in the
+environment file).</p>
+<p>The individual model <code class="docutils literal notranslate"><span class="pre">OUTPUTFILE</span></code>s contain the raw values of
+different metrics profiled at distinct <code class="docutils literal notranslate"><span class="pre">SAMPLETIME</span></code> intervals using
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stats</span></code> as a subroutine (<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/stats/">https://docs.docker.com/engine/reference/commandline/stats/</a>)</p>
+<p>Each row contains the following values:</p>
+<ol class="arabic simple">
+<li><p>Name - name of the Docker container.</p></li>
+<li><p>CPU % - the instantaneous cpu utilization (<a class="reference external" href="https://docs.docker.com/config/containers/resource_constraints/">https://docs.docker.com/config/containers/resource_constraints/</a>).</p></li>
+<li><p>MEM USAGE / LIMIT - the instantaneous memory utilization and corresponding limit (<a class="reference external" href="https://docs.docker.com/config/containers/resource_constraints/">https://docs.docker.com/config/containers/resource_constraints/</a>).</p></li>
+<li><p>NET I/O - refers to network input/output, the total amount of data the container has sent and received (<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/stats/">https://docs.docker.com/engine/reference/commandline/stats/</a>).</p></li>
+<li><p>BLOCK I/O - refers to the amount of data the container has read to and written from block devices (this could be memory external to the container or to actual HDD use) on the host (<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/stats/">https://docs.docker.com/engine/reference/commandline/stats/</a>).</p></li>
+<li><p>TIME - the current timestamp of the measurement.</p></li>
+</ol>
+<p>The Usage Stats table shows the average utilization over the container’s
+lifetime for the aforementioned CPU % and MEM USAGE / LIMIT. For NET I/O
+and BLOCK I/O the total input/output data metrics are returned, instead
+of the average statistics.</p>
+<p>The final usage stats from each run of Profiler is appended to
+<code class="docutils literal notranslate"><span class="pre">OUTPUTFILE</span></code> and provides a quick overview of the result of running
+Profiler multiple times.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>We present some examples on how to use profiler in
+<a class="reference external" href="../Examples/profiler_examples">Profiler
+Examples</a> folder.</p>
+<div class="section" id="tensorflow-lite-inference-benchmarking">
+<h3>TensorFlow Lite Inference Benchmarking<a class="headerlink" href="#tensorflow-lite-inference-benchmarking" title="Permalink to this headline">¶</a></h3>
+<p>To use Profiler on TensorFlow Lite Inference Benchmarking classification
+in the <a class="reference external" href="../Examples/profiler_examples/bench">benchmark</a> folder.</p>
+<ol class="arabic simple">
+<li><p>[Optional] Use the bench/download.sh script (wget must be installed on your system) to download mobilenet_v1_0.75_224 and
+mobilenet_v1_1.0_224 (Alternatively, you can download a different set of TensorFlow Lite models from
+(<a class="reference external" href="https://www.tensorflow.org/lite/guide/hosted_models">https://www.tensorflow.org/lite/guide/hosted_models</a>) and save them
+in <a class="reference external" href="../Examples/profiler_examples/bench">benchmark</a> folder.)</p></li>
+<li><p>If needed, change arguments in <code class="docutils literal notranslate"><span class="pre">env_benchmark.template</span></code>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.profiler</span> <span class="pre">-e</span> <span class="pre">env_benchmark.template</span> <span class="pre">-m</span> <span class="pre">mobilenet_v1_0.75_224.tflite,mobilenet_v1_1.0_224.tflite</span></code>.</p></li>
+</ol>
+<p>This will create Docker images <code class="docutils literal notranslate"><span class="pre">mobilenet_v1_0.75_224_img</span></code> and
+<code class="docutils literal notranslate"><span class="pre">mobilenet_v1_1.0_224_img</span></code> and corresponding Docker containers
+<code class="docutils literal notranslate"><span class="pre">mobilenet_v1_0.75_224_con</span></code> and <code class="docutils literal notranslate"><span class="pre">mobilenet_v1_1.0_224_con</span></code>. It will
+execute <code class="docutils literal notranslate"><span class="pre">test_perf.py</span></code> within these containers using the
+<code class="docutils literal notranslate"><span class="pre">Docker</span> <span class="pre">Volume</span></code> command to run inference on the specified models. Once
+execution finishes, Profiler will output the following statistics:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">Usage</span> <span class="n">Stats</span>
+<span class="n">NAME</span>                   <span class="n">AVG</span> <span class="n">CPU</span> <span class="o">%</span>      <span class="n">PEAK</span> <span class="n">CPU</span>  <span class="n">AVG</span> <span class="n">MEM</span> <span class="n">USAGE</span> <span class="o">/</span> <span class="n">LIMIT</span>    <span class="n">PEAK</span> <span class="n">MEM</span>    <span class="n">NET</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span>          <span class="n">BLOCK</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span>        <span class="n">TOTAL</span> <span class="n">TIME</span> <span class="p">(</span><span class="n">ms</span><span class="p">)</span>
+<span class="o">---------------------</span>  <span class="o">-----------</span>  <span class="o">----------</span>  <span class="o">-----------------------</span>  <span class="o">----------</span>  <span class="o">---------------</span>  <span class="o">-------------</span>  <span class="o">-----------------</span>
+<span class="n">mobilenet_v1_0</span><span class="o">.</span><span class="mi">75_224</span>  <span class="mf">225.09</span><span class="o">%</span>          <span class="mf">226.68</span>  <span class="mf">117.9</span> <span class="n">MiB</span> <span class="o">/</span> <span class="mf">1.9</span> <span class="n">GiB</span>      <span class="mf">117.9</span> <span class="n">MiB</span>   <span class="mf">742.0</span> <span class="n">B</span> <span class="o">/</span> <span class="mf">0.0</span> <span class="n">B</span>  <span class="mf">0.0</span> <span class="n">B</span> <span class="o">/</span> <span class="mf">0.0</span> <span class="n">B</span>               <span class="mi">6164</span>
+<span class="n">mobilenet_v1_1</span><span class="o">.</span><span class="mi">0_224</span>   <span class="mf">244.258</span><span class="o">%</span>         <span class="mf">250.83</span>  <span class="mf">122.4</span> <span class="n">MiB</span> <span class="o">/</span> <span class="mf">1.9</span> <span class="n">GiB</span>      <span class="mf">126.9</span> <span class="n">MiB</span>   <span class="mf">766.0</span> <span class="n">B</span> <span class="o">/</span> <span class="mf">0.0</span> <span class="n">B</span>  <span class="mf">0.0</span> <span class="n">B</span> <span class="o">/</span> <span class="mf">0.0</span> <span class="n">B</span>              <span class="mi">12354</span>
+</pre></div>
+</div>
+<p>The results from each timestamp and each individual model are saved in
+<code class="docutils literal notranslate"><span class="pre">model_name</span></code>+<code class="docutils literal notranslate"><span class="pre">out.txt</span></code> (can be user-defined via <code class="docutils literal notranslate"><span class="pre">OUTPUTFILE</span></code>
+in <code class="docutils literal notranslate"><span class="pre">env_benchmark.template</span></code>). Additionally, a general summary is
+provided in <code class="docutils literal notranslate"><span class="pre">out.txt</span></code> containing the final stats for all the tested
+models.</p>
+</div>
+<div class="section" id="mnist-training-benchmarking">
+<h3>MNIST Training Benchmarking<a class="headerlink" href="#mnist-training-benchmarking" title="Permalink to this headline">¶</a></h3>
+<p>You can also use Profiler to profile training. MNIST classification
+example can be found in the <a class="reference external" href="../Examples/profiler_examples/mnist">mnist</a> folder.</p>
+<ol class="arabic simple">
+<li><p>[Optional] Download the MNIST dataset from
+(<a class="reference external" href="http://yann.lecun.com/exdb/mnist/">http://yann.lecun.com/exdb/mnist/</a>). Add the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> files to the
+data folder. Then open <code class="docutils literal notranslate"><span class="pre">env_mnist.template</span></code> file and edit the
+<code class="docutils literal notranslate"><span class="pre">DOCKER_ARGS</span></code> option with the absolute path to the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder
+as <code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">/data/:/mnist_data</span></code>.</p></li>
+<li><p>Change other arguments in the <code class="docutils literal notranslate"><span class="pre">env_mnist.template</span></code> if you want.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.profiler</span> <span class="pre">-e</span> <span class="pre">env_mnist.template</span></code>.</p></li>
+</ol>
+<p>This will create a Docker Image named <code class="docutils literal notranslate"><span class="pre">test_image</span></code>, and a
+corresponding Docker Container <code class="docutils literal notranslate"><span class="pre">test_container</span></code>. It will execute
+<code class="docutils literal notranslate"><span class="pre">mnist.py</span></code> within the container using Docker Volume command to load
+the data. Once the execution finishes, the Profiler will output the
+following statistics:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Final</span> <span class="n">Usage</span> <span class="n">Stats</span>
+<span class="n">NAME</span>            <span class="n">AVG</span> <span class="n">CPU</span> <span class="o">%</span>      <span class="n">PEAK</span> <span class="n">CPU</span>  <span class="n">AVG</span> <span class="n">MEM</span> <span class="n">USAGE</span> <span class="o">/</span> <span class="n">LIMIT</span>    <span class="n">PEAK</span> <span class="n">MEM</span>    <span class="n">NET</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span>              <span class="n">BLOCK</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span>        <span class="n">TOTAL</span> <span class="n">TIME</span> <span class="p">(</span><span class="n">ms</span><span class="p">)</span>
+<span class="o">--------------</span>  <span class="o">-----------</span>  <span class="o">----------</span>  <span class="o">-----------------------</span>  <span class="o">----------</span>  <span class="o">-------------------</span>  <span class="o">-------------</span>  <span class="o">-----------------</span>
+<span class="n">test_container</span>  <span class="mf">316.532</span><span class="o">%</span>         <span class="mf">337.98</span>  <span class="mf">502.3</span> <span class="n">MiB</span> <span class="o">/</span> <span class="mf">1.9</span> <span class="n">GiB</span>      <span class="mf">537.0</span> <span class="n">MiB</span>   <span class="mf">12.0</span> <span class="n">MiB</span> <span class="o">/</span> <span class="mf">151.4</span> <span class="n">kB</span>  <span class="mf">0.0</span> <span class="n">B</span> <span class="o">/</span> <span class="mf">0.0</span> <span class="n">B</span>             <span class="mi">220842</span>
+</pre></div>
+</div>
+<p>The results from each timestamp are saved in <code class="docutils literal notranslate"><span class="pre">out.txt</span></code> (set via
+<code class="docutils literal notranslate"><span class="pre">OUTPUTFILE</span></code> in <code class="docutils literal notranslate"><span class="pre">env_mnist.template</span></code>).</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developer_guide.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="algorithm.html" class="btn btn-neutral float-left" title="Configure HPO Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

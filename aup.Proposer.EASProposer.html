@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Utility functions" href="aup.utils.html" />
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                1.2
+                1.3
               </div>
             
           
@@ -80,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -101,6 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
@@ -129,6 +134,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -167,7 +173,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
         
@@ -223,19 +229,19 @@
 <p>For other purpose, users need to modify this file with the following steps.
 The <code class="docutils literal notranslate"><span class="pre">init</span></code> function is used to initialize the parameters and static values for the algorithm.
 The <code class="docutils literal notranslate"><span class="pre">get_param</span></code> function uses the <code class="docutils literal notranslate"><span class="pre">setup</span></code> function to get different strings representing new NAS architectures based on previous architectures and their performance. A similar paradigm can be adopted for integrating other NAS based algorithms with <em>Auptimizer</em>.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="aup.Proposer.EASProposer.EASProposer">
-<em class="property">class </em><code class="sig-name descname">EASProposer</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">EASProposer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
-<dl class="method">
+<dl class="py method">
 <dt id="aup.Proposer.EASProposer.EASProposer.get_param">
-<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.get_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get new proposed parameter values</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="aup.Proposer.EASProposer.EASProposer.reload">
-<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.reload" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload Proposer state from path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -244,9 +250,9 @@ The <code class="docutils literal notranslate"><span class="pre">get_param</span
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="aup.Proposer.EASProposer.EASProposer.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save Proposer state to path.</p>
 <p><strong>Some proposer can not generate new parameters after saving.</strong></p>
 <dl class="field-list simple">
@@ -256,9 +262,9 @@ The <code class="docutils literal notranslate"><span class="pre">get_param</span
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="aup.Proposer.EASProposer.EASProposer.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">score</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">job</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/EASProposer.html#EASProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.EASProposer.EASProposer.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update scores in proposer history</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -296,11 +302,19 @@ The <code class="docutils literal notranslate"><span class="pre">get_param</span
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2018, LG Electronics Inc.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -311,7 +325,6 @@ The <code class="docutils literal notranslate"><span class="pre">get_param</span
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

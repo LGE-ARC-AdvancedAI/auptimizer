@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Auptimizer main entry" href="aup.__main__.html" />
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                1.2
+                1.3
               </div>
             
           
@@ -80,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -101,6 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
@@ -132,6 +137,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -170,7 +176,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
         
@@ -233,33 +239,33 @@ Options:
 </div>
 <div class="section" id="apis">
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="aup.convert.add_func">
-<code class="sig-name descname">add_func</code><span class="sig-paren">(</span><em class="sig-param">script</em>, <em class="sig-param">func_name</em>, <em class="sig-param">variables</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_func" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_func</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">script</span></em>, <em class="sig-param"><span class="n">func_name</span></em>, <em class="sig-param"><span class="n">variables</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_func" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds wrapper function to the python script.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.convert.add_main">
-<code class="sig-name descname">add_main</code><span class="sig-paren">(</span><em class="sig-param">script</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">script</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a main function to the executable Python file.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.convert.add_shenbang">
-<code class="sig-name descname">add_shenbang</code><span class="sig-paren">(</span><em class="sig-param">script</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_shenbang"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_shenbang" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_shenbang</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">script</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_shenbang"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_shenbang" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes the Python script executable.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.convert.get_output_name">
-<code class="sig-name descname">get_output_name</code><span class="sig-paren">(</span><em class="sig-param">experiment_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_output_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_output_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_output_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_output_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_output_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the Python script to be executed from the experiment json file</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="aup.convert.get_param">
-<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param">experiment_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse experiment file to retrieve hyperparameter names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -297,11 +303,19 @@ Options:
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2018, LG Electronics Inc.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -312,7 +326,6 @@ Options:
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

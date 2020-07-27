@@ -44,7 +44,15 @@ More advanced configuration instructions can be found in the following sections:
    environment
    experiment
    algorithm
+   
+Profiler
+--------
 
+.. toctree::
+   :maxdepth: 1
+   
+   prof_readme
+   
 For developers
 --------------
 
