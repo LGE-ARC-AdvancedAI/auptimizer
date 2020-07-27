@@ -18,4 +18,5 @@ future
 ConfigSpace; python_version >= '3'
 pytest-cov
 codecov
+tabulate
 hpbandster; python_version >= '3'

@@ -25,7 +25,7 @@ setup(
     version=find_version(),
     author="LG Electronics Inc.",
     author_email="auptimizer@lge.com",
-    
+    scripts=['src/aup/profiler/profiler.sh', 'src/aup/profiler/statscript.sh'],
     license='SPDX-License-Identifier: GPL-3.0-or-later',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',

@@ -1,0 +1,21 @@
+#  Copyright (c) 2020 LG Electronics Inc.
+#  SPDX-License-Identifier: GPL-3.0-or-later
+#User data Variables
+IMAGEREPO=tensorflow/tensorflow:1.14.0-py3
+APTREQUIREMENTS="wget"
+# PIPREQUIREMENTS="ipython numpy"
+PRERUN="wget https://dl.google.com/coral/python/tflite_runtime-1.14.0-cp36-cp36m-linux_x86_64.whl; pip install tflite_runtime-1.14.0-cp36-cp36m-linux_x86_64.whl"
+DIR=bench
+SCRIPT=test_perf.py
+COMMAND=python
+SAMPLETIME=3
+OUTPUTFILE=out.txt
+DOCFILE=Dockerfile
+DOCKCPUS="4.0"
+DOCKMEMORY="2.0g"
+# Additional docker arguments could be passed as following:
+# To run Docker container with privilege capability change to 'true'
+# To use Volume instead of copying data with the current folder
+# use the format "-v /path/in/source:/path/in/destination" as string
+# DOCKER_ARGS="--privileged -v /data:/mnist_data"
+DOCKER_ARGS=
