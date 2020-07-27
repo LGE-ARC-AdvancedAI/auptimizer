@@ -36,7 +36,7 @@ class GPUResourceManagerTestCase(unittest.TestCase):
             self.val = -1
 
         self.rm.run(self.job, self.rm.get_available("test", "gpu"), {}, callback)
-        sleep(0.5)  # wait till subprocess finished - handled by rm.finish()
+        sleep(1.5)  # wait till subprocess finished - handled by rm.finish()
 
         self.assertEqual(self.val, -1)
 
