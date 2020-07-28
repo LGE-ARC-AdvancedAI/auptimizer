@@ -240,7 +240,7 @@ in the `benchmark <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/
 1. [Optional] Use the bench/download.sh script (wget must be installed on your system) to download mobilenet_v1_0.75_224 and
    mobilenet_v1_1.0_224 (Alternatively, you can download a different set of TensorFlow Lite models from
    (https://www.tensorflow.org/lite/guide/hosted_models) and save them
-   in `benchmark <../Examples/profiler_examples/bench>`__ folder.)
+   in `benchmark <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples/bench>`__ folder.)
 
 2. If needed, change arguments in ``env_benchmark.template``.
 
