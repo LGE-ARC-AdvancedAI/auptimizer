@@ -1,3 +1,4 @@
+# Profiler
 **Profiler is a simulator for profiling performance of Machine Learning (ML) model scripts.** Given compute- and memory resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute- and memory usage for model scripts on the device. These estimations can be used to choose best performing models or, in certain cases, to predict how much compute and memory models will use on the target device.
 Because Profiler mimics the target device environment on the user's development machine, the user can gain insights about the performance and resource needs of a model script without having to deploy it on the target device.
 
@@ -78,7 +79,7 @@ Create `env.template`, and add the following variables as needed:
   3.  `PIPREQUIREMENTS` - **OPTIONAL** Enter all python libraries required to run the application as a space-separated
       string. For example "ipython numpy". These packages will be installed using the command `pip install`, so ensure the libraries are supported. This variable can also be left empty (using “”).
       
-  4.  `PRERUN` - **OPTIONAL** Enter commands to execute before running the applicati0on. `PRERUN` can be used to install any libraries that cannot be installed through `APTREQUIREMENTS` or  `PIPREQUIREMENTS`. For example, if you need a different version of a library than what is available through pip, you can use PRERUN to install it. See `env_benchmark.template` for an example.
+  4.  `PRERUN` - **OPTIONAL** Enter commands to execute before running the application. `PRERUN` can be used to install any libraries that cannot be installed through `APTREQUIREMENTS` or  `PIPREQUIREMENTS`. For example, if you need a different version of a library than what is available through pip, you can use PRERUN to install it. See `env_benchmark.template` for an example.
 
   5.  `DIR` - **REQUIRED** Enter the local path to the users consolidated directory containing the application. This
       directory will be copied over to the Docker container.
@@ -122,7 +123,7 @@ The individual model `OUTPUTFILE`s contain the raw values of different metrics p
 
 Each row contains the following values:
 1. Name - name of the Docker container
-2. CPU % - the instantaneous cpu utilization (https://docs.docker.com/config/containers/resource_constraints/).
+2. CPU % - the instantaneous CPU utilization (https://docs.docker.com/config/containers/resource_constraints/).
 3. MEM USAGE / LIMIT - the instantaneous memory utilization and corresponding limit (https://docs.docker.com/config/containers/resource_constraints/).
 4. NET I/O - refers to network input/output, the total amount of data the container has sent and received (https://docs.docker.com/engine/reference/commandline/stats/).
 5. BLOCK I/O - refers to the amount of data the container has read to and written from block devices (this could be memory external to the container or to actual HDD use) on the host (https://docs.docker.com/engine/reference/commandline/stats/).
