@@ -33,7 +33,7 @@ neural architecture search. The table below shows a full list of currently suppo
 
 **Profiler** is a simulator for profiling performance of Machine Learning (ML) model scripts. Given compute- and memory resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute- and memory usage for model scripts on the device. These estimations can be used to choose best performing models or, in certain cases, to predict how much compute and memory models will use on the target device. 
 
-Because Profiler mimics the target device environment on the user's development machine, the user can gain insights about the performance and resource needs of a model script without having to deploy it on the target device. By using Profiler,  you can significantly accelerate the model development cycle and find the instant model-device fit. For more information please see [Profiler](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler) .
+Because Profiler mimics the target device environment on the user's development machine, the user can gain insights about the performance and resource needs of a model script without having to deploy it on the target device. Profiler helps accelerate the model selection cycle and simplifies finding model-device fit. For more information please see [Profiler](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler) .
 ## Install
 
 **Auptimizer** currently is well tested on Linux systems, it may require some tweaks for Windows users.
