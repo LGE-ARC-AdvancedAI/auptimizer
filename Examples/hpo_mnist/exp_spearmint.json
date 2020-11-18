@@ -1,7 +1,7 @@
 {
   "proposer": "spearmint",
   "script": "mnist_hpo_demo.py",
-  "resource": "gpu",
+  "resource": "cpu",
   "n_parallel": 4,
   "target":"max",
   "n_samples": 100,

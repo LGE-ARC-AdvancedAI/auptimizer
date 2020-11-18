@@ -1,0 +1,37 @@
+[
+    {
+        "convert_from":"test_models/mobilenet_v1_0.25_224/mobilenet_v1_0.25_224.ckpt.meta",
+        "convert_to":"converted_models/mobilenet_v1_0.25_224_ckpt_converted.onnx",
+        "input_nodes":"batch:0",
+        "output_nodes":"MobilenetV1/Predictions/Reshape_1:0",
+        "input_shape":"1,224,224,3",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/ssd_mobilenet_v1_coco_2018_01_28/model.ckpt.meta",
+        "convert_to":"converted_models/ssd_mobilenet_v1_ckpt_converted.onnx",
+        "input_nodes":"image_tensor:0",
+        "output_nodes":"detection_boxes:0,detection_scores:0,num_detections:0,detection_classes:0",
+        "input_shape":"1,224,224,3",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/ssd_mobilenet_v2_coco_2018_03_29/model.ckpt.meta",
+        "convert_to":"converted_models/ssd_mobilenet_v2_ckpt_converted.onnx",
+        "input_nodes":"image_tensor:0",
+        "output_nodes":"num_detections:0,detection_classes:0,detection_scores:0,detection_boxes:0",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/lstm_ckpt/ckpt.meta",
+        "convert_to":"converted_models/lstm_ckpt_converted.onnx",
+        "input_nodes":"embedding_input:0",
+        "output_nodes":"dense/BiasAdd:0",
+        "skip": "False"
+    }
+
+
+]

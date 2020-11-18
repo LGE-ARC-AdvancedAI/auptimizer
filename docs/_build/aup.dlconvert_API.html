@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.dlconvert package &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Set up SQLite database for Auptimizer" href="aup.setupdb.sqlite.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment tracking package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">aup.dlconvert package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#checkpoint-to-onnx">Checkpoint to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checkpoint-to-tf-protobuf">Checkpoint to TF ProtoBuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checkpoint-to-tflite">Checkpoint to TFLite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keras-to-onnx">Keras to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keras-to-protobuf">Keras to ProtoBuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keras-to-tflite">Keras to TFlite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#protobuf-to-onnx">ProtoBuf to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#protobuf-to-tflite">ProtoBuf to TFlite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pytorch-to-keras">PyTorch to Keras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pytorch-to-onnx">PyTorch to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pytorch-to-tflite">PyTorch to TFLite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#savedmodel-to-onnx">SavedModel to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#savedmodel-to-tflite">SavedModel to tflite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-to-tf-frozen-protobuf">Convert to TF frozen ProtoBuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-to-onnx">Convert to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-to-tflite">Convert to TFLite</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> APIs</a> &raquo;</li>
+        
+      <li>aup.dlconvert package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/aup.dlconvert_API.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aup.dlconvert.checkpoint_to_onnx">
+<span id="aup-dlconvert-package"></span><h1>aup.dlconvert package<a class="headerlink" href="#module-aup.dlconvert.checkpoint_to_onnx" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="checkpoint-to-onnx">
+<h2>Checkpoint to ONNX<a class="headerlink" href="#checkpoint-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p>Additional node tensor names are needed to convert TF checkpoint to ONNX.
+See <code class="xref py py-func docutils literal notranslate"><span class="pre">dlconvert.to_onnx.convert()</span></code> for more information.</p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.checkpoint_to_onnx.py --model model_ckpt/ckpt.meta <span class="se">\</span>
+   --output model.onnx <span class="se">\</span>
+   --input_nodes input:0 <span class="se">\</span>
+   --output_nodes output/Softmax:0 <span class="se">\</span>
+   <span class="o">[</span>--input_shape <span class="m">1</span>,224,224,3<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.checkpoint_to_pb"></span><div class="section" id="checkpoint-to-tf-protobuf">
+<h2>Checkpoint to TF ProtoBuf<a class="headerlink" href="#checkpoint-to-tf-protobuf" title="Permalink to this headline">¶</a></h2>
+<p>Require checkpoint folder with <cite>.meta</cite> file.  Otherwise, please save the meta file manually before convertion.</p>
+<div class="section" id="id1">
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.checkpoint_to_pb.py --model  model_ckpt/model.meta <span class="se">\</span>
+    --output model_frozen.pb <span class="se">\</span>
+    --frozen <span class="se">\</span>
+    --output_nodes output/Softmax:0
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.checkpoint_to_pb.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">checkpoint_meta_file</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">frozen</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">output_nodes</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">()</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.core.framework.graph_pb2.GraphDef<a class="reference internal" href="_modules/aup/dlconvert/checkpoint_to_pb.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.checkpoint_to_pb.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert TF Checkpoint to ProtoBuf</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>checkpoint_meta_file (str): checkpoint meta file name
+frozen (bool, optional): to create a frozen graphdef. Defaults to False.
+output_nodes (List[str], optional): A list of output node names for frozen graph. Defaults to ().</p>
+</dd>
+<dt>Returns:</dt><dd><p>tf.GraphDef: Tensorflow Graph to be written to file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.checkpoint_to_tflite"></span><div class="section" id="checkpoint-to-tflite">
+<h2>Checkpoint to TFLite<a class="headerlink" href="#checkpoint-to-tflite" title="Permalink to this headline">¶</a></h2>
+<p>Require checkpoint folder with <cite>.meta</cite> file.  Otherwise, please save the meta file manually before convertion.</p>
+<div class="section" id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.checkpoint_to_tflite.py --model  model_ckpt/ckpt.meta <span class="se">\</span>
+    --output model_tflite.tflite <span class="se">\</span>
+    --input_nodes input:0 <span class="se">\</span>
+    --output_nodes output/Softmax:0 <span class="se">\</span>
+    <span class="o">[</span>--input_shape <span class="m">1</span>,224,224,3<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.keras_to_onnx"></span><div class="section" id="keras-to-onnx">
+<h2>Keras to ONNX<a class="headerlink" href="#keras-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p>Depends on <a class="reference external" href="https://github.com/onnx/tensorflow-onnx">tf2onnx</a> and
+<a class="reference external" href="https://github.com/onnx/keras-onnx">keras2onnx</a> (TF1.x support only).
+Needs to import <cite>tf2onnx</cite> first to resolve dependency
+otherwise import <cite>keras2onnx</cite> may result in error</p>
+<div class="section" id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.keras_to_onnx.py -i model.h5 -o model.onnx
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.keras_to_onnx.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/keras_to_onnx.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.keras_to_onnx.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Keras model to ONNX</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): Keras h5 model file path
+output (str): output ONNX file path</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.keras_to_pb"></span><div class="section" id="keras-to-protobuf">
+<h2>Keras to ProtoBuf<a class="headerlink" href="#keras-to-protobuf" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.keras_to_pb.py --model model.h5 <span class="se">\</span>
+    --output model.pb <span class="se">\</span>
+    --frozen <span class="se">\</span>
+    --output_nodes output/Softmax:0
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.keras_to_pb.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">frozen</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">output_nodes</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">()</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.core.framework.graph_pb2.GraphDef<a class="reference internal" href="_modules/aup/dlconvert/keras_to_pb.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.keras_to_pb.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Keras model to tensorflow graphdef</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): Keras model file name
+frozen (bool, optional): To frozen graphdef. Defaults to False.
+output_nodes (List[str], optional): output nodes, otherwise, use model outputs from Keras model. Defaults to ().</p>
+</dd>
+<dt>Returns:</dt><dd><p>tf.GraphDef: Tensorflow GraphDef</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.keras_to_tflite"></span><div class="section" id="keras-to-tflite">
+<h2>Keras to TFlite<a class="headerlink" href="#keras-to-tflite" title="Permalink to this headline">¶</a></h2>
+<p>See <code class="xref py py-func docutils literal notranslate"><span class="pre">dlconvert.to_tflite.setup_converter()</span></code> for more control arguments for <cite>tflite</cite>.</p>
+<div class="section" id="id5">
+<h3>Example<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.keras_to_tflite.py --model model.h5 <span class="se">\</span>
+    --output model_keras.tflite <span class="se">\</span>
+    <span class="o">[</span>--load rep_data<span class="o">]</span> <span class="se">\</span>
+    <span class="o">[</span>--opt default --ops int8 --type int8<span class="o">]</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.keras_to_tflite.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/keras_to_tflite.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.keras_to_tflite.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Keras model to tflite model</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): input model file name
+output (str): output model file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.dlconvert.keras_to_tflite.model_loader">
+<code class="sig-name descname">model_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.lite.python.lite.TFLiteConverterV2<a class="reference internal" href="_modules/aup/dlconvert/keras_to_tflite.html#model_loader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.keras_to_tflite.model_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>TF 1/2 tflite converter loading function</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): Keras model file</p>
+</dd>
+<dt>Returns:</dt><dd><p>lite.TFLiteConverter: TFLite converter to be used</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.pb_to_onnx"></span><div class="section" id="protobuf-to-onnx">
+<h2>ProtoBuf to ONNX<a class="headerlink" href="#protobuf-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p>Input and output node names are needed.</p>
+<div class="section" id="id6">
+<h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.pb_to_onnx.py --model model.pb --output model.onnx <span class="se">\</span>
+    --input_nodes input:0 --output_nodes output/Softmax:0 <span class="se">\</span>
+    <span class="o">[</span>--input_shape <span class="m">1</span>,224,224,3<span class="o">]</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.pb_to_onnx.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">input_nodes</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output_nodes</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">input_shape</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/pb_to_onnx.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pb_to_onnx.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert TF ProtoBuf to ONNX model</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): TF ProtoBuf file name
+output (str): output ONNX model name
+input_nodes (str): model input names
+output_nodes (str): model output names
+[input_shape (str): model input shape, needed if input dimension is not specified in model graph]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.pb_to_tflite"></span><div class="section" id="protobuf-to-tflite">
+<h2>ProtoBuf to TFlite<a class="headerlink" href="#protobuf-to-tflite" title="Permalink to this headline">¶</a></h2>
+<p>See <code class="xref py py-func docutils literal notranslate"><span class="pre">dlconvert.to_tflite.setup_converter()</span></code> for more control arguments for <cite>tflite</cite>.</p>
+<div class="section" id="id7">
+<h3>Example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.pb_to_tflite <span class="se">\</span>
+    --model model.pb --output model.tflite <span class="se">\</span>
+    <span class="o">[</span>--load rep_data<span class="o">]</span> <span class="se">\</span>
+    <span class="o">[</span>--opt default --ops int8 --type int8<span class="o">]</span>
+    <span class="o">[</span>--input_shape <span class="m">1</span>,224,224,3<span class="o">]</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.pb_to_tflite.find_node_shape">
+<code class="sig-name descname">find_node_shape</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">graph_def</span><span class="p">:</span> <span class="n">tensorflow.core.framework.graph_pb2.GraphDef</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="reference internal" href="_modules/aup/dlconvert/pb_to_tflite.html#find_node_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pb_to_tflite.find_node_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find node shape for the given tensor name</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tensor_name (str): name of the tensor
+graph_def (tf.compat.v1.GraphDef): TF GraphDef</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: When node name is not in the graph</p>
+</dd>
+<dt>Returns:</dt><dd><p>List[int]: tensor shape, excluding first (batch) dimension</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.dlconvert.pb_to_tflite.model_loader">
+<code class="sig-name descname">model_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.lite.python.lite.TFLiteConverterV2<a class="reference internal" href="_modules/aup/dlconvert/pb_to_tflite.html#model_loader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pb_to_tflite.model_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load TF ProtoBuf (for TF v1 and v2)</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): ProtoBuf file name</p>
+</dd>
+<dt>Returns:</dt><dd><p>lite.TFLiteConverter: TFLite converter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.dlconvert.pb_to_tflite.verify_input_names">
+<code class="sig-name descname">verify_input_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_names</span></em>, <em class="sig-param"><span class="n">graph_def</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/pb_to_tflite.html#verify_input_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pb_to_tflite.verify_input_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if input_names are correct</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.dlconvert.pb_to_tflite.verify_output_names">
+<code class="sig-name descname">verify_output_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_names</span></em>, <em class="sig-param"><span class="n">graph_def</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/pb_to_tflite.html#verify_output_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pb_to_tflite.verify_output_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if output_names are correct</p>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.pytorch_to_keras"></span><div class="section" id="pytorch-to-keras">
+<h2>PyTorch to Keras<a class="headerlink" href="#pytorch-to-keras" title="Permalink to this headline">¶</a></h2>
+<p>Use <a class="reference external" href="https://github.com/nerox8664/pytorch2keras">https://github.com/nerox8664/pytorch2keras</a> for conversion.</p>
+<div class="section" id="id8">
+<h3>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.pytorch_to_keras -i model.pt -o model.h5 <span class="se">\</span>
+    --input_shape <span class="m">1</span>,3,224,224 --net net.py --net_name Net
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.pytorch_to_keras.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">input_shape</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">net_path</span></em>, <em class="sig-param"><span class="n">net_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/pytorch_to_keras.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pytorch_to_keras.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert PyTorch model to Keras model</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): PyTorch model file path
+output (str): output file name for Keras model
+input_shape (List[int]): Tensor shape for input
+net_path ([type]): Python script defines the model
+net_name ([type]): PyTorch model class in the <cite>net_path</cite> file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.pytorch_to_onnx"></span><div class="section" id="pytorch-to-onnx">
+<h2>PyTorch to ONNX<a class="headerlink" href="#pytorch-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p>Use <a class="reference external" href="https://github.com/nerox8664/pytorch2keras">https://github.com/nerox8664/pytorch2keras</a> for conversion.</p>
+<div class="section" id="id9">
+<h3>Example<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.pytorch_to_onnx -i model.pt -o model.onnx <span class="se">\</span>
+    --input_shape <span class="m">1</span>,3,224,224 --net net.py --net_name Net
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.pytorch_to_onnx.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">input_shape</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">net_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">net_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/pytorch_to_onnx.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pytorch_to_onnx.convert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.pytorch_to_tflite"></span><div class="section" id="pytorch-to-tflite">
+<h2>PyTorch to TFLite<a class="headerlink" href="#pytorch-to-tflite" title="Permalink to this headline">¶</a></h2>
+<p>Use <a class="reference external" href="https://github.com/nerox8664/pytorch2keras">https://github.com/nerox8664/pytorch2keras</a> for conversion.</p>
+<div class="section" id="id10">
+<h3>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m dlconvert.pytorch_to_keras -i model.pt -o model.h5 <span class="se">\</span>
+    --input_shape <span class="m">1</span>,3,224,224 --net net.py --net_name Net
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.pytorch_to_tflite.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">input_shape</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">net_path</span></em>, <em class="sig-param"><span class="n">net_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/pytorch_to_tflite.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pytorch_to_tflite.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert PyTorch model to tfLite model</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): PyTorch model file path  
+output (str): output file name for Keras  
+input_shape (List[int]): Tensor shape for input  
+net_path ([type]): Python script defines the model  
+net_name ([type]): PyTorch model class in the <cite>net_path</cite> file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.dlconvert.pytorch_to_tflite.model_loader">
+<code class="sig-name descname">model_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.lite.python.lite.TFLiteConverterV2<a class="reference internal" href="_modules/aup/dlconvert/pytorch_to_tflite.html#model_loader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.pytorch_to_tflite.model_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>TF 1.x and 2.x tflite converter loading function</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filename (str): Keras model file</p>
+</dd>
+<dt>Returns:</dt><dd><p>lite.TFLiteConverter: TFLite converter to be used</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.savedmodel_to_onnx"></span><div class="section" id="savedmodel-to-onnx">
+<h2>SavedModel to ONNX<a class="headerlink" href="#savedmodel-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p><strong>Not working</strong></p>
+<div class="section" id="id11">
+<h3>Example<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.savedmodel_to_onnx.py --model savedModel/ --output model.onnx
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.savedmodel_to_onnx.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">signature</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">concrete_function</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/savedmodel_to_onnx.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.savedmodel_to_onnx.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert TF SavedModel to ONNX (currently only support TF2 and TF2 SavedModels)</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): TF SavedModel folder path
+output (str): ONNX output filename
+tag (str, optional): tag to use for SavedModel, default is “serve”
+signature (str, optional): signature to use for SavedModel, default is “serving_default”
+concrete_function (str, optional): index of func signature in __call__ to use instead of signature], default is None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.savedmodel_to_tflite"></span><div class="section" id="savedmodel-to-tflite">
+<h2>SavedModel to tflite<a class="headerlink" href="#savedmodel-to-tflite" title="Permalink to this headline">¶</a></h2>
+<p><em>Based on the version of ops, it may fail.</em></p>
+<div class="section" id="id12">
+<h3>Example<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m aup.dlconvert.savedmodel_to_tflite.py --model model/ <span class="se">\</span>
+    --output model_keras.tflite <span class="se">\</span>
+    <span class="o">[</span>--load rep_data<span class="o">]</span> <span class="se">\</span>
+    <span class="o">[</span>--opt default --ops int8 --type int8<span class="o">]</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="aup.dlconvert.savedmodel_to_tflite.model_loader">
+<code class="sig-name descname">model_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">foldername</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.lite.python.lite.TFLiteConverterV2<a class="reference internal" href="_modules/aup/dlconvert/savedmodel_to_tflite.html#model_loader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.savedmodel_to_tflite.model_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to load model file into <cite>TFLiteConverter</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>foldername (str): file name</p>
+</dd>
+<dt>Returns:</dt><dd><p>lite.TFLiteConverter: TFLiteConverter to create tflite model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.dlconvert.to_frozen_pb"></span><div class="section" id="convert-to-tf-frozen-protobuf">
+<h2>Convert to TF frozen ProtoBuf<a class="headerlink" href="#convert-to-tf-frozen-protobuf" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="aup.dlconvert.to_frozen_pb.to_frozen">
+<code class="sig-name descname">to_frozen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="p">:</span> <span class="n">tensorflow.python.client.session.Session</span></em>, <em class="sig-param"><span class="n">output_nodes</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">clear_devices</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.core.framework.graph_pb2.GraphDef<a class="reference internal" href="_modules/aup/dlconvert/to_frozen_pb.html#to_frozen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.to_frozen_pb.to_frozen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to TF frozen ProtoBuf based on current TF session.  
+See <a class="reference external" href="https://stackoverflow.com/questions/45466020/how-to-export-keras-h5-to-tensorflow-pb">reference</a>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>sess (tf.Session): TF session contains the compute graph
+output_nodes (List[str]): list of output node names
+clear_devices (bool, optional): to clear device placement. Defaults to True.</p>
+</dd>
+<dt>Returns:</dt><dd><p>tf.GraphDef: frozen GraphDef to write to ProtoBuf</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-aup.dlconvert.to_onnx"></span><div class="section" id="convert-to-onnx">
+<h2>Convert to ONNX<a class="headerlink" href="#convert-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p>Based on tf2onnx version&gt;=1.6.0
+See <a class="reference external" href="https://github.com/onnx/tensorflow-onnx">more arguments</a>.</p>
+<dl class="py function">
+<dt id="aup.dlconvert.to_onnx.convert_onnx">
+<code class="sig-name descname">convert_onnx</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/dlconvert/to_onnx.html#convert_onnx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.to_onnx.convert_onnx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<span class="target" id="module-aup.dlconvert.to_tflite"></span><div class="section" id="convert-to-tflite">
+<h2>Convert to TFLite<a class="headerlink" href="#convert-to-tflite" title="Permalink to this headline">¶</a></h2>
+<p>There are four major control parameters for tflite runtime, see <a class="reference internal" href="#aup.dlconvert.to_tflite.setup_tfconverter" title="aup.dlconvert.to_tflite.setup_tfconverter"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_tfconverter()</span></code></a>.</p>
+<p>The data feeding function (<cite>data_fun</cite>) is loaded by <cite>–load</cite>, where the argument is the Python filename defining
+<cite>get_data()</cite> to <a class="reference external" href="https://www.tensorflow.org/lite/performance/post_training_integer_quant#convert_using_quantization">generate data</a> for <cite>int8</cite> quantization. 
+Combine with <cite>–undefok</cite> flag to pass more control arguments.</p>
+<dl class="py function">
+<dt id="aup.dlconvert.to_tflite.create_converter">
+<code class="sig-name descname">create_converter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">model_loader</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span>str<span class="p">, </span>tensorflow.lite.python.lite.TFLiteConverterV2<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; tensorflow.lite.python.lite.TFLiteConverterV2<a class="reference internal" href="_modules/aup/dlconvert/to_tflite.html#create_converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.to_tflite.create_converter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup the TFLite converter</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>model (str): model filename
+model_loader (Callable[[str], lite.TFLiteConverter]): function to load model file and return a <cite>TFLiteConverter</cite></p>
+</dd>
+<dt>Returns:</dt><dd><p>lite.TFLiteConverter: <cite>TFLiteConverter</cite> with additional arguments set up.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.dlconvert.to_tflite.setup_tfconverter">
+<code class="sig-name descname">setup_tfconverter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">converter</span><span class="p">:</span> <span class="n">tensorflow.lite.python.lite.TFLiteConverterV2</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">opt</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">ops</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">data_fun</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; tensorflow.lite.python.lite.TFLiteConverterV2<a class="reference internal" href="_modules/aup/dlconvert/to_tflite.html#setup_tfconverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.dlconvert.to_tflite.setup_tfconverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup control arguments for <a class="reference external" href="https://www.tensorflow.org/lite/convert">TFLiteConverter</a></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>converter (lite.TFLiteConverter): loaded <cite>TFLiteConverter</cite>.
+dtype (str): data types: <cite>float</cite>, <cite>float16</cite>, <cite>int8</cite>, <cite>uint8</cite>.
+opt (str): optimization: <cite>none</cite> for <cite>float</cite>, <cite>default</cite> for ther data types.
+ops (str): operation sets: <cite>tflite</cite>, <cite>tf</cite>, <cite>int8</cite>.
+data_fun (Callable, optional): [description]. Defaults to None.</p>
+</dd>
+<dt>Returns:</dt><dd><p>lite.TFLiteConverter: <cite>TFLiteConverter</cite> with additional arguments set up.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="aup.setupdb.sqlite.html" class="btn btn-neutral float-left" title="Set up SQLite database for Auptimizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

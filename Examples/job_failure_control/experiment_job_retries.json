@@ -1,0 +1,22 @@
+{
+  "proposer": "sequence",
+  "n_samples": 10,
+  "random_seed": 1,
+  "script": "test.py",
+  "job_failure": {
+    "job_retries": 3
+  },
+  "parameter_config": [
+    {
+      "name": "time",
+      "range": [
+          1,
+          10
+      ],
+      "type": "int"
+    }
+  ],
+  "resource": "cpu",
+  "n_parallel": 2,
+  "target":"max"
+}

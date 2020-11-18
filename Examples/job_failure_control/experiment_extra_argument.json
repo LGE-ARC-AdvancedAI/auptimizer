@@ -3,7 +3,6 @@
   "resource": "cpu",
   "n_parallel": 2,
   "target": "min",
-  "workingdir": "/Users/jason.liu/PycharmProjects/CTE/Examples/job_failure_control",
   "proposer": "random",
   "n_samples": 20,
   "random_seed": 0,

@@ -1,0 +1,473 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.ET.Connector.AbstractConnector &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html">
+          
+
+          
+            
+            <img src="../../../../_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>aup.ET.Connector.AbstractConnector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aup.ET.Connector.AbstractConnector</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
+<span class="sd">  SPDX-License-Identifier: GPL-3.0-or-later</span>
+
+<span class="sd">aup.ET.Connector.AbstractConnector</span>
+<span class="sd">==================================</span>
+
+<span class="sd">Define the basic interface between experiment tracking and executor engine.</span>
+
+<span class="sd">Currently, SQLite is the only one implemented.</span>
+
+<span class="sd">APIs</span>
+<span class="sd">----</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">ABC</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">(</span><span class="s1">&#39;ABC&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;__slots__&#39;</span><span class="p">:</span> <span class="p">()})</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="AbstractConnector"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector">[docs]</a><span class="k">class</span> <span class="nc">AbstractConnector</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="c1"># ################ Resource Related Part #################</span>
+<div class="viewcode-block" id="AbstractConnector.free_used_resource"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.free_used_resource">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">free_used_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark resource as free (opposite to :func:take_available_resource)</span>
+
+<span class="sd">        :param rid: Resource ID(s)</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_resource_type"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_resource_type">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_resource_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the resource type for a given user</span>
+<span class="sd">        :return: list of resource types</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_available_resource"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_available_resource">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_available_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">rtype</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get available resource for a user and resource type.</span>
+<span class="sd">        Currently there is no limitation/requirement for user</span>
+
+<span class="sd">        :param username: username</span>
+<span class="sd">        :type username: str</span>
+<span class="sd">        :param rtype: Resource type</span>
+<span class="sd">        :type rtype: str</span>
+<span class="sd">        :return: Resource Id</span>
+<span class="sd">        :rtype: list(int)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.take_available_resource"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.take_available_resource">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">take_available_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark resource as used</span>
+
+<span class="sd">        TODO - currently where is prevention for async update, might not be relevant in the near future</span>
+
+<span class="sd">        :param rid: Resource ID(s)</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :return: True/False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1"># ################ Experiment Related Part ################</span>
+<div class="viewcode-block" id="AbstractConnector.end_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.end_experiment">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">end_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark experiment as finished</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_best_result"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_best_result">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_best_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the best job id and score from the database for experiment eid</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :param maximize: whether to choose max or min</span>
+<span class="sd">        :type maximize: bool</span>
+<span class="sd">        :return: Job ID, score</span>
+<span class="sd">        :rtype: list(int, float)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.start_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">exp_config_blob</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an Experiment and track it</span>
+
+<span class="sd">        :param username: username</span>
+<span class="sd">        :type username: str</span>
+<span class="sd">        :param exp_config_blob: configuration of experiment</span>
+<span class="sd">        :type exp_config_blob: str</span>
+<span class="sd">        :return: experiment ID</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1"># ################ Job Related Part #######################</span>
+<div class="viewcode-block" id="AbstractConnector.end_job"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.end_job">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">end_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark a job ended</span>
+
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :param score: score of the Job</span>
+<span class="sd">        :type score: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_all_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_all_experiment">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_all_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all Experiment IDs</span>
+
+<span class="sd">        :param username: to get experiments for a specific user</span>
+<span class="sd">        :type username: str</span>
+<span class="sd">        :return: Experiment IDs</span>
+<span class="sd">        :rtype: list(int)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_all_history"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_all_history">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_all_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get full history of an Experiment</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_running_job"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_running_job">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_running_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get running Job IDs</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :return: list of Job IDs</span>
+<span class="sd">        :rtype: list(int)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.start_job"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.start_job">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">start_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">job_config</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start a job with job configuration and track it</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :param rid: Resource ID</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param job_config: Configuration for :class:`aup.EE.Job.Job`</span>
+<span class="sd">        :type job_config: BasicConfig</span>
+<span class="sd">        :return: Job ID (jid)</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.start_job_attempt"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.start_job_attempt">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">start_job_attempt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts a job attempt for a given job, using the given resource</span>
+
+<span class="sd">        :param rid: Resource ID</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :return: Job Attempt ID (jaid)</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.end_job_attempt"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.end_job_attempt">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">end_job_attempt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ends a job attempt, but not a job (leaving room for retries)</span>
+
+<span class="sd">        :param id: Job ID</span>
+<span class="sd">        :type id: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1"># ################ Job interface for Experiment ##############</span>
+<div class="viewcode-block" id="AbstractConnector.job_finished"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_finished">[docs]</a>    <span class="k">def</span> <span class="nf">job_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clean up Job when it is finished</span>
+
+<span class="sd">        :param rid: Resource ID to be free</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :param score: score returned by Job (error case will be ERROR)</span>
+<span class="sd">        :type score: float / str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is finished on </span><span class="si">%d</span><span class="s2">, score is </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">free_used_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_job_attempt</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.job_started"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_started">[docs]</a>    <span class="k">def</span> <span class="nf">job_started</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">job_config</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface to automatically take resource and run job.</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :param rid: Resource ID</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param job_config: Configuration for Job</span>
+<span class="sd">        :type job_config: BasicConfig</span>
+<span class="sd">        :return: Job ID</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">take_available_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_job</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">job_config</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.job_failed"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_failed">[docs]</a>    <span class="k">def</span> <span class="nf">job_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface to take care of job failure in case of possible retries</span>
+<span class="sd">        </span>
+<span class="sd">        :param rid: Resource ID</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">free_used_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_job_attempt</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="AbstractConnector.job_retry"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_retry">[docs]</a>    <span class="k">def</span> <span class="nf">job_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface to mark the beginning of a job retry</span>
+<span class="sd">        </span>
+<span class="sd">        :param rid: Resource ID</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">take_available_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_job_attempt</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -29,5 +29,9 @@
   ],
   "resource": "node",
   "n_parallel": 2,
-  "target":"min"
+  "target":"min",
+  "resource_args": {
+    "max_retries": 2,
+    "reconn_wait_time": 3
+  }
 }

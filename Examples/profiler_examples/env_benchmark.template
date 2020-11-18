@@ -1,7 +1,7 @@
 #  Copyright (c) 2020 LG Electronics Inc.
 #  SPDX-License-Identifier: GPL-3.0-or-later
 #User data Variables
-IMAGEREPO=tensorflow/tensorflow:1.14.0-py3
+IMAGEREPO=tensorflow/tensorflow:1.15.0-py3
 APTREQUIREMENTS="wget"
 # PIPREQUIREMENTS="ipython numpy"
 PRERUN="wget https://dl.google.com/coral/python/tflite_runtime-1.14.0-cp36-cp36m-linux_x86_64.whl; pip install tflite_runtime-1.14.0-cp36-cp36m-linux_x86_64.whl"

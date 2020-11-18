@@ -34,6 +34,14 @@ class ExperimentTestCase(unittest.TestCase):
         exp.finish()
         self.assertDictEqual(exp.pending_jobs, {})
 
+    def test_job_retries(self):
+        exp = Experiment(BasicConfig().load(os.path.join("tests", "data", "exp6.json")),
+                         username="test", auppath=os.path.join("tests", "data", ".aup"))
+        exp.start()
+        jid, val = exp.finish()
+        self.assertDictEqual(exp.pending_jobs, {})
+        self.assertEqual(jid, 10)
+
 
 if __name__ == '__main__':
     unittest.main()

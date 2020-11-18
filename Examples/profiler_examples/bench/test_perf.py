@@ -2,14 +2,18 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 
 # Compute the overall inference time for a given tflite model
+import tensorflow as tf
 from tflite_runtime.interpreter import Interpreter
 import tensorflow.random
 import numpy as np
 import time
+import os
+
 
 WARMUP = 1
 ITER = 500
 CONSTANT = 0.5
+
 
 def compute(model_path):
     now = time.monotonic()
@@ -41,5 +45,5 @@ if __name__ == "__main__":
 
     if len(sys.argv) != 2:
         print("test_acc.py <model_path>")
-    
+        
     print(compute(sys.argv[1]))

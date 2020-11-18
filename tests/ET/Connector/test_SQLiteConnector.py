@@ -98,3 +98,42 @@ class SQLiteConnectorTestCase(unittest.TestCase):
         self.assertEqual({1, 2}, set(rids))
         r_jid = connector.get_all_history(1)[0][0]
         self.assertEqual(r_jid, jid)
+
+    def test_job_attempt(self):
+        """ Tests SQLiteConnector.start_job_attempt and SQLiteConnector.end_job_attempt"""
+        rid = 1
+        connector = SQLiteConnector(self.db_file)
+        eid = connector.start_experiment(self.name, 'exp1')
+        jid = connector.job_started(eid, rid, "job1")
+        connector.end_job_attempt(jid)
+
+        connector.cursor.execute("SELECT jaid, jid, num, rid, start_time, end_time FROM job_attempt;")
+        res = connector.cursor.fetchall()
+        self.assertEqual(len(res), 1)
+        self.assertEqual(res[0][1], 1)
+        self.assertEqual(res[0][2], 0)
+        self.assertEqual(res[0][3], rid)
+        self.assertNotEqual(res[0][-1], None)
+
+        connector.cursor.execute("SELECT jid, end_time FROM job;")
+        res = connector.cursor.fetchall()
+        self.assertEqual(len(res), 1)
+        self.assertEqual(res[0][-1], None)
+
+        connector.job_finished(eid, jid, -100.)
+        connector.close()
+
+    def test_get_available_resource(self):
+        """Tests SQLiteConnector.get_available_resource"""
+        rid = 1
+        connector = SQLiteConnector(self.db_file)
+        rids = connector.get_available_resource("test", "cpu")
+        self.assertGreaterEqual(len(rids), 1)
+        rids1 = connector.get_available_resource("test", "cpu", rids[:-1])
+        self.assertEqual(len(rids1), 1)
+        rids2 = connector.get_available_resource("test", "cpu", rids)
+        self.assertEqual(len(rids), 1)
+
+
+if __name__ == '__main__':
+    unittest.main()

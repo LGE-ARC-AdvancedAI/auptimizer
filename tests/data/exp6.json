@@ -1,0 +1,24 @@
+{
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        0,
+        10
+      ],
+      "type": "float"
+    }
+  ],
+  "script": "data/test_script.py",
+  "resource": "cpu",
+  "proposer": "random",
+  "n_samples": 20,
+  "target": "max",
+  "workingdir": "tests",
+  "name": "test",
+  "random_seed": 0,
+  "job_failure": {
+    "ignore_fail": true,
+    "job_retries": 3
+  }
+}

@@ -1,8 +1,8 @@
 {
   "proposer": "sequence",
   "script": "mnist_hpo_demo.py",
-  "resource": "aws",
-  "n_parallel": 8,
+  "resource": "cpu",
+  "n_parallel": 4,
   "target":"max",
   "parameter_config": [
     {

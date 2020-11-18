@@ -1,0 +1,18 @@
+{   
+    "protobuf_checkpoint":{
+      "densenet": "https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/densenet_2018_04_27.tgz",
+      "squeezenet": "https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/squeezenet_2018_04_27.tgz",
+      "nasnet_mobile": "https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/nasnet_mobile_2018_04_27.tgz",
+      "inception_v3": "https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz",
+      "mobilenet_v1_0.25_224": "https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_0.25_224.tgz",
+      "ssd_mobilenet_v1": "http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz",
+      "ssd_mobilenet_v2": "http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz"
+    },
+
+    "savedmodel":{
+      "resnet_50_TF2": "https://storage.googleapis.com/tfhub-modules/tensorflow/resnet_50/classification/1.tar.gz",
+      "efficientnet_b1_TF2": "https://storage.googleapis.com/tfhub-modules/tensorflow/efficientnet/b1/feature-vector/1.tar.gz"
+    }
+
+
+}

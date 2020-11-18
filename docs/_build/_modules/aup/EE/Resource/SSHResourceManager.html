@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.EE.Resource.SSHResourceManager &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html">
+          
+
+          
+            
+            <img src="../../../../_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>aup.EE.Resource.SSHResourceManager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aup.EE.Resource.SSHResourceManager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
+<span class="sd">  SPDX-License-Identifier: GPL-3.0-or-later</span>
+
+<span class="sd">aup.EE.Resource.SSHResourceManager</span>
+<span class="sd">==================================</span>
+
+<span class="sd">APIs</span>
+<span class="sd">----</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">paramiko</span> <span class="k">as</span> <span class="nn">pm</span>
+
+<span class="kn">from</span> <span class="nn">.CPUResourceManager</span> <span class="kn">import</span> <span class="n">CPUResourceManager</span>
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">check_missing_key</span><span class="p">,</span> <span class="n">load_default_env</span><span class="p">,</span> <span class="n">parse_result</span><span class="p">,</span> <span class="n">DEFAULT_AUPTIMIZER_PATH</span><span class="p">,</span> <span class="n">block_until_ready</span>
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">open_sftp_with_timeout</span>
+<span class="kn">from</span> <span class="nn">..Job</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1"># logging.getLogger(&quot;paramiko&quot;).setLevel(logger.getEffectiveLevel())</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;paramiko&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="parse_hostname"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.SSHResourceManager.parse_hostname">[docs]</a><span class="k">def</span> <span class="nf">parse_hostname</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the host name, in the following formats:</span>
+
+<span class="sd">    + `username@ip` or</span>
+<span class="sd">    + `username@ip:port` or</span>
+<span class="sd">    + `username@ip ssh_key` or</span>
+<span class="sd">    + `username@ip:port ssh_key`</span>
+
+<span class="sd">    :param host: host name string</span>
+<span class="sd">    :type host: str</span>
+<span class="sd">    :return: username, hostname, port=22, key (parsed from ~/.ssh/id_rsa)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">host</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Username@IP is minimal requirement&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;host name </span><span class="si">%s</span><span class="s2"> is not correct&quot;</span> <span class="o">%</span> <span class="n">host</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">username</span><span class="p">,</span> <span class="n">hostname</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">hostname</span><span class="p">:</span>
+            <span class="n">hostname</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">hostname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">RSAKey</span><span class="o">.</span><span class="n">from_private_key_file</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># use default</span>
+        <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">hostname</span><span class="p">:</span>
+            <span class="n">hostname</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">hostname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hostname</span> <span class="o">=</span> <span class="n">hostname</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="mi">22</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Catch other error when parsing the remote resource configuration.  Check documentation please.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">username</span><span class="p">,</span> <span class="n">hostname</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">key</span></div>
+
+
+<span class="k">class</span> <span class="nc">Remote</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        parse host name string into full host spec:</span>
+<span class="sd">        `username@ip` or `username@ip:port` or `username@ip ssh_key` or `username@ip:port ssh_key`</span>
+<span class="sd">        :param host: host name string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">parse_hostname</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+
+        <span class="n">client</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">load_system_host_keys</span><span class="p">()</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span>
+
+    <span class="k">def</span> <span class="nf">exec_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">command_async</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">pkey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                            <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">auth_timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">banner_timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="SSHResourceManager"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.SSHResourceManager.SSHResourceManager">[docs]</a><span class="k">class</span> <span class="nc">SSHResourceManager</span><span class="p">(</span><span class="n">CPUResourceManager</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector</span><span class="p">,</span> <span class="n">n_parallel</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;node_mapping&quot;</span><span class="p">,</span> <span class="n">auppath</span><span class="o">=</span><span class="n">DEFAULT_AUPTIMIZER_PATH</span><span class="p">,</span> 
+                 <span class="n">async_run</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">async_reconnect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">async_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                 <span class="n">reconn_wait_time</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param connector: SQL connector</span>
+<span class="sd">        :param n_parallel: number of parallel jobs</span>
+<span class="sd">        :param key: where to find the node assignment in aup env.ini</span>
+<span class="sd">        :param auppath: aup environment path</span>
+<span class="sd">        :param async_run: whether the ssh job should be run asynchronously</span>
+<span class="sd">        :param async_reconnect: number of seconds to reconnect and check job status of async job</span>
+<span class="sd">        :param async_timeout: maximum number of seconds to try reconnection to the async job, otherwise failure</span>
+<span class="sd">        :param reconn_wait_time: for non-async jobs, maximum number of seconds to try reconnection to the job, otherwise failure</span>
+<span class="sd">        :param max_retries: for both async and non-async jobs, maximum number of retries for each job.</span>
+<span class="sd">        :param kwargs: experiment.json -&gt; resource_args will be loaded here.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SSHResourceManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connector</span><span class="p">,</span> <span class="n">n_parallel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_node_mapping</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verified</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remote_class</span> <span class="o">=</span> <span class="n">Remote</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_async_run</span> <span class="o">=</span> <span class="n">async_run</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_async_reconnect</span> <span class="o">=</span> <span class="n">async_reconnect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_async_timeout</span> <span class="o">=</span> <span class="n">async_timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_time</span> <span class="o">=</span> <span class="n">reconn_wait_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_tries</span> <span class="o">=</span> <span class="n">max_retries</span>
+
+<div class="viewcode-block" id="SSHResourceManager.load_node_mapping"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.SSHResourceManager.SSHResourceManager.load_node_mapping">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">load_node_mapping</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;node_mapping&quot;</span><span class="p">,</span> <span class="n">auppath</span><span class="o">=</span><span class="n">DEFAULT_AUPTIMIZER_PATH</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads ssh configurations from file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">load_default_env</span><span class="p">(</span><span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">)</span>
+        <span class="n">check_missing_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s2">&quot;Missing </span><span class="si">%s</span><span class="s2"> parameter in aup config&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Load resources </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="SSHResourceManager.run"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.SSHResourceManager.SSHResourceManager.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">,</span> <span class="n">call_back_func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># experiment.json -&gt; runtime_args will be loaded here</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> started on node </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">)</span>
+        <span class="n">overwrite</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Environment variables - </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+        <span class="n">prescript</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prescript&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">prescript</span> <span class="ow">and</span> <span class="n">prescript</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;;&quot;</span><span class="p">:</span>
+            <span class="n">prescript</span> <span class="o">+=</span> <span class="s2">&quot;;&quot;</span>
+        <span class="n">postscript</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;postscript&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">postscript</span> <span class="ow">and</span> <span class="n">postscript</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;;&quot;</span><span class="p">:</span>
+            <span class="n">postscript</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span> <span class="o">+</span> <span class="n">postscript</span>
+
+        <span class="k">def</span> <span class="nf">job_run</span><span class="p">():</span>
+            <span class="n">curr_number_of_tries</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">time_job_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;path:</span><span class="si">%s</span><span class="s2">; script:</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">script</span><span class="p">)</span>
+            <span class="n">local_script</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">local_job_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">local_script</span><span class="p">))</span>
+            <span class="n">local_config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">local_job_path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.json&quot;</span> <span class="o">%</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">)</span>
+            <span class="n">local_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">local_job_path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.</span><span class="si">%d</span><span class="s2">.out&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">curr_retries</span><span class="p">))</span>
+            <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.json&quot;</span> <span class="o">%</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">)</span>
+            <span class="n">log_dump_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.</span><span class="si">%d</span><span class="s2">.out&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">curr_retries</span><span class="p">))</span>
+            <span class="n">done_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.done&quot;</span> <span class="o">%</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;workingdir:</span><span class="si">%s</span><span class="se">\n</span><span class="s2">job:</span><span class="si">%s</span><span class="se">\n</span><span class="s2">,config:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">script</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+            
+            <span class="c1"># Auptimizer tries to run each job over ssh connection, &#39;max_retries&#39; number of times.</span>
+            <span class="c1"># This is to handle and failure with connection issues or issues due to running over remote machine.</span>
+            <span class="k">while</span> <span class="n">curr_number_of_tries</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_tries</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">rid</span><span class="p">])</span> <span class="k">as</span> <span class="n">remote</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">rid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">verified</span><span class="p">:</span>
+                            <span class="n">job</span><span class="o">.</span><span class="n">verify_remote</span><span class="p">(</span><span class="n">remote</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">verified</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+                        <span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">local_config</span><span class="p">)</span>
+                        <span class="n">sftp</span> <span class="o">=</span> <span class="n">open_sftp_with_timeout</span><span class="p">(</span><span class="n">remote</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+                        <span class="c1"># The job is run by copying over the script and required context, along with setting up the correct environments and preprocessing and post processing scripts.</span>
+                        
+                        <span class="n">stdout</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">was_executed</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                            <span class="n">sftp</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">local_config</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running the following commands- &quot;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_async_run</span><span class="p">:</span>
+                                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">cd </span><span class="si">%s</span><span class="s2">; rm -f </span><span class="si">%s</span><span class="s2">; ((./</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> &gt;</span><span class="si">%s</span><span class="s2"> 2&gt;&amp;1 &amp;&amp; echo &#39;1&#39; &gt; </span><span class="si">%s</span><span class="s2">) || echo &#39;0&#39; &gt; </span><span class="si">%s</span><span class="s2">; cat </span><span class="si">%s%s</span><span class="s2">) &amp;&quot;</span> <span class="o">%</span> \
+                                        <span class="p">(</span><span class="n">prescript</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">done_file_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">script</span><span class="p">),</span> <span class="n">config_path</span><span class="p">,</span> <span class="n">log_dump_path</span><span class="p">,</span> <span class="n">done_file_path</span><span class="p">,</span> <span class="n">done_file_path</span><span class="p">,</span> <span class="n">log_dump_path</span><span class="p">,</span> <span class="n">postscript</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">cd </span><span class="si">%s</span><span class="s2">; ./</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> &gt;</span><span class="si">%s</span><span class="s2"> 2&gt;&amp;1; cat </span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> \
+                                        <span class="p">(</span><span class="n">prescript</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">script</span><span class="p">),</span> <span class="n">config_path</span><span class="p">,</span> <span class="n">log_dump_path</span><span class="p">,</span> <span class="n">log_dump_path</span><span class="p">,</span> <span class="n">postscript</span><span class="p">)</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+                            <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+                            <span class="n">block_until_ready</span><span class="p">(</span><span class="n">remote</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+                            <span class="n">stdout</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">recv_exit_status</span><span class="p">()</span>   <span class="c1"># block #TODO entry for issue regarding persistence</span>
+
+                            <span class="n">job</span><span class="o">.</span><span class="n">was_executed</span> <span class="o">=</span> <span class="kc">True</span>
+                            
+                        <span class="c1"># Jobs that are run with async as true, run using an asynchronous agent, which reconnects every &#39;async_timeout&#39; seconds to check if the job has finished. </span>
+
+                        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_async_run</span><span class="p">:</span>
+                            <span class="n">sftp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">log_dump_path</span><span class="p">,</span> <span class="n">local_out</span><span class="p">)</span>
+                            <span class="n">sftp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                            <span class="k">if</span> <span class="n">stdout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">result</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">encoding</span> <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+                                
+                    <span class="c1"># The async job and Auptimizer correspond using a dummy log outputfile (&#39;done_file_path&#39;). </span>
+                    <span class="c1"># Auptimizer checks the async job for timeout, success or failure using different encodings.  </span>
+                    <span class="n">timedout</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">done_status</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_async_run</span><span class="p">:</span>
+                        <span class="n">check_command</span> <span class="o">=</span> <span class="s2">&quot;test -f </span><span class="si">%s</span><span class="s2"> &amp;&amp; cat </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">done_file_path</span><span class="p">,</span> <span class="n">done_file_path</span><span class="p">)</span>
+                        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">rid</span><span class="p">])</span> <span class="k">as</span> <span class="n">remote</span><span class="p">:</span>
+                            <span class="n">_</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">check_command</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+                            <span class="n">block_until_ready</span><span class="p">(</span><span class="n">remote</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+                            <span class="n">ret</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">recv_exit_status</span><span class="p">()</span>
+                        <span class="k">while</span> <span class="n">ret</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_async_timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">time_job_start</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_async_timeout</span><span class="p">:</span>
+                                <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Asynchronous job timed out&quot;</span><span class="p">)</span>
+                                <span class="n">timedout</span> <span class="o">=</span> <span class="kc">True</span>
+                                <span class="k">break</span>
+                            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_reconnect</span><span class="p">)</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Checking job status&quot;</span><span class="p">)</span>
+                            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">rid</span><span class="p">])</span> <span class="k">as</span> <span class="n">remote</span><span class="p">:</span>
+                                <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">check_command</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+                                <span class="n">block_until_ready</span><span class="p">(</span><span class="n">remote</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+                                <span class="n">ret</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">recv_exit_status</span><span class="p">()</span>
+                                <span class="n">done_status</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">encoding</span> <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;UTF-8&#39;</span><span class="p">))</span>
+                        
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">timedout</span> <span class="ow">and</span> <span class="n">done_status</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Job finished, parsing result&quot;</span><span class="p">)</span>
+                            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">rid</span><span class="p">])</span> <span class="k">as</span> <span class="n">remote</span><span class="p">:</span>
+                                <span class="n">sftp</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">open_sftp</span><span class="p">()</span>
+                                <span class="n">sftp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">log_dump_path</span><span class="p">,</span> <span class="n">local_out</span><span class="p">)</span>
+                                <span class="n">sftp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_out</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                                    <span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="n">timedout</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">done_status</span><span class="p">:</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="n">parse_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Failed to parse result, check </span><span class="si">%s</span><span class="s2"> files at local, or </span><span class="si">%s</span><span class="s2"> at remote&quot;</span><span class="p">,</span> 
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">local_job_path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.*.out&quot;</span> <span class="o">%</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">),</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.*.out&quot;</span> <span class="o">%</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">))</span>
+                    <span class="k">break</span>
+                <span class="k">except</span> <span class="n">pm</span><span class="o">.</span><span class="n">SSHException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Failed to run job over ssh due to unknown reason: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Something went wrong, retrying job with id: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">))</span>
+                    <span class="n">curr_number_of_tries</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wait_time</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;catch unexpected error </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Something went wrong, retrying job with id: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">))</span>
+                    <span class="n">curr_number_of_tries</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wait_time</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">was_executed</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;return </span><span class="si">%s</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Unable to run job with id: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span>
+
+        <span class="k">def</span> <span class="nf">call_back</span><span class="p">(</span><span class="n">future3</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Callback for job </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">future3</span><span class="o">.</span><span class="n">exception</span><span class="p">():</span>  <span class="c1"># If error happens, please report.  It is tricky to debug here.</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Error happened in job execution that not captured.&quot;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">future3</span><span class="o">.</span><span class="n">exception</span><span class="p">())</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">future3</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Callback result: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="fm">__str__</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">future3</span><span class="p">))</span>
+                <span class="n">call_back_func</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">job_run</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+        <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">call_back</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -4,7 +4,7 @@
     "n_samples": 10,
     "resource_args": {
 		"shutdown":true,
-		"retry": 5
+		"connection_retry": 5
     },
 	"runtime_args": {
 		"prescript": "source .profile",

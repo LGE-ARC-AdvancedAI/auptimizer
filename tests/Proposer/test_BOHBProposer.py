@@ -1,3 +1,8 @@
+"""
+Copyright (c) 2018 LG Electronics Inc.
+SPDX-License-Identifier: GPL-3.0-or-later
+"""
+from aup.EE.Job import Job
 from unittest import TestCase, skipIf
 from six import PY2
 
@@ -47,3 +52,13 @@ class BOHBTestCase(TestCase):
             proposer.update(0, job)
 
         self.assertIsNone(proposer.get_param())
+
+    def test_failed(self):
+        from aup.Proposer import BOHBProposer as bohb
+        proposer = bohb.BOHBProposer({"parameter_config": self.config, "target": "min",
+                                      "n_iterations":2, 'max_budget':3})
+        try:
+            proposer.failed(Job("none", {"tid": 1}))
+            self.assertTrue(False)
+        except NotImplementedError:
+            pass

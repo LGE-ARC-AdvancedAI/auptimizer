@@ -7,6 +7,7 @@ import unittest
 import os
 import tempfile
 
+from aup.EE.Job import Job
 from aup.Proposer import RandomProposer as rp
 
 
@@ -71,6 +72,13 @@ class MyTestCase(unittest.TestCase):
         m.reset()
         self.assertIn(m.get()['x'], [0, 1])
         self.assertEqual(m.counter, 1)
+
+    def test_failed(self):
+        config = {'n_samples': 10, 'random_seed': 10, 'parameter_config': [{'name': 'x', 'type': 'int'}]}
+        p = rp.RandomProposer(config)
+        c = p.get()
+        job = Job("none", c)
+        p.failed(job)
 
 
 if __name__ == '__main__':

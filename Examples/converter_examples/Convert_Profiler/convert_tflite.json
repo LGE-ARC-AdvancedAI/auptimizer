@@ -1,0 +1,22 @@
+[
+    {
+        "convert_from":"input_models/squeezenet.pb",
+        "convert_to":"output_models/squeezenet_converted.tflite",
+        "input_nodes":"Placeholder:0",
+        "output_nodes":"softmax_tensor:0"
+    },
+    
+    {
+        "convert_from":"input_models/densenet/densenet.pb",
+        "convert_to":"output_models/densenet_converted.tflite",
+        "input_nodes":"Placeholder:0",
+        "output_nodes":"softmax_tensor:0,ArgMax:0"
+    },
+
+    {
+        "convert_from":"input_models/nasnet_mobile.pb",
+        "convert_to":"output_models/nasnet_mobile_converted.tflite",
+        "input_nodes":"input:0",
+        "output_nodes":"final_layer/predictions:0"
+    }
+]

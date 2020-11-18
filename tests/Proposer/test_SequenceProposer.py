@@ -2,8 +2,10 @@
 Copyright (c) 2018 LG Electronics Inc.
 SPDX-License-Identifier: GPL-3.0-or-later
 """
+import unittest
 from unittest import TestCase
 
+from aup.EE.Job import Job
 from aup.Proposer import SequenceProposer as sp
 from aup.Proposer import get_proposer
 
@@ -98,3 +100,17 @@ class SequenceTestCase(TestCase):
 
     def test_gen(self):
         self.assertRaises(KeyError, sp._AbstractGen.get_gen, {'type': 'wrong'})
+
+    def test_failed(self):
+        self.pc["parameter_config"] = [
+            {"name": "x1", "type": "choice", "range": [2, 4, 6, 8, 10]},
+            {"name": "x2", "type": "choice", "range": ["a", "b", "c"]}
+        ]
+        p = get_proposer("sequence")(self.pc)
+        c = p.get()
+        job = Job("none", c)
+        p.failed(job)
+
+
+if __name__ == '__main__':
+    unittest.main()

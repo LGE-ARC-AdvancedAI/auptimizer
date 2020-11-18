@@ -1,0 +1,6 @@
+input_models/densenet/densenet.tflite
+output_models/densenet_converted.tflite
+input_models/squeezenet.tflite
+output_models/squeezenet_converted.tflite
+input_models/nasnet_mobile.tflite
+output_models/nasnet_mobile_converted.tflite

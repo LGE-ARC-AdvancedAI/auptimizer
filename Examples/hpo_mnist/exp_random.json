@@ -1,8 +1,7 @@
 {
   "proposer": "random",
   "script": "mnist_hpo_demo.py",
-  "workingdir": "/home/ubuntu/",
-  "resource": "aws",
+  "resource": "cpu",
   "n_parallel": 4,
   "target":"max",
   "n_samples": 100,

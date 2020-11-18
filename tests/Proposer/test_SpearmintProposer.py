@@ -67,6 +67,12 @@ class SpearmintTestCase(unittest.TestCase):
         self.assertRaises(NotImplementedError, p.save, "")
         self.assertRaises(NotImplementedError, p.reload, "")
 
+    def test_failed(self):
+        p = sp.SpearmintProposer(self.pc)
+        c = p.get()
+        job = Job("none", c)
+        p.failed(job)
+
 
 if __name__ == '__main__':
     unittest.main()

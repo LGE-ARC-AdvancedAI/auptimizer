@@ -14,5 +14,6 @@
   "proposer": "random",
   "n_samples": 10,
   "target": "max",
-  "workingdir": "tests"
+  "workingdir": "tests",
+  "name": "test"
 }

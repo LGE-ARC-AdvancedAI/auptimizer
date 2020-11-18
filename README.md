@@ -5,35 +5,40 @@
 [![pipeline status](https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master)](https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer)
 [![coverage report](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg)](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer)
 
-**Auptimizer** is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building process.
+**Auptimizer** is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building and deployment process.
 Currently, **Auptimizer** helps with:
 
-+ **Automating tedious experimentation** - Start using Auptimizer by changing just a few lines of your code. It will
-  run and record sophisticated hyperparameter optimization (HPO) experiments for you, resulting in effortless
-  consistency and reproducibility.
-
-+ **Making the best use of your compute-resources** - Whether you are using a couple of GPUs or AWS, Auptimizer will
-  help you orchestrate compute resources for faster hyperparameter tuning.
-
 + **Getting the best models in minimum time** - Generate optimal models and achieve better performance by employing
-  state-of-the-art HPO techniques. Auptimizer provides a single seamless access point to top-notch HPO algorithms,
-  including Bayesian optimization, multi-armed bandit. You can even integrate your own proprietary solution.
+state-of-the-art hyperparameter optimization (HPO) techniques. Auptimizer will run and record sophisticated HPO experiments on compute resources of your choice with effortless consistency and reproducibility.
 
-Best of all, **Auptimizer** offers a consistent interface that allows users to switch between different HPO algorithms
-and computing resources with minimal changes to their existing code.
++ **Making your models edge-ready** - Get model-device compatibility and enhanced on-device performance by converting models into the industry-standard ONNX and TensorFlow Lite formats. Auptimizer-Converter provides validated conversion techniques to ensure worry-free format transformations.
+
++ **Selecting the most suitable model for your edge deployment effortlessly** - Compare how different models will perform under specific compute and memory constraints on a CPU-based edge device. Auptimizer-Profiler will help you identify the most efficient models without the hustle of going through multiple physical deployment cycles.
+
+Best of all, **Auptimizer** offers a consistent interface that allows users to switch between different HPO algorithms, conversion frameworks, and computing resources with minimal changes to their existing code.
 
 In the future, **Auptimizer** will support end-to-end model building for edge devices, including model compression and
-neural architecture search. The table below shows a full list of currently supported techniques.
+neural architecture search. 
+
+## Capabilities
+### Hyperparameter Optimization
+
+Auptimizer automates tedious experimentation by performing and recording hyperparameter experiments. Auptimizer provides a single seamless access point to top-notch HPO algorithms, including Bayesian optimization and multi-armed bandit. You can even integrate your own proprietary solution. Moreover, with Auptimizer, you can make the best use of your compute-resources. Whether you are using a couple of GPUs or AWS, Auptimizer will help you orchestrate compute resources for faster hyperparameter tuning. 
+
+The table below shows a full list of currently supported techniques and resources for hyperparameter optimization.
 
 | Supported HPO Algorithms      | Supported Infrastructure |
 | ----------- | ----------- |
 | Random<br>Grid<br>[Hyperband](https://github.com/zygmuntz/hyperband)<br>[Hyperopt](https://github.com/hyperopt/hyperopt)<br>[Spearmint](https://github.com/JasperSnoek/spearmint)<br>[BOHB](https://github.com/automl/HpBandSter)<br>[EAS (experimental)](https://github.com/han-cai/EAS)<br>Passive      | Multiple CPUs<br>Multiple GPUs<br>Multiple Machines (SSH)<br>AWS EC2 instances |
 
-## Auptimizer v 1.3 has been released: Introducing Profiler
+### Profiler
+[**Profiler**](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler) is a simulator for profiling performance of machine learning model scripts. Given compute- and memory resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute and memory usage for model scripts on the device. These estimations can be used to choose best performing models or, in certain cases, to predict how much compute and memory models will use on the target device. 
 
-**Profiler** is a simulator for profiling performance of Machine Learning (ML) model scripts. Given compute- and memory resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute- and memory usage for model scripts on the device. These estimations can be used to choose best performing models or, in certain cases, to predict how much compute and memory models will use on the target device. 
+Because Profiler mimics the target device environment on the user's development machine, the user can gain insights about the performance and resource needs of a model script without having to deploy it on the target device. Profiler helps accelerate the model selection cycle and simplifies finding model-device fit. Please see [Profiler](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler) for usages.
 
-Because Profiler mimics the target device environment on the user's development machine, the user can gain insights about the performance and resource needs of a model script without having to deploy it on the target device. Profiler helps accelerate the model selection cycle and simplifies finding model-device fit. For more information please see [Profiler](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler) .
+### Converter
+[**Converter**](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/dlconvert) is a format conversion tool for machine learning models. It encapsulates best practices of individual machine learning model conversions under a single API. Converter makes ML models suitable for edge (on-device) deployments by transforming them into the industry-standard ONNX and TensorFlow Lite formats and reducing model size through quantization.
+
 ## Install
 
 **Auptimizer** currently is well tested on Linux systems, it may require some tweaks for Windows users.

@@ -1,0 +1,37 @@
+[
+    {
+        "convert_from":"test_models/resnet_50_TF2",
+        "convert_to":"converted_models/resnet_50_TF2_converted.onnx",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/efficientnet_b1_TF2",
+        "convert_to":"converted_models/efficientnet_b1_TF2_converted.onnx",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/ssd_mobilenet_v1_coco_2018_01_28/saved_model",
+        "convert_to":"converted_models/ssd_mobilenet_v1_converted.onnx",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/ssd_mobilenet_v2_coco_2018_03_29/saved_model",
+        "convert_to":"converted_models/ssd_mobilenet_v2_converted.onnx",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/lstm_savedmodel",
+        "convert_to":"converted_models/lstm_savedmodel_converted.onnx",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/gru_savedmodel",
+        "convert_to":"converted_models/gru_savedmodel_converted.onnx",
+        "skip": "False"
+    }
+]

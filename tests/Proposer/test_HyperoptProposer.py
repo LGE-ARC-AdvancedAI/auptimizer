@@ -54,6 +54,11 @@ class HyperOptTestCase(unittest.TestCase):
         os.remove(sav)
         os.rmdir(path)
 
+    def test_failed(self):
+        p = hp.HyperoptProposer(self.pc)
+        c = p.get()
+        job = Job("none", c)
+        p.failed(job)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.EE.Resource.AbstractResourceManager &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html">
+          
+
+          
+            
+            <img src="../../../../_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>aup.EE.Resource.AbstractResourceManager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aup.EE.Resource.AbstractResourceManager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
+<span class="sd">  SPDX-License-Identifier: GPL-3.0-or-later</span>
+
+<span class="sd">aup.EE.Resource.AbstractResourceManager</span>
+<span class="sd">=======================================</span>
+
+<span class="sd">Abstract Interface of Resource Managers.</span>
+
+<span class="sd">Using :func:`get_resource_manager` to create the corresponding object with the following resource type.</span>
+
+<span class="sd">For different resource supports, see :doc:`environment`.</span>
+
+<span class="sd">APIs</span>
+<span class="sd">----</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">DEFAULT_AUPTIMIZER_PATH</span>
+
+<span class="n">ABC</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">(</span><span class="s1">&#39;ABC&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;__slots__&#39;</span><span class="p">:</span> <span class="p">()})</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">_SupportResource</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;gpu&quot;</span><span class="p">:</span> <span class="s2">&quot;GPUResourceManager&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;cpu&quot;</span><span class="p">:</span> <span class="s2">&quot;CPUResourceManager&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;node&quot;</span><span class="p">:</span> <span class="s2">&quot;SSHResourceManager&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;aws&quot;</span><span class="p">:</span> <span class="s2">&quot;AWSResourceManager&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;passive&quot;</span><span class="p">:</span> <span class="s2">&quot;PassiveResourceManager&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_resource_manager"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.get_resource_manager">[docs]</a><span class="k">def</span> <span class="nf">get_resource_manager</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">connector</span><span class="p">,</span> <span class="n">n_parallel</span><span class="p">,</span> <span class="n">auppath</span><span class="o">=</span><span class="n">DEFAULT_AUPTIMIZER_PATH</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get resource manager for a specific resource type</span>
+
+<span class="sd">    :param resource: gpu or cpu type resource</span>
+<span class="sd">    :type resource: str</span>
+<span class="sd">    :param connector: database connector</span>
+<span class="sd">    :type connector: AbstractConnector</span>
+<span class="sd">    :param n_parallel: how many parallel jobs to be run</span>
+<span class="sd">    :type n_parallel: int</span>
+<span class="sd">    :param auppath: aup environment folder</span>
+<span class="sd">    :type auppath: str</span>
+<span class="sd">    :return: resource manager</span>
+<span class="sd">    :rtype: AbstractResourceManager</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">resource</span> <span class="o">=</span> <span class="n">_SupportResource</span><span class="p">[</span><span class="n">resource</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> not implemented&quot;</span> <span class="o">%</span> <span class="n">resource</span><span class="p">)</span>
+
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">resource</span><span class="p">,</span> <span class="s2">&quot;aup.EE.Resource&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mod</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">resource</span><span class="p">](</span><span class="n">connector</span><span class="p">,</span> <span class="n">n_parallel</span><span class="p">,</span> <span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbstractResourceManager"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager">[docs]</a><span class="k">class</span> <span class="nc">AbstractResourceManager</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create Resource to run jobs.</span>
+
+<span class="sd">    :param connector: Connector to database</span>
+<span class="sd">    :type connector: AbstractConnector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span> <span class="o">=</span> <span class="n">connector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<div class="viewcode-block" id="AbstractResourceManager.finish"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finish up the resource allocation.</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :param maximize: Report Max or Min of resources</span>
+<span class="sd">        :type maximize: bool</span>
+<span class="sd">        :return: Max/Min result in experiment (job id, score)</span>
+<span class="sd">        :rtype: None | [int, float]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">get_best_result</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.finish_job"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish_job">[docs]</a>    <span class="k">def</span> <span class="nf">finish_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finish one job</span>
+
+<span class="sd">        :param jid: job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :param score: job for the experiment</span>
+<span class="sd">        :type score: float | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">jid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="n">rid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">job_finished</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> finished after job suspension, result may lose&quot;</span> <span class="o">%</span> <span class="n">jid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.get_available"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.get_available">[docs]</a>    <span class="k">def</span> <span class="nf">get_available</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">rtype</span><span class="p">,</span> <span class="n">rid_blacklist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method to get the available resource to run a job</span>
+
+<span class="sd">        :param username: username for job running</span>
+<span class="sd">        :type username: str</span>
+<span class="sd">        :param rtype: resource type</span>
+<span class="sd">        :type rtype: str</span>
+<span class="sd">        :param rid_blacklist: resource ids to ignore</span>
+<span class="sd">        :type rid_blacklist: [int]</span>
+<span class="sd">        :return: a random selection of all available resource IDs</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">get_available_resource</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">rtype</span><span class="p">,</span> <span class="n">rid_blacklist</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Request resource (</span><span class="si">%s</span><span class="s2">) for user </span><span class="si">%s</span><span class="s2"> and get </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">rtype</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">rids</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">rids</span><span class="p">)</span> <span class="k">if</span> <span class="n">rids</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.run_job"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run_job">[docs]</a>    <span class="k">def</span> <span class="nf">run_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">,</span> <span class="n">call_back_func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Job running interface, this is called by :mod:`aup.EE.Experiment`.</span>
+
+<span class="sd">        It is a wrapper for :func:`run`.</span>
+
+<span class="sd">        :param job: Job to run</span>
+<span class="sd">        :type job: Job</span>
+<span class="sd">        :param rid: resource ID</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param exp_config: experiment configuration</span>
+<span class="sd">        :type exp_config: BasicConfig</span>
+<span class="sd">        :param call_back_func: call back function to update result</span>
+<span class="sd">        :type call_back_func: function object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">take_available_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">]</span> <span class="o">=</span> <span class="n">rid</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">,</span> <span class="n">call_back_func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">EnvironmentError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">free_used_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Experiment interrupted.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.run"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">,</span> <span class="n">call_back_func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Job running implemented for the specific resource manager. </span>
+<span class="sd">        It is called by :func:`run_job`.</span>
+
+<span class="sd">        :param job: a job object</span>
+<span class="sd">        :type job: Job</span>
+<span class="sd">        :param rid: resource id returned from :func:`get_available`.</span>
+<span class="sd">        :type rid: int</span>
+<span class="sd">        :param exp_config: experiment configuration</span>
+<span class="sd">        :type exp_config: BasicConfig</span>
+<span class="sd">        :param call_back_func: function to trigger after job finished</span>
+<span class="sd">        :type call_back_func: function object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.suspend"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Suspend job upon request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">jid</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is canceled&quot;</span> <span class="o">%</span> <span class="n">jid</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

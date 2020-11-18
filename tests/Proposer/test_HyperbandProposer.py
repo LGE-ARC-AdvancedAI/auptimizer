@@ -53,6 +53,14 @@ class HyperbandTestCase(unittest.TestCase):
     def test_no_implemented(self):
         self.pc['parameter_config'][0]['name'] = 'tid'
         self.assertRaises(KeyError, hp.HyperbandProposer, self.pc)
+        
+    def test_failed(self):
+        p = hp.HyperbandProposer(self.pc)
+        try:
+            p.failed(Job("none", {"tid": 1}))
+            self.assertTrue(False)
+        except NotImplementedError:
+            pass
 
 
 if __name__ == '__main__':

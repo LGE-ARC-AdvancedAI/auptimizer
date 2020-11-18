@@ -5,7 +5,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 import os
 import unittest
 from shutil import copyfile
-from time import sleep
+import time
 
 from aup import BasicConfig
 from aup.EE.Job import Job
@@ -36,7 +36,7 @@ class GPUResourceManagerTestCase(unittest.TestCase):
             self.val = -1
 
         self.rm.run(self.job, self.rm.get_available("test", "gpu"), {}, callback)
-        sleep(3)  # wait till subprocess finished - handled by rm.finish()
+        self.rm.finish(1)
 
         self.assertEqual(self.val, -1)
 

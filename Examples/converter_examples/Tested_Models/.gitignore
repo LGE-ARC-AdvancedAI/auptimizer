@@ -1,0 +1,7 @@
+test_models/
+converted_models/
+*.tgz
+*.gz
+*.pb
+*.h5
+*_internal*
