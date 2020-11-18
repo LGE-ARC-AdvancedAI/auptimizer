@@ -1,0 +1,13 @@
+docs
+Examples/2d*
+Examples/dlconvert_examples/Convert*
+Examples/dlconvert_examples/Tested*
+Examples/demo
+Examples/cai_eas
+Examples/decorator_example
+Examples/hpo_mnist
+Examples/job*
+Examples/profiler*
+Examples/tf*
+build
+dist
