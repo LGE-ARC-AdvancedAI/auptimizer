@@ -1,9 +1,0 @@
-{
-  "proposer": "eas",
-  "script": "client.py",
-  "resource": "gpu",
-  "n_parallel": 2,
-  "parameter_config": [
-  ],
-  "target":"max"
-}
