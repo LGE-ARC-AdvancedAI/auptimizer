@@ -1,0 +1,2 @@
+For more details about how to use Profiler and run the examples in this folder refer to [Profiler](https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler).
+We have also provided detailed experiments we performed using Profiler to estimate the performance of various edge-devices under [Experiments]( https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/Examples/profiler_examples/experiments).

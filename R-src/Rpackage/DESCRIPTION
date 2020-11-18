@@ -1,0 +1,36 @@
+Package: auptimizer
+Title: R Helper Functions for Auptimizer
+Version: 0.0.2
+Authors@R: c(
+    person(given = "Jiayi",
+           family = "Liu",
+           role = c("aut","cre"),
+           email = "Jason.Liu@lge.com",
+           comment = c(ORCID = "0000-0001-6007-5256")),
+    person(given = "Sauptik",
+           family = "Dhar",
+           role = c("aut"),
+           email = "Sauptik.Dhar@lge.com"),
+    person(given = "",
+           family = "LG Electronics Inc.",
+           role = c("cph", "asn"),
+           email = "auptimizer@lge.com")
+    )
+Description: Enable R users to use Auptimizer
+    <https://github.com/LGE-ARC-AdvancedAI/auptimizer> for hyperparameter 
+    optimization (HPO).  Auptimizer helps data scientists to easily apply HPO 
+    in their work and to speed up model training jobs by executing jobs 
+    asynchronously when computing resources are available.
+License: GPL (>=3)
+Encoding: UTF-8
+LazyData: true
+Imports:
+    rjson
+URL: https://github.com/LGE-ARC-AdvancedAI/auptimizer
+BugReports: https://github.com/LGE-ARC-AdvancedAI/auptimizer/issues
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

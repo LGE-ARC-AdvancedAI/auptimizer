@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.Proposer.BOHBProposer &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>aup.Proposer.BOHBProposer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aup.Proposer.BOHBProposer</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">  Copyright (c) 2018 LG Electronics Inc.</span>
+<span class="sd">  SPDX-License-Identifier: GPL-3.0-or-later</span>
+
+<span class="sd">aup.Proposer.BOHBProposer</span>
+<span class="sd">=========================</span>
+
+<span class="sd">BOBH proposer inherited from `HpBandSter &lt;https://automl.github.io/HpBandSter/build/html/index.html&gt;`_ to showcase</span>
+<span class="sd">the simplicity of Auptimizer to integrate new HPO algorithms.  The `get_params()` method is based on the</span>
+<span class="sd">`master.py &lt;https://github.com/automl/HpBandSter/blob/master/hpbandster/core/master.py&gt;`_ from the original BOHB implementation.</span>
+
+<span class="sd">Configuration</span>
+<span class="sd">-------------</span>
+
+<span class="sd">General parameters</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">Detailed explanations availale on the `HpBandSter API documentation page</span>
+<span class="sd">&lt;https://automl.github.io/HpBandSter/build/html/optimizers/bohb.html&gt;`_.</span>
+
+<span class="sd">==================== =================== ========================================</span>
+<span class="sd">Name                 Default value       Explanation</span>
+<span class="sd">==================== =================== ========================================</span>
+<span class="sd">n_iterations         4                   General iterations</span>
+<span class="sd">min_points_in_model  None                Number of points to construct KDE</span>
+<span class="sd">top_n_percent        15                  Percentage to keep</span>
+<span class="sd">num_samples          64                  Number of samples for EI</span>
+<span class="sd">random_fraction      0.3333333333333333  Fraction to explore randomly</span>
+<span class="sd">bandwidth_factor     3                   Widening factor for KDE</span>
+<span class="sd">min_bandwidth        0.001               Minimum sample bandwidth</span>
+<span class="sd">==================== =================== ========================================</span>
+
+
+<span class="sd">APIs</span>
+<span class="sd">----</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">PY3</span>
+
+<span class="kn">from</span> <span class="nn">.AbstractProposer</span> <span class="kn">import</span> <span class="n">AbstractProposer</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">set_default_keyvalue</span>
+<span class="kn">from</span> <span class="nn">.hpbandster.optimizers.bohb</span> <span class="kn">import</span> <span class="n">BOHB</span>
+<span class="kn">from</span> <span class="nn">.hpbandster.optimizers.iterations</span> <span class="kn">import</span> <span class="n">SuccessiveHalving</span>
+
+<span class="kn">import</span> <span class="nn">ConfigSpace</span> <span class="k">as</span> <span class="nn">CS</span>
+
+<span class="kn">from</span> <span class="nn">hpbandster.optimizers.config_generators.bohb</span> <span class="kn">import</span> <span class="n">BOHB</span>
+<span class="kn">from</span> <span class="nn">hpbandster.core.dispatcher</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">PY3</span><span class="p">,</span> <span class="s2">&quot;BOHB hpbandster supports Python 3 only!&quot;</span>
+
+<span class="n">BOHB_DEFAULT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">min_points_in_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">top_n_percent</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                    <span class="n">num_samples</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+                    <span class="n">random_fraction</span><span class="o">=</span><span class="mf">0.3333333333333333</span><span class="p">,</span>
+                    <span class="n">bandwidth_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">min_bandwidth</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+
+<span class="n">SH_DEFAULT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eta</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                  <span class="n">min_budget</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                  <span class="n">max_budget</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BOHBProposer"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer">[docs]</a><span class="k">class</span> <span class="nc">BOHBProposer</span><span class="p">(</span><span class="n">AbstractProposer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BOHBProposer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">min</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># bohb targets for loss only</span>
+
+        <span class="c1"># BOHB config parameters</span>
+        <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;n_iterations&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">BOHB_DEFAULT</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;min_points_in_model&#39;</span><span class="p">]:</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;min_points_in_model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># hyperband related parameters</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">SH_DEFAULT</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="c1"># Hyperband related settings - modified from hpbandster/optimizers/bohb.py</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eta&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_budget</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;min_budget&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_budget</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;max_budget&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span> <span class="o">=</span> <span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_budget</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_budget</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">budgets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_budget</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_iterations</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_iterations&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nSamples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nSample</span><span class="p">()</span>
+        <span class="n">bohb_config</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">BOHB_DEFAULT</span><span class="p">}</span>
+        <span class="n">configspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_configspace</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;parameter_config&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_generator</span> <span class="o">=</span> <span class="n">BOHB</span><span class="p">(</span><span class="n">configspace</span><span class="p">,</span> <span class="o">**</span><span class="n">bohb_config</span><span class="p">)</span>
+
+        <span class="c1">## Based on master.py</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running_jobs</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="BOHBProposer.get_param"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.get_param">[docs]</a>    <span class="k">def</span> <span class="nf">get_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the next hyperparameter values, return None when experiment is finished.</span>
+<span class="sd">        :return: hyperparameters in dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">next_run</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_iterations</span><span class="p">():</span>
+                <span class="n">next_run</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_next_run</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">next_run</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">next_run</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;new hyperparameters </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">next_run</span><span class="p">,))</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_iterations</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;create new iteration for </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_iterations</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_next_iteration</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">)))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">n_iterations</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">config_id</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">budget</span> <span class="o">=</span> <span class="n">next_run</span>
+        <span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">config_id</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="n">budget</span><span class="p">)</span>
+        <span class="n">job</span><span class="o">.</span><span class="n">time_it</span><span class="p">(</span><span class="s2">&quot;started&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running_jobs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;tid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tid</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_iterations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">budget</span>  <span class="c1"># for job execution</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tid</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">config</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.update"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wrap result and transfer to HpBandSter</span>
+<span class="sd">        :param score: result</span>
+<span class="sd">        :param job: job contains job id for configuration matching</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;tid&#39;</span><span class="p">]</span>
+        <span class="n">job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">running_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">job</span><span class="o">.</span><span class="n">time_it</span><span class="p">(</span><span class="s2">&quot;finished&quot;</span><span class="p">)</span>
+        <span class="n">job</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">score</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">register_result</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_generator</span><span class="o">.</span><span class="n">new_result</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">running_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.failed"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.failed">[docs]</a>    <span class="k">def</span> <span class="nf">failed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Failed jobs unsupported by BOHB Proposer.</span>
+
+<span class="sd">        :param job: Failed job, containing job id</span>
+<span class="sd">        :type job: Job</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">failed</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BOHBProposer does not support failed jobs&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.get_next_iteration"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.get_next_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">iteration_kwargs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot; Copied from https://github.com/automl/HpBandSter/blob/master/hpbandster/optimizers/bohb.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">iteration</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span><span class="p">)</span>
+        <span class="n">n0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">**</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n0</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">))),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">SuccessiveHalving</span><span class="p">(</span><span class="n">HPB_iter</span><span class="o">=</span><span class="n">iteration</span><span class="p">,</span> <span class="n">num_configs</span><span class="o">=</span><span class="n">ns</span><span class="p">,</span> <span class="n">budgets</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">budgets</span><span class="p">[(</span><span class="o">-</span><span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):],</span>
+                                  <span class="n">config_sampler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_generator</span><span class="o">.</span><span class="n">get_config</span><span class="p">,</span> <span class="o">**</span><span class="n">iteration_kwargs</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_nSample</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">nSamples</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iterations</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">iteration</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span><span class="p">)</span>
+            <span class="n">n0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_SH_iter</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">**</span> <span class="n">s</span><span class="p">)</span>
+            <span class="n">ns</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n0</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">))),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">nSamples</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;total exp </span><span class="si">%d</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="n">nSamples</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nSamples</span>
+
+<div class="viewcode-block" id="BOHBProposer.create_configspace"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.create_configspace">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_configspace</span><span class="p">(</span><span class="n">parameter_config</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wrap the Worker&#39;s get_configspace() function for HpBandSter interface</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cs</span> <span class="o">=</span> <span class="n">CS</span><span class="o">.</span><span class="n">ConfigurationSpace</span><span class="p">()</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">parameter_config</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">AbstractProposer</span><span class="o">.</span><span class="n">parse_param_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;choice&#39;</span><span class="p">:</span>
+                <span class="n">param</span> <span class="o">=</span> <span class="n">CS</span><span class="o">.</span><span class="n">CategoricalHyperparameter</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">choices</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># for int or float</span>
+                <span class="n">param</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+                <span class="n">param</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span> <span class="n">param</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
+                    <span class="n">param</span> <span class="o">=</span> <span class="n">CS</span><span class="o">.</span><span class="n">UniformIntegerHyperparameter</span><span class="p">(</span><span class="o">**</span><span class="n">param</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">param</span> <span class="o">=</span> <span class="n">CS</span><span class="o">.</span><span class="n">UniformFloatHyperparameter</span><span class="p">(</span><span class="o">**</span><span class="n">param</span><span class="p">)</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">cs</span><span class="o">.</span><span class="n">add_hyperparameters</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cs</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.setup_config"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.setup_config">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">setup_config</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">BOHB_DEFAULT</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;min_points_in_model&quot;</span><span class="p">:</span>
+                <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> [</span><span class="si">%s</span><span class="s2">]:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+                    <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> [</span><span class="si">%s</span><span class="s2">]:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span> <span class="ow">or</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">SH_DEFAULT</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> [</span><span class="si">%s</span><span class="s2">]:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span> <span class="ow">or</span> <span class="n">v</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">AbstractProposer</span><span class="o">.</span><span class="n">setup_config</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">config</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.active_iterations"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.active_iterations">[docs]</a>    <span class="k">def</span> <span class="nf">active_iterations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Based on :func:`hpbandster.core.master.Master.active_iterations`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">idx</span><span class="p">:</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">is_finished</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">))))</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.save"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Save and restore not supported yet&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.reload"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.reload">[docs]</a>    <span class="k">def</span> <span class="nf">reload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Save and restore not supported yet&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

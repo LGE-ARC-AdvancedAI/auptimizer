@@ -1,0 +1,39 @@
+## Package Information
+PackageName: EAS
+PackageVersion: b20c48a
+PackageFileName: eas
+PackageDownloadLocation: https://github.com/han-cai/EAS
+PackageHomePage: https://github.com/han-cai/EAS
+PackageLicenseConcluded: MIT
+
+## Package Information
+PackageName: hyperband
+PackageVersion: a632209
+PackageFileName: HyperbandProposer.py
+PackageDownloadLocation: https://github.com/zygmuntz/hyperband
+PackageHomePage: https://github.com/zygmuntz/hyperband
+PackageLicenseConcluded: modified BSD-2-Clause (https://github.com/zygmuntz/hyperband/blob/master/LICENSE)
+
+## Package Information
+PackageName: HyperOpt
+PackageVersion: 762e89
+PackageFileName: hyperopt
+PackageDownloadLocation: https://github.com/hyperopt/hyperopt
+PackageHomePage: https://github.com/hyperopt/hyperopt
+PackageLicenseConcluded: https://github.com/hyperopt/hyperopt/blob/master/LICENSE.txt
+
+## Package Information
+PackageName: spearmint
+PackageVersion: 70309f0
+PackageFileName: spearmint
+PackageDownloadLocation: https://github.com/JasperSnoek/spearmint
+PackageHomePage: https://github.com/JasperSnoek/spearmint
+PackageLicenseConcluded: https://github.com/JasperSnoek/spearmint
+
+## Package Information
+PackageName: HpBandSter
+PackageVersion: 841db4b
+PackageFileName: hpbandster
+PackageDownloadLocation: https://github.com/automl/HpBandSter
+PackageHomePage: https://automl.github.io/HpBandSter/build/html/index.html
+PackageLicenseConcluded: BSD-3

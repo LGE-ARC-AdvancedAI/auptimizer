@@ -1,0 +1,20 @@
+#  Copyright (c) 2020 LG Electronics Inc.
+#  SPDX-License-Identifier: GPL-3.0-or-later
+#User data Variables
+IMAGEREPO=tensorflow/tensorflow:1.3.0
+# APTREQUIREMENTS="curl vim"
+# PIPREQUIREMENTS="ipython numpy"
+DIR=mnist
+SCRIPT=mnist.py
+COMMAND=python
+SAMPLETIME=3
+OUTPUTFILE=out.txt
+DOCFILE=Dockerfile
+DOCKCPUS="4.0"
+DOCKMEMORY="2.0g"
+# Additional docker arguments could be passed as following:
+# To run Docker container with privilege capability change to 'true'
+# To use Volume instead of copying data with the current folder
+# use the format "-v /path/in/source:/path/in/destination" as string
+# DOCKER_ARGS="--privileged -v /data:~/Documents/Data/mnist1"
+DOCKER_ARGS=

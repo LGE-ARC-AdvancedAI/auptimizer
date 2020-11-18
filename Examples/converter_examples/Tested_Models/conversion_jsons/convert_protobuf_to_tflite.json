@@ -1,0 +1,61 @@
+[
+    {
+        "convert_from":"test_models/densenet/densenet.pb",
+        "convert_to":"converted_models/densenet_converted.tflite",
+        "input_nodes":"Placeholder",
+        "output_nodes":"softmax_tensor:0,ArgMax:0",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/squeezenet.pb",
+        "convert_to":"converted_models/squeezenet_converted.tflite",
+        "input_nodes":"Placeholder",
+        "output_nodes":"softmax_tensor:0",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/nasnet_mobile.pb",
+        "convert_to":"converted_models/nasnet_mobile_converted.tflite",
+        "input_nodes":"input:0",
+        "output_nodes":"final_layer/predictions:0",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/inception_v3.pb",
+        "convert_to":"converted_models/inception_v3_converted.tflite",
+        "input_nodes":"input:0",
+        "output_nodes":"InceptionV3/Predictions/Reshape_1:0",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/mobilenet_v1_0.25_224/mobilenet_v1_0.25_224_frozen.pb",
+        "convert_to":"converted_models/mobilenet_v1_0.25_224_converted.tflite",
+        "input_nodes":"input:0",
+        "output_nodes":"MobilenetV1/Predictions/Reshape_1:0",
+        "input_shape": "1,224,224,3",
+        "skip": "False"
+    },
+
+    {
+        "convert_from":"test_models/ssd_mobilenet_v1_coco_2018_01_28/frozen_inference_graph.pb",
+        "convert_to":"converted_models/ssd_mobilenet_v1_converted.tflite",
+        "input_nodes":"image_tensor:0",
+        "output_nodes":"detection_boxes:0,detection_scores:0,num_detections:0,detection_classes:0",
+        "input_shape": "1,224,224,3",
+        "skip": "True"
+    },
+
+    {
+        "convert_from":"test_models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb",
+        "convert_to":"converted_models/ssd_mobilenet_v2_converted.tflite",
+        "input_nodes":"image_tensor:0",
+        "output_nodes":"num_detections:0,detection_classes:0,detection_scores:0,detection_boxes:0",
+        "input_shape": "1,224,224,3",
+        "skip": "True"
+    }
+
+]

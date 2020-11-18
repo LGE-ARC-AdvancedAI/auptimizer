@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configure HPO Algorithm &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="demo.html" />
+    <link rel="prev" title="Create and run a new experiment" href="experiment.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configure HPO Algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-algorithms">Supported algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-details">Configuration details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-functionalities">Additional functionalities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hpo.html">Hyperparameter Optimization</a> &raquo;</li>
+        
+      <li>Configure HPO Algorithm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/algorithm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configure-hpo-algorithm">
+<h1>Configure HPO Algorithm<a class="headerlink" href="#configure-hpo-algorithm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="supported-algorithms">
+<h2>Supported algorithms<a class="headerlink" href="#supported-algorithms" title="Permalink to this headline">¶</a></h2>
+<p><strong>Auptimizer</strong> supports a number of different HPO algorithms.  The names and descriptions are listed below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 92%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Algorithm</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>passive</p></td>
+<td><p>Manually run job (for debug purpose)</p></td>
+</tr>
+<tr class="row-odd"><td><p>random</p></td>
+<td><p>Random search</p></td>
+</tr>
+<tr class="row-even"><td><p>sequence</p></td>
+<td><p>Grid Search</p></td>
+</tr>
+<tr class="row-odd"><td><p>spearmint</p></td>
+<td><p><a class="reference external" href="https://github.com/JasperSnoek/spearmint">Spearmint</a>: Bayesian Optimization based on Gaussian Process</p></td>
+</tr>
+<tr class="row-even"><td><p>bohb</p></td>
+<td><p><a class="reference external" href="https://automl.github.io/HpBandSter/build/html/index.html">HpBandSter</a>: Bayesian Optimization and HyperBand</p></td>
+</tr>
+<tr class="row-odd"><td><p>hyperopt</p></td>
+<td><p><a class="reference external" href="http://hyperopt.github.io/hyperopt/">Hyperopt</a>: Bayesian Optimization with Tree of Parzen Estimators (TPE)</p></td>
+</tr>
+<tr class="row-even"><td><p>hyperband</p></td>
+<td><p><a class="reference external" href="https://github.com/zygmuntz/hyperband">Hyperband</a>: Multi-armed bandit approach</p></td>
+</tr>
+<tr class="row-odd"><td><p>eas</p></td>
+<td><p><a class="reference external" href="https://github.com/han-cai/EAS">EAS</a>: Efficient Architecture Search by Network Transformation (Illustration purpose)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Use <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">aup.init</span></code> to set up the experiment configuration interactively.</p>
+<p>For finer control, advanced users can change the configuration manually by directly modifying the <code class="docutils literal notranslate"><span class="pre">experiment.json</span></code>
+file.</p>
+</div>
+<div class="section" id="configuration-details">
+<h2>Configuration details<a class="headerlink" href="#configuration-details" title="Permalink to this headline">¶</a></h2>
+<p>Below we cover the most common pieces. For requirements related to specific algorithms, please refer to the respective
+documentation.</p>
+<p>The general structure of the configuration file is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;n_samples&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+ <span class="s2">&quot;random_seed&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+ <span class="s2">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;auto.py&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;parameter_config&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span>
+       <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+       <span class="mi">5</span>
+     <span class="p">],</span>
+     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span>
+   <span class="p">}</span>
+ <span class="p">],</span>
+ <span class="s2">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;job_failure&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;job_retries&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+   <span class="s2">&quot;ignore_fail&quot;</span><span class="p">:</span> <span class="n">true</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;n_parallel&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+ <span class="s2">&quot;target&quot;</span><span class="p">:</span><span class="s2">&quot;min&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;workingdir:&quot;</span><span class="o">./</span><span class="s2">&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 8%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>proposer</p></td>
+<td><p>random</p></td>
+<td><p>hpo method used to propose new hyperparameter values (see below for full list)</p></td>
+</tr>
+<tr class="row-odd"><td><p>n_samples</p></td>
+<td><p>10</p></td>
+<td><p>number of jobs to run</p></td>
+</tr>
+<tr class="row-even"><td><p>script</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>script to run</p></td>
+</tr>
+<tr class="row-odd"><td><p>n_parallel</p></td>
+<td><p>1</p></td>
+<td><p>number of parallel jobs</p></td>
+</tr>
+<tr class="row-even"><td><p>job_retries</p></td>
+<td><p>0</p></td>
+<td><p>number of retries for failed jobs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ignore_fail</p></td>
+<td><p>False</p></td>
+<td><p>whether to continue the experiment if a job fails.</p></td>
+</tr>
+<tr class="row-even"><td><p>target</p></td>
+<td><p>max</p></td>
+<td><p>search for max or min</p></td>
+</tr>
+<tr class="row-odd"><td><p>resource</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>type of resource to run the experiment, [cpu, gpu, passive, node]</p></td>
+</tr>
+<tr class="row-even"><td><p>parameter_config</p></td>
+<td><p>{}</p></td>
+<td><p>hyperparameter specification (see below)</p></td>
+</tr>
+<tr class="row-odd"><td><p>workingdir</p></td>
+<td><p>“./”</p></td>
+<td><p>path to run the script, important for running jobs remotely (SSH/AWS)</p></td>
+</tr>
+</tbody>
+</table>
+<p>for <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>name of the hyperparameter variable. Must be the same as used in the training script</p></td>
+</tr>
+<tr class="row-odd"><td><p>range</p></td>
+<td><p>[min, max] or a list of values</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p><cite>float</cite>, <cite>int</cite>, <cite>choice</cite> types are supported</p></td>
+</tr>
+</tbody>
+</table>
+<p>Minor modifications or changes may be required for each algorithm. These options can be found at the corresponding API
+pages under <a class="reference internal" href="aup.Proposer.html"><span class="doc">aup.Proposer package</span></a> (see API links below).</p>
+<p><strong>Note</strong>:</p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">job_failure</span></code> is not specified, the experiment will stop whenever a job fails.</div>
+<div class="line">For <code class="docutils literal notranslate"><span class="pre">job_retries</span></code>, preferance is given to a different resource, if multiple resources are available.</div>
+<div class="line">For <code class="docutils literal notranslate"><span class="pre">ignore_fail</span></code>, currently [BOHB, EAS, Hyperband] proposers do not support experiment continuation upon job failure.</div>
+</div>
+</div>
+<div class="section" id="additional-functionalities">
+<h2>Additional functionalities<a class="headerlink" href="#additional-functionalities" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Serial: optimize parameters by running jobs sequentially</p></li>
+<li><p>Parallel: optimize parameters by running jobs in parallel</p></li>
+<li><p>Pause: pause and save current HPO status</p></li>
+<li><p>Resume: resume previously paused HPO process</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 49%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Documentation</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>Parallel</p></th>
+<th class="head"><p>Pause (save)</p></th>
+<th class="head"><p>Resume</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Random</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.RandomProposer.html#module-aup.Proposer.RandomProposer" title="aup.Proposer.RandomProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.RandomProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sequence</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.SequenceProposer.html#module-aup.Proposer.SequenceProposer" title="aup.Proposer.SequenceProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.SequenceProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>Passive</p></td>
+<td><p><a class="reference internal" href="aup.EE.Resource.html#module-aup.EE.Resource.PassiveResourceManager" title="aup.EE.Resource.PassiveResourceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Resource.PassiveResourceManager</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>Spearmint</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.SpearmintProposer.html#module-aup.Proposer.SpearmintProposer" title="aup.Proposer.SpearmintProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.SpearmintProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-even"><td><p>Hyperopt</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.HyperoptProposer.html#module-aup.Proposer.HyperoptProposer" title="aup.Proposer.HyperoptProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.HyperoptProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hyperband</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.HyperbandProposer.html#module-aup.Proposer.HyperbandProposer" title="aup.Proposer.HyperbandProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.HyperbandProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-even"><td><p>BOHB</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.BOHBProposer.html#module-aup.Proposer.BOHBProposer" title="aup.Proposer.BOHBProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.BOHBProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p>EAS</p></td>
+<td><p><a class="reference internal" href="aup.Proposer.EASProposer.html#module-aup.Proposer.EASProposer" title="aup.Proposer.EASProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.EASProposer</span></code></a></p></td>
+<td><p>✓</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="demo.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="experiment.html" class="btn btn-neutral float-left" title="Create and run a new experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

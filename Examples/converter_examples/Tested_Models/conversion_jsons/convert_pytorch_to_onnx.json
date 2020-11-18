@@ -1,0 +1,146 @@
+[
+    {
+        "convert_from":"test_models/resnet18.pt",
+        "convert_to":"converted_models/resnet_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/alexnet.pt",
+        "convert_to":"converted_models/alexnet_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/squeezenet1_0.pt",
+        "convert_to":"converted_models/squeezenet1_0_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/densenet161.pt",
+        "convert_to":"converted_models/densenet161_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/googlenet.pt",
+        "convert_to":"converted_models/googlenet_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/shufflenet_v2_x1_0.pt",
+        "convert_to":"converted_models/shufflenet_v2_x1_0_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/mobilenet_v2.pt",
+        "convert_to":"converted_models/mobilenet_v2_x1_0_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/resnext50_32x4d.pt",
+        "convert_to":"converted_models/resnext50_32x4d_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/wide_resnet50_2.pt",
+        "convert_to":"converted_models/wide_resnet50_2_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/mnasnet1_0.pt",
+        "convert_to":"converted_models/mnasnet1_0_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/inception_v3.pt",
+        "convert_to":"converted_models/inception_v3_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,299,299",
+        "network_name":"Test_Model_Classification",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/fcn_resnet50.pt",
+        "convert_to":"converted_models/fcn_resnet50_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Segmentation",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/deeplabv3_resnet50.pt",
+        "convert_to":"converted_models/deeplabv3_resnet50_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,224,224",
+        "network_name":"Test_Model_Segmentation",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/r3d_18.pt",
+        "convert_to":"converted_models/r3d_18_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,16,112,112",
+        "network_name":"Test_Model_Video",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/mc3_18.pt",
+        "convert_to":"converted_models/mc3_18_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,16,112,112",
+        "network_name":"Test_Model_Video",
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/r2plus1d_18.pt",
+        "convert_to":"converted_models/r2plus1d_18_torch.onnx",
+        "network_script":"create_test_models.py",
+        "input_shape":"1,3,16,112,112",
+        "network_name":"Test_Model_Video",
+        "skip":"False"
+    }
+
+]

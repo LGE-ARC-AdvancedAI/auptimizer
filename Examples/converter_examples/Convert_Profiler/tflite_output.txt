@@ -1,0 +1,10 @@
+Usage stats for Experiment ran on : 2020-10-08 10:26:18.302189
+NAME                     AVG CPU %      PEAK CPU  AVG MEM USAGE / LIMIT    PEAK MEM    NET I/O           BLOCK I/O        TOTAL TIME (ms)
+-----------------------  -----------  ----------  -----------------------  ----------  ----------------  -------------  -----------------
+densenet                 256.601%         260.97  162.9 MiB / 1.9 GiB      163.0 MiB   850.0 B / 42.0 B  0.0 B / 0.0 B              27640
+densenet_converted       254.545%         259.71  162.9 MiB / 1.9 GiB      163.0 MiB   843.0 B / 42.0 B  0.0 B / 0.0 B              27635
+squeezenet               272.655%         274.36  127.6 MiB / 1.9 GiB      127.7 MiB   773.0 B / 42.0 B  0.0 B / 0.0 B               3132
+squeezenet_converted     274.83%          276.06  129.7 MiB / 1.9 GiB      129.8 MiB   731.0 B / 0.0 B   0.0 B / 0.0 B               3067
+nasnet_mobile            155.766%         159.16  135.1 MiB / 1.9 GiB      135.3 MiB   839.0 B / 42.0 B  0.0 B / 0.0 B              24549
+nasnet_mobile_converted  154.046%         159.38  123.0 MiB / 1.9 GiB      134.7 MiB   854.0 B / 42.0 B  0.0 B / 0.0 B              24515
+

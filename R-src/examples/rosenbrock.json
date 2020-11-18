@@ -1,0 +1,28 @@
+{
+  "script": "exp_rosenbrock.R",
+  "resource": "cpu",
+  "n_parallel": 1,
+  "target": "min",
+  "workingdir": "./",
+  "proposer": "random",
+  "n_samples": 10,
+  "random_seed": 0,
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        0,
+        10
+      ],
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "range": [
+        0,
+        10
+      ],
+      "type": "float"
+    }
+  ]
+}

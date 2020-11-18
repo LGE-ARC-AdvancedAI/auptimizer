@@ -1,0 +1,28 @@
+{
+  "proposer": "hyperopt",
+  "random_seed": 1,
+  "script": "rosenbrock_hpo.py",
+  "engine":"tpe",
+  "n_samples": 100,
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    }
+  ],
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min"
+}

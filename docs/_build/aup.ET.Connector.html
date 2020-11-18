@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aup.ET.Connector package &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aup.Proposer package" href="aup.Proposer.html" />
+    <link rel="prev" title="aup.ET - Experiment tracking package" href="aup.ET.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment execution</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment tracking package</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aup.ET.Connector package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.dlconvert_API.html">aup.dlconvert package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> APIs</a> &raquo;</li>
+        
+          <li><a href="aup.ET.html">aup.ET - Experiment tracking package</a> &raquo;</li>
+        
+      <li>aup.ET.Connector package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/aup.ET.Connector.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aup.ET.Connector.AbstractConnector">
+<span id="aup-et-connector-package"></span><h1>aup.ET.Connector package<a class="headerlink" href="#module-aup.ET.Connector.AbstractConnector" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="aup-et-connector-abstractconnector">
+<h2>aup.ET.Connector.AbstractConnector<a class="headerlink" href="#aup-et-connector-abstractconnector" title="Permalink to this headline">¶</a></h2>
+<p>Define the basic interface between experiment tracking and executor engine.</p>
+<p>Currently, SQLite is the only one implemented.</p>
+<div class="section" id="apis">
+<h3>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector">
+<em class="property">class </em><code class="sig-name descname">AbstractConnector</code><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.end_experiment">
+<em class="property">abstract </em><code class="sig-name descname">end_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.end_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.end_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark experiment as finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.end_job">
+<em class="property">abstract </em><code class="sig-name descname">end_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">jid</span></em>, <em class="sig-param"><span class="n">score</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.end_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.end_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a job ended</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+<li><p><strong>score</strong> (<em>str</em>) – score of the Job</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.end_job_attempt">
+<em class="property">abstract </em><code class="sig-name descname">end_job_attempt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">jid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.end_job_attempt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.end_job_attempt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends a job attempt, but not a job (leaving room for retries)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Job ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.free_used_resource">
+<em class="property">abstract </em><code class="sig-name descname">free_used_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.free_used_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.free_used_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark resource as free (opposite to :func:take_available_resource)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rid</strong> (<em>int</em>) – Resource ID(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.get_all_experiment">
+<em class="property">abstract </em><code class="sig-name descname">get_all_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.get_all_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.get_all_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all Experiment IDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – to get experiments for a specific user</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Experiment IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.get_all_history">
+<em class="property">abstract </em><code class="sig-name descname">get_all_history</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.get_all_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.get_all_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full history of an Experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.get_available_resource">
+<em class="property">abstract </em><code class="sig-name descname">get_available_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">rtype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.get_available_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.get_available_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get available resource for a user and resource type.
+Currently there is no limitation/requirement for user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – username</p></li>
+<li><p><strong>rtype</strong> (<em>str</em>) – Resource type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Resource Id</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.get_best_result">
+<em class="property">abstract </em><code class="sig-name descname">get_best_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">maximize</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.get_best_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.get_best_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the best job id and score from the database for experiment eid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – whether to choose max or min</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job ID, score</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.get_resource_type">
+<em class="property">abstract </em><code class="sig-name descname">get_resource_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.get_resource_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.get_resource_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the resource type for a given user
+:return: list of resource types
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.get_running_job">
+<em class="property">abstract </em><code class="sig-name descname">get_running_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.get_running_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.get_running_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get running Job IDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of Job IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.job_failed">
+<code class="sig-name descname">job_failed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">jid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.job_failed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.job_failed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface to take care of job failure in case of possible retries</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.job_finished">
+<code class="sig-name descname">job_finished</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">jid</span></em>, <em class="sig-param"><span class="n">score</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.job_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.job_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean up Job when it is finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID to be free</p></li>
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+<li><p><strong>score</strong> (<em>float / str</em>) – score returned by Job (error case will be ERROR)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.job_retry">
+<code class="sig-name descname">job_retry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">jid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.job_retry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.job_retry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface to mark the beginning of a job retry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.job_started">
+<code class="sig-name descname">job_started</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">job_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.job_started"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.job_started" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface to automatically take resource and run job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>job_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – Configuration for Job</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job ID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment">
+<em class="property">abstract </em><code class="sig-name descname">start_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">exp_config_blob</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.start_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an Experiment and track it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – username</p></li>
+<li><p><strong>exp_config_blob</strong> (<em>str</em>) – configuration of experiment</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>experiment ID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.start_job">
+<em class="property">abstract </em><code class="sig-name descname">start_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">job_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.start_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.start_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a job with job configuration and track it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>job_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – Configuration for <a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Job.Job</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job ID (jid)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.start_job_attempt">
+<em class="property">abstract </em><code class="sig-name descname">start_job_attempt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">jid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.start_job_attempt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.start_job_attempt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a job attempt for a given job, using the given resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job Attempt ID (jaid)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.take_available_resource">
+<em class="property">abstract </em><code class="sig-name descname">take_available_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.take_available_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.take_available_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark resource as used</p>
+<p>TODO - currently where is prevention for async update, might not be relevant in the near future</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rid</strong> (<em>int</em>) – Resource ID(s)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True/False</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-aup.ET.Connector.SQLiteConnector"></span><div class="section" id="aup-et-connector-sqliteconnector">
+<h2>aup.ET.Connector.SQLiteConnector<a class="headerlink" href="#aup-et-connector-sqliteconnector" title="Permalink to this headline">¶</a></h2>
+<p>If encounter “Failed to query SQLite after xx times” error,
+increase DELAY_INTERVAL and REPEATED_TIME to prevent problem temporarily.</p>
+<div class="section" id="id1">
+<h3>APIs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector">
+<em class="property">class </em><code class="sig-name descname">SQLiteConnector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aup.ET.Connector.AbstractConnector.AbstractConnector" title="aup.ET.Connector.AbstractConnector.AbstractConnector"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.ET.Connector.AbstractConnector.AbstractConnector</span></code></a></p>
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_experiment">
+<code class="sig-name descname">end_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.end_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark experiment as finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_job">
+<code class="sig-name descname">end_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.end_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a job ended</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+<li><p><strong>score</strong> (<em>str</em>) – score of the Job</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_job_attempt">
+<code class="sig-name descname">end_job_attempt</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.end_job_attempt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_job_attempt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends a job attempt, but not a job (leaving room for retries)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – Job ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.free_used_resource">
+<code class="sig-name descname">free_used_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.free_used_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.free_used_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark resource as free (opposite to :func:take_available_resource)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rid</strong> (<em>int</em>) – Resource ID(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_all_experiment">
+<code class="sig-name descname">get_all_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.get_all_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_all_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all Experiment IDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – to get experiments for a specific user</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Experiment IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_all_history">
+<code class="sig-name descname">get_all_history</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.get_all_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_all_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full history of an Experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_available_resource">
+<code class="sig-name descname">get_available_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.get_available_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_available_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get available resource for a user and resource type.
+Currently there is no limitation/requirement for user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – username</p></li>
+<li><p><strong>rtype</strong> (<em>str</em>) – Resource type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Resource Id</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_best_result">
+<code class="sig-name descname">get_best_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.get_best_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_best_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the best job id and score from the database for experiment eid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – whether to choose max or min</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job ID, score</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_resource_type">
+<code class="sig-name descname">get_resource_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.get_resource_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_resource_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the resource type for a given user
+:return: list of resource types
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_running_job">
+<code class="sig-name descname">get_running_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.get_running_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_running_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get running Job IDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of Job IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_experiment">
+<code class="sig-name descname">start_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.start_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an Experiment and track it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – username</p></li>
+<li><p><strong>exp_config_blob</strong> (<em>str</em>) – configuration of experiment</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>experiment ID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_job">
+<code class="sig-name descname">start_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.start_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a job with job configuration and track it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>int</em>) – Experiment ID</p></li>
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>job_config</strong> (<a class="reference internal" href="aup.utils.html#aup.aup.BasicConfig" title="aup.aup.BasicConfig"><em>BasicConfig</em></a>) – Configuration for <a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.EE.Job.Job</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job ID (jid)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_job_attempt">
+<code class="sig-name descname">start_job_attempt</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.start_job_attempt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_job_attempt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a job attempt for a given job, using the given resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>int</em>) – Resource ID</p></li>
+<li><p><strong>jid</strong> (<em>int</em>) – Job ID</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Job Attempt ID (jaid)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aup.ET.Connector.SQLiteConnector.SQLiteConnector.take_available_resource">
+<code class="sig-name descname">take_available_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/SQLiteConnector.html#SQLiteConnector.take_available_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.ET.Connector.SQLiteConnector.SQLiteConnector.take_available_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark resource as used</p>
+<p>TODO - currently where is prevention for async update, might not be relevant in the near future</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rid</strong> (<em>int</em>) – Resource ID(s)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True/False</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="aup.Proposer.html" class="btn btn-neutral float-right" title="aup.Proposer package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aup.ET.html" class="btn btn-neutral float-left" title="aup.ET - Experiment tracking package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, LG Electronics Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

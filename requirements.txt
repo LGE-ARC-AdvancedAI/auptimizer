@@ -1,0 +1,23 @@
+click
+numpy
+coloredlogs
+six==1.12.0
+futures; python_version == '2.7'
+protobuf
+weave; python_version == '2.7'
+matplotlib
+pandas
+networkx
+hyperopt
+nose
+requests
+paramiko==2.7.1
+boto3
+mock; python_version < '3.3'
+future
+ConfigSpace; python_version >= '3'
+pytest-cov
+codecov
+tabulate
+hpbandster; python_version >= '3'
+mock-ssh-server==0.8.2

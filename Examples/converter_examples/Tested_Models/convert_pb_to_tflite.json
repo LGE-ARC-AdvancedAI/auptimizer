@@ -1,0 +1,8 @@
+[
+    {
+        "convert_from":"test_models/densenet/densenet.pb",
+        "convert_to":"converted_models/densenet_converted.tflite",
+        "input_nodes":"Placeholder",
+        "output_nodes":"softmax_tensor:0,ArgMax:0"
+    }
+]

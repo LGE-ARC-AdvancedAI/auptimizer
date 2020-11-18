@@ -1,0 +1,76 @@
+[
+    {
+        "convert_from":"test_models/VGG16.h5",
+        "convert_to":"converted_models/VGG16_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/ResNet50.h5",
+        "convert_to":"converted_models/ResNet50_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/InceptionV3.h5",
+        "convert_to":"converted_models/InceptionV3_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/MobileNet.h5",
+        "convert_to":"converted_models/MobileNet_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/MobileNetV2.h5",
+        "convert_to":"converted_models/MobileNetV2_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/DenseNet121.h5",
+        "convert_to":"converted_models/DenseNet121_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/NASNetMobile.h5",
+        "convert_to":"converted_models/NASNetMobile_keras.tflite",
+        "quantization": {
+            "opsset":"tf"
+        },
+        "skip":"False"
+    },
+
+    {
+        "convert_from":"test_models/lstm.h5",
+        "convert_to":"converted_models/lstm_keras.tflite",
+        "skip":"True"
+    },
+
+    {
+        "convert_from":"test_models/gru.h5",
+        "convert_to":"converted_models/gru_keras.tflite",
+        "skip":"False"
+    }
+]

@@ -1,0 +1,61 @@
+{
+  "workingdir": "/home/ubuntu/aup/mnist_try/",
+  "proposer": "random",
+  "script": "mnist_hpo_demo.py",
+  "runtime_args": {
+    "prescript": "source /home/ubuntu/.bashrc; source /home/ubuntu/.profile; source activate tensorflow_p36",
+    "postscript": "source deactivate",
+    "overwrite" : true
+  },
+  "resource_args":{
+    "shutdown":false,
+    "connection_retry": 5,
+    "async_run":true,
+    "async_reconnect": 60,
+    "async_timeout":1000
+  },
+  "resource": "aws",
+  "n_parallel": 5,
+  "target":"max",
+  "n_samples":100,
+  "parameter_config": [
+    {
+      "name": "dropout",
+      "range": [0.0, 0.5],
+      "type": "float"
+    },
+    {
+      "name": "learning_rate",
+      "range": [
+        0.001,
+        0.01
+      ],
+      "type": "float"
+    },
+    {
+      "name": "conv1",
+      "range": [
+        20,
+        50
+      ],
+      "type": "int"
+    },
+    {
+      "name": "conv2",
+      "range": [
+        40,
+        80
+      ],
+      "type": "int"
+    },
+    {
+      "name": "fc1",
+      "range": [
+        700,
+        2000
+      ],
+      "type": "int"
+    }
+  ]
+}
+

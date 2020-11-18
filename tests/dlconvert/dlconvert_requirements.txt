@@ -1,0 +1,8 @@
+keras2onnx==1.7.0
+tf2onnx
+pytest
+pytest-cov
+torch
+pytorch2keras
+tensorflow==2.3
+onnx

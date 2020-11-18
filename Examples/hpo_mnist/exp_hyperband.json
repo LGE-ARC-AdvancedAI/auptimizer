@@ -1,0 +1,48 @@
+{
+  "proposer": "hyperband",
+  "script": "mnist_hpo_demo.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"max",
+  "max_iter": 243,
+  "engine": "random",
+  "parameter_config": [
+    {
+      "name": "dropout",
+      "range": [0.0, 0.5],
+      "type": "float"
+    },
+    {
+      "name": "learning_rate",
+      "range": [
+        0.001,
+        0.01
+      ],
+      "type": "float"
+    },
+    {
+      "name": "conv1",
+      "range": [
+        20,
+        50
+      ],
+      "type": "int"
+    },
+    {
+      "name": "conv2",
+      "range": [
+        40,
+        80
+      ],
+      "type": "int"
+    },
+    {
+      "name": "fc1",
+      "range": [
+        700,
+        2000
+      ],
+      "type": "int"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "proposer": "random",
+  "n_samples": 30,
+  "random_seed": 1,
+  "script": "rosenbrock_hpo.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min"
+}

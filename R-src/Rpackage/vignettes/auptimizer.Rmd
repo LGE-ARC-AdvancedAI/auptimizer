@@ -1,0 +1,47 @@
+<!--  Copyright (c) 2018 LG Electronics Inc.
+ SPDX-License-Identifier: GPL-3.0-or-later -->
+---
+title: "Auptimizer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{auptimizer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+# R Package for Auptimizer
+
+## Installation
+
+*IMPORTANT:*  Auptimizer is well tested on Unix or similar OS.  Windows users may have to make some changes to run Aptimizer.
+
+1. [Install Python Auptimizer](https://github.com/LGE-ARC-AdvancedAI/auptimizer)
+2. Install R Auptimizer
+
+    ```R
+    install.packages("auptimizer")
+    ```
+
+## Usage
+
+The workflow for Auptimizer is the same as the Python version.  The difference is in how to change existing R code to use Auptimizer.
+
+1. Setup Python Auptimizer environment using `python -m aup.setup`
+2. Change your R script:
+   a. Make all hyperparameters global variables.
+   b. Add `#!/usr/bin/env Rscript` as the first line.
+   c. Add `library("auptimizer")`.
+   d. Add `get_config()`, which will automatically update the hyperparameters (set globally in step 2a).
+   e. Add `print_result(score)` to return the target score you want to optimize for your script.
+   f. Change file permission using `chmod u+x <your_R_script>`.
+   g. Add them into an Auptimizer experiment using `python -m aup.init`.
+3. Run Auptimizer using `python -m aup experiment.json`.
+
+## Examples
+
+There are more examples in the `R-src/example` folder on the [Auptimizer Github repo](https://github.com/LGE-ARC-AdvancedAI/auptimizer/).
+
++ `exp_ridge.R` for synthetic Ridge regression. Run as `python -m aup ridge.json`.
++ `exp_rosenbrock.R` for analytic Rosenbrock function. Run as `python -m aup rosenbrock.json`.
+
