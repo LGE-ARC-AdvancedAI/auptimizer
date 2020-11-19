@@ -163,7 +163,7 @@ This parameter is for converting selected models when there are multiple convers
 
 
 ## Examples
-We provide extensive examples on using model conversion in various use cases in [dlconvert_examples](../../../Examples/converter_examples), including:
+We provide extensive examples on using model conversion in various use cases in [converter_examples](../../../Examples/converter_examples), including:
 
 1. Evaluating supported model architectures for each type of conversion [(*link*)](../../../Examples/converter_examples/Tested_Models)
 2. Benchmarking quantized TensorFlow Lite models on Android platform [(*link*)](../../../Examples/converter_examples/Convert_Benchmark)
