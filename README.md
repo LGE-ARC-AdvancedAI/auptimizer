@@ -2,7 +2,7 @@
 
 [![Documentation](https://img.shields.io/badge/doc-reference-blue.svg)](https://LGE-ARC-AdvancedAI.github.io/auptimizer)
 [![GPL 3.0 License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](https://opensource.org/licenses/GPL-3.0)
-[![pipeline status](https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master)](https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer)
+[![Build Status](https://travis-ci.com/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master)](https://travis-ci.com/LGE-ARC-AdvancedAI/auptimizer)
 [![coverage report](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg)](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer)
 
 **Auptimizer** is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building and deployment process.
