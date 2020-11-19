@@ -169,7 +169,7 @@ We provide extensive examples on using model conversion in various use cases in 
 2. Benchmarking quantized TensorFlow Lite models on Android platform [(*link*)](../../../Examples/converter_examples/Convert_Benchmark)
 3. Profiling performances of converted models using Auptimizer Profiler [(*link*)](../../../Examples/converter_examples/Convert_Profiler)
 
-Please check these examples for better utilization of the model conversion capability.
+Please check these examples for better utilization of Converter.
 
 
 ### Known Issues
