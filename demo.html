@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Install and setup Auptimizer" href="setup.html" />
-    <link rel="prev" title="Setup for R" href="r_user.html" /> 
+    <link rel="next" title="Setup for R" href="r_user.html" />
+    <link rel="prev" title="Configure HPO Algorithm" href="algorithm.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -93,32 +93,30 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#auto-convert">Auto convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#manual-modification">Manual modification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#experiment-configurations">Experiment configurations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#auto-convert">Auto convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-modification">Manual modification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiment-configurations">Experiment configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="r_user.html">Setup for R</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -164,6 +162,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hpo.html">Hyperparameter Optimization</a> &raquo;</li>
         
       <li>Examples</li>
     
@@ -236,7 +236,7 @@
 </table>
 <div class="section" id="auto-convert">
 <h2>Auto convert<a class="headerlink" href="#auto-convert" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">experiment_auto.json</span></code> shows how experiment configuration is managed.
+<p>In example <code class="docutils literal notranslate"><span class="pre">2dfunc_diff_opt</span></code>, the <code class="docutils literal notranslate"><span class="pre">experiment_auto.json</span></code> shows how experiment configuration is managed.
 The user can use:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">convert</span> <span class="n">rosenbrock_origin</span><span class="o">.</span><span class="n">py</span> <span class="n">experiment_auto</span><span class="o">.</span><span class="n">json</span> <span class="n">rosenbrock</span>
 </pre></div>
@@ -246,12 +246,12 @@ The output file name is defined in <code class="docutils literal notranslate"><s
 </div>
 <div class="section" id="manual-modification">
 <h2>Manual modification<a class="headerlink" href="#manual-modification" title="Permalink to this headline">¶</a></h2>
-<p>We also provide a modified version for users’ reference. In <code class="docutils literal notranslate"><span class="pre">rosenbrock_hpo.py</span></code>, we show how to convert the function for tuning with <strong>Auptimizer</strong>.</p>
+<p>We also provide a modified training script in example <code class="docutils literal notranslate"><span class="pre">2dfunc_diff_opt</span></code> for users’ reference. In <code class="docutils literal notranslate"><span class="pre">rosenbrock_hpo.py</span></code>, we show how to manually convert the function for tuning with <strong>Auptimizer</strong>.</p>
 <p>For the end-user’s experiment, simply replacing the <code class="docutils literal notranslate"><span class="pre">rosenbrock()</span></code> function with their code is enough to use <strong>Auptimizer</strong> (<strong>Need to return the score in that function</strong>).</p>
 </div>
 <div class="section" id="experiment-configurations">
 <h2>Experiment configurations<a class="headerlink" href="#experiment-configurations" title="Permalink to this headline">¶</a></h2>
-<p>Different <code class="docutils literal notranslate"><span class="pre">experiment*.json</span></code> files illustrate how to specify the configuration for different HPO algorithms. Most of
+<p>Different <code class="docutils literal notranslate"><span class="pre">experiment*.json</span></code> files in multiple examples illustrate how to specify the configuration for different HPO algorithms. Most of
 them are identical. To set up a new experiment, please define the corresponding <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code> in the <code class="docutils literal notranslate"><span class="pre">JSON</span></code>
 file.</p>
 </div>
@@ -265,10 +265,10 @@ file.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="setup.html" class="btn btn-neutral float-right" title="Install and setup Auptimizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="r_user.html" class="btn btn-neutral float-right" title="Setup for R" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="r_user.html" class="btn btn-neutral float-left" title="Setup for R" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="algorithm.html" class="btn btn-neutral float-left" title="Configure HPO Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

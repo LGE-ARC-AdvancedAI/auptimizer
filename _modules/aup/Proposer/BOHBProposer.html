@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,27 +91,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -326,6 +318,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">register_result</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_generator</span><span class="o">.</span><span class="n">new_result</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">running_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BOHBProposer.failed"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.failed">[docs]</a>    <span class="k">def</span> <span class="nf">failed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Failed jobs unsupported by BOHB Proposer.</span>
+
+<span class="sd">        :param job: Failed job, containing job id</span>
+<span class="sd">        :type job: Job</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">failed</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;BOHBProposer does not support failed jobs&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BOHBProposer.get_next_iteration"><a class="viewcode-back" href="../../../aup.Proposer.BOHBProposer.html#aup.Proposer.BOHBProposer.BOHBProposer.get_next_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">iteration_kwargs</span><span class="o">=</span><span class="p">{}):</span>
         <span class="sd">&quot;&quot;&quot; Copied from https://github.com/automl/HpBandSter/blob/master/hpbandster/optimizers/bohb.py</span>

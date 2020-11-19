@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -93,33 +93,31 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Version History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-3">version 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-2">version 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-1">version 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#version-1-0">version 1.0</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="developer.html">For Developers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Version History</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-1-4">version 1.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1-3">version 1.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1-2">version 1.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1-1">version 1.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1-0">version 1.0</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -166,6 +164,8 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="developer.html">For Developers</a> &raquo;</li>
+        
       <li>Version History</li>
     
     
@@ -187,6 +187,17 @@
             
   <div class="section" id="version-history">
 <h1>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-1-4">
+<h2>version 1.4<a class="headerlink" href="#version-1-4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add Converter to convert models in various formats into TensorFlow Lite or ONNX</p></li>
+<li><p>Add feature to enhance SSH connection robustness: re-establish SSH connection upon connection failure</p></li>
+<li><p>Add feature to enhance experiment robustness: retry failed jobs and resume experiment from job failure</p></li>
+<li><p>Refactor documentation</p></li>
+<li><p>Minor bug fixes</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/8209b9ddb10095589b643590fc720952/Auptimizer-1.4-py2.py3-none-any.whl"><code class="xref download docutils literal notranslate"><span class="pre">Auptimizer</span> <span class="pre">1.4</span> <span class="pre">wheel</span> <span class="pre">python2</span> <span class="pre">or</span> <span class="pre">python3</span></code></a></p></li>
+</ul>
+</div>
 <div class="section" id="version-1-3">
 <h2>version 1.3<a class="headerlink" href="#version-1-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">

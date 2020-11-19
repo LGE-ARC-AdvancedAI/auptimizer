@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,27 +91,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -193,6 +185,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">from</span> <span class="nn">.AbstractConnector</span> <span class="kn">import</span> <span class="n">AbstractConnector</span>
 
@@ -248,6 +241,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE job SET end_time=strftime(&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;now&#39;), score=? WHERE jid=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">jid</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="SQLiteConnector.end_job_attempt"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.SQLiteConnector.SQLiteConnector.end_job_attempt">[docs]</a>    <span class="nd">@_delayed</span>
+    <span class="k">def</span> <span class="nf">end_job_attempt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;UPDATE job_attempt SET end_time=strftime(&#39;</span><span class="si">%s</span><span class="s2">&#39;, &#39;now&#39;) WHERE jaid=(</span>
+<span class="s2">                                    SELECT jaid FROM job_attempt jt WHERE jt.jid=? ORDER BY num DESC LIMIT 1)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">jid</span><span class="p">,))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="SQLiteConnector.free_used_resource"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.SQLiteConnector.SQLiteConnector.free_used_resource">[docs]</a>    <span class="nd">@_delayed</span>
     <span class="k">def</span> <span class="nf">free_used_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mark_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="s1">&#39;free&#39;</span><span class="p">)</span>
@@ -267,9 +266,20 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eids</span><span class="p">]</span>  <span class="c1"># unzip tuple of one element</span></div>
 
 <div class="viewcode-block" id="SQLiteConnector.get_available_resource"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_available_resource">[docs]</a>    <span class="nd">@_delayed</span>
-    <span class="k">def</span> <span class="nf">get_available_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">rtype</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT rid FROM resource WHERE status = &#39;free&#39; AND type = ?;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">rtype</span><span class="p">,))</span>
-        <span class="n">rids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
+    <span class="k">def</span> <span class="nf">get_available_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">rtype</span><span class="p">,</span> <span class="n">rid_blacklist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">rids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">rid_blacklist</span><span class="p">:</span>
+            <span class="c1"># Initial approach:</span>
+            <span class="c1"># self.cursor.execute(&quot;SELECT rid FROM resource WHERE status = &#39;free&#39; AND type = ? AND rid NOT IN ?;&quot;, (rtype, rid_blacklist))</span>
+            <span class="c1"># However, this does not work with sqlite3, so the following approach was ultimately selected</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT rid FROM resource WHERE status = &#39;free&#39; AND type = ? AND rid NOT IN (</span><span class="si">{}</span><span class="s2">);&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;?&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rid_blacklist</span><span class="p">))),</span> <span class="p">(</span><span class="n">rtype</span><span class="p">,)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rid_blacklist</span><span class="p">))</span>
+            <span class="n">rids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rids</span><span class="p">:</span>
+            <span class="c1"># An attempt was made to filter out resources, but this was not possible (the only</span>
+            <span class="c1"># available resource are the ones blacklisted)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT rid FROM resource WHERE status = &#39;free&#39; AND type = ?;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">rtype</span><span class="p">,))</span>
+            <span class="n">rids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
         <span class="k">return</span> <span class="n">rids</span></div>
 
 <div class="viewcode-block" id="SQLiteConnector.get_all_history"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.SQLiteConnector.SQLiteConnector.get_all_history">[docs]</a>    <span class="nd">@_delayed</span>
@@ -321,8 +331,19 @@
 
 <div class="viewcode-block" id="SQLiteConnector.start_job"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_job">[docs]</a>    <span class="nd">@_delayed</span>
     <span class="k">def</span> <span class="nf">start_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">job_config</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO job (eid, start_time, rid, job_config) VALUES (?, strftime(&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;now&#39;), ?, ?)&quot;</span><span class="p">,</span>
-                            <span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">job_config</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO job (eid, start_time, job_config) VALUES (?, strftime(&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;now&#39;), ?)&quot;</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">job_config</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">jid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">lastrowid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO job_attempt (jid, num, rid, start_time) VALUES (?, 0, ?, (SELECT start_time FROM job j WHERE j.jid=?))&quot;</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">jid</span></div>
+    
+<div class="viewcode-block" id="SQLiteConnector.start_job_attempt"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.SQLiteConnector.SQLiteConnector.start_job_attempt">[docs]</a>    <span class="nd">@_delayed</span>
+    <span class="k">def</span> <span class="nf">start_job_attempt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO job_attempt (jid, num, rid, start_time) VALUES (?, (SELECT num FROM job_attempt jt WHERE jt.jid=? ORDER BY num DESC LIMIT 1)+1, ?, strftime(&#39;</span><span class="si">%s</span><span class="s2">&#39;, &#39;now&#39;))&quot;</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">rid</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">lastrowid</span></div>
 

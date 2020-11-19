@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,27 +91,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -301,6 +293,9 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;...instance is </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">])</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;AWS connection profile </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">exec_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">retry_counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">retry_counter</span> <span class="o">&lt;</span> <span class="n">retry</span><span class="p">:</span>
@@ -316,7 +311,7 @@
         <span class="k">if</span> <span class="n">retry_counter</span> <span class="o">==</span> <span class="n">retry</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s1">&#39;cannot connect to instance, there might be some issues&#39;</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;Failed to start AWS instance with in </span><span class="si">%d</span><span class="s2"> retries&quot;</span> <span class="o">%</span> <span class="n">retry</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
 
 <div class="viewcode-block" id="AWSResourceManager"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AWSResourceManager.AWSResourceManager">[docs]</a><span class="k">class</span> <span class="nc">AWSResourceManager</span><span class="p">(</span><span class="n">SSHResourceManager</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
@@ -325,7 +320,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">remote_class</span> <span class="o">=</span> <span class="n">AWSRemote</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shutdown</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;shutdown&quot;</span><span class="p">,</span> <span class="n">DEFAULT_SHUTDOWN</span><span class="p">)</span>
         <span class="k">global</span> <span class="n">retry</span>
-        <span class="n">retry</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;retry&quot;</span><span class="p">,</span> <span class="n">retry</span><span class="p">)</span>
+        <span class="n">retry</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;connection_retry&quot;</span><span class="p">,</span> <span class="n">retry</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">used_resource</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

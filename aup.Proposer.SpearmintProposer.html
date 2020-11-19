@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -93,38 +93,31 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment Tracking package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment tracking package</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="aup.Proposer.html#proposers">Proposers</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="aup.utils.html">Utility functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.utils.html#auptimizer-client-side-functions">Auptimizer client side functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.dlconvert_API.html">aup.dlconvert package</a></li>
 </ul>
 </li>
 </ul>
@@ -175,7 +168,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+          <li><a href="aup.html"><strong>Auptimizer</strong> APIs</a> &raquo;</li>
         
           <li><a href="aup.Proposer.html">aup.Proposer package</a> &raquo;</li>
         
@@ -293,6 +286,17 @@ Mainly wrap main.py</p>
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer">
 <em class="property">class </em><code class="sig-name descname">SpearmintProposer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
+<dl class="py method">
+<dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.failed">
+<code class="sig-name descname">failed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">job</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.failed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.failed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark job as failed in proposer history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>job</strong> (<a class="reference internal" href="aup.EE.Job.html#aup.EE.Job.Job" title="aup.EE.Job.Job"><em>Job</em></a>) – Failed job</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.get_param">
 <code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.get_param" title="Permalink to this definition">¶</a></dt>

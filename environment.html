@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Create and run a new experiment" href="experiment.html" />
-    <link rel="prev" title="Install and setup Auptimizer" href="setup.html" /> 
+    <link rel="next" title="Hyperparameter Optimization" href="hpo.html" />
+    <link rel="prev" title="First time installation" href="setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -92,54 +92,46 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
-</ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Set up environment</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#environment-template-file-ini">Environment Template File (*.ini)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#aws-mapping-configuration-aws">AWS Mapping Configuration (–aws)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cpu-configuration-cpu">CPU Configuration (<code class="docutils literal notranslate"><span class="pre">--cpu</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gpu-mapping-configuration-gpu">GPU Mapping Configuration (<code class="docutils literal notranslate"><span class="pre">--gpu</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#node-mapping-configuration-node">Node Mapping Configuration (<code class="docutils literal notranslate"><span class="pre">--node</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">First time installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Set up environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-options">Configuration Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#environment-template-file-ini">Environment Template File (*.ini)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-mapping-configuration-aws">AWS Mapping Configuration (–aws)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cpu-configuration-cpu">CPU Configuration (<code class="docutils literal notranslate"><span class="pre">--cpu</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gpu-mapping-configuration-gpu">GPU Mapping Configuration (<code class="docutils literal notranslate"><span class="pre">--gpu</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#node-mapping-configuration-node">Node Mapping Configuration (<code class="docutils literal notranslate"><span class="pre">--node</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#database-setup">Database Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#refresh-tables">Refresh tables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#refresh-tables-with-additional-modification">Refresh tables with additional modification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-setup">Database Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#refresh-tables">Refresh tables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#refresh-tables-with-additional-modification">Refresh tables with additional modification</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#reset">Reset</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#full-reset">Full reset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#database-reset">Database reset</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#reset-all">Reset all</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#reset-job-status">Reset job status</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#reset">Reset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#full-reset">Full reset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#database-reset">Database reset</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -185,6 +177,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="install.html">Install and Setup <strong>Auptimizer</strong></a> &raquo;</li>
         
       <li>Set up environment</li>
     
@@ -318,7 +312,7 @@ instance ID, IP, or public DNS.</p>
 directory.</p>
 <p>4. Finally, the environment of the instances might be <em>sourced</em> correspondingly for environment variables, e.g. <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.  For
 instance, if you want to activate virtualenv on the instance before job running, use <cite>prescript</cite> in experiment.json (See
-<a class="reference internal" href="experiment.html#awsruntimeanchor"><span class="std std-ref">Additional runtime configuration for node/AWS</span></a> for more detail).</p>
+<a class="reference internal" href="experiment.html#awsruntimeanchor"><span class="std std-ref">Additional runtime configuration for Node/AWS</span></a> for more detail).</p>
 </div>
 <div class="section" id="cpu-configuration-cpu">
 <h3>CPU Configuration (<code class="docutils literal notranslate"><span class="pre">--cpu</span></code>)<a class="headerlink" href="#cpu-configuration-cpu" title="Permalink to this headline">¶</a></h3>
@@ -492,10 +486,10 @@ you from using them within <strong>Auptimizer</strong>.  In such scenarios, you 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="experiment.html" class="btn btn-neutral float-right" title="Create and run a new experiment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hpo.html" class="btn btn-neutral float-right" title="Hyperparameter Optimization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="setup.html" class="btn btn-neutral float-left" title="Install and setup Auptimizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-left" title="First time installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

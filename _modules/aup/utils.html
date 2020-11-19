@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,27 +91,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -199,6 +191,8 @@
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">input</span>
 <span class="kn">from</span> <span class="nn">six.moves.configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
+<span class="kn">import</span> <span class="nn">paramiko</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">from</span> <span class="nn">paramiko</span> <span class="kn">import</span> <span class="n">SFTPClient</span>
 
 <span class="kn">from</span> <span class="nn">.aup</span> <span class="kn">import</span> <span class="n">BasicConfig</span><span class="p">,</span> <span class="n">print_result</span>
 
@@ -361,6 +355,39 @@
         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Using default value </span><span class="si">%s</span><span class="s2"> for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
         <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="block_until_ready"><a class="viewcode-back" href="../../aup.utils.html#aup.utils.block_until_ready">[docs]</a><span class="k">def</span> <span class="nf">block_until_ready</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">socket</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Block current thread until we receive the ready status</span>
+<span class="sd">    :param client: the current connected client</span>
+<span class="sd">    :type client: SSHClient</span>
+<span class="sd">    :param socket: socket connection to machine where job is executed</span>
+<span class="sd">    :param env: environment to set up on the remote machine</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+    <span class="kn">import</span> <span class="nn">paramiko</span> <span class="k">as</span> <span class="nn">pm</span>
+
+    <span class="n">sleep_time_s</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">timeout_time_s</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">nop_linux_command</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span>
+
+    <span class="k">while</span> <span class="n">socket</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">exit_status_ready</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+
+        <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">nop_linux_command</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_time_s</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Command executed successfully, now sleeping&quot;</span><span class="p">)</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time_s</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="open_sftp_with_timeout"><a class="viewcode-back" href="../../aup.utils.html#aup.utils.open_sftp_with_timeout">[docs]</a><span class="k">def</span> <span class="nf">open_sftp_with_timeout</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SFTP Connection to transfer files and environment between Auptimizer source machine and remote machine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_transport</span><span class="p">()</span>
+    <span class="n">chan</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">open_session</span><span class="p">(</span>
+            <span class="n">window_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_packet_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">chan</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">chan</span><span class="o">.</span><span class="n">invoke_subsystem</span><span class="p">(</span><span class="s2">&quot;sftp&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">SFTPClient</span><span class="p">(</span><span class="n">chan</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

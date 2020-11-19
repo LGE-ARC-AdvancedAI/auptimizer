@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,27 +91,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -676,6 +668,10 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;************************************************&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">finished_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;folderpath&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">score</span></div>
+
+<div class="viewcode-block" id="EASProposer.failed"><a class="viewcode-back" href="../../../aup.Proposer.EASProposer.html#aup.Proposer.EASProposer.EASProposer.failed">[docs]</a>    <span class="k">def</span> <span class="nf">failed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">failed</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;EASProposer does not support failed jobs&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EASProposer.save"><a class="viewcode-back" href="../../../aup.Proposer.EASProposer.html#aup.Proposer.EASProposer.EASProposer.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Save and restore not supported yet&quot;</span>

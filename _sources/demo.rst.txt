@@ -27,7 +27,7 @@ An easy way to get started with **Auptimizer** is to modify the demo code in the
 Auto convert
 ~~~~~~~~~~~~
 
-The ``experiment_auto.json`` shows how experiment configuration is managed.
+In example ``2dfunc_diff_opt``, the ``experiment_auto.json`` shows how experiment configuration is managed.
 The user can use::
 
   python -m aup.convert rosenbrock_origin.py experiment_auto.json rosenbrock
@@ -38,13 +38,13 @@ The output file name is defined in ``experiment_auto.json`` as ``script``.
 Manual modification
 ~~~~~~~~~~~~~~~~~~~
 
-We also provide a modified version for users' reference. In ``rosenbrock_hpo.py``, we show how to convert the function for tuning with **Auptimizer**.
+We also provide a modified training script in example ``2dfunc_diff_opt`` for users' reference. In ``rosenbrock_hpo.py``, we show how to manually convert the function for tuning with **Auptimizer**.
 
 For the end-user’s experiment, simply replacing the ``rosenbrock()`` function with their code is enough to use **Auptimizer** (**Need to return the score in that function**).
 
 Experiment configurations
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Different ``experiment*.json`` files illustrate how to specify the configuration for different HPO algorithms. Most of
+Different ``experiment*.json`` files in multiple examples illustrate how to specify the configuration for different HPO algorithms. Most of
 them are identical. To set up a new experiment, please define the corresponding ``parameter_config`` in the ``JSON``
 file.

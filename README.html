@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Setup for R" href="r_user.html" />
+    <link rel="next" title="Install and Setup Auptimizer" href="install.html" />
     <link rel="prev" title="Auptimizer Quickstart" href="index.html" /> 
 </head>
 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,8 +91,13 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Auptimizer Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#capabilities">Capabilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hyperparameter-optimization">Hyperparameter Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiler">Profiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#converter">Converter</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cite">Cite</a></li>
@@ -100,27 +105,19 @@
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -189,29 +186,42 @@
   <div class="section" id="auptimizer-quickstart">
 <h1>Auptimizer Quickstart<a class="headerlink" href="#auptimizer-quickstart" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://opensource.org/licenses/GPL-3.0"><img alt="GPL 3.0 License" src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" /></a> <a class="reference external" href="https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer"><img alt="pipeline status" src="https://travis-ci.org/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer"><img alt="coverage report" src="https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer"><img alt="repo url" src="https://img.shields.io/badge/github-repo-information.svg" /></a></p>
-<p><strong>Auptimizer</strong> is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building process.
+<p><strong>Auptimizer</strong> is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building and deployment process.
 Currently, <strong>Auptimizer</strong> helps with:</p>
 <ul class="simple">
-<li><p><strong>Automating tedious experimentation</strong> - Start using Auptimizer by
-changing just a few lines of your code. It will run and record the
-sophisticated hyperparameter optimization (HPO) experiments for you,
-resulting in effortless consistency and reproducibility.</p></li>
-<li><p><strong>Making the best use of your compute-resources</strong> - Whether you are
-using a couple of GPUs or AWS, Auptimizer will help you orchestrate
-compute resources for faster hyperparameter tuning.</p></li>
 <li><p><strong>Getting the best models in minimum time</strong> - Generate optimal models
-and achieve better performance by employing state-of-the-art HPO
-techniques. Auptimizer provides a single seamless access point to
-top-notch HPO algorithms, including Bayesian optimization and
-multi-armed bandit. You can even integrate your own proprietary solution.</p></li>
+and achieve better performance by employing state-of-the-art hyperparameter
+optimization (HPO) techniques. Auptimizer will run and record sophisticated
+HPO experiments on compute resources of your choice with effortless consistency
+and reproducibility.</p></li>
+<li><p><strong>Making your models edge-ready</strong> - Get model-device compatibility and
+enhanced on-device performance by converting models into the industry-standard
+ONNX and TensorFlow Lite formats. Auptimizer-Converter provides validated
+conversion techniques to ensure worry-free format transformations.</p></li>
+<li><p><strong>Selecting the most suitable model for your edge deployment effortlessly</strong>
+- Compare how different models will perform under specific compute and memory
+constraints on a CPU-based edge device. Auptimizer-Profiler will help you identify
+the most efficient models without the hustle of going through multiple physical
+deployment cycles.</p></li>
 </ul>
 <p>Best of all, <strong>Auptimizer</strong> offers a consistent interface that allows
-users to switch between different HPO algorithms and computing resources
-with minimal changes to their existing code.</p>
-<p>As development progress, <strong>Auptimizer</strong> will support the end-to-end
-development cycle for building models for edge devices including robust
-support for model compression and neural architecture search. The table
-below shows a full list of currently supported techniques.</p>
+users to switch between different HPO algorithms conversion frameworks,
+and computing resources with minimal changes to their existing code.</p>
+<p>In the future, <strong>Auptimizer</strong> will support end-to-end model building
+for edge devices, including model compression and neural architecture search.</p>
+<div class="section" id="capabilities">
+<h2>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hyperparameter-optimization">
+<h3>Hyperparameter Optimization<a class="headerlink" href="#hyperparameter-optimization" title="Permalink to this headline">¶</a></h3>
+<p>Auptimizer automates tedious experimentation by performing and recording
+hyperparameter experiments. Auptimizer provides a single seamless access
+point to top-notch HPO algorithms, including Bayesian optimization and multi-armed
+bandit. You can even integrate your own proprietary solution. Moreover, with
+Auptimizer, you can make the best use of your compute-resources. Whether you are
+using a couple of GPUs or AWS, Auptimizer will help you orchestrate compute resources
+for faster hyperparameter tuning.</p>
+<p>The table below shows a full list of currently supported techniques and resources
+for hyperparameter optimization.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 65%" />
@@ -244,20 +254,38 @@ below shows a full list of currently supported techniques.</p>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section" id="profiler">
+<h3>Profiler<a class="headerlink" href="#profiler" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler">Profiler</a>
+is a simulator for profiling performance of machine learning model scripts. Given compute- and memory
+resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute and memory
+usage for model scripts on the device. These estimations can be used to choose best performing models or,
+in certain cases, to predict how much compute and memory models will use on the target device.</p>
+<p>Because Profiler mimics the target device environment on the user’s development machine, the user
+can gain insights about the performance and resource needs of a model script without having to
+deploy it on the target device. Profiler helps accelerate the model selection cycle and simplifies
+finding model-device fit. Please see <a class="reference internal" href="prof_readme.html"><span class="doc">How to use Profiler</span></a> for usages.</p>
+</div>
+<div class="section" id="converter">
+<h3>Converter<a class="headerlink" href="#converter" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/dlconvert">Converter</a>
+is a format conversion tool for machine learning models. It encapsulates best practices of individual
+machine learning model conversions under a single API. Converter makes ML models suitable for edge
+(on-device) deployments by transforming them into the industry-standard ONNX and TensorFlow Lite formats
+and reducing model size through quantization. Please see <a class="reference internal" href="dlconvert_readme.html"><span class="doc">How to use Converter</span></a> for usages.</p>
+</div>
+</div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p><strong>Auptimizer</strong> currently is well tested on Linux systems, it may require
-some tweaks for Windows users by their own.</p>
+some tweaks for Windows users.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">auptimizer</span>
 </pre></div>
 </div>
-<p><strong>Note</strong> Dependencies are not included. Using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
+<p><strong>Note</strong> Dependencies are not included. Using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span></code>
 <a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/blob/master/requirements.txt">requirements.txt</a> will install
 necessary libraries for all functionalities.</p>
-</div>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>See more in <a class="reference external" href="https://lge-arc-advancedai.github.io/auptimizer/">documentation</a></p>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
@@ -307,7 +335,7 @@ necessary libraries for all functionalities.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="r_user.html" class="btn btn-neutral float-right" title="Setup for R" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Install and Setup Auptimizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Auptimizer Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

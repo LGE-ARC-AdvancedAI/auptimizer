@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Setup and Reset &mdash; Auptimizer  documentation</title>
+  <title>Database setup and reset &mdash; Auptimizer  documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="aup.EE - Experiment Execution" href="aup.EE.html" />
+    <link rel="next" title="Profiler - Profiling model scripts" href="aup.profiler.html" />
     <link rel="prev" title="Visualize one experiment result" href="aup.visualize.html" /> 
 </head>
 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -93,38 +93,32 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="aup.html#main-entry">Main Entry</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="aup.setup.html">Setup scripts for Auptimizer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.init.html">Initialize experiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.convert.html">Convert python code for Auptimizer automatically</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer main entry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.visualize.html">Visualize one experiment result</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Database Setup and Reset</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Database setup and reset</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#set-up-database-for-auptimizer">Set up database for Auptimizer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reset-database">Reset database</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="aup.profiler.html">Profiler - Profiling model scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.dlconvert.html">DLconvert - Model conversion</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a></li>
@@ -176,9 +170,9 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+          <li><a href="aup.html"><strong>Auptimizer</strong> APIs</a> &raquo;</li>
         
-      <li>Database Setup and Reset</li>
+      <li>Database setup and reset</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,7 +192,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-aup.setupdb.__main__">
-<span id="database-setup-and-reset"></span><h1>Database Setup and Reset<a class="headerlink" href="#module-aup.setupdb.__main__" title="Permalink to this headline">¶</a></h1>
+<span id="database-setup-and-reset"></span><h1>Database setup and reset<a class="headerlink" href="#module-aup.setupdb.__main__" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="set-up-database-for-auptimizer">
 <h2>Set up database for Auptimizer<a class="headerlink" href="#set-up-database-for-auptimizer" title="Permalink to this headline">¶</a></h2>
 <p>Set up the database for <strong>Auptimizer</strong> based on the specified environment ini file.</p>
@@ -254,7 +248,7 @@ Options:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="aup.EE.html" class="btn btn-neutral float-right" title="aup.EE - Experiment Execution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="aup.profiler.html" class="btn btn-neutral float-right" title="Profiler - Profiling model scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="aup.visualize.html" class="btn btn-neutral float-left" title="Visualize one experiment result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

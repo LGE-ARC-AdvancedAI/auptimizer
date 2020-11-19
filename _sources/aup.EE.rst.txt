@@ -1,4 +1,4 @@
-aup.EE - Experiment Execution
+aup.EE - Experiment execution
 =============================
 
 Overview

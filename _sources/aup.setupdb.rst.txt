@@ -1,4 +1,4 @@
-Database Setup and Reset
+Database setup and reset
 ========================
 
 .. automodule:: aup.setupdb.__main__

@@ -19,3 +19,10 @@ Setup stage
 + ``Error while finding module specification for XXX``
 
   XXX can be either ``aup.init`` or ``aup.setup``.  Double check whether you put the `aup.py` file for remote execution in your PYTHONPATH instead of the `aup` package.
+
+Run Experiment
+--------------
+
++ Sometimes, when **Auptimizer** accidentally exits, the resources are not marked as free in the database and will prevent you from using them within **Auptimizer**.  In such scenarios, you might want to reset the status of resources by::
+
+    python -m aup.setupdb.reset env.ini

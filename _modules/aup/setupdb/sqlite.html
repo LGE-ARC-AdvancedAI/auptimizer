@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -91,27 +91,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">For Developers</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../errors.html">Errors and Solutions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -258,9 +250,15 @@
     <span class="c1"># Job Table</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS job;&quot;</span><span class="p">)</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE job</span>
-<span class="s2">        (jid INTEGER PRIMARY KEY NOT NULL, score REAL, eid INTEGER, rid INTEGER, start_time INTEGER, end_time INTEGER,</span>
+<span class="s2">        (jid INTEGER PRIMARY KEY NOT NULL, score REAL, eid INTEGER, start_time INTEGER, end_time INTEGER, </span>
 <span class="s2">        job_config BLOB,</span>
-<span class="s2">        FOREIGN KEY(eid) REFERENCES experiment(eid),</span>
+<span class="s2">        FOREIGN KEY(eid) REFERENCES experiment(eid));&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Job Attempt Table</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS job_attempt;&quot;</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE job_attempt</span>
+<span class="s2">        (jaid INTEGER PRIMARY KEY NOT NULL, jid INTEGER, num INTEGER, rid INTEGER, start_time INTEGER, end_time INTEGER,</span>
+<span class="s2">        FOREIGN KEY(jid) REFERENCES job(jid),</span>
 <span class="s2">        FOREIGN KEY(rid) REFERENCES resource(rid));&quot;&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">usernames</span><span class="p">:</span>

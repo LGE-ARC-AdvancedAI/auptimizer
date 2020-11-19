@@ -58,8 +58,3 @@ to set the correct permissions.  You can then run the tests using::
 
     python -m unittest
 
-API documentation
-~~~~~~~~~~~~~~~~~
-
-See :code:`<repo>/docs/index.rst` for more guidance on each hyperparameter optimization algorithm.
-

@@ -1,6 +1,9 @@
 Configure HPO Algorithm
 =======================
 
+Supported algorithms
+--------------------
+
 **Auptimizer** supports a number of different HPO algorithms.  The names and descriptions are listed below:
 
 ===========  ============================================================================================================================
@@ -21,6 +24,9 @@ Use ``python -m aup.init`` to set up the experiment configuration interactively.
 
 For finer control, advanced users can change the configuration manually by directly modifying the ``experiment.json``
 file.
+
+Configuration details
+---------------------
 
 Below we cover the most common pieces. For requirements related to specific algorithms, please refer to the respective
 documentation.
@@ -43,10 +49,15 @@ The general structure of the configuration file is as follows::
     }
   ],
   "resource": "cpu",
+  "job_failure": {
+    "job_retries": 3,
+    "ignore_fail": true
+  },
   "n_parallel": 3,
   "target":"min",
   "workingdir:"./"
  }
+
 
 ================ ======== ==============================================================================
 Name             Default  Explanation
@@ -55,6 +66,8 @@ proposer         random   hpo method used to propose new hyperparameter values (
 n_samples        10       number of jobs to run
 script           -        script to run
 n_parallel       1        number of parallel jobs
+job_retries      0        number of retries for failed jobs. 
+ignore_fail      False    whether to continue the experiment if a job fails. 
 target           max      search for max or min
 resource         -        type of resource to run the experiment, [cpu, gpu, passive, node]
 parameter_config {}       hyperparameter specification (see below)
@@ -73,6 +86,12 @@ type              `float`, `int`, `choice` types are supported
 
 Minor modifications or changes may be required for each algorithm. These options can be found at the corresponding API
 pages under :doc:`aup.Proposer` (see API links below).
+
+**Note**: 
+
+| If ``job_failure`` is not specified, the experiment will stop whenever a job fails.
+| For ``job_retries``, preferance is given to a different resource, if multiple resources are available.
+| For ``ignore_fail``, currently [BOHB, EAS, Hyperband] proposers do not support experiment continuation upon job failure.
 
 Additional functionalities
 --------------------------
@@ -97,7 +116,9 @@ Additional functionalities
 +-----------+-------------------------------------------------+--------+----------+--------------+--------+
 | Hyperband | :class:`aup.Proposer.HyperbandProposer`         | |Y|    | |Y|      | |N|          | |N|    |
 +-----------+-------------------------------------------------+--------+----------+--------------+--------+
-| ENAS      | :class:`aup.Proposer.EASProposer`               | |Y|    | |N|      | |N|          | |N|    |
+| BOHB      | :class:`aup.Proposer.BOHBProposer`              | |Y|    | |Y|      | |N|          | |N|    |
++-----------+-------------------------------------------------+--------+----------+--------------+--------+
+| EAS       | :class:`aup.Proposer.EASProposer`               | |Y|    | |N|      | |N|          | |N|    |
 +-----------+-------------------------------------------------+--------+----------+--------------+--------+
 
 

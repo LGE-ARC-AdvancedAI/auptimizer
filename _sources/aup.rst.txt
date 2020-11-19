@@ -1,5 +1,5 @@
-**Auptimizer** Package
-======================
+**Auptimizer** APIs
+===================
 
 Main Entry
 ----------
@@ -13,7 +13,8 @@ Main Entry
    aup.__main__
    aup.visualize
    aup.setupdb
-   
+   aup.profiler
+   aup.dlconvert
    
 Internal modules and packages
 -----------------------------
@@ -26,3 +27,5 @@ Internal modules and packages
    aup.Proposer
    aup.utils
    aup.setupdb_API
+   aup.dlconvert_API
+   

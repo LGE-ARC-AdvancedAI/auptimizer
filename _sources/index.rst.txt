@@ -14,54 +14,34 @@
 Additional Resources
 ====================
 
-R User
-------
-
-.. toctree::
-   :maxdepth: 1
-
-   r_user
-
-Examples
---------
-
-To quickly get started with **Auptimizer**, you can use the following examples as templates:
-
+Install and setup
+-----------------
 .. toctree::
    :maxdepth: 2
 
-   demo
+   install
 
-Configurations
---------------
-
-More advanced configuration instructions can be found in the following sections:
-
+HPO
+---
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   setup
-   environment
-   experiment
-   algorithm
-   
-Profiler
---------
+   hpo
 
+Tools
+-----
 .. toctree::
-   :maxdepth: 1
-   
-   prof_readme
-   
+   :maxdepth: 2
+
+   edge
+
 For developers
 --------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   developer_guide
-   version
-   errors
+   developer
 
 APIs
 ====

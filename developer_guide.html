@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Version History" href="version.html" />
-    <link rel="prev" title="Profiler" href="prof_readme.html" /> 
+    <link rel="prev" title="For Developers" href="developer.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -93,40 +93,36 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#for-machine-learning-development">For Machine Learning development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#set-level-of-logging">Set level of logging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#test-in-passive-mode">Test in passive mode</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="developer.html">For Developers</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#for-machine-learning-development">For Machine Learning development</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#set-level-of-logging">Set level of logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-in-passive-mode">Test in passive mode</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#for-auptimizer-software-development">For Auptimizer Software Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#environment">Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#unit-testing">Unit testing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#api-documentation">API documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-auptimizer-software-development">For Auptimizer Software Development</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#environment">Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unit-testing">Unit testing</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -173,6 +169,8 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="developer.html">For Developers</a> &raquo;</li>
+        
       <li>Developer Guide</li>
     
     
@@ -216,7 +214,7 @@ The following logging levels are available:</p>
 </div>
 <p>By doing so, <strong>Auptimizer</strong> will run in a passive mode where it interactively prints running script with its working
 path and asks for the returned value. You should run your script in a second terminal to see whether it finishes
-correctly. And then you can return that value back to <strong>Auptimizer</strong>’s command line.</p>
+correctly. And then you can return that value back to <strong>Auptimizer</strong>'s command line.</p>
 </div>
 </div>
 <div class="section" id="for-auptimizer-software-development">
@@ -247,10 +245,6 @@ export PYTHONPATH=`pwd`:$PYTHONPATH
 </pre></div>
 </div>
 </div>
-<div class="section" id="api-documentation">
-<h3>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
-<p>See <code class="code docutils literal notranslate"><span class="pre">&lt;repo&gt;/docs/index.rst</span></code> for more guidance on each hyperparameter optimization algorithm.</p>
-</div>
 </div>
 </div>
 
@@ -265,7 +259,7 @@ export PYTHONPATH=`pwd`:$PYTHONPATH
         <a href="version.html" class="btn btn-neutral float-right" title="Version History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="prof_readme.html" class="btn btn-neutral float-left" title="Profiler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="developer.html" class="btn btn-neutral float-left" title="For Developers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

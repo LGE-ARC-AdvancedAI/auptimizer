@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Install and setup Auptimizer &mdash; Auptimizer  documentation</title>
+  <title>First time installation &mdash; Auptimizer  documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Set up environment" href="environment.html" />
-    <link rel="prev" title="Examples" href="demo.html" /> 
+    <link rel="prev" title="Install and Setup Auptimizer" href="install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -92,15 +92,9 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
-</ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Install and setup <strong>Auptimizer</strong></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#first-time">First Time</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">First time installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#released-version">Released version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#development-version">Development version</a></li>
@@ -109,22 +103,21 @@
 <li class="toctree-l3"><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html">Set up environment</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
 </ul>
 
             
@@ -171,7 +164,9 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Install and setup <strong>Auptimizer</strong></li>
+          <li><a href="install.html">Install and Setup <strong>Auptimizer</strong></a> &raquo;</li>
+        
+      <li>First time installation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -190,16 +185,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="install-and-setup-auptimizer">
-<h1>Install and setup <strong>Auptimizer</strong><a class="headerlink" href="#install-and-setup-auptimizer" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="first-time">
-<h2>First Time<a class="headerlink" href="#first-time" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="first-time-installation">
+<h1>First time installation<a class="headerlink" href="#first-time-installation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p><strong>Auptimizer</strong> has been well tested on the Linux environment. It has not been well tested under Windows and there exists the potential for issues.</p>
 <p><em>NOTE</em>: To avoid potential issues with version or permission, use <code class="code docutils literal notranslate"><span class="pre">virtualenv</span></code> or <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> for local installation.</p>
 <div class="section" id="released-version">
-<h4>Released version<a class="headerlink" href="#released-version" title="Permalink to this headline">¶</a></h4>
+<h3>Released version<a class="headerlink" href="#released-version" title="Permalink to this headline">¶</a></h3>
 <p>Run the following command from <code class="code docutils literal notranslate"><span class="pre">bash</span></code> to install:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">auptimizer</span>
 </pre></div>
@@ -209,7 +202,7 @@
 necessary libraries for all functionalities.</p>
 </div>
 <div class="section" id="development-version">
-<h4>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h4>
+<h3>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h3>
 <p>Run the following command from <code class="code docutils literal notranslate"><span class="pre">bash</span></code> to install the latest version of <strong>Auptimizer</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">&lt;</span><span class="n">source</span> <span class="n">code</span> <span class="n">repo</span> <span class="n">link</span><span class="o">&gt;</span>
 <span class="n">cd</span> <span class="n">Auptimizer</span>
@@ -221,7 +214,7 @@ necessary libraries for all functionalities.</p>
 </div>
 </div>
 <div class="section" id="environment-setup">
-<h3>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this headline">¶</a></h3>
+<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this headline">¶</a></h2>
 <p>Currently, <strong>Auptimizer</strong> relies on an environment folder to access the system resources and track experiment history.
 Using <cite>python -m aup.setup</cite> will guide you through the setup.
 <a class="reference internal" href="environment.html"><span class="doc">Set up environment</span></a> has more detailed explanations about the different configurations.</p>
@@ -229,7 +222,6 @@ Using <cite>python -m aup.setup</cite> will guide you through the setup.
 your working folder (where you run your command) and then your home folder (<cite>~</cite>). Otherwise, you specify it at runtime
 with the <cite>–aup</cite> argument. An error will be thrown if this environment file cannot be found.</p>
 <p>You are now ready to use <strong>Auptimizer</strong> for your experiment.  See <a class="reference internal" href="experiment.html"><span class="doc">Create and run a new experiment</span></a> to learn how to change your code.</p>
-</div>
 </div>
 </div>
 
@@ -244,7 +236,7 @@ with the <cite>–aup</cite> argument. An error will be thrown if this environme
         <a href="environment.html" class="btn btn-neutral float-right" title="Set up environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="demo.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-left" title="Install and Setup Auptimizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

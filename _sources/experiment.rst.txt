@@ -1,13 +1,17 @@
 Create and run a new experiment
 ===============================
 
-**Auptimizer** needs a modified training script and an experiment specification file before use.
-There are three approaches:
+**Auptimizer** only needs a modified training script and an experiment configuration file (.json) to run a new experiment. 
 
-+ `Manual conversion <#how-to-modify-existing-code-for-auptimizer>`_;
-+ `Python decorator <#code-conversion-with-decorator>`_;
-+ `Auto conversion for script (beta) <#auto-code-conversion>`_.
+1. Create the ``experiment.json`` file to specify the experiment configuration and hyperparameters. Using ``python -m aup.init`` will guide you interactively. This json file structure is generally the same for most algorithms with minor modifications. See :doc:`algorithm` for more details. 
 
+2. Modify your training script. We provide three approaches for modifying the training script:
+
+   + `Manual conversion <#how-to-modify-existing-code-for-auptimizer>`_;
+   + `Python decorator <#code-conversion-with-decorator>`_;
+   + `Auto conversion for script (beta) <#auto-code-conversion>`_.  
+
+3. Your experiment is now ready to run via ``python -m aup experiment.json``. For more details, see `Run experiment`_. 
 
 Terminology
 -----------
@@ -27,25 +31,14 @@ called a **job**.
 All jobs run on an assigned computational **resource**, e.g. CPU, GPU. And after all jobs are finished, the user
 retrieves the best model from the training history for further analysis or application.
 
-How to modify existing code for Auptimizer
-------------------------------------------
+Manual modification of training code 
+------------------------------------
 
-1. create the ``experiment.json`` file to specify the experiment and hyperparameters.  Using 
-
-  .. code:: bash
-
-    python -m aup.init
-
-  will guide you interactively.  The structure is generally the same for most algorithms with minor modifications.  See
-  :doc:`algorithm` for more details. 
-
-2. To change your existing code, we have tools to convert as described in `Auto code conversion`_.  If you plan to change it manually, the general flow of the conversion process is as follows: 
+If you plan to change your training script manually, the general flow of the conversion process is as follows: 
 
   a. parse the configuration file (first argument from command line, i.e. ``sys.argv[1]``) using ``aup.BasicConfig.load(sys.argv[1])``.  And use the hyperparameters parsed from the ``BasicConfig`` in your code, such as ``config.param_name`` or ``config['param_name']``, where ``param_name`` need to be consistent with the one  used in ``experiment.json``.
   b. to report the result by using ``aup.print_result``.
   c. Add Shebang line ``#!/usr/bin/env python`` and make the script executable (``chmod u+x script.py``).
-
-3. Your experiment is now ready to run via ``python -m aup experiment.json``. For more details, see `Run experiment`_. 
 
 Code conversion with decorator
 ------------------------------
@@ -83,20 +76,20 @@ Additional arguments
 ~~~~~~~~~~~~~~~~~~~~
 
 + ``--test``: will run in test mode by executing one job
-+ ``--aup``: manually specify the ``.aup`` folder
++ ``--aup_folder``: manually specify the ``.aup`` folder
 + ``--log``: set log level to ``[debug,info,warn,error]``
++ ``--resume``: path to a pickled file saved by a previous experiment, will resume experiment from previous saved proposer state
 + ``--sleep``: time delay for sequential jobs (avoid database collision)
-+ ``--ignore_fail``: ignore failures in job execution
 
 .. _AWSRuntimeAnchor:
 
-Additional runtime configuration for node/AWS
+Additional runtime configuration for Node/AWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The user should either have Auptimizer installed on the remote machine, or at a minimum, copy the :download:`Auptimizer file for remote machine <archive/aup.py>` to the remote machine that can be imported by the jobs.
+The user should either have Auptimizer installed on the remote machine, or at a minimum, copy the ``<repo>/src/aup.py`` script to the remote machine that can be imported by the jobs.
 
 Additional configuration for node/AWS environment for runtime can be specified under the ``runtime_args`` in the ``experiment.json``.
-This is important for setting up the environment, etc. on the remote machine.
+This is important for setting up the environment on the remote machine.
 The specific arguments are:
 
 + ``prescript``: any script to be run before the job. (use ; to separate different commands)
@@ -104,12 +97,17 @@ The specific arguments are:
 + ``overwrite``: remove the existing job file if exists.  Otherwise, it will use the existing file on the node.
 + ``env``: other environment variables, listed as dictionary `{"CUDA_VISIBLE_DEVICES":"0"}`
 
-Other resource-related arguments are under `resource_args` (not for node resource):
+Other resource-related arguments are under ``resource_args``:
 
-+ ``retry``: number of 30s to wait if AWS instance has no response.  default is 10 (3 minutes).
-+ ``shutdown``: turn off AWS instance after run.
++ ``reconn_wait_time``: number of seconds to wait if SSH open connection is broken, before reconnecting.  Default is 30 (seconds).
++ ``max_retries``: number of retry attempts, with 'reconn_wait_time' seconds before the job is tagged as failed. Default is 3.
++ ``async_run``: whether to run the job asynchronously on the remote instance. This will allow Auptimizer to run the job on the instance and check periodically for completion, instead of maintaining an open connection. Default is False (boolean).
++ ``async_reconnect``: number of seconds to wait and reconnect to check job status of async job. Default is 30 (seconds).
++ ``async_timeout``: total number of seconds to wait from async job start before the job is tagged as failed and discarded. Default is None (seconds).
++ ``shutdown``: turn off AWS instance after Experiment finishes. (only for AWS)
++ ``connection_retry``: If starting a stopped instance, AWS connections attempts might fail initially. This variable controls the number of retry attempts every 30 seconds. Default is 10 (only for AWS).
 
-See ``Examples/2dfunc_diff_res/`` for more references.
+See ``Examples/2dfunc_diff_res/`` for more examples of experiment json files.
 
 
 Results / further analysis

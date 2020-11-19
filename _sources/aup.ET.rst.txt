@@ -1,4 +1,4 @@
-aup.ET - Experiment Tracking package
+aup.ET - Experiment tracking package
 ====================================
 
 .. toctree::

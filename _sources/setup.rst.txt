@@ -1,8 +1,6 @@
-Install and setup **Auptimizer**
-================================
+First time installation
+=======================
 
-First Time
-----------
 
 Installation
 ~~~~~~~~~~~~

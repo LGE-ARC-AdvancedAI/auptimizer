@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="aup.setupdb Package" href="aup.setupdb_API.html" />
+    <link rel="next" title="aup.setupdb package" href="aup.setupdb_API.html" />
     <link rel="prev" title="aup.Proposer.EASProposer" href="aup.Proposer.EASProposer.html" /> 
 </head>
 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -93,31 +93,23 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Install and setup <strong>Auptimizer</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="environment.html">Set up environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="prof_readme.html">Profiler</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="version.html">Version History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> Package</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment Execution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment Tracking package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.EE.html">aup.EE - Experiment execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.ET.html">aup.ET - Experiment tracking package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.Proposer.html">aup.Proposer package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#apis">APIs</a></li>
@@ -127,7 +119,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#id1">APIs</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb_API.html">aup.setupdb package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.dlconvert_API.html">aup.dlconvert package</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +171,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="aup.html"><strong>Auptimizer</strong> Package</a> &raquo;</li>
+          <li><a href="aup.html"><strong>Auptimizer</strong> APIs</a> &raquo;</li>
         
       <li>Utility functions</li>
     
@@ -204,6 +197,16 @@
 <p>Supporting functions used by other modules.</p>
 <div class="section" id="apis">
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="aup.utils.block_until_ready">
+<code class="sig-name descname">block_until_ready</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em>, <em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">env</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#block_until_ready"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.block_until_ready" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block current thread until we receive the ready status
+:param client: the current connected client
+:type client: SSHClient
+:param socket: socket connection to machine where job is executed
+:param env: environment to set up on the remote machine</p>
+</dd></dl>
+
 <dl class="py function">
 <dt id="aup.utils.check_missing_key">
 <code class="sig-name descname">check_missing_key</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">key</em>, <em class="sig-param">msg</em>, <em class="sig-param">log=&lt;Logger aup.utils (WARNING)&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#check_missing_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.check_missing_key" title="Permalink to this definition">¶</a></dt>
@@ -292,6 +295,12 @@ Search recursively to upper folder</p>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aup.utils.open_sftp_with_timeout">
+<code class="sig-name descname">open_sftp_with_timeout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/utils.html#open_sftp_with_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.utils.open_sftp_with_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>SFTP Connection to transfer files and environment between Auptimizer source machine and remote machine.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -456,7 +465,7 @@ This function should be the last line of your training code</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="aup.setupdb_API.html" class="btn btn-neutral float-right" title="aup.setupdb Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="aup.setupdb_API.html" class="btn btn-neutral float-right" title="aup.setupdb package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="aup.Proposer.EASProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.EASProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -1,4 +1,4 @@
-aup.setupdb Package
+aup.setupdb package
 ===================
 
 .. toctree::
