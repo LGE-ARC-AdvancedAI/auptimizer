@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y git
 ENV TF_KERAS=1  
 ENV TF_CPP_MIN_LOG_LEVEL=3
 
-COPY Examples/dlconvert_examples/dlconvert_requirements.txt /tf/
+COPY Examples/converter_examples/dlconvert_requirements.txt /tf/
 COPY requirements.txt /tf/
 
 RUN pip install -r dlconvert_requirements.txt
