@@ -6,7 +6,7 @@ testenv/
 *.pkl
 tests/EE/jobs/
 tests/data/jobs/
-tests/EE/Resource/data
+
 .vscode/
 analysis.html
 R-src/*.tar.gz
