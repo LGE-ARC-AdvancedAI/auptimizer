@@ -1,0 +1,20 @@
+{
+  "name": "./intermediate_results/quad_equation_min/quad_min_random_bandit.json",
+  "proposer": "random",
+  "script": "quad_min.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "n_samples": 200,
+  "resource_args": 
+    {
+      "track_intermediate_results": true
+    },
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [-1.0, 100.0],
+      "type": "float"
+    }
+  ]
+}

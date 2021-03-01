@@ -38,8 +38,8 @@ def _load_gpu_mapping(auppath=DEFAULT_AUPTIMIZER_PATH):
 
 
 class GPUResourceManager(CPUResourceManager):
-    def __init__(self, connector, n_parallel, auppath=DEFAULT_AUPTIMIZER_PATH):
-        super(GPUResourceManager, self).__init__(connector, n_parallel)
+    def __init__(self, connector, n_parallel, auppath=DEFAULT_AUPTIMIZER_PATH, *args, **kwargs):
+        super(GPUResourceManager, self).__init__(connector, n_parallel, *args, **kwargs)
         self.mapping = _load_gpu_mapping(auppath=auppath)
 
     def run(self, job, rid, exp_config, call_back_func, **kwargs):

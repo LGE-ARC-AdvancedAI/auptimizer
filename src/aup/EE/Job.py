@@ -35,7 +35,7 @@ class Job:
 
         :param script: script file name
         :type script: str
-        :param config: experiment configuration
+        :param config: job configuration
         :type config: aup.BasicConfig
         :param path: working path
         :type path: str
@@ -56,6 +56,9 @@ class Job:
         self.retries = retries
         self.curr_retries = 0
         self.rid_blacklist = set()
+
+        # if true, it means this is the best job
+        self.save_model_flag = config.get('save_model', False)
 
     def verify_local(self):
         """

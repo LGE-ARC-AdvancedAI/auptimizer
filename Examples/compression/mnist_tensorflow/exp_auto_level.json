@@ -1,0 +1,26 @@
+{
+    "name": "Tensorflow MNIST Level Pruner (automatic)",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "resource_args": {
+        "save_model": true
+    },
+    "compression": {
+        "framework": "tensorflow",
+        "type": "pruning",
+        "compressor": "level",
+        "config_list": [{
+                "sparsity": {
+                    "range": [0.1, 0.9],
+                    "type": "float"
+                },
+                "op_names": ["conv1", "conv2", "fc1", "fc2"]
+            }
+        ]
+    },
+    "proposer": "hyperopt",
+    "n_parallel": 4,
+    "target": "max",
+    "n_samples": 5
+}
+  

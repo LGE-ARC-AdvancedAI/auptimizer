@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  width: 100%;
+
+  .menu-list-item {
+    margin-right: 10px;
+    margin-left: 10px;
+    width: auto;
+  }
+
+  ::ng-deep .mat-list-item-content {
+    width: 100%;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+}

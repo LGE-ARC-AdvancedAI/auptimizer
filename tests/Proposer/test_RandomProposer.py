@@ -67,10 +67,13 @@ class MyTestCase(unittest.TestCase):
 
         for i in range(10):
             m.get()
+            m.increment_job_counter()
         v = m.get()
+        m.increment_job_counter()
         self.assertIs(v, None)
         m.reset()
         self.assertIn(m.get()['x'], [0, 1])
+        m.increment_job_counter()
         self.assertEqual(m.counter, 1)
 
     def test_failed(self):

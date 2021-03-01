@@ -1,0 +1,12 @@
+{
+    "name": "PyTorch MNIST Naive Quantizer",
+    "script": "mnist_no_speedup.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "quantization",
+        "compressor": "naive",
+        "config_list": []
+    }
+}
+  

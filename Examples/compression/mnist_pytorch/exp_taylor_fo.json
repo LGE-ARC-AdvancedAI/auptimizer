@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST Taylor FO Weight Filter Pruner",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "taylor_fo_weight_filter",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

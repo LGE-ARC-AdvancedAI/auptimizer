@@ -1,0 +1,95 @@
+<div fxLayout="column">
+  <h1 class="mat-headline">Compare the intermediate results of an experiment`s jobs against each other</h1>
+
+  <div *ngIf="loadingIntermResults$ | async" fxLayout="row" fxLayoutAlign="center center" class="p-10">
+    <mat-spinner color="accent" [diameter]="100" class="mt-10"></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="(loadingIntermResults$ | async) === false">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+      <div class="w-full" *ngIf="intermResults && intermResults.length">
+        <mat-form-field appearance="outline" class="w-full" *ngIf="intermResults && intermResults.length > 0">
+          <mat-label>Select Experiments</mat-label>
+          <mat-select [(ngModel)]="selectedExperiment" (selectionChange)="onSelectExperiment($event)">
+            <mat-option *ngFor="let experiment of intermResults" [value]="experiment">
+              {{ experiment.name || experiment.scriptName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="w-full" *ngIf="interimExperimentMultResLabels && interimExperimentMultResLabels.length > 0">
+        <mat-form-field appearance="outline" class="w-full mr-3">
+          <mat-label> Y-axis </mat-label>
+          <mat-select class="w-full" (selectionChange)="selectLabel($event.value)" [formControl]="selectedLabel">
+            <mat-option *ngFor="let label of interimExperimentMultResLabels" [value]="label">
+              {{ label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="w-full" *ngIf="jobs && jobs.length">
+        <mat-form-field appearance="outline" class="w-full" *ngIf="jobs && jobs.length > 0">
+          <mat-label>Select Job</mat-label>
+          <mat-select
+            multiple
+            [(ngModel)]="selectedJobs"
+            (openedChange)="onOpenSelectJob()"
+            (selectionChange)="onSelectJob($event)"
+          >
+            <mat-option *ngFor="let job of jobs" [value]="job">
+              {{ job.jid }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="w-full mb-4 mr-3" fxLayoutAlign="space-between center">
+      <button matTooltip="Current view will be downloaded" mat-raised-button (click)="downloadGraph()">
+        {{ 'Download graph png' | uppercase }}
+      </button>
+      <button fxFlexAlign="end" mat-raised-button [matMenuTriggerFor]="helpMenu">
+        <mat-icon class="mr-3">help_outline</mat-icon>
+        {{ 'interaction guide' | uppercase }}
+      </button>
+    </div>
+
+    <div class="w-full">
+      <plotly-plot
+        class="w-full chart"
+        divId="interim"
+        [data]="graph.data"
+        [layout]="graph.layout"
+        [config]="graph.config"
+      ></plotly-plot>
+    </div>
+  </ng-container>
+</div>
+
+<mat-menu #helpMenu="matMenu" xPosition="before">
+  <mat-toolbar class="help-menu">
+    <div class="w-full" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-drawer-container class="help-content" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+    <div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" class="p-5 w-full">
+      <p fxFlex="100" fxLayout="row" fxLayoutAlign="start" class="mt-0 mb-3">
+        To make best use of this graph, please check the job status to identify jobs you would like to visualize.
+      </p>
+      <p fxFlex="100" fxLayout="row" fxLayoutAlign="start" class="my-0">On the graph:</p>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+        <ul class="mt-3 ml-5 help-list">
+          <li>zoom out/in: place mouse on the graph and scroll up/down</li>
+          <li>zoom in a specific area: click mouse anywhere on the graph and drag it to draw a square</li>
+          <li>change the axis range: drag the label on x-axis or y-axis</li>
+          <li>show/hide data: click on the corresponding legend</li>
+          <li>show detailed value: hover over the data point</li>
+          <li>go back to default view: double-click on anywhere on the plot</li>
+        </ul>
+      </div>
+    </div>
+  </mat-drawer-container>
+</mat-menu>

@@ -1,5 +1,5 @@
-Install and Setup **Auptimizer**
---------------------------------
+Install and Setup Auptimizer
+----------------------------
 .. toctree::
    :maxdepth: 1
 

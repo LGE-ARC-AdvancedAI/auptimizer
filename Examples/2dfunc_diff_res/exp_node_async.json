@@ -1,0 +1,41 @@
+{
+  "name": "./2dfunc_diff_res/exp_node_async.json",
+  "workingdir": "/home/paul/aup_demo",
+  "proposer": "random",
+  "n_samples": 10,
+  "random_seed": 1,
+  "script": "rosenbrock_hpo.py",
+  "runtime_args": {
+    "prescript": "export CUDA_VISIBLE_DEVICES=-1",
+    "postscript": "echo $CUDA_VISIBLE_DEVICES",
+    "overwrite": true
+  },
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    }
+  ],
+  "resource": "node",
+  "n_parallel": 2,
+  "target":"min",
+  "resource_args": {
+    "max_retries": 2,
+    "reconn_wait_time": 3,
+    "async_run": true,
+    "async_reconnect": 1,
+    "async_timeout": 100
+  }
+}

@@ -45,7 +45,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
     'sphinx.ext.autosummary',
-    'sphinxcontrib.programoutput'
+    'sphinxcontrib.programoutput',
+    'sphinx.ext.autosectionlabel'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

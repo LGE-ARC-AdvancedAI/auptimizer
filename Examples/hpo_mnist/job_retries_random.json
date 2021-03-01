@@ -1,0 +1,53 @@
+{
+  "name": "./hpo_mnist/job_retries_random.json",
+  "proposer": "random",
+  "script": "mnist_hpo_demo.py",
+  "workingdir": "/home/ubuntu/",
+  "resource": "aws",
+  "n_parallel": 4,
+  "target":"max",
+  "n_samples": 100,
+  "job_failure": {
+    "ignore_fail": true,
+    "job_retries": 3
+  },
+  "parameter_config": [
+    {
+      "name": "dropout",
+      "range": [0.0, 0.5],
+      "type": "float"
+    },
+    {
+      "name": "learning_rate",
+      "range": [
+        0.001,
+        0.01
+      ],
+      "type": "float"
+    },
+    {
+      "name": "conv1",
+      "range": [
+        20,
+        50
+      ],
+      "type": "int"
+    },
+    {
+      "name": "conv2",
+      "range": [
+        40,
+        80
+      ],
+      "type": "int"
+    },
+    {
+      "name": "fc1",
+      "range": [
+        700,
+        2000
+      ],
+      "type": "int"
+    }
+  ]
+}

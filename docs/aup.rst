@@ -7,11 +7,11 @@ Main Entry
 .. toctree::
    :maxdepth: 1
 
+   aup.__main__
+   aup.compression
    aup.setup
    aup.init
    aup.convert
-   aup.__main__
-   aup.visualize
    aup.setupdb
    aup.profiler
    aup.dlconvert

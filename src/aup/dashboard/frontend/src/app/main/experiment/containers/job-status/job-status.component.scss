@@ -1,0 +1,43 @@
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+mat-select {
+  font-size: 18px;
+  padding-top: 10px;
+}
+
+.chart {
+  height: 540px;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  text-align: center !important;
+}
+
+th.mat-header-cell > div {
+  justify-content: center !important;
+}
+
+th {
+  max-width: 600px !important;
+}
+
+.mat-sort-header-container {
+  justify-content: center !important;
+}
+
+.mw-150 {
+  min-width: 150px;
+}

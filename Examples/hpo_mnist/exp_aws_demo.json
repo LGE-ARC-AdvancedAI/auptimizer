@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_aws.json",
   "workingdir": "/home/ubuntu/aup/mnist_try/",
   "proposer": "random",
   "script": "mnist_hpo_demo.py",

@@ -1,4 +1,5 @@
 {
+  "name": "./tf_flags/experiment.json",
   "proposer": "random",
   "n_samples": 10,
   "random_seed": 1,

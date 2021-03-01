@@ -1,0 +1,38 @@
+.table-col {
+  /* margin-top: -1px;
+   margin-left: -1px;*/
+  text-align: center;
+}
+
+.progress-legend {
+  position: absolute;
+  width: 90% !important;
+  color: #000000 !important;
+}
+
+.hyper-table {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.details-header {
+  font-size: 18px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.22;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.minw-200 {
+  min-width: 200px;
+}
+
+.maxw-500 {
+  max-width: 500px;
+}
+
+.config-list {
+  overflow: auto !important;
+  max-height: 500px !important;
+}

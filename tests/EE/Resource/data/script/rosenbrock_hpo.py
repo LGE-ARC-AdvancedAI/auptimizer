@@ -10,7 +10,7 @@ Modified Rosenbrock function for HPO and aup
 """
 
 import sys
-""" - modify existing code
+""" # ver 1.0 - modify existing code
 from aup import BasicConfig, print_result
 
 def rosenbrock(conf, a=1, b=100):

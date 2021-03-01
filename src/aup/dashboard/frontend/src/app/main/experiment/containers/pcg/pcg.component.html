@@ -1,0 +1,75 @@
+<h1 class="mat-headline">
+  The Hyperparameter Interaction Graph (HIG) helps you understand the interplay between different hyperparameters
+</h1>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" class="mt-5">
+  <app-experiment-dropdown
+    fxFlex.gt-md="50"
+    fxFlex="100"
+    class="mr-3"
+    [experimentId]="experimentId"
+    (toggleExperiment)="toggleExperiment($event)"
+  >
+  </app-experiment-dropdown>
+  <mat-form-field
+    appearance="outline"
+    class="w-full"
+    *ngIf="hyperParamTraces && hyperParamTraces.length > 0 && hyperParamTraces !== null"
+  >
+    <mat-label>Select axes</mat-label>
+    <mat-select (selectionChange)="selectHyperparams($event)" multiple [(ngModel)]="selected">
+      <mat-option *ngFor="let col of hyperParamTraces" [value]="col">
+        {{ col.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div *ngIf="hyperParamTraces?.length" class="w-full mb-4 mr-3" fxLayoutAlign="space-between center">
+  <button matTooltip="Current view will be downloaded" mat-raised-button (click)="downloadGraph()">
+    {{ 'Download graph png' | uppercase }}
+  </button>
+  <button fxFlexAlign="end" mat-raised-button [matMenuTriggerFor]="helpMenu">
+    <mat-icon class="mr-3">help_outline</mat-icon>
+    {{ 'interaction guide' | uppercase }}
+  </button>
+</div>
+
+<div class="w-full">
+  <plotly-plot
+    class="w-full chart"
+    *ngIf="hyperParamTraces?.length"
+    id="hig"
+    divId="hig"
+    [data]="graph.data"
+    [layout]="graph.layout"
+    [config]="graph.config"
+  ></plotly-plot>
+</div>
+<h2 *ngIf="!hyperParamTraces?.length && selectedExperiment">
+  {{ selectedExperiment?.experiment?.experimentName }} does not contain any results
+</h2>
+
+<mat-menu #helpMenu="matMenu" xPosition="before">
+  <mat-toolbar class="help-menu">
+    <div class="w-full" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-drawer-container class="help-content" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="30px" class="p-5">
+      <div fxLayout="column" class="w-full">
+        <p fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+          Hyperparameter Interaction Graph is richly interactive by default. Drag the lines along the axes to filter
+          regions and drag the axis names across the plot to rearrange variables. Double click on the selected axis to
+          go back to default view.
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+          <img src="assets/images/js_parcoords_ex1.gif" />
+        </div>
+      </div>
+    </div>
+  </mat-drawer-container>
+</mat-menu>

@@ -1,0 +1,18 @@
+<div class="w-full p-3 bg-primary text-white header-dialog-title" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 class="mat-title m-0">{{ dialog?.title ? dialog.title : '' }}</h2>
+  <button mat-icon-button matDialogClose>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content class="w-full px-5 pt-5">
+  <p class="font-size-14 mb-4">{{ dialog?.content ? dialog.content : '' }}</p>
+  <p class="font-size-14 mt-4" *ngIf="dialog?.secondLine">{{ dialog?.secondLine }}</p>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="15px" class="mb-1 px-5 pb-5">
+  <button mat-raised-button type="button" mat-dialog-close *ngIf="!hideCancelButton">
+    {{ cancelButtonText }}
+  </button>
+  <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true">
+    {{ confirmButtonText }}
+  </button>
+</mat-dialog-actions>

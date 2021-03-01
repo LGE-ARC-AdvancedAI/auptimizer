@@ -1,4 +1,5 @@
 {
+  "name": "./2dfunc_diff_res/exp_aws.json",
     "workingdir": "/home/ubuntu/",
     "proposer": "random",
     "n_samples": 10,

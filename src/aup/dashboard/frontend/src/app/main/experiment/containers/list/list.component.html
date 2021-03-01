@@ -1,0 +1,419 @@
+<div class="px-5 mb-5">
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <h1 class="mat-display-1 mt-0 mb-0 mr-2">Experiments</h1>
+      <mat-form-field appearance="outline" class="mr-2 mt-4">
+        <mat-label>Search</mat-label>
+        <input type="text" matInput placeholder="Experiment name" [formControl]="searchStr" />
+        <mat-icon *ngIf="searchStr.value !== null && searchStr.value !== ''" matSuffix class="cursor-pointer"
+          (click)="clearSearch()">clear
+        </mat-icon>
+        <mat-icon *ngIf="searchStr.value === null || searchStr.value === ''" matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="mr-2 mt-4">
+        <mat-label>Sort by</mat-label>
+        <mat-select [formControl]="sortOption" name="sortOption" (selectionChange)="onSortOption($event)">
+          <mat-option *ngFor="let sort of sortOptions" [value]="sort">
+            {{ sort | flu }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-button-toggle-group class="sort-toggle mr-2" name="fontStyle" [value]="sortDirectionType"
+        (change)="onSortDirection($event)">
+        <mat-button-toggle [value]="sortDirections[0]">
+          <mat-icon [color]="sortDirectionType === sortDirections[0] ? 'primary' : ''">north</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="sortDirections[1]">
+          <mat-icon [color]="sortDirectionType === sortDirections[1] ? 'primary' : ''">south</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <button mat-icon-button [color]="(experimentViewType$ | async) === VIEW_TYPE.LIST ? 'primary' : ''"
+        (click)="changeDisplayView(VIEW_TYPE.LIST)">
+        <mat-icon class="view-toggle">menu</mat-icon>
+      </button>
+      <button mat-icon-button [color]="(experimentViewType$ | async) === VIEW_TYPE.CARD ? 'primary' : ''"
+        (click)="changeDisplayView(VIEW_TYPE.CARD)">
+        <mat-icon class="view-toggle">view_module</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <button
+        *ngIf="dataSourceResource.data && dataSourceResource.data?.length > 0 && (resources$ | async); else noData"
+        mat-button [matMenuTriggerFor]="resourcesMenu">
+        <mat-icon class="mr-3">settings</mat-icon>
+        {{ 'Resources' | uppercase }}
+      </button>
+      <button mat-button (click)="helperService.redirectTo('initialize')">
+        <mat-icon class="mr-3" svgIcon="database"></mat-icon>
+        {{ 'Reset Auptimizer Environment' | uppercase }}
+      </button>
+      <button mat-button (click)="helperService.redirectTo('create')">
+        <mat-icon class="mr-3" svgIcon="bulb"></mat-icon>
+        {{ 'Create new experiment' | uppercase }}
+      </button>
+    </div>
+  </div>
+  <div *ngIf="(loadingAllExperiments$ | async) && (experiments$ | async)?.length === 0" fxLayout="row"
+    fxLayoutAlign="center center" class="p-10">
+    <mat-spinner color="accent" [diameter]="100" class="mt-10"></mat-spinner>
+  </div>
+  <div class="w-full" fxLayout="column">
+    <div *ngIf="(loadingAllExperiments$ | async) === false && (experiments$ | async)?.length === 0" fxLayout="row"
+      class="w-full">
+      <p class="font-medium" *ngIf="!experiments ||( experiments && experiments.length === 0)">No experiments created!
+      </p>
+    </div>
+    <ng-container *ngIf="experiments && experiments.length">
+      <div *ngIf="(experimentViewType$ | async) === VIEW_TYPE.CARD" fxLayout="row wrap" fxLayoutAlign>
+        <mat-card class="py-3 px-4 experiment-card mt-3 mr-3" fxFlex="calc(25% - 20px)"
+          *ngFor="let experiment of experiments | paginate: { itemsPerPage: pageSize, currentPage: page }">
+          <div class="w-full experiment-card-header mat-title mb-2" fxLayoutAlign="start center">
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 1 auto" fxLayoutGap="15px">
+              <div>{{ experiment.eid }}</div>
+              <div class="elipsis-card-title" [matTooltip]="experiment.experimentName || experiment.scriptName">{{
+                experiment.experimentName || experiment.scriptName }}
+              </div>
+            </div>
+            <div>
+              <button mat-icon-button class="actionable" matTooltip="Create experiment from copy"
+                (click)="helperService.redirectTo('create', experiment.eid)">
+                <mat-icon svgIcon="copy"></mat-icon>
+              </button>
+              <button [disabled]="
+                  experiment.status === EXPERIMENT_STATUS.RUNNING || experiment.status === EXPERIMENT_STATUS.STOPPING || experiment.status === EXPERIMENT_STATUS.REQUEST_STOP
+                " mat-icon-button matTooltip="Delete experiment" class="actionable-warn"
+                (click)="deleteExperiment(experiment.eid)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <hr />
+          <mat-card-content fxLayout="column" fxLayoutGap="15px" class="mt-3">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="w-130 color-gray">Script Name:</div>
+              <div class="color-text-primary font-medium" [matTooltip]="experiment.scriptName">
+                {{experiment.scriptName | truncate:[25, '...']}}
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="w-130 color-gray">Status:</div>
+              <div class="color-text-primary font-medium" fxLayout="row" fxLayoutAlign="start center">
+                <span *ngIf="experiment.status">{{ experiment.status | lowercase | flu }}</span>
+                <span *ngIf="!experiment.status">{{ EXPERIMENT_STATUS.FINISHED | lowercase | flu }}</span>
+                <button *ngIf="experiment.status === EXPERIMENT_STATUS.FAILED" mat-icon-button color="warn"
+                  matTooltip="Click to show error details" class="error-icon" (click)="showErrorDetails(experiment)">
+                  <mat-icon>error</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="w-130 color-gray">Start Time:</div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.startTime && experiment.startTime !== -1">
+                {{ experiment.startTime * 1000 | date: 'short' }}
+              </div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.startTime === null">NA</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="w-130 color-gray">End Time:</div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.endTime && experiment.endTime !== -1">
+                {{ experiment.endTime * 1000 | date: 'short' }}
+              </div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.endTime === null">NA</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="w-130 color-gray">Best Result:</div>
+              <div class="color-text-primary font-medium">
+                {{ experiment.bestScore !== null ? (experiment.bestScore | roundNumber) : 'NA' }}
+              </div>
+            </div>
+          </mat-card-content>
+          <hr />
+          <mat-card-actions class="w-full p-0 m-0 mt-3" fxLayoutAlign="space-between center">
+            <div fxFlex="1 0 auto" [ngSwitch]="experiment.status">
+              <span *ngSwitchCase="EXPERIMENT_STATUS.CREATED">
+                <button class="mr-3" mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>play_arrow</mat-icon>
+                  {{ 'Start' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.RUNNING">
+                <button class="mr-3" mat-button (click)="stopExperiment(experiment.eid)">
+                  <mat-icon>stop</mat-icon>
+                  {{ 'Stop' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.STOPPED">
+                <button class="mr-3" mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>replay</mat-icon>
+                  {{ 'Restart' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.FINISHED">
+                <button class="mr-3" mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>replay</mat-icon>
+                  {{ 'Restart' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.FAILED">
+                <button class="mr-3" mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>replay</mat-icon>
+                  {{ 'Restart' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.STOPPING">
+                {{ 'Stopping' | uppercase }}
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.REQUEST_STOP">
+                {{ 'Stopping' | uppercase }}
+              </span>
+            </div>
+            <div>
+              <button class="m-0 ml-2" *ngIf="experiment.expConfig" mat-raised-button color="primary"
+                (click)="showConfig(experiment)">
+                {{ 'Config' | uppercase }}
+              </button>
+              <button class="m-0 ml-2" mat-raised-button color="accent" (click)="onDetails(experiment.eid)">
+                {{ 'Results' | uppercase }}
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div *ngIf="(experimentViewType$ | async) === VIEW_TYPE.LIST" fxLayout="column" fxLayoutAlign="start"
+        class="w-full">
+        <mat-card class="py-3 px-4 experiment-list-card mt-3 w-full"
+          *ngFor="let experiment of experiments | paginate: { itemsPerPage: pageSize, currentPage: page }"
+          fxLayout="row" fxLayout.md="column" fxLayout.lt-md="column" fxLayoutAlign="start" fxLayoutAlign.lt-md="start"
+          fxLayoutAlign.md="start" fxLayoutGap.md="20px" fxLayoutGap.lt-md="20px">
+          <div fxFlex="25" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 1 auto"
+            fxLayoutGap="25px">
+            <div fxFlex.gt-md="1 1 auto" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15px"
+              class="mat-title mb-0">
+              <div>{{ experiment.eid }}</div>
+              <div class="elipsis-title" [matTooltip]="experiment.experimentName || experiment.scriptName">{{
+                experiment.experimentName || experiment.scriptName }}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <button class="m-2" *ngIf="experiment.expConfig" mat-raised-button color="primary"
+                (click)="showConfig(experiment)">
+                {{ 'Config' | uppercase }}
+              </button>
+              <button class="m-2" mat-raised-button color="accent" (click)="onDetails(experiment.eid)">
+                {{ 'Results' | uppercase }}
+              </button>
+            </div>
+          </div>
+          <div fxFlex="55" fxFlex.md="100" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-around center"
+            fxLayoutAlign.md="start" fxLayoutAlign.lt-md="start" ngClass.md="w-full" ngClass.lt-md="w-full"
+            fxLayoutGap="15px">
+            <div fxFlex="12" fxFlex.md="20" fxFlex.lt-md="20" fxLayout="column" fxLayoutAlign="start start">
+              <div class="color-gray">Best Result:</div>
+              <div class="color-text-primary font-medium">
+                {{ experiment.bestScore !== null ? (experiment.bestScore | roundNumber) : 'NA' }}
+              </div>
+            </div>
+            <div fxFlex="15" fxFlex.md="20" fxFlex.lt-md="20" fxLayout="column" fxLayoutAlign="start start">
+              <div class="color-gray">Script Name:</div>
+              <div class="color-text-primary font-medium elipsis-title" [matTooltip]="experiment.scriptName">
+                {{ experiment.scriptName }}
+              </div>
+            </div>
+            <div fxFlex="12" fxFlex.md="20" fxFlex.lt-md="20" fxLayout="column" fxLayoutAlign="start start">
+              <div class="color-gray">Status:</div>
+              <div class="color-text-primary font-medium" fxLayout="row" fxLayoutAlign="start center">
+                <span *ngIf="experiment.status">{{ experiment.status | lowercase | flu }}</span>
+                <span *ngIf="!experiment.status">{{ EXPERIMENT_STATUS.FINISHED | lowercase | flu }}</span>
+                <button *ngIf="experiment.status === EXPERIMENT_STATUS.FAILED" mat-icon-button color="warn"
+                  matTooltip="Click to show error details" class="error-icon" (click)="showErrorDetails(experiment)">
+                  <mat-icon>error</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div fxFlex="17" fxFlex.md="20" fxFlex.lt-md="20" fxLayout="column" fxLayoutAlign="start start">
+              <div class="color-gray">Start Time:</div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.startTime && experiment.startTime !== -1">
+                {{ experiment.startTime * 1000 | date: 'short' }}
+              </div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.startTime === null">NA</div>
+            </div>
+            <div fxFlex="17" fxFlex.md="20" fxFlex.lt-md="20" fxLayout="column" fxLayoutAlign="start start">
+              <div class="color-gray">End Time:</div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.endTime && experiment.endTime !== -1">
+                {{ experiment.endTime * 1000 | date: 'short' }}
+              </div>
+              <div class="color-text-primary font-medium" *ngIf="experiment.endTime === null">NA</div>
+            </div>
+          </div>
+          <div fxFlex="15" fxFlex.md="100" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="end center"
+            fxLayoutAlign.md="start center" fxLayoutAlign.lt-md="start center">
+            <div fxFlex.gt-md="1 1 auto" [ngSwitch]="experiment.status">
+              <span *ngSwitchCase="EXPERIMENT_STATUS.CREATED">
+                <button mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>play_arrow</mat-icon>
+                  {{ 'Start' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.RUNNING">
+                <button mat-button (click)="stopExperiment(experiment.eid)">
+                  <mat-icon>stop</mat-icon>
+                  {{ 'Stop' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.STOPPED">
+                <button mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>replay</mat-icon>
+                  {{ 'Restart' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.FINISHED">
+                <button mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>replay</mat-icon>
+                  {{ 'Restart' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.FAILED">
+                <button mat-button (click)="startExperiment(experiment)">
+                  <mat-icon>replay</mat-icon>
+                  {{ 'Restart' | uppercase }}
+                </button>
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.STOPPING">
+                {{ 'Stopping' | uppercase }}
+              </span>
+              <span *ngSwitchCase="EXPERIMENT_STATUS.REQUEST_STOP">
+                {{ 'Stopping' | uppercase }}
+              </span>
+            </div>
+            <div>
+              <button mat-icon-button class="actionable" matTooltip="Create experiment from copy"
+                (click)="helperService.redirectTo('create', experiment.eid)">
+                <mat-icon svgIcon="copy"></mat-icon>
+              </button>
+              <button [disabled]="
+                  experiment.status === EXPERIMENT_STATUS.RUNNING || experiment.status === EXPERIMENT_STATUS.STOPPING || experiment.status === EXPERIMENT_STATUS.REQUEST_STOP
+                " mat-icon-button matTooltip="Delete experiment" [class]="
+                  experiment.status === EXPERIMENT_STATUS.RUNNING || experiment.status === EXPERIMENT_STATUS.STOPPING || experiment.status === EXPERIMENT_STATUS.REQUEST_STOP
+                    ? ''
+                    : 'actionable-warn'
+                " (click)="deleteExperiment(experiment.eid)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </ng-container>
+    <div class="w-full pt-5" fxLayoutAlign="end center">
+      <pagination-controls previousLabel="" directionLinks="true" nextLabel="" (pageChange)="page = $event">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+
+<ng-template #showConfigDialog let-data>
+  <div class="info-dialog-title w-full p-3 bg-primary text-white" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="w-full exp-config-title">{{ data.name }}</div>
+    <button mat-icon-button matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="info-dialog-content p-3">
+    <pre>{{ data.config | json }}</pre>
+  </div>
+</ng-template>
+
+<ng-template #showErrorDialog let-data>
+  <div class="info-dialog-title w-full p-3 bg-primary text-white" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="w-full exp-config-title">{{ data.name }}</div>
+    <button mat-icon-button matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="info-dialog-content m-3">
+    <pre>{{ data.message }}</pre>
+  </div>
+</ng-template>
+
+<ng-template #startExperimentDialog>
+  <div fxLayout="column" fxLayoutGap="30px">
+    <form [formGroup]="startExperimentForm" #f="ngForm" #formDirective="ngForm" (ngSubmit)="onConfirmStartExperiment(f)"
+      class="w-full">
+      <mat-dialog-content>
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>
+            Current working directory
+          </mat-label>
+          <input type="text" matInput placeholder="CWD" formControlName="cwd" />
+          <mat-error>Missing field</mat-error>
+        </mat-form-field>
+        <mat-dialog-actions fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px" class="mb-3">
+          <button class="mat-raised-button" matDialogClose (click)="onExpCancel()">Cancel</button>
+          <button type="submit" [disabled]="!startExperimentForm.valid" matDialogClose mat-raised-button color="accent">
+            Start
+          </button>
+        </mat-dialog-actions>
+      </mat-dialog-content>
+    </form>
+  </div>
+</ng-template>
+
+<mat-menu #resourcesMenu="matMenu" xPosition="before">
+  <mat-toolbar class="resources-menu p-3 bg-primary text-white">
+    <div class="w-full" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <div class="resources-menu-content" *ngIf="dataSourceResource.data && dataSourceResource.data?.length > 0"
+    (click)="$event.stopPropagation()">
+    <div class="table-container w-full">
+      <table fxFill mat-table [dataSource]="dataSourceResource" multiTemplateDataRows
+        (matSortChange)="sortResourceData($event)" matSort matSortDisableClear class="mat-elevation-z3 w-full">
+        <ng-container matColumnDef="{{ RESOURCE_COLUMNS.ID }}">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>
+            {{ RESOURCE_COLUMNS.ID }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.rid">{{ element.rid }}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="{{ RESOURCE_COLUMNS.NAME }}">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>
+            {{ RESOURCE_COLUMNS.NAME }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.name">{{ element.name }}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="{{ RESOURCE_COLUMNS.STATUS }}">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>
+            {{ RESOURCE_COLUMNS.STATUS }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.status">{{ element.status }}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="{{ RESOURCE_COLUMNS.TYPE }}">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>
+            {{ RESOURCE_COLUMNS.TYPE }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.type">{{ element.type }}</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedResourceColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedResourceColumns"></tr>
+      </table>
+    </div>
+    <mat-paginator #paginatorResource class="mat-elevation-z3"
+      [style.display]="dataSourceResource.data?.length > 0 && (resources$ | async) ? 'block' : 'none'"
+      [pageSize]="pageSize" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</mat-menu>
+
+<ng-template #noData>
+  <h1 class="mat-title text-primary">No resource data available!</h1>
+</ng-template>

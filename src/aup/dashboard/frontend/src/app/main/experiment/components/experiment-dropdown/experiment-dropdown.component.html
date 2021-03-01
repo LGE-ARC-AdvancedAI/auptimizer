@@ -1,0 +1,13 @@
+<div *ngIf="experiments$ | async as experiments" class="w-full">
+  <mat-form-field appearance="outline" *ngIf="experiments && experiments.length > 0 && experimentIndex !== null"
+    class="w-full">
+    <mat-label>
+      Select experiment
+    </mat-label>
+    <mat-select (selectionChange)="selectedNewExperiment($event)" [value]="experiments[experimentIndex].eid">
+      <mat-option *ngFor="let experiment of experiments" [value]="experiment.eid">
+        {{ experiment.experimentName || experiment.scriptName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

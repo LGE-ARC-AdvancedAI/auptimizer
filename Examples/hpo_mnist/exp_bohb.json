@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_bohb.json",
   "script": "mnist_hpo_demo.py",
   "resource": "cpu",
   "n_parallel": 4,

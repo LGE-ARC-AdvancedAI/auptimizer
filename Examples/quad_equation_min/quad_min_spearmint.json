@@ -1,0 +1,17 @@
+{
+  "name": "./quad_equation_min/quad_min_spearmint.json",
+  "proposer": "spearmint",
+  "script": "quad_min.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "n_samples": 50,
+  "engine":"GPEIChooser",
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [-1.0, 100.0],
+      "type": "float"
+    }
+  ]
+}

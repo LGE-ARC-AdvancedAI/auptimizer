@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST Activation Mean Rank Filter Pruner",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "activation_mean_rank_filter",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

@@ -1,0 +1,31 @@
+{
+  "name": "./2dfunc_diff_mult_res/exp_cpu.json",
+  "proposer": "random",
+  "n_samples": 10,
+  "random_seed": 1,
+  "script": "rosenbrock_hpo.py",
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "range": [
+        -5,
+        5
+      ],
+      "type": "float"
+    }
+  ],
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "resource_args": {
+    "multi_res_labels": ["x", "y"]
+  }
+}

@@ -1,0 +1,18 @@
+.close-menu-item {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: auto;
+}
+.close-menu-container > button{
+  height: 52px;
+}
+
+.hidden {
+  visibility: hidden;
+  width: 0;
+  transition: 0.5s;
+}
+
+.mat-list-base {
+  padding-top: 0 !important;
+}

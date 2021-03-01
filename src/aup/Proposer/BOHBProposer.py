@@ -43,6 +43,7 @@ from six.moves import input
 from six import PY3
 
 from .AbstractProposer import AbstractProposer
+from . import ProposerStatus
 from ..utils import set_default_keyvalue
 from .hpbandster.optimizers.bohb import BOHB
 from .hpbandster.optimizers.iterations import SuccessiveHalving
@@ -122,7 +123,7 @@ class BOHBProposer(AbstractProposer):
                     self.iterations.append(self.get_next_iteration(len(self.iterations)))
                     self.n_iterations -= 1
                 else:
-                    self.finished = True
+                    self.set_status(ProposerStatus.FINISHED)
                     return None
 
         config_id, config, budget = next_run

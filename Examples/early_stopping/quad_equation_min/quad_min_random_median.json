@@ -1,0 +1,24 @@
+{
+  "name": "./early_stopping/quad_equation_min/quad_min_random_median.json",
+  "proposer": "random",
+  "script": "quad_min.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "n_samples": 200,
+  "resource_args": 
+    {
+      "early_stop":
+        {
+          "aup_policy": "median",
+          "aup_policy_steps": 1
+        }
+    },
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [-1.0, 100.0],
+      "type": "float"
+    }
+  ]
+}

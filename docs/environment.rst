@@ -161,7 +161,7 @@ only ``sqlite`` is supported).
 Typically, users do not need to manually access it.
 Here we provide a little more detail for users to retrieve additional records for their analyses.
 
-The database contains ``job``, ``experiment``, ``user``, and ``resource`` tables. The schema is described below:
+The database schema is described below:
 
 .. figure:: images/schema.png
    :alt: SQL Schema
@@ -249,4 +249,3 @@ Sometimes, when **Auptimizer** accidentally exits, the resources are not marked 
 you from using them within **Auptimizer**.  In such scenarios, you might want to reset the status of resources by::
 
   python -m aup.setupdb.reset env.ini
-

@@ -1,0 +1,25 @@
+{
+  "name": "./early_stopping/quad_equation_min/quad_min_random_trunc.json",
+  "proposer": "random",
+  "script": "quad_min.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "n_samples": 200,
+  "resource_args": 
+    {
+      "early_stop":
+        {
+          "aup_policy": "truncation",
+          "aup_policy_steps": 1,
+          "truncation_percentage": 0.7
+        }
+    },
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [-1.0, 100.0],
+      "type": "float"
+    }
+  ]
+}

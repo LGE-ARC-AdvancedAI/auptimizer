@@ -1,0 +1,16 @@
+{
+  "name": "./quad_equation_min/quad_min_random.json",
+  "proposer": "random",
+  "script": "quad_min.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "n_samples": 200,
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [-1.0, 100.0],
+      "type": "float"
+    }
+  ]
+}

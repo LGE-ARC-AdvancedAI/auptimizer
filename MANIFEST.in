@@ -1,0 +1,3 @@
+include LICENSE
+include README.md
+recursive-include src/aup/dashboard/frontend/febuild/auptimizer-dashboard/ *

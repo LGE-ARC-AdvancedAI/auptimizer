@@ -1,0 +1,38 @@
+:host {
+  ::ng-deep .mat-checkbox-label {
+    color: white !important;
+  }
+}
+
+.wrapper {
+  width: calc(100vw - 16px);
+  height: calc(100vh - 64px - 80px - 80px - 50px);
+  display: flex;
+  padding: 8px;
+}
+
+mat-form-field {
+  font-size: 18px;
+}
+
+.minw-150 {
+  min-width: 150px;
+}
+
+.minw-100 {
+  min-width: 100px;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}

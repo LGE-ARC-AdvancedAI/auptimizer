@@ -1,0 +1,16 @@
+{
+    "name": "Tensorflow MNIST Level Pruner",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "tensorflow",
+        "type": "pruning",
+        "compressor": "level",
+        "config_list": [{
+                "sparsity": 0.8,
+                "op_types": ["default"]
+            }
+        ]
+    }
+}
+  

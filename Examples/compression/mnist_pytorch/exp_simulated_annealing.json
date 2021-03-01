@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST Simulated Annealing Pruner",
+    "script": "mnist_simulated_annealing.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "simulated_annealing",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

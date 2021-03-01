@@ -1,0 +1,16 @@
+<mat-drawer-container class="mat-typography main-container">
+  <mat-drawer [@sidenavVisibility]="sidenavOpen$ | async" #sidenav mode="side" opened>
+    <!-- <div fxLayout="column" fxLayoutAlign="center center" class="p-4 side-nav-content">
+      <a [routerLinkActive]="'route-active'" routerLink="overview">Overview</a>
+      <a [routerLinkActive]="'route-active'" routerLink="job-status">Job Status</a>
+      <a [routerLinkActive]="'route-active'" routerLink="pcg">Hyperparameter Interaction Graph</a>
+      <a [routerLinkActive]="'route-active'" routerLink="multi">Multi-experiment Comparison</a>
+    </div> -->
+    <app-sidenav [sideNavElements]="sideNavElements"></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content [@contentVisibility]="sidenavOpen$ | async">
+    <main class="p-5">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,49 @@
+{
+  "name": "./early_stopping/mnist_keras/exp_spearmint_median.json",
+  "proposer": "spearmint",
+  "script": "mnist.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"max",
+  "engine":"GPEIChooser",
+  "n_samples": 50,
+  "resource_args": 
+    {
+      "early_stop":
+        {
+          "aup_policy": "median",
+          "aup_policy_steps": 10
+        }
+    },
+  "parameter_config": [
+    {
+      "name": "dropout",
+      "range": [0.0, 0.5],
+      "type": "float"
+    },
+    {
+      "name": "learning_rate",
+      "range": [
+        0.001,
+        0.01
+      ],
+      "type": "float"
+    },
+    {
+      "name": "conv1",
+      "range": [
+        20,
+        50
+      ],
+      "type": "int"
+    },
+    {
+      "name": "conv2",
+      "range": [
+        40,
+        80
+      ],
+      "type": "int"
+    }
+  ]
+}

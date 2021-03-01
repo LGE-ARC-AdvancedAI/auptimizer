@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_spearmint.json",
   "proposer": "spearmint",
   "script": "mnist_hpo_demo.py",
   "resource": "cpu",

@@ -1,0 +1,27 @@
+:host {
+  .logo-container {
+    > img {
+      height: 35px;
+    }
+  }
+}
+
+::ng-deep .mat-menu-panel {
+  max-width: none !important;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-form-field-infix {
+  padding: 10px !important;
+}
+
+.notification-menu {
+  height: 50px;
+}
+
+.header-font {
+  font-size: 15px;
+}

@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST Auto Compress Pruner",
+    "script": "mnist_autocompress.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "auto_compress",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

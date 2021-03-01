@@ -1,0 +1,24 @@
+.notifications-container {
+  min-width: 700px;
+  max-height: 500px;
+}
+
+.mat-column-Message {
+  max-width: 500px !important;
+}
+
+[class^='mat-column-'] {
+  padding-right: 10px !important;
+}
+
+.notification {
+  .type {
+    width: 100px;
+  }
+  .message {
+    width: 300px;
+    word-wrap: break-word;
+  }
+  > * {
+  }
+}

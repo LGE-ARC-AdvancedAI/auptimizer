@@ -25,7 +25,7 @@ class GPUResourceManagerTestCase(unittest.TestCase):
     def setUp(self):
         copyfile(self.ori_db, self.bk_db)
         self.connector = get_default_connector(self.auppath)
-        self.rm = GPUResourceManager(self.connector, self.n_parallel, auppath=self.auppath)
+        self.rm = GPUResourceManager(self.connector, self.n_parallel, auppath=self.auppath, eid=1)
 
     def tearDown(self):
         copyfile(self.bk_db, self.ori_db)
@@ -36,7 +36,7 @@ class GPUResourceManagerTestCase(unittest.TestCase):
             self.val = -1
 
         self.rm.run(self.job, self.rm.get_available("test", "gpu"), {}, callback)
-        self.rm.finish(1)
+        self.rm.finish()
 
         self.assertEqual(self.val, -1)
 

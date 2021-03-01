@@ -1,0 +1,83 @@
+.experiment-card {
+  min-width: 430px !important;
+  max-width: 430px !important;
+  mat-card-content > * {
+    font-size: 16px;
+  }
+}
+
+.elipsis-title {
+  width: 170px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.elipsis-card-title {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.view-toggle {
+  height: 30px;
+  width: 30px;
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.experiment-list-card {
+  mat-card-content > * {
+    font-size: 16px;
+  }
+}
+
+.error-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  margin-left: 10px;
+  margin-top: -7px;
+}
+
+.mat-header-cell {
+  text-transform: uppercase;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+  overflow: unset !important;
+}
+
+.minw-200 {
+  min-width: 200px;
+}
+
+.minw-300 {
+  min-width: 300px;
+}
+
+.w-130 {
+  width: 130px;
+  max-width: 130px;
+}
+
+.resources-menu {
+  height: 50px;
+}
+
+.resources-menu-content {
+  width: 600px;
+}
+
+::ng-deep .mat-tooltip {
+  word-break: break-all !important;
+  white-space: normal !important;
+}
+
+.exp-config-title {
+  white-space: normal;
+  word-break: break-all;
+}

@@ -52,7 +52,7 @@ def _create_folder(folder, overwrite=False):
     if os.path.exists(folder):
         if not overwrite:
             logger.fatal("Folder %s exists, please remove folder or use --overwrite", folder)
-            exit(1)
+            raise Exception("Folder {} exists, please remove folder or use --overwrite".format(folder))
         else:
             rmtree(folder)
     try:

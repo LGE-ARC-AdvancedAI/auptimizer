@@ -1,0 +1,55 @@
+<mat-drawer-container class="h-vh w-full">
+  <div class="w-full h-full p-5" fxLayout="column" fxLayoutAlign="start center">
+    <div class="notifications-container" fxLayout="column">
+      <div class="w-full mb-4" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <div fxLayoutAlign="center" fxLayoutGap="10px">
+          <mat-form-field appearance="outline">
+            <mat-label>Sort by</mat-label>
+            <mat-select [formControl]="sortOption" name="sortOption" (selectionChange)="onSortOption($event)">
+              <mat-option *ngFor="let sort of sortOptions" [value]="sort">
+                {{sort | flu}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-button-toggle-group class="sort-toggle mt-1" name="fontStyle" [value]="sortDirectionType"
+            (change)="onSortDirection($event)">
+            <mat-button-toggle [value]="sortDirections[0]">
+              <mat-icon [color]="sortDirectionType === sortDirections[0] ? 'primary' : ''">north</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [value]="sortDirections[1]">
+              <mat-icon [color]="sortDirectionType === sortDirections[1] ? 'primary' : ''">south</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <button type="button" mat-button class="mb-5" (click)="removeAllNotifications()">
+          <mat-icon class="mr-3">delete_sweep</mat-icon>
+          Clear all
+        </button>
+      </div>
+      <div *ngIf="notifications && notifications.length" class="mb-3">
+        <hr>
+        <!--  *ngFor="let notification of notifications | | paginate: { itemsPerPage: pageSize, currentPage: page } -->
+        <ng-container *ngFor="let notification of notifications">
+          <div class="notification py-4" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="type" *ngIf="notification.type" fxLayoutAlign="start center" fxLayoutGap="5px">
+              <mat-icon [class]="'color-'+notification.type.toLowerCase()">{{ notification.type | notifyIcon }}
+              </mat-icon>
+              <span>{{ notification.type }}</span>
+            </div>
+            <div class="message mx-3" *ngIf="notification.message">{{ notification.message }}</div>
+            <div *ngIf="notification.receivedAt">{{ notification.receivedAt | date: 'medium' }}</div>
+            <div>
+              <mat-icon matTooltip="Remove notification" (click)="removeNotification(notification)"
+                class="actionable-warn">delete</mat-icon>
+            </div>
+          </div>
+          <hr>
+        </ng-container>
+        <!-- <div class="w-full pt-5" fxLayoutAlign="end center">
+          <pagination-controls previousLabel="" directionLinks="true" nextLabel="" (pageChange)="page = $event">
+          </pagination-controls>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>

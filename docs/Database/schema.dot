@@ -55,7 +55,54 @@ digraph g { graph [ rankdir = "LR" ];
       </table>
     >];
 
+  "job_attempt" [
+    shape=none
+    label=<
+      <table border="0" cellspacing="0" cellborder="1">
+        <tr><td bgcolor="lightblue2"><font face="Times-bold" point-size="20">job_attempt</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="jaid"><font face="Times-bold">jaid</font>  <font color="#535353">INTEGER PRIMARY KEY NOT NULL</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="jid"><font face="Times-bold">jid</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="num"><font face="Times-bold">num</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="rid"><font face="Times-bold">rid</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="start_time"><font face="Times-bold">start_time</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="end_time"><font face="Times-bold">end_time</font>  <font color="#535353">INTEGER</font></td></tr>
+      </table>
+    >];
+
+  "intermediate_result" [
+    shape=none
+    label=<
+      <table border="0" cellspacing="0" cellborder="1">
+        <tr><td bgcolor="lightblue2"><font face="Times-bold" point-size="20">intermediate_result</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="irid"><font face="Times-bold">irid</font>  <font color="#535353">INTEGER PRIMARY KEY NOT NULL</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="num"><font face="Times-bold">num</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="score"><font face="Times-bold">score</font>  <font color="#535353">REAL</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="jid"><font face="Times-bold">jid</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="receive_time"><font face="Times-bold">receive_time</font>  <font color="#535353">INTEGER</font></td></tr>
+      </table>
+    >];
+
+  "multiple_result" [
+    shape=none
+    label=<
+      <table border="0" cellspacing="0" cellborder="1">
+        <tr><td bgcolor="lightblue2"><font face="Times-bold" point-size="20">multiple_result</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="mrid"><font face="Times-bold">mrid</font>  <font color="#535353">INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="label_order"><font face="Times-bold">label_order</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="value"><font face="Times-bold">value</font>  <font color="#535353">REAL</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="receive_time"><font face="Times-bold">receive_time</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="jid"><font face="Times-bold">jid</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="irid"><font face="Times-bold">irid</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="eid"><font face="Times-bold">eid</font>  <font color="#535353">INTEGER</font></td></tr>
+        <tr><td bgcolor="grey96" align="left" port="is_last_result"><font face="Times-bold">is_last_result</font>  <font color="#535353">INTEGER</font></td></tr>
+      </table>
+    >];
+
   "experiment":uid -> "user":uid;
   "job":eid -> "experiment":eid;
   "job":rid -> "resource":rid; 
+  "job":jid -> "job_attempt":jid;
+  "job":jid -> "intermediate_result":jid;
+  "job":jid -> "multiple_result":jid;
+  "intermediate_result":irid -> "multiple_result":irid
 }

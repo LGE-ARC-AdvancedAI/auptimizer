@@ -1,0 +1,24 @@
+{
+    "name": "PyTorch MNIST FPGM Pruner",
+    "script": "data/task7.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "fpgm",
+        "config_list": [{
+                "sparsity": {
+                    "range": [0.1, 0.9],
+                    "type": "float"
+                },
+                "op_types": ["Conv2d"]
+            }
+        ]
+    },
+    "target": "max",
+    "proposer": "random",
+    "n_samples": 1,
+    "n_parallel": 1,
+    "workingdir": "tests"
+}
+  

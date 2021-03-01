@@ -19,12 +19,21 @@ import pickle
 import sys
 import inspect
 import functools
+import os
+import shutil
 
 logger = logging.getLogger("aup-minimal")
 
 # supported data loading format
 _SUPPORT_FORMAT = ("pkl", "json")
 
+global user_callback_fn
+global user_args
+global user_kwargs
+
+user_callback_fn = None
+user_args = []
+user_kwargs = {}
 
 def print_result(result):
     """Function to print the result for :func:`parse_result`.
@@ -33,11 +42,12 @@ def print_result(result):
     :param result: result from training code
     :type result: str
     """
-    if result is list:
+    if type(result) is list:
         result = ','.join([str(r) for r in result])
     else:
         result = str(result).lstrip()  # avoid line break
-    print("\n#Auptimizer:%s" % result, file=sys.stderr)
+    # force flush to get intermediate results in real time
+    print("\n#Auptimizer:%s" % result, file=sys.stderr, flush=True)
 
 
 class BasicConfig(dict):
@@ -159,10 +169,22 @@ def aup_args(func):
         Raises:
             ValueError: if a parameter is not assigned in config
         """
+        # get current frame stack
+        frm = inspect.stack()[1]
+        # get module from stack
+        mod = inspect.getmodule(frm[0])
+        # get functions that contain "init" in name and call them
+        functions_list = inspect.getmembers(sys.modules[mod.__name__], inspect.isfunction)
+        functions_list = sorted(list(filter(lambda x: "init" in x[0], functions_list)))
+
         config = BasicConfig().load(filename)
         if kwargs:
             logger.critical("Overwritting config values from script, be cautious!")
             config.update(kwargs)
+
+        for f in functions_list:
+            f[1](**config)
+
         parameters = inspect.signature(func).parameters
         for p in parameters.items():
             if p[0] not in config:
@@ -176,8 +198,34 @@ def aup_args(func):
                 run_config[p] = config[p]
             else:
                 logger.warning("%s is not used in optimization"%p)
+
         val = func(**run_config)
         print_result(val)
+
+        save_model = config.get('save_model', False)
+        if save_model is True and user_callback_fn is not None:
+            # this means this is the "best job" found
+            # the user wants to save the model
+            try:
+                dir = os.path.join('aup_models', config.get('folder_name', None))
+                previous_dir = os.getcwd()
+
+                if os.path.exists('aup_models') is False:
+                    os.makedirs('aup_models')
+
+                if os.path.exists(dir) is True:
+                    logger.warning('Deleting {}'.format(dir))
+                    shutil.rmtree(dir)
+
+                os.makedirs(dir)
+                os.chdir(dir)
+
+                user_callback_fn(*user_args, **user_kwargs)
+            except Exception as e:
+                raise e
+            finally:
+                os.chdir(previous_dir)
+
     return wrapper
 
 def aup_flags(flags):
@@ -204,3 +252,12 @@ def aup_flags(flags):
             print_result(val)
         return wrapper
     return decorator_wrapper
+
+def aup_save_model(callback_fn, *args, **kwargs):
+    global user_callback_fn
+    global user_args
+    global user_kwargs
+
+    user_callback_fn = callback_fn
+    user_args = args
+    user_kwargs = kwargs

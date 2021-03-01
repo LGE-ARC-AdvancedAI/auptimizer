@@ -117,7 +117,8 @@ def load_default_env(auppath=DEFAULT_AUPTIMIZER_PATH, log=logger, use_default=Tr
 
     :param auppath: aup environment folder, contains `env.ini` file
     :type auppath: str
-    :param log: logger obj to trace where the function is called, default is aup.utils
+    :param log: logger obj to trace where the function is called, default is aup.utils, 
+                if None, then no logging is performed
     :type log: logging.Logger
     :param use_default: if auppath is empty, use user's home folder instead.
     :type use_default: bool
@@ -127,12 +128,14 @@ def load_default_env(auppath=DEFAULT_AUPTIMIZER_PATH, log=logger, use_default=Tr
     if not path.isfile(path.join(auppath, "env.ini")):
         if use_default:
             auppath = path.join(path.expanduser("~"), ".aup")
-            log.warning("Use default env at %s" % auppath)
+            if log is not None:
+                log.warning("Use default env at %s" % auppath)
             if not path.isfile(path.join(auppath, "env.ini")):  # pragma: no cover
                 raise Exception("Failed to find env.ini")
         else:
             raise ValueError("Auptimizer folder %s is missing" % auppath)
-    log.info("Auptimizer environment at %s", auppath)
+    if log is not None:
+        log.info("Auptimizer environment at %s", auppath)
     config = ConfigParser()
     config.optionxform = str
     config.read(path.join(auppath, "env.ini"))
@@ -157,10 +160,22 @@ def parse_result(result, log=logger):
             try:
                 return float(result)
             except ValueError:
-                logger.warning("Result is not float - potential support for mutli-value result separated by ,")
-                return float(result.split(",")[0])
+                logger.debug("Cannot convert the result to float - trying to convert the result to a list")
+                return [float(f) for f in result.split(',')]
+
     log.fatal("Result `%s` is not created by aup", result)
     raise ValueError("Result `%s` is not created by aup print_result" % result)
+
+def parse_one_line(result, log=logger):
+    if "#Auptimizer:" in result:
+        result = result[12:]
+        try:
+            return [float(result)]
+        except ValueError:
+            logger.debug("Cannot convert the result to float - trying to convert the result to a list")
+            return [float(f) for f in result.split(',')]
+
+    return None
 
 
 def set_default_keyvalue(key, value, d, inplace=True, log=logger):
@@ -196,12 +211,11 @@ def block_until_ready(client, socket, env):
     from time import sleep
     import paramiko as pm
 
-    sleep_time_s = 1
+    sleep_time_s = 0.1
     timeout_time_s = 5
     nop_linux_command = ":"
 
     while socket.channel.exit_status_ready() == False:
-
         client.exec_command(nop_linux_command, timeout=timeout_time_s, environment=env)
         logger.debug("Command executed successfully, now sleeping")
         sleep(sleep_time_s)
@@ -218,3 +232,13 @@ def open_sftp_with_timeout(client, timeout=5):
         return None
     chan.invoke_subsystem("sftp")
     return SFTPClient(chan)
+
+def get_available_port():
+    """
+    Returns first open port available.
+    """
+    from socket import socket
+    with socket() as s:
+        s.bind(('',0))
+        port = int(s.getsockname()[1])
+    return port

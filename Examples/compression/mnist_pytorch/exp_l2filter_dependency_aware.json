@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST L2 Filter Pruner (dependency aware)",
+    "script": "mnist_dependency_aware.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "l2_filter",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

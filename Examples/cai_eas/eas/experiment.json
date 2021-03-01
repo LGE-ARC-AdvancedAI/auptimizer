@@ -1,4 +1,5 @@
 {
+  "name": "./cai_eas/eas/experiment.json",
   "proposer": "eas",
   "script": "client.py",
   "resource": "gpu",

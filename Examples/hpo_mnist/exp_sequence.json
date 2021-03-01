@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_sequence.json",
   "proposer": "sequence",
   "script": "mnist_hpo_demo.py",
   "resource": "cpu",

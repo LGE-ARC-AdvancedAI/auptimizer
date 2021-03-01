@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST L1 Filter Pruner",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "l1_filter",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

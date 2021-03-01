@@ -1,0 +1,117 @@
+:host {
+  .header-font {
+    font-size: 15px;
+  }
+  .db-card {
+    padding: 60px;
+  }
+  .db-logo {
+    width: 442px;
+    height: 61px;
+  }
+  .max-480 {
+    max-width: 480px;
+  }
+  .db-title {
+    margin: 60px 30px 10px;
+    font-size: 30px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+  }
+  .db-subtitle {
+    width: 347px;
+    height: 49px;
+    margin: 9px 50px 44px 45px;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    text-align: center;
+  }
+  .db-text {
+    width: 347px;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    text-align: center;
+  }
+  .db-btn {
+    width: 127px;
+    height: 36px;
+    border-radius: 6px;
+  }
+  .db-info {
+    width: 350px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    text-align: left;
+    margin-top: 5px;
+  }
+  .path-type-btn {
+    width: 94px;
+    height: 74px;
+    margin: 15px;
+    padding: 25px 30px 25px 31px;
+    border-radius: 6px;
+    border: solid 1px #cbcbcb;
+  }
+  .initialize-container > mat-drawer-container {
+    height: 100%;
+    min-height: calc(100vh - 64px);
+    padding: 50px;
+    width: 100%;
+    > mat-drawer-container {
+      height: 100%;
+      min-height: calc(100vh - 64px);
+      width: 100%;
+    }
+  }
+  .logo-container {
+    > img {
+      height: 35px;
+    }
+  }
+  .headers-align .mat-expansion-panel-header-title,
+  .headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+
+  .headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  ul > li {
+    list-style-type: circle;
+    padding-bottom: 15px;
+  }
+}
+
+::ng-deep mat-toolbar {
+  font-size: 14px;
+}
+
+::ng-deep .mat-menu-panel {
+  max-width: none !important;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 0 !important;
+}
+
+.notification-menu {
+  height: 40px;
+}

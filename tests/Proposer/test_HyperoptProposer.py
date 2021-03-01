@@ -39,6 +39,7 @@ class HyperOptTestCase(unittest.TestCase):
     def test_runtime(self):
         p = hp.HyperoptProposer(self.pc)
         c = p.get()
+        p.increment_job_counter()
         job = Job("none", c)
         p.update(0.1, job)
         job.config['tid'] = -100
@@ -57,6 +58,7 @@ class HyperOptTestCase(unittest.TestCase):
     def test_failed(self):
         p = hp.HyperoptProposer(self.pc)
         c = p.get()
+        p.increment_job_counter()
         job = Job("none", c)
         p.failed(job)
 
