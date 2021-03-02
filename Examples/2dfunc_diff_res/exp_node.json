@@ -1,4 +1,5 @@
 {
+  "name": "./2dfunc_diff_res/exp_node.json",
   "workingdir": "/home/ubuntu/aup_demo",
   "proposer": "random",
   "n_samples": 10,

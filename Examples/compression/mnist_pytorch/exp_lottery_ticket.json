@@ -1,0 +1,17 @@
+{
+    "name": "PyTorch MNIST Lottery Ticket Pruner",
+    "script": "mnist_lottery_ticket.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "lottery_ticket",
+        "config_list": [{
+                "prune_iterations": 5,
+                "sparsity": 0.8,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

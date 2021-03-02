@@ -15,10 +15,11 @@ import abc
 import logging
 import pickle
 import json
-
+import threading
 from six.moves import input
 
 from ..utils import set_default_keyvalue, check_missing_key, get_from_options
+from . import ProposerStatus
 
 ABC = abc.ABCMeta('ABC', (object,), {'__slots__': ()})
 
@@ -36,7 +37,6 @@ def create_param_config(name, vrange, vtype):
 
     return {'name': name, 'range': vrange, 'type': vtype}
 
-
 class AbstractProposer(ABC):
     """
     Proposer to generate new values for hyperparameters
@@ -49,8 +49,30 @@ class AbstractProposer(ABC):
         self.nSamples = 0   # number of total jobs for an experiment
         self.counter = 0    # number of executed jobs
         self.current_proposal = dict()
-        self.finished = False  # whether the experiment is finished
+        self.status = ProposerStatus.RUNNING  # whether the experiment is finished
+        self.status_lock = threading.Lock()
         AbstractProposer.verify_config(self, config)
+
+    def set_status(self, status):
+        with self.status_lock:
+            self.status = status
+
+    def get_status(self):
+        with self.status_lock:
+            return self.status
+
+    def increment_job_counter(self):
+        with self.status_lock:
+            self.counter += 1
+
+    def check_termination(self):
+        with self.status_lock:
+            if self.counter >= self.nSamples:
+                self.status = ProposerStatus.FINISHED
+
+    def get_remaining_jobs(self):
+        with self.status_lock:
+            return self.nSamples - self.counter
 
     @staticmethod
     def setup_config():  # pragma: no cover
@@ -107,16 +129,15 @@ class AbstractProposer(ABC):
         :return: parameter values
         :rtype: dict
         """
-        if self.finished:
+        self.check_termination()
+        if self.get_status() != ProposerStatus.RUNNING:
             return None
         self.current_proposal = self.get_param(**kwargs)
 
         logger.debug(self.current_proposal)
         if not self.current_proposal:
             return None
-        self.counter += 1
-        if self.counter >= self.nSamples:
-            self.finished = True
+
         return self.current_proposal.copy()
 
     @abc.abstractmethod
@@ -144,8 +165,9 @@ class AbstractProposer(ABC):
         """
         Reset proposer
         """
-        self.counter = 0
-        self.finished = False
+        with self.status_lock:
+            self.counter = 0
+            self.status = ProposerStatus.RUNNING
 
     def save(self, path):
         """
@@ -193,3 +215,13 @@ class AbstractProposer(ABC):
         for i in config["parameter_config"]:
             check_missing_key(i, "name", "hyperparameter name is missing", log=logger)
         return config
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state['status_lock']
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+        self.status_lock = threading.Lock()
+

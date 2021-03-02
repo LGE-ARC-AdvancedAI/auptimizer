@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST Sensitivity Pruner",
+    "script": "mnist_sensitivity.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "sensitivity",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

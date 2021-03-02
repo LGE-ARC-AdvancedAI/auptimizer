@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST Level Pruner",
+    "script": "mnist_no_speedup.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "level",
+        "config_list": [{
+                "sparsity": 0.8,
+                "op_types": ["default"]
+            }
+        ]
+    }
+}
+  

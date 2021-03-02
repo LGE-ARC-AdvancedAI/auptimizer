@@ -4,10 +4,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 """
 from aup.EE.Job import Job
 from unittest import TestCase, skipIf
-from six import PY2
+from six import PY2, PY3
 
 
-@skipIf(PY2, "BOHB is not supported in Python2")
+# @skipIf(PY2, "BOHB is not supported in Python2")
+@skipIf(PY3, "BOHB test not supported in travis environment")
 class BOHBTestCase(TestCase):
     config = [{"name": "choice", "range": (1, 2, 3), "type": "choice"},
               {"name": "float", "range": [0, 1], "type": "float"},

@@ -1,0 +1,30 @@
+.multiplier {
+  width: 110px;
+  margin-top: 1px;
+  > mat-form-field {
+    text-align: center;
+  }
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+mat-select, input {
+  font-size: 18px;
+  padding-top: 10px;
+}
+
+.chart {
+  height: 540px;
+}

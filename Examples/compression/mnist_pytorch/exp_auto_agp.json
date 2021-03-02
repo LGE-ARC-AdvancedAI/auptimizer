@@ -1,0 +1,30 @@
+{
+    "name": "PyTorch MNIST AGP Pruner (automatic)",
+    "script": "mnist_no_speedup.py",
+    "resource": "cpu",
+    "resource_args": {
+        "save_model": true
+    },
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "agp",
+        "config_list": [{
+                "initial_sparsity": 0.0,
+                "final_sparsity": {
+                    "range": [0.0, 0.9],
+                    "type": "float"
+                },
+                "start_epoch": 0,
+                "end_epoch": 2,
+                "frequency": 1,
+                "op_names": ["conv1", "conv2", "fc1", "fc2"]
+            }
+        ]
+    },
+    "proposer": "random",
+    "n_parallel": 4,
+    "target": "max",
+    "n_samples": 5
+}
+  

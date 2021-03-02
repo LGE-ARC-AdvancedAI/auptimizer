@@ -1,0 +1,26 @@
+{
+    "name": "PyTorch MNIST ADMM Pruner (automatic)",
+    "script": "mnist_admm.py",
+    "resource": "cpu",
+    "resource_args": {
+        "save_model": true
+    },
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "admm",
+        "config_list": [{
+            "sparsity": {
+                "range": [0.1, 0.9],
+                "type": "float"
+            },
+            "op_names": ["conv1", "conv2"],
+            "op_types": ["Conv2d"]
+        }]
+    },
+    "proposer": "random",
+    "n_parallel": 4,
+    "target": "max",
+    "n_samples": 5
+}
+  

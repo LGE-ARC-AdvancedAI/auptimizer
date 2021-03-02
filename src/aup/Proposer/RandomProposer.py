@@ -115,6 +115,9 @@ class RandomProposer(AbstractProposer):
         Get the next parameter set
         :return: parameter name and value pairs in dict
         """
+        if 'params_gen' not in self.__dict__:
+            return None
+
         for i in self.params_gen:
             self.current_proposal[i] = self.params_gen[i]()
         logger.debug(self.current_proposal)
@@ -123,10 +126,12 @@ class RandomProposer(AbstractProposer):
     def reload(self, path):
         super(RandomProposer, self).reload(path)
         random.set_state(self.random_state)
+        self.random_state = None
         return self
 
     def save(self, path):
-        del self.params_gen
+        if 'params_gen' in self.__dict__:
+            del self.params_gen
         self.random_state = random.get_state()
         super(RandomProposer, self).save(path)
 

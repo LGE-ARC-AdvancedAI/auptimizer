@@ -1,0 +1,15 @@
+{
+    "name": "PyTorch MNIST DoReFa Quantizer",
+    "script": "mnist_no_speedup.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "quantization",
+        "compressor": "dorefa",
+        "config_list": [{
+            "quant_types": ["weight"],
+            "quant_bits": 8, 
+            "op_types": ["default"] 
+        }]
+    }
+}

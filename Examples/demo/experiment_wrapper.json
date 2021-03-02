@@ -1,4 +1,5 @@
 {
+  "name": "./demo/experiment_wrapper.json",
   "script": "hpo_wrapper.py",
   "resource": "cpu",
   "n_parallel": 2,

@@ -1,4 +1,5 @@
 {
+  "name": "test_exp",
   "parameter_config": [
     {
       "name": "x",

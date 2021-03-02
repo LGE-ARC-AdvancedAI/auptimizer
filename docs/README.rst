@@ -8,8 +8,8 @@ Currently, **Auptimizer** helps with:
 
 -  **Getting the best models in minimum time** - Generate optimal models 
    and achieve better performance by employing state-of-the-art hyperparameter 
-   optimization (HPO) techniques. Auptimizer will run and record sophisticated 
-   HPO experiments on compute resources of your choice with effortless consistency 
+   optimization (HPO) and model compression techniques techniques. Auptimizer will run and record sophisticated 
+   HPO and model compression experiments on compute resources of your choice with effortless consistency 
    and reproducibility.
 
 -  **Making your models edge-ready** - Get model-device compatibility and 
@@ -24,11 +24,34 @@ Currently, **Auptimizer** helps with:
    deployment cycles.
 
 Best of all, **Auptimizer** offers a consistent interface that allows
-users to switch between different HPO algorithms conversion frameworks, 
-and computing resources with minimal changes to their existing code.
+users to switch between different HPO and compression algorithms, conversion frameworks, 
+and computing resources with minimal changes to the existing code.
 
-In the future, **Auptimizer** will support end-to-end model building 
-for edge devices, including model compression and neural architecture search. 
+What's New in Auptimizer v2.0
+-----------------------------
+Auptimizer v2.0 introduces two core capabilites - Dashboard and Compressor!
+
+Dashboard
+~~~~~~~~~
+`Auptimizer Dashboard <https://lge-arc-advancedai.github.io/auptimizer/dashboard.html>`__ 
+is a powerful analytics tool that complements Auptimizer's core hyperparameter optimization 
+(HPO) and model compression capabilities. It provides insightful visualizations to help you 
+track experiment progress, analyze and contrast jobs, experiments, and optimization approaches. 
+Additionally, it can be used to control an experiment or even set up a new Auptimizer environment.
+
+Compressor
+~~~~~~~~~~
+`Compressor <https://lge-arc-advancedai.github.io/auptimizer/compression_main.html>`__ 
+is a model compression tool that helps reduce memory complexity and inference time of 
+neural networks. It is particularly useful for adapting ML models for deployment on 
+resource-constrained edge devices.
+
+Similar to Auptimizer-Hyperparameter Optimization (HPO), Compressor aims to provide 
+a unified interface to the existing state-of-the-art toolkits. Currently, Compressor 
+leverages `NNI (version 2.0) <https://nni.readthedocs.io/en/latest/model_compression.html>`__ 
+model compression modules. NNI is an open-source toolkit that supports two types of compression, 
+pruning and quantization, for TensorFlow, and PyTorch models. In the future, we will be integrating 
+other off-the-shelf toolkits to expand the selection of model compression approaches.
 
 Capabilities
 ------------
@@ -60,7 +83,7 @@ for hyperparameter optimization.
 
 Profiler
 ~~~~~~~~
-`Profiler <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler>`__ 
+`Profiler <https://lge-arc-advancedai.github.io/auptimizer/profiler.html>`__ 
 is a simulator for profiling performance of machine learning model scripts. Given compute- and memory 
 resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute and memory 
 usage for model scripts on the device. These estimations can be used to choose best performing models or, 
@@ -73,7 +96,7 @@ finding model-device fit. Please see :doc:`prof_readme` for usages.
 
 Converter
 ~~~~~~~~~
-`Converter <https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/dlconvert>`__ 
+`Converter <https://lge-arc-advancedai.github.io/auptimizer/dlconvert.html>`__ 
 is a format conversion tool for machine learning models. It encapsulates best practices of individual 
 machine learning model conversions under a single API. Converter makes ML models suitable for edge 
 (on-device) deployments by transforming them into the industry-standard ONNX and TensorFlow Lite formats 

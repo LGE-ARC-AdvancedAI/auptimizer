@@ -1,0 +1,351 @@
+.color-scheme-dark {
+  background: #6c6c6c;
+}
+
+.color-scheme-dark div.jsoneditor-field,
+.color-scheme-dark div.jsoneditor-value,
+.color-scheme-dark div.jsoneditor td,
+.color-scheme-dark div.jsoneditor th,
+.color-scheme-dark div.jsoneditor textarea,
+.color-scheme-dark .jsoneditor-schema-error,
+.color-scheme-dark .ace-jsoneditor.ace_editor {
+  -webkit-text-stroke-width: 0px;
+}
+
+.color-scheme-dark .json-option .mat-checkbox-frame {
+  border-color: #bcbcbc;
+}
+
+.color-scheme-dark .json-option {
+  color: #bcbcbc;
+}
+
+.color-scheme-dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  background: rgb(88, 88, 88);
+}
+
+.confirmation-dark {
+  width: 360px;
+}
+
+.confirmation-dark .mat-dialog-container {
+  padding: 15px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #525252;
+  color: #fff;
+}
+
+.confirmation-dark .mat-dialog-container h1 {
+  font-size: 18px;
+  background: #848484;
+  margin: -15px;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.confirmation-dark .mat-dialog-content {
+  margin: -10px -16px;
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  font-size: 16px;
+}
+
+.confirmation-dark .mat-dialog-actions {
+  padding: 5px 10px;
+  margin: -15px;
+  display: inline-block;
+  float: right;
+  min-height: 40px;
+}
+
+.confirmation-dark button.mat-button {
+  float: right;
+  right: 0px;
+}
+
+.confirmation-dark .mat-raised-button {
+  color: #ffffff;
+  background: #838383;
+}
+
+/* Track */
+.color-scheme-dark ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Handle */
+.color-scheme-dark ::-webkit-scrollbar-thumb {
+  background: #9b9b9b;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.color-scheme-dark .ace_editor.ace-jsoneditor {
+  border: 1px solid #545454;
+}
+
+.color-scheme-dark div.jsoneditor-tree {
+  border: 1px solid #3d3d3d;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_scroller {
+  background-color: #232323;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_marker-layer .ace_selection {
+  background: #808080;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_marker-layer .ace_active-line {
+  background: #545454;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_text-layer {
+  color: #f3f3f3;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_variable {
+  color: #f8f8f8 !important;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_constant.ace_numeric {
+  color: #ff4444;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_constant.ace_language {
+  color: #ff4444;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_string {
+  color: #0dda16 !important;
+}
+
+.color-scheme-dark .jsoneditor-readonly {
+  color: #e9e9e9;
+}
+
+.color-scheme-dark div.jsoneditor-value.jsoneditor-array,
+.color-scheme-dark div.jsoneditor-value.jsoneditor-object {
+  color: #e9e9e9;
+}
+
+.color-scheme-dark div.jsoneditor-field {
+  color: #f8f8f8;
+}
+
+.color-scheme-dark div.jsoneditor-value.jsoneditor-string {
+  color: #0dda16 !important;
+}
+
+.color-scheme-dark div.jsoneditor td.jsoneditor-separator {
+  color: #f2f2f2;
+}
+
+.color-scheme-dark div.jsoneditor-value.jsoneditor-number {
+  color: #ff3d26;
+}
+
+.color-scheme-dark div.jsoneditor-value.jsoneditor-null {
+  color: #65bbff;
+}
+
+.color-scheme-dark div.jsoneditor-menu {
+  background: mat-color($dark-primary, 500) !important;
+}
+
+.color-scheme-dark .jsoneditor-statusbar {
+  color: #fff;
+  background: #3d3d3d;
+  border: none;
+}
+
+.color-scheme-dark div.jsoneditor-navigation-bar {
+  color: #fff;
+  background: #3d3d3d;
+  border: none;
+  line-height: 31px;
+}
+
+.color-scheme-dark tr.jsoneditor-highlight,
+.color-scheme-dark tr.jsoneditor-selected {
+  background-color: #545454;
+}
+
+.color-scheme-dark div.jsoneditor-field.jsoneditor-highlight,
+.color-scheme-dark div.jsoneditor-field[contenteditable='true']:focus,
+.color-scheme-dark div.jsoneditor-field[contenteditable='true']:hover,
+.color-scheme-dark div.jsoneditor-value.jsoneditor-highlight,
+.color-scheme-dark div.jsoneditor-value[contenteditable='true']:focus,
+.color-scheme-dark div.jsoneditor-value[contenteditable='true']:hover {
+  background-color: #545454;
+  border: 1px solid #232323;
+}
+
+.color-scheme-dark div.jsoneditor-tree button {
+  filter: contrast(2) brightness(10);
+}
+
+.color-scheme-dark div.jsoneditor-tree button:focus {
+  background-color: rgba(255, 255, 255, 0.14);
+  outline: 1px solid rgba(229, 229, 229, 0.26);
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul {
+  background: #3d3d3d;
+  border: 1px solid #616161;
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu div.jsoneditor-separator {
+  border-color: #616161;
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul li button.jsoneditor-expand {
+  border-color: #616161;
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul li button div.jsoneditor-expand {
+  filter: contrast(2) brightness(10);
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul li button {
+  -webkit-text-stroke-width: 0px;
+  color: #fff;
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul li ul li button:focus,
+.color-scheme-dark div.jsoneditor-contextmenu ul li ul li button:hover {
+  background-color: #7c7c7c;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_gutter {
+  background: #333333;
+  color: #fff;
+}
+
+.color-scheme-dark .ace_content {
+  background: #232323;
+}
+
+.color-scheme-dark .jsoneditor-tree {
+  background: #232323;
+}
+
+.color-scheme-dark tr.jsoneditor-highlight .jsoneditor-tree,
+.color-scheme-dark tr.jsoneditor-selected .jsoneditor-tree {
+  background: #545454;
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul li button {
+  filter: none;
+}
+
+.color-scheme-dark div.jsoneditor-contextmenu ul li button:focus,
+.color-scheme-dark div.jsoneditor-contextmenu ul li button:hover {
+  background-color: #7d7d7d;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_gutter-active-line {
+  background-color: #797979;
+}
+
+.color-scheme-dark table.jsoneditor-search div.jsoneditor-frame {
+  background-color: #565656 !important;
+}
+
+.color-scheme-dark div.jsoneditor .jsoneditor-search input {
+  color: #fff;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_marker-layer .ace_selected-word {
+  border: 1px solid #808080;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_cursor {
+  border-left: 2px solid #e6e6e6;
+}
+
+.color-scheme-dark .ace-jsoneditor .ace_indent-guide {
+  filter: contrast(0);
+}
+
+.color-scheme-dark .jsoneditor-modal .pico-modal-header {
+  background: #848484 !important;
+}
+
+.color-scheme-dark .jsoneditor-modal {
+  background: #525252 !important;
+  color: #fff !important;
+}
+
+.color-scheme-dark .jsoneditor-modal table td,
+.color-scheme-dark .jsoneditor-modal table th {
+  color: #fff;
+}
+
+.color-scheme-dark .jsoneditor-modal .jsoneditor-jmespath-label {
+  color: #fff;
+}
+
+.color-scheme-dark .jsoneditor-modal #query,
+.color-scheme-dark .jsoneditor-modal .jsoneditor-transform-preview {
+  background-color: #787878;
+  color: #fff;
+  border-color: #343434;
+}
+
+.color-scheme-dark .jsoneditor-modal select,
+.color-scheme-dark .jsoneditor-modal input,
+.color-scheme-dark .jsoneditor-modal .selectr-selected {
+  background: #707070;
+  color: #fff;
+  border-color: #515151;
+}
+
+.color-scheme-dark .jsoneditor-modal .selectr-placeholder {
+  color: #fff;
+}
+
+.color-scheme-dark .selectr-option {
+  background-color: #707070;
+}
+
+.color-scheme-dark .selectr-option.active {
+  color: #fff;
+  background-color: #3883fa;
+}
+
+.color-scheme-dark .selectr-input-container {
+  background: #525252;
+}
+
+.color-scheme-dark .selectr-options-container {
+  border-color: #474747;
+}
+
+.color-scheme-dark .selectr-clear::before,
+.color-scheme-dark .selectr-clear::after,
+.color-scheme-dark .selectr-input-clear::before,
+.color-scheme-dark .selectr-input-clear::after,
+.color-scheme-dark .selectr-tag-remove::before,
+.color-scheme-dark .selectr-tag-remove::after {
+  background-color: #fff;
+}
+
+.color-scheme-dark .selectr-selected::before {
+  border-color: #ffffff transparent transparent;
+}
+
+.color-scheme-dark div.jsoneditor div.jsoneditor-anchor .picker_wrapper.popup.popup_bottom {
+  background: #6d6d6d;
+}
+
+.color-scheme-dark .picker_editor input {
+  background: #232323;
+  color: #fff;
+}

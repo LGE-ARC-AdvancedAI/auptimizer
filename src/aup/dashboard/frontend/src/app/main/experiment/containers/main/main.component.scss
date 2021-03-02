@@ -1,0 +1,50 @@
+:host {
+  .main-container {
+    height: calc(100vh - 64px);
+  }
+  .logo-container {
+    > img {
+      height: 35px;
+    }
+  }
+
+  mat-drawer {
+    width: 300px;
+    mat-toolbar {
+      mat-icon {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+      }
+      span {
+        font-size: 35px;
+        font-weight: 200;
+      }
+    }
+    .side-nav-content {
+      > a {
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 1.5;
+        width: 100%;
+      }
+    }
+  }
+
+  .refresh-interval {
+    width: 150px;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .version {
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .h-vh {
+    height: calc(100vh - 64px);
+  }
+}

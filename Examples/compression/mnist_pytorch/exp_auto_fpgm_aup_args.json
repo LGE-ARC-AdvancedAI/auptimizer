@@ -1,0 +1,26 @@
+{
+    "name": "PyTorch MNIST FPGM Pruner (@aup_args) (automatic)",
+    "script": "mnist_aup_args.py",
+    "resource": "cpu",
+    "resource_args": {
+        "save_model": true
+    },
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "fpgm",
+        "config_list": [{
+                "sparsity": {
+                    "range": [0.1, 0.9],
+                    "type": "float"
+                },
+                "op_names": ["conv1", "conv2"]
+            }
+        ]
+    },
+    "proposer": "random",
+    "n_parallel": 4,
+    "target": "max",
+    "n_samples": 5
+}
+  

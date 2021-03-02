@@ -1,0 +1,44 @@
+@import './colors';
+@include mat-core();
+
+/* Light theme */
+$primary: mat-palette($aupt-blue);
+$accent: mat-palette($aupt-green);
+$warn: mat-palette($aupt-red);
+$light-theme: mat-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+  )
+);
+
+/* Dark theme */
+$dark-primary: mat-palette($aupt-blue);
+$dark-accent: mat-palette($aupt-green);
+$dark-warn: mat-palette($mat-red);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+/*
+$custom-typography: mat-typography-config(
+  $font-family: 'Lato',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include angular-material-typography($custom-typography);
+*/
+
+/*
+@media (prefers-color-scheme: light) {
+  @include angular-material-theme($light-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+  @include angular-material-theme($dark-theme);
+}
+*/
+
+/* You can add global styles to this file, and also import other style files */

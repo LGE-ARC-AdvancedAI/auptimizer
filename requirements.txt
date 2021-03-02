@@ -10,7 +10,6 @@ pandas
 networkx
 hyperopt
 nose
-requests
 paramiko==2.7.1
 boto3
 mock; python_version < '3.3'
@@ -19,5 +18,17 @@ ConfigSpace; python_version >= '3'
 pytest-cov
 codecov
 tabulate
+schema
+json_tricks
+tqdm
 hpbandster; python_version >= '3'
 mock-ssh-server==0.8.2
+connexion[swagger-ui]==2.5.0
+flask==1.1.2
+flask-cors==3.0.8
+requests==2.23.0
+prettytable
+psutil
+scikit-learn
+thop
+psutil

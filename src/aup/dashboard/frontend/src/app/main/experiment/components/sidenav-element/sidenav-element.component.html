@@ -1,0 +1,20 @@
+<a *ngIf="navItem" mat-list-item [ngStyle]="{ 'padding-left': depth * 12 + 'px' }" (click)="onItemSelected(navItem)"
+  [ngClass]="{ expanded: expanded }" fxLayout fxLayoutAlign="left center"
+  [routerLink]="navItem?.route !== '' ? navItem?.route : null"
+  [routerLinkActive]="navItem?.route !== '' ? 'menu-list-item--active' : ''" [routerLinkActiveOptions]="{ exact: true }"
+  [disabled]="navItem.disabled"
+  [matTooltip]="(sidenavOpen$ | async) === false ? navItem.tooltip : ''" class="menu-list-item my-2 h-15">
+  <mat-icon *ngIf="navItem.iconName" class="mr-10" fxLayout fxLayoutAlign="right center">{{ navItem?.iconName }}
+  </mat-icon>
+  <span [ngClass]="(sidenavOpen$ | async) === false ? 'hidden' : ''" *ngIf="navItem.displayName">{{ navItem?.displayName }}</span>
+  <span fxFlex *ngIf="navItem?.children && navItem?.children.length">
+    <span fxFlex></span>
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'">
+      expand_more
+    </mat-icon>
+  </span>
+</a>
+<div *ngIf="expanded">
+  <app-sidenav-element *ngFor="let child of navItem.children" [navItem]="child" [depth]="depth + 1">
+  </app-sidenav-element>
+</div>

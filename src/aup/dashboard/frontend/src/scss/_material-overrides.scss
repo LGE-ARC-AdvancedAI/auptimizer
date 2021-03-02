@@ -1,0 +1,559 @@
+@import './theme';
+
+.color-primary {
+  color: mat-color($primary, 500) !important;
+}
+.bg-primary {
+  background: mat-color($primary, 500) !important;
+}
+.color-accent {
+  color: mat-color($accent, 800) !important;
+}
+
+.bg-accent {
+  background: mat-color($accent, 800) !important;
+}
+.color-warn {
+  color: mat-color($warn, 500) !important;
+}
+.color-success {
+  color: mat-color($aupt-green, 500) !important;
+}
+.color-error {
+  color: mat-color($warn, 500) !important;
+}
+.color-info {
+  color: mat-color($aupt-cyan, 500) !important;
+}
+.color-warning {
+  color: mat-color($aupt-amber, 500) !important;
+}
+
+.status-Finished {
+  color: mat-color($accent, 800) !important;
+}
+.status-Failed {
+  color: mat-color($aupt-amber, 500) !important;
+}
+
+.color-scheme-light {
+  @include angular-material-theme($light-theme);
+
+  .card-wrapper {
+    color: #d0d0d0;
+  }
+
+  .config-list {
+    background-color: #ffffff;
+  }
+
+  .color-dark {
+    color: $dark-text !important;
+  }
+  .color-light {
+    color: $light-text !important;
+  }
+
+  .color-text-primary {
+    color: #000000;
+  }
+
+  .color-gray {
+    color: rgb(122, 122, 122);
+  }
+
+  .bg-primary {
+    background: mat-color($primary) !important;
+  }
+
+  .bg-accent {
+    background: mat-color($accent) !important;
+  }
+
+  .route-active {
+    color: mat-color($primary);
+  }
+
+  .table-header {
+    background: mat-color($primary);
+    color: white;
+  }
+
+  .first-col-header {
+    border-bottom: 1px solid white;
+    font-weight: 500;
+  }
+
+  .second-col-header {
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    font-weight: 500;
+  }
+
+  .first-col {
+    border-bottom: 1px solid mat-color($primary);
+    font-weight: 500;
+  }
+
+  .second-col {
+    border-bottom: 1px solid mat-color($primary);
+    border-left: 1px solid mat-color($primary);
+  }
+
+  .table-container > *:last-child .first-col {
+    border: unset !important;
+  }
+  .table-container > *:last-child .second-col {
+    border: unset !important;
+    border-left: 1px solid mat-color($primary) !important;
+  }
+
+  .progress-bar-filled,
+  .progress-bar {
+    background-color: whitesmoke;
+    height: 60px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    .progress-bar-fill {
+      display: block;
+      height: 100%;
+      width: 100%;
+      color: black;
+      text-align: center;
+      background-color: mat-color($accent) !important;
+    }
+  }
+
+  .progress-bar {
+    width: 100%;
+    .progress-bar-fill {
+      background-color: mat-color($accent) !important;
+      border-radius: 3px;
+      transition: width 500ms ease-in-out;
+    }
+  }
+
+  .menu-list-item--active {
+    color: mat-color($primary, default) !important;
+  }
+
+  a {
+    &:not(.mat-button):not(.mat-raised-button):not(.mat-icon-button):not(.mat-list-item) {
+      &:hover,
+      &:active {
+        color: mat-color($primary, 500) !important;
+      }
+    }
+  }
+
+  .actionable {
+    cursor: pointer;
+    &:hover:not(:disabled) {
+      color: mat-color($accent, 500) !important;
+    }
+  }
+
+  .actionable-warn {
+    cursor: pointer;
+    &:hover:not(:disabled) {
+      color: mat-color($warn, 500) !important;
+    }
+  }
+
+  .ngx-pagination a,
+  .ngx-pagination button {
+    color: black !important;
+  }
+}
+
+.color-scheme-dark {
+  @include angular-material-color($dark-theme);
+  // Plotly customizations
+  g > text {
+    fill: #ffffff !important;
+    text-shadow: none !important;
+  }
+  .axis-title,
+  .axis-extent-top > .axis-extent-top-text,
+  .axis-extent-bottom > .axis-extent-bottom-text,
+  .axis-extent-text,
+  .tick {
+    fill: #ffffff !important;
+  }
+  .axis-extent > * {
+    color: #ffffff !important;
+  }
+  .axis-extent-top,
+  .axis-extent-bottom,
+  .tick {
+    color: #ffffff !important;
+  }
+  .tick > text {
+    color: #ffffff !important;
+  }
+
+  .config-list {
+    background-color: #2d2d2d;
+  }
+
+  // Example how you can easy add own custom styles
+  .card-wrapper {
+    color: #2d2d2d;
+  }
+
+  .color-text-primary {
+    color: #ffffff;
+  }
+
+  .color-gray {
+    color: rgb(223, 223, 223);
+  }
+
+  .color-dark {
+    color: $dark-text !important;
+  }
+  .color-light {
+    color: $light-text !important;
+  }
+
+  .bg-primary {
+    background: mat-color($dark-primary) !important;
+  }
+
+  .bg-accent {
+    background: mat-color($dark-accent) !important;
+  }
+
+  .route-active {
+    color: mat-color($dark-primary);
+  }
+
+  .table-header {
+    background: mat-color($primary);
+    color: white;
+  }
+
+  .first-col-header {
+    border-bottom: 1px solid white;
+    font-weight: 500;
+  }
+
+  .second-col-header {
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    font-weight: 500;
+  }
+
+  .first-col {
+    border-bottom: 1px solid mat-color($dark-primary);
+    font-weight: 500;
+  }
+
+  .second-col {
+    border-bottom: 1px solid mat-color($dark-primary);
+    border-left: 1px solid mat-color($dark-primary);
+  }
+
+  .table-container > *:last-child .first-col {
+    border: unset !important;
+  }
+  .table-container > *:last-child .second-col {
+    border: unset !important;
+    border-left: 1px solid mat-color($dark-primary) !important;
+  }
+
+  .menu-list-item--active {
+    color: mat-color($primary, default) !important;
+  }
+
+  .progress-bar-filled,
+  .progress-bar {
+    background-color: whitesmoke;
+    height: 60px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    .progress-bar-fill {
+      display: block;
+      height: 100%;
+      width: 100%;
+      color: black;
+      text-align: center;
+      background-color: mat-color($accent) !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .progress-bar {
+    width: 100%;
+    .progress-bar-fill {
+      background-color: mat-color($accent) !important;
+      border-radius: 3px;
+      transition: width 500ms ease-in-out;
+    }
+  }
+
+  a {
+    &:not(.mat-button):not(.mat-raised-button):not(.mat-icon-button):not(.mat-list-item) {
+      &:hover,
+      &:active {
+        color: mat-color($dark-primary, 500) !important;
+      }
+    }
+  }
+
+  .actionable {
+    cursor: pointer;
+    &:hover {
+      color: mat-color($dark-accent, 500) !important;
+    }
+  }
+
+  .actionable-warn {
+    cursor: pointer;
+    &:hover {
+      color: mat-color($warn, 500) !important;
+    }
+  }
+
+  .ngx-pagination a,
+  .ngx-pagination button {
+    color: white !important;
+  }
+}
+
+button {
+  outline: none !important;
+}
+
+.btn-primary {
+  background: mat-color($primary, 500) !important;
+  color: white;
+}
+
+.mat-snack-bar-container,
+.mat-simple-snackbar-action {
+  cursor: pointer;
+
+  color: white !important;
+
+  &.text-error {
+    background: map-get($aupt-red, 500) !important;
+    position: relative;
+
+    & .mat-simple-snackbar {
+      margin-left: 1.1rem !important;
+    }
+
+    &:after {
+      content: '\26A0' !important;
+      position: absolute;
+      top: 0.9rem;
+      left: 0.6rem;
+      font-size: 1rem;
+    }
+  }
+
+  &.text-warn {
+    position: relative;
+    background: map-get($aupt-orange, 500) !important;
+    color: black !important;
+
+    & .mat-simple-snackbar {
+      margin-left: 1.1rem !important;
+    }
+
+    &:after {
+      content: '\2714' !important;
+      position: absolute;
+      top: 0.9rem;
+      left: 0.6rem;
+      font-size: 1rem;
+    }
+  }
+
+  &.text-info {
+    position: relative;
+    background: map-get($aupt-cyan, 500) !important;
+    color: black !important;
+
+    & .mat-simple-snackbar {
+      margin-left: 1.1rem !important;
+    }
+
+    &:after {
+      content: '\2755' !important;
+      position: absolute;
+      top: 0.9rem;
+      left: 0.6rem;
+      font-size: 1rem;
+    }
+  }
+
+  &.text-success {
+    position: relative;
+    background: map-get($aupt-green, 500) !important;
+
+    & .mat-simple-snackbar {
+      margin-left: 1.1rem !important;
+    }
+
+    &:after {
+      content: '\2714' !important;
+      position: absolute;
+      top: 0.9rem;
+      left: 0.6rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+.mat-simple-snackbar-action > button {
+  padding-top: 0 !important;
+}
+
+.mat-tooltip {
+  font-size: 15px;
+}
+
+.ngx-pagination .current {
+  background: mat-color($primary, 500) !important;
+  border-radius: 50%;
+  padding: 9px 15px !important;
+  font-size: 18px !important;
+}
+
+.ngx-pagination .current:hover {
+  border-radius: 50%;
+  padding: 9px 15px !important;
+  font-size: 18px !important;
+}
+
+.ngx-pagination li,
+.ngx-pagination a {
+  border-radius: 50% !important;
+  padding: 9px 15px !important;
+  font-size: 18px !important;
+}
+
+.ngx-pagination li:focus {
+  outline: none !important;
+  border-radius: 50% !important;
+}
+
+.ngx-pagination li:focus,
+.ngx-pagination a:focus,
+.ngx-pagination button:focus {
+  outline: none !important;
+  border-radius: 50% !important;
+}
+
+.ngx-pagination a,
+.ngx-pagination .pagination-next a,
+.ngx-pagination .pagination-previous a {
+  padding: 9px 15px !important;
+  font-size: 18px !important;
+}
+
+.ngx-pagination .pagination-next a::after,
+.ngx-pagination .pagination-previous a::before {
+  margin: 0 !important;
+}
+
+ul {
+  list-style: none !important;
+}
+
+ul.help-list li::before {
+  content: '\A';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 10px;
+  background: mat-color($primary, 500);
+  font-weight: bold;
+}
+
+.help-menu {
+  height: 40px !important;
+}
+
+.interaction-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.help-list > li {
+  padding: 5px;
+}
+
+.sort-toggle {
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sort-toggle .mat-button-toggle-label-content {
+  padding: 0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.refresh-interval .mat-form-field-infix {
+  padding: 2px 2px 7px 2px !important;
+  margin: 0 !important;
+}
+
+.header-modal .mat-dialog-container {
+  padding: 0 !important;
+  overflow: unset !important;
+}
+
+.header-dialog-title {
+  height: 50px;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: mat-color($accent, 500) !important;
+}
+
+.mat-list-item-disabled {
+  background-color: inherit !important;
+  color: gray !important;
+}
+
+.info-modal .mat-dialog-container {
+  padding: 0 !important;
+  overflow: unset !important;
+}
+
+.info-dialog-content {
+  overflow: auto !important;
+  max-height: 500px !important;
+}
+
+.info-dialog-title {
+  height: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.22;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.help-content {
+  max-width: 1000px;
+}
+
+.job-status-table > thead > tr > .mat-sort-header > div {
+  justify-content: center !important;
+}

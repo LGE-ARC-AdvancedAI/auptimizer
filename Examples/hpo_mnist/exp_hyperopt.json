@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_hyperopt.json",
   "proposer": "hyperopt",
   "script": "mnist_hpo_demo.py",
   "resource": "cpu",

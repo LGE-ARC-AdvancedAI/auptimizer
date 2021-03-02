@@ -1,0 +1,15 @@
+{
+    "name": "PyTorch MNIST AMC Pruner",
+    "script": "mnist_amc.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "amc",
+        "config_list": [{
+                "op_types": ["Conv2d", "Linear"]
+            }
+        ]
+    }
+}
+  

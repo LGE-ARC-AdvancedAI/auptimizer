@@ -8,6 +8,7 @@ from unittest import TestCase
 from aup.EE.Job import Job
 from aup.Proposer import SequenceProposer as sp
 from aup.Proposer import get_proposer
+from aup.Proposer import ProposerStatus
 
 
 class SequenceTestCase(TestCase):
@@ -25,11 +26,15 @@ class SequenceTestCase(TestCase):
         rp = get_proposer("sequence")(self.pc)
         self.assertEqual(rp.nSamples, 121)
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertTrue(param1 == {"x1": 0, "x2": 0})
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertTrue(param1 == {"x1": 1, "x2": 0})
-        while not rp.finished:
+        while rp.status == ProposerStatus.RUNNING:
             param1 = rp.get()
+            rp.increment_job_counter()
+            rp.check_termination()
         self.assertTrue(param1 == {"x1": 10, "x2": 10})
 
     def test_int_interval(self):
@@ -40,14 +45,19 @@ class SequenceTestCase(TestCase):
         rp = get_proposer("sequence")(self.pc)
         self.assertEqual(rp.nSamples, 18)
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertTrue(param1 == {"x1": 0, "x2": 0})
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertTrue(param1 == {"x1": 2, "x2": 0})
         for i in range(10):
             param1 = rp.get()
+            rp.increment_job_counter()
         self.assertTrue(param1 == {"x1": 10, "x2": 5})
-        while not rp.finished:
+        while rp.status == ProposerStatus.RUNNING:
             param1 = rp.get()
+            rp.increment_job_counter()
+            rp.check_termination()
         self.assertTrue(param1 == {"x1": 10, "x2": 10})
 
     def test_float(self):
@@ -58,14 +68,19 @@ class SequenceTestCase(TestCase):
         rp = get_proposer("sequence")(self.pc)
         self.assertEqual(rp.nSamples, 12)
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertDictEqual(param1, {"x1": 0, "x2": 0})
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertDictEqual(param1, {"x1": 0.2, "x2": 0})
         for i in range(4):
             param1 = rp.get()
+            rp.increment_job_counter()
         self.assertDictEqual(param1, {"x1": 1, "x2": 0})
-        while not rp.finished:
+        while rp.status == ProposerStatus.RUNNING:
             param1 = rp.get()
+            rp.increment_job_counter()
+            rp.check_termination()
         self.assertTrue(param1 == {"x1": 1, "x2": 1})
 
         self.pc["parameter_config"] = [
@@ -75,14 +90,19 @@ class SequenceTestCase(TestCase):
         rp = get_proposer("sequence")(self.pc)
         self.assertEqual(rp.nSamples, 12)
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertDictEqual(param1, {"x1": 0, "x2": 0})
         param1 = rp.get()
+        rp.increment_job_counter()
         self.assertDictEqual(param1, {"x1": 0.2, "x2": 0})
         for i in range(4):
             param1 = rp.get()
+            rp.increment_job_counter()
         self.assertDictEqual(param1, {"x1": 1, "x2": 0})
-        while not rp.finished:
+        while rp.status == ProposerStatus.RUNNING:
             param1 = rp.get()
+            rp.increment_job_counter()
+            rp.check_termination()
         self.assertTrue(param1 == {"x1": 1, "x2": 1})
 
     def test_choice(self):
@@ -93,9 +113,13 @@ class SequenceTestCase(TestCase):
         rp = get_proposer("sequence")(self.pc)
         self.assertEqual(rp.nSamples, 15)
         param1 = rp.get()
+        rp.increment_job_counter()
+        rp.check_termination()
         self.assertTrue(param1 == {"x1": 2, "x2": "a"})
-        while not rp.finished:
+        while rp.status == ProposerStatus.RUNNING:
             param1 = rp.get()
+            rp.increment_job_counter()
+            rp.check_termination()
         self.assertTrue(param1 == {"x1": 10, "x2": "c"})
 
     def test_gen(self):
@@ -108,6 +132,7 @@ class SequenceTestCase(TestCase):
         ]
         p = get_proposer("sequence")(self.pc)
         c = p.get()
+        p.increment_job_counter()
         job = Job("none", c)
         p.failed(job)
 

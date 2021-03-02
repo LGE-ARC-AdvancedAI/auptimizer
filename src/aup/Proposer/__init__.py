@@ -5,6 +5,7 @@
 """
 import importlib
 import logging
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 
@@ -18,10 +19,12 @@ PROPOSERS = {
     "eas": "EASProposer"
 }
 
+ProposerStatus = Enum('ProposerStatus', 'RUNNING FINISHED FAILED')
+
 SPECIAL_EXIT_PROPOSERS = ("bohb","hyperband")
 
 
-def get_proposer(proposer):
+def get_proposer(proposer, disable_proposer_logging=False):
     """
     Create Proposer
 
@@ -38,5 +41,7 @@ def get_proposer(proposer):
         raise ValueError("%s proposer is not implemented" % proposer)
 
     mod = importlib.import_module("." + proposer, "aup.Proposer")
+    _logger = logging.getLogger(mod.__name__)
+    _logger.disabled = disable_proposer_logging
     cls = getattr(mod, proposer)
     return cls

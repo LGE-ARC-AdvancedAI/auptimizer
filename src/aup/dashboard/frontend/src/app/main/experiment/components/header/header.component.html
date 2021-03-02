@@ -1,0 +1,47 @@
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" class="header-font">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <!-- <a *ngIf="currentTheme?.name" routerLink="/" class="logo-container"
+      ><img [src]="'assets/images/Auptimizer-' + currentTheme.name + '.png'"
+    /></a> -->
+    <a fxHide.lt-md *ngIf="currentTheme?.name" routerLink="/" class="logo-container"><img
+        [src]="'assets/images/Auptimizer-dark.png'" /></a>
+  </div>
+  <div fxLayout="row" fxLayoutGap="40px" fxLayoutGap.md="15px" fxLayoutGap.lt-md="15px" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field class="mt-5 refresh-interval-select" appearance="outline"
+        *ngIf="refreshIntervalOptions$ | async as refreshIntervalOptions">
+        <mat-label>Refresh every</mat-label>
+        <mat-select (selectionChange)="changeRefreshInverval($event)" [value]="refreshInterval$ | async">
+          <mat-option *ngFor="let interval of refreshIntervalOptions" [value]="interval">{{ interval }} seconds
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-button (click)="onRefresh()" class="header-font">
+      <mat-icon class="mr-3">cached</mat-icon>Refresh now
+    </button>
+    <button [disabled]="!notifications?.length" mat-icon-button [matMenuTriggerFor]="notificationMenu">
+      <mat-icon matBadgeColor="warn" [matBadgeHidden]="!notifications?.length" [matBadge]="notifications?.length">
+        notifications</mat-icon>
+    </button>
+
+    <button *ngIf="currentTheme" mat-button (click)="setTheme()" class="header-font">
+      <mat-icon class="mr-3">{{ currentTheme.icon }}</mat-icon>{{ currentTheme.name | flu }} mode
+    </button>
+    <div fxLayoutAlign="center center">
+      <span>Version:&nbsp;</span>
+      <span *ngIf="version">v{{ version }}</span>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-menu #notificationMenu="matMenu" xPosition="before">
+  <mat-toolbar class="notification-menu">
+    <div class="w-full" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <app-notification (click)="$event.stopPropagation()"></app-notification>
+</mat-menu>

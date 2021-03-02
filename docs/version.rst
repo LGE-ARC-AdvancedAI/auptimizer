@@ -1,5 +1,19 @@
 Version History
 ===============
+version 2.0
+~~~~~~~~~~~
+
++ Add Dashboard to provide insightful visualizations to help users track experiment progress, analyze and contrast jobs, experiments, and optimization approaches
++ Add Compressor - a model compression tool that helps reduce memory complexity and inference time of neural networks
++ Add 4 early stopping strategies to improve the efficiency of HPO experiments
++ Add feature to track intermediate results of both HPO and compression experiments
++ Add feature to save the best model with the best hyperparameter combination
++ Add feature to track multiple results returned from the HPO experiment
++ Refactor documentation
++ Minor bug fixes
+
++ :download:`Auptimizer 2.0 wheel python2 or python3 <archive/Auptimizer-2.0-py2.py3-none-any.whl>`
+
 version 1.4
 ~~~~~~~~~~~~
 

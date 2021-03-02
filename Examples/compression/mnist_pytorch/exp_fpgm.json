@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST FPGM Pruner",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "fpgm",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

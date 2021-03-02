@@ -7,25 +7,22 @@ branches:
   - release
 language: python
 python:
-- '2.7'
 - '3.7'
 env:
   global:
   - secure: JbuCMpFomW4Yu+sMaBBvv7Jj1JyiQcCQAW7bhdJDil+YUdWEJmTjkF2pKwTQS5w6FUhZIHJ0cy3aJZibSrM2+YpAe3B8HMeLXAaYz9JKbC6Sp0KGr646YqoBNNP+wwrzwzJTPoV7YarViULFPYnUN8rcpp0ypaD9RrtqSN/IKUgxCeTNNcwJOLIr0SLqtmTgT2F2HzCbOkv2g84FqfCC8m2ISFyUgt8FqUD8bRfov++oHfiwSUDZHJaPkn1/NUG3qxrM85B6cC+iZH7MiudP2LF+frBJUtq4bimmjCDuQXX4c224LQC8hnG46sZGtH1i9PGp/wxdnO9gxDa+0ZIIbs86Uy6LrJptwZwWr/W4boian1JTLT8P6fPxuwDFejZwPVkyBGV1GF29pvVJ+4hRnJAKoUA/hg5IrEByXdMknkKh6yiMynmfNGEgCkAcqVPEcQie6u/nbLPqg0m3Pjs4GElEd0wIdqo9GBmK4q8FJGv05k98JX27Tm5gcwIps6qA5lPZoahOdy7GiBZFWdTfbgeah7tNjIqENbMhNFTS9Y1qy9gpgFZl8x9e0liF9OuTyTVlAmsHs9z1huuj8Bb6Eqbr8fvnVqAN9iHIBUWR7uGLeL4zwKmQZ5xiexba9LdnHuiaZjHzdzgA5SnVqXy/pabgCfoZ+wNiWcKu76mCjGU=
   jobs:
   - TF2TEST=1
-  - TF2TEST=
 install:
 - pip install -r requirements.txt
-- if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]]; then pip install -r tests/dlconvert/dlconvert_requirements.txt ; fi
-- if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip install absl-py tensorflow==2.1.0; fi
+- pip install -r tests/dlconvert/dlconvert_requirements.txt 
 - python setup.py install
-- if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]]; then docs/prepare.sh ; fi
-- if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]]; then tests/dlconvert/data/prepare.sh ; fi
+- docs/prepare.sh
+- tests/dlconvert/data/prepare.sh
 script:
 - pytest --cov-report=xml --cov=src/aup tests
 after_success:
-- if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]]; then codecov; fi
+- codecov
 deploy:
   provider: pypi
   user: "__token__"

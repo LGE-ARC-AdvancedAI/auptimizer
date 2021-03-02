@@ -1,0 +1,17 @@
+{
+    "name": "PyTorch MNIST BNN Quantizer",
+    "script": "mnist_no_speedup.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "quantization",
+        "compressor": "bnn",
+        "config_list": [{
+                "quant_bits": 1,
+                "quant_types": ["weight"],
+                "op_types": ["Conv2d", "Linear"],
+                "op_names": ["conv1", "conv2", "fc1", "fc2"]
+            }]
+    }
+}
+  

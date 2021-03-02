@@ -1,0 +1,32 @@
+{
+  "name": "./early_stopping/quad_equation_min/quad_min_BOHB_trunc.json",
+  "proposer": "bohb",
+  "script": "quad_min.py",
+  "resource": "cpu",
+  "n_parallel": 4,
+  "target":"min",
+  "n_iterations": 100,
+  "num_samples": 64,
+  "random_fraction": 0.3333333333333333,
+  "bandwidth_factor": 3,
+  "min_bandwidth": 0.001,
+  "eta": 3,
+  "min_budget": 1,
+  "max_budget": 5,
+  "resource_args": 
+    {
+      "early_stop":
+        {
+          "aup_policy": "truncation",
+          "aup_policy_steps": 1,
+          "truncation_percentage": 0.7
+        }
+    },
+  "parameter_config": [
+    {
+      "name": "x",
+      "range": [-1.0, 100.0],
+      "type": "float"
+    }
+  ]
+}

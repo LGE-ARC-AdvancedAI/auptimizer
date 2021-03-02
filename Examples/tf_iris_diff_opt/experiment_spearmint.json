@@ -1,4 +1,5 @@
 {
+  "name": "./tf_iris_diff_opt/experiment_spearmint.json",
   "proposer": "spearmint",
   "n_samples": 20,
   "random_seed": 1,

@@ -4,6 +4,8 @@ from setuptools import setup, find_packages
 
 BASE_URL="https://github.com/LGE-ARC-AdvancedAI/auptimizer"
 
+CONSOLE_SCRIPTS = []
+CONSOLE_SCRIPTS.append('dashboard = aup.dashboard.dashboard:main')
 
 def find_version():
     # based on https://packaging.python.org/guides/single-sourcing-package-version/
@@ -37,5 +39,10 @@ setup(
     },
     # install_requires=open("requirements.txt").readlines(),
     packages=find_packages("src", exclude=["tests"]),
-    package_dir={"": "src"}
+    package_dir={"": "src"},
+    entry_points={
+        'console_scripts': CONSOLE_SCRIPTS,
+    },
+    zip_safe=False,
+    include_package_data=True
 )

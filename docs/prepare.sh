@@ -3,7 +3,7 @@
 
 cd docs
 pip install -r requirements.txt
-pip install tensorflow
+pip install tensorflow==2.3.1
 
 mkdir ~/.aws
 cat > ~/.aws/config << EOL

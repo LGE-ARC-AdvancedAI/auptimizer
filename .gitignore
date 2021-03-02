@@ -28,7 +28,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -120,3 +119,7 @@ venv.bak/
 # OS files
 .DS_Store
 .Rproj.user
+
+analysis_test
+jobs
+tests/mnist_compressed.pth

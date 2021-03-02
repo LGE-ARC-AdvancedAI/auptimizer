@@ -61,7 +61,7 @@ class UtilTestCase(unittest.TestCase):
 
     def test_parse_result(self):
         self.assertEqual(0.1, utils.parse_result("#Auptimizer:0.1"))
-        self.assertEqual(0.1, utils.parse_result("#Auptimizer:0.1,0.2"))
+        self.assertEqual([0.1, 0.2], utils.parse_result("#Auptimizer:0.1,0.2"))
         self.assertRaises(ValueError, utils.parse_result, "no aup result")
 
     def test_print_result(self):

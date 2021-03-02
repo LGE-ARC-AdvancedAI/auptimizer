@@ -1,4 +1,5 @@
 {
+  "name": "./job_failure_control/experiment_no_param_config.json",
   "proposer": "random",
   "n_samples": 30,
   "random_seed": 1,

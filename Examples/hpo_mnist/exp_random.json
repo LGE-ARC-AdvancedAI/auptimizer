@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_random.json",
   "proposer": "random",
   "script": "mnist_hpo_demo.py",
   "resource": "cpu",

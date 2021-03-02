@@ -1,0 +1,16 @@
+{
+    "name": "PyTorch MNIST NetAdapt Pruner",
+    "script": "mnist_net_adapt.py",
+    "resource": "cpu",
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "net_adapt",
+        "config_list": [{
+                "sparsity": 0.5,
+                "op_types": ["Conv2d"]
+            }
+        ]
+    }
+}
+  

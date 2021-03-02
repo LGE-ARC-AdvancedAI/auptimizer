@@ -12,6 +12,11 @@ omit =
      */__main__.py
      */__init__.py
      ./src/aup/profiler/*
+     ./src/aup/RestAPI/*
+     ./src/aup/dashboard/*
+     ./src/aup/Proposer/SpearmintProposer.py
+     ./src/aup/Proposer/BOHBProposer.py
+     ./src/aup/compression/torch/pruning/*
 
 [report]
 exclude_lines =

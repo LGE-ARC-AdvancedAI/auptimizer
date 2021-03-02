@@ -1,0 +1,38 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './scss/main';
+
+html,
+body {
+  height: 100%;
+}
+body {
+	/* font-family: 'Roboto' !important; */
+  margin: 0px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  outline: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4b6fff !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4b6fff !important;
+}

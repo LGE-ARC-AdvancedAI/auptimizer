@@ -1,0 +1,27 @@
+{
+    "name": "PyTorch MNIST FPGM Pruner (automatic)",
+    "script": "mnist.py",
+    "resource": "cpu",
+    "resource_args": {
+        "save_model": true
+    },
+    "compression": {
+        "framework": "torch",
+        "type": "pruning",
+        "compressor": "fpgm",
+        "config_list": [{
+                "sparsity": {
+                    "range": [0.1, 0.9],
+                    "type": "float",
+                    "interval": 0.2
+                },
+                "op_names": ["conv1", "conv2"]
+            }
+        ]
+    },
+    "proposer": "sequence",
+    "n_parallel": 4,
+    "target": "max",
+    "n_samples": 5
+}
+  

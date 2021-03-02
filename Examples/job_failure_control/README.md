@@ -37,4 +37,8 @@ It will print something like:
     ******/Examples/job_failure_control/jobs/79.json
     2018-10-17 12:02:02 - aup.EE.Experiment - CRITICAL - Stop Experiment due to job failure
     Best job (80) with score 4.000000 in experiment 14
-    
+
+
+## experiment ill-configuration
+
+Other `experiment_no_*.json` files demonstrate ill-configured experiment setup.

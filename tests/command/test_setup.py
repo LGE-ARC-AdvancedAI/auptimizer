@@ -63,7 +63,7 @@ class SetupTestCase(unittest.TestCase):
 
     def test_overwrite(self):
         _setup_wrapper(self.plain_env_path, 4, "none", "none", "none", "test", False, "error")
-        self.assertRaises(SystemExit,
+        self.assertRaises(Exception,
                           _setup_wrapper, self.plain_env_path, 4, "none", "none", "none", "test", False, "error")
         _setup_wrapper(self.plain_env_path, 4, "none", "none", "none", "test", True, "error")
         self.assertTrue(path.exists(".aup"), "failed to create aup")

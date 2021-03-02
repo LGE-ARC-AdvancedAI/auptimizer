@@ -4,10 +4,10 @@
   Copyright (c) 2018 LG Electronics Inc.
   SPDX-License-Identifier: GPL-3.0-or-later
 
-Auptimizer main entry
-=====================
+Auptimizer HPO main entry
+=========================
 
-:mod:`aup.__main__` is the Auptimizer main entry point.
+:mod:`aup.__main__` is the Auptimizer main entry point for HPO experiments.
 
 Use it as::
 
@@ -29,6 +29,8 @@ import coloredlogs
 
 from . import Experiment, BasicConfig
 from .utils import get_default_username
+from .utils import get_available_port
+from .dashboard import dashboard
 
 _log_level = {"debug": logging.DEBUG, "info": logging.INFO, "warn": logging.WARN, "error": logging.ERROR}
 logger = logging.getLogger("aup")
@@ -42,7 +44,9 @@ logger = logging.getLogger("aup")
 @click.option("--resume", default="none", help="Resume from previous task")
 @click.option("--log", default="info", type=click.Choice(["debug", "info", "warn", "error"]), help="Log level")
 @click.option("--sleep", default=1, type=click.FLOAT, help="Sleep interval to sync updates")
-def main(experiment_file, test, user, aup_folder, resume, log, sleep):
+@click.option("--launch_dashboard", is_flag=True, help="Launch the dashboard together with the experiment.")
+@click.option("--dashboard_port", default=None, type=click.INT, help="Port for the dashboard frontend.")
+def main(experiment_file, test, user, aup_folder, resume, log, sleep, launch_dashboard, dashboard_port):
     """Auptimizer main function for HPO experiment
     \b\n
     Copyright (C) 2018  LG Electronics Inc.
@@ -59,6 +63,17 @@ def main(experiment_file, test, user, aup_folder, resume, log, sleep):
         "sleep_time": sleep,
     }
 
+    if not launch_dashboard and dashboard_port is not None:
+        logger.fatal("dashbord_port value given without launch_dashboard flag given.")
+        exit(0)
+
+    if launch_dashboard:
+        port = dashboard_port
+        if port is None:
+            port = get_available_port()
+        logger.info('Dashboard started on 0.0.0.0:{}'.format(port))
+
+    e = None
     if aup_folder:
         #TODO-the "connector" param in Experiment class is never customized
         e = Experiment(BasicConfig().load(experiment_file), auppath=aup_folder, **config)
@@ -68,18 +83,43 @@ def main(experiment_file, test, user, aup_folder, resume, log, sleep):
         logger.info("# Testing")
         exit(0)
 
+    if launch_dashboard:
+
+        from .utils import load_default_env
+
+        if aup_folder:
+            db_path = load_default_env(aup_folder, log=None)["SQLITE_FILE"]
+        else:
+            from os.path import join
+            db_path = load_default_env(join(".aup"), log=None)["SQLITE_FILE"]
+
+        from multiprocessing import Process
+        frontend = True
+        proc = Process(target=dashboard._start_dashboard, args=(db_path, port, frontend))
+        proc.start()
+
     logger.info("# Running Experiment")
     try:
+        import signal
+        original_sigint_handler = signal.getsignal(signal.SIGINT)
+        e.add_suspend_signal()
         if resume == "none":
             e.start()
         else:
             e.resume(resume)
-        e.finish()
-    except Exception as e:
+    except Exception as exp:
         if _log_level[log] > logging.DEBUG:
             logging.critical("use --log debug to track error details")
         else:
-            raise e
+            raise exp
+    finally:
+        e.finish()
+    if launch_dashboard:
+        signal.signal(signal.SIGINT, original_sigint_handler)
+
+        logger.info("Dashboard is still running on 0.0.0.0:{}".format(port))
+        logger.info("To exit press CTRL+C...")
+        proc.join()
 
 if __name__ == "__main__":
     main()

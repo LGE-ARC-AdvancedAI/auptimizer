@@ -22,15 +22,15 @@ class PassiveRMTestCase(unittest.TestCase):
     def setUp(self):
         copyfile(self.ori_db, self.bk_db)
         self.connector = get_default_connector(self.auppath)
-        self.rm = PassiveResourceManager(self.connector)
+        self.rm = PassiveResourceManager(self.connector, 1)
 
     def tearDown(self):
         copyfile(self.bk_db, self.ori_db)
         os.remove(self.bk_db)
 
     def test_get_available(self):
-        self.assertEqual(10, self.rm.get_available("test", "passive"))
-        self.connector.take_available_resource(10)
+        self.assertEqual(11, self.rm.get_available("test", "passive"))
+        self.connector.take_available_resource(11)
         self.assertEqual(None, self.rm.get_available("test", "passive"))
         self.rm.running = True
         self.assertEqual(None, self.rm.get_available("test", "passive"))

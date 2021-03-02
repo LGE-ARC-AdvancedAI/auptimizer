@@ -1,0 +1,152 @@
+<div fxLayout="column">
+  <div fxLayoutAlign="space-between center">
+    <h1 class="mat-headline">Experiment Overview</h1>
+    <button mat-button (click)="openDetails()">
+      <mat-icon class="mr-3" svgIcon="information"></mat-icon>
+      {{ 'Experiment details' | uppercase }}
+    </button>
+  </div>
+  <app-experiment-dropdown fxFlex.gt-md="50" fxFlex="100" [experimentId]="experimentId"
+    (toggleExperiment)="toggleExperiment($event)">
+  </app-experiment-dropdown>
+
+  <!-- <div *ngIf="(loadingExperiment$ | async) && (experiment$ | async) === null" fxLayout="row"
+    fxLayoutAlign="center center" class="p-10">
+    <mat-spinner color="accent" [diameter]="100" class="mt-10"></mat-spinner>
+  </div> -->
+
+  <div fxLayout="column" class="w-full" fxLayoutGap="15px">
+    <div *ngIf="experimentData" fxLayout="column" class="w-full" fxLayoutGap="15px">
+      <h2 class="mat-title">
+        Best Result: {{ experimentData.bestScore['score'] | roundNumber }}
+      </h2>
+      <div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+        <div class="progress-bar">
+          <span class="progress-bar-fill" [ngStyle]="{ width: progressBarWidth + '%' }"></span>
+        </div>
+        <div class="w-full progress-legend" fxLayout="row" fxLayoutAlign="start">
+          <h2 class="mb-0  mat-title">{{ experimentData.jobStats.finished }} /
+            {{ experimentData.jobStats.total }} jobs</h2>
+        </div>
+      </div>
+    </div>
+
+    <h2 *ngIf="dataSourceParams.data.length > 0" class="mat-title">Best Hyperparameter Combination</h2>
+    <h2
+      *ngIf="(!dataSourceParams.data || !dataSourceParams.data.length) && experimentData?.bestScore?.configList !== null"
+      class="mat-title mb-0">
+      Compression config_list
+    </h2>
+
+    <div>
+      <div class="table-container w-full" *ngIf="dataSourceParams.data.length > 0">
+        <table fxFill mat-table [dataSource]="dataSourceParams" multiTemplateDataRows
+          (matSortChange)="sortParamData($event)" matSort matSortDisableClear class="mat-elevation-z3 w-full">
+          <ng-container matColumnDef="{{ PARAM_COLUMNS.NAME }}">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+              {{ PARAM_COLUMNS.NAME }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="element.name" class="maxw-500">{{ element.name }}</div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="{{ PARAM_COLUMNS.VALUE }}">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+              <strong>{{ PARAM_COLUMNS.VALUE }}</strong>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="maxw-500"><strong><span>{{ element.value | roundNumber }}</span></strong></div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="{{ PARAM_COLUMNS.RANGE }}">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+              {{ PARAM_COLUMNS.RANGE }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="maxw-500 minw-200" fxLayout="row">
+                <div>{{ element.range[0] }} to {{ element.range[1] }}</div>
+                <div *ngIf="experimentData.bestScore.proposer === 'sequence'">
+                  <div *ngIf="element.interval">
+                    &nbsp; by
+                    {{ element.interval }}
+                  </div>
+                  <div *ngIf="element.n">
+                    &nbsp; by
+                    {{ (element.range[1] - element.range[0]) / (element.n - 1) | roundNumber }}
+                  </div>
+                  <div *ngIf="!element.n && !element.interval">
+                    &nbsp; by 1
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="{{ PARAM_COLUMNS.TYPE }}">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+              {{ PARAM_COLUMNS.TYPE }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="maxw-500" *ngIf="element.type">{{ element.type }}</div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedResourceColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedResourceColumns"></tr>
+        </table>
+      </div>
+      <mat-paginator #paginatorParams class="mat-elevation-z3"
+        [style.display]="dataSourceParams.data.length > 0 ? 'block' : 'none'" [pageSize]="pageSize"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+    <div *ngIf="dataSourceParams.data.length === 0 && experimentData?.bestScore?.configList !== null"
+      class="config-list p-3">
+      <pre>{{ experimentData?.bestScore?.configList | json }}</pre>
+    </div>
+  </div>
+</div>
+
+<ng-template #showDetailsDialog let-data>
+  <div class="info-dialog-title w-full p-3 bg-primary text-white" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="w-full">Details</div>
+    <button mat-icon-button matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="info-dialog-content m-3">
+    <div fxLayout="row">
+      <div class="p-2 minw-200 details-header">SETTING</div>
+      <div class="p-2 details-header">VALUE</div>
+    </div>
+    <hr>
+    <div *ngIf="experimentData.experiment?.experimentName" fxLayout="row">
+      <div class="p-2 minw-200">Name</div>
+      <div class="p-2">{{ experimentData.experiment?.experimentName }}</div>
+    </div>
+    <div *ngIf="experimentData.experiment?.scriptName" fxLayout="row">
+      <div class="p-2 minw-200">Script</div>
+      <div class="p-2">{{ experimentData.experiment?.scriptName }}</div>
+    </div>
+    <div *ngIf="experimentData.experiment?.eid" fxLayout="row">
+      <div class="p-2 minw-200">Experiment ID:</div>
+      <div class="p-2">{{ experimentData.experiment?.eid }}</div>
+    </div>
+    <div *ngIf="experimentData.experiment?.startTime" fxLayout="row">
+      <div class="p-2 minw-200">Started at:</div>
+      <div class="p-2">{{ experimentData.experiment?.startTime * 1000 | date: 'medium' }}
+      </div>
+    </div>
+    <div *ngIf="experimentData.experiment?.endTime" fxLayout="row">
+      <div class="p-2 minw-200">Ended at:</div>
+      <div class="p-2">{{ experimentData.experiment?.endTime * 1000 | date: 'medium' }}</div>
+    </div>
+    <div *ngIf="experimentData.experiment?.expConfig?.proposer" fxLayout="row">
+      <div class="p-2 minw-200">Technique:</div>
+      <div class="p-2">{{ experimentData.experiment?.expConfig?.proposer }}</div>
+    </div>
+    <div *ngIf="experimentData.experiment?.expConfig?.workingdir" fxLayout="row">
+      <div class="p-2 minw-200">Working Directory:</div>
+      <div class="p-2">{{ experimentData.experiment?.expConfig?.workingdir }}</div>
+    </div>
+  </div>
+</ng-template>

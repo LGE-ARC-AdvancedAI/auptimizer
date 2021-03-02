@@ -1,4 +1,5 @@
 {
+  "name": "./hpo_mnist/exp_hyperband.json",
   "proposer": "hyperband",
   "script": "mnist_hpo_demo.py",
   "resource": "cpu",

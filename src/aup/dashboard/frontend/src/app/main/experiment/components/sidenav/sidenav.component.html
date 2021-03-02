@@ -1,0 +1,18 @@
+<mat-nav-list fxLayout="column" fxLayoutAlign="space-between center" class="h-full w-full">
+  <div class="w-full">
+    <app-sidenav-element [navItem]="listElement"></app-sidenav-element>
+    <hr class="mx-5" />
+    <app-sidenav-element *ngFor="let navItem of sideNavElements" [navItem]="navItem"></app-sidenav-element>
+  </div>
+  <div class="w-full close-menu-container" fxLayout="row" fxLayoutAlign="center center">
+    <button (click)="onToggleSideNav()" mat-raised-button class="w-full">
+      <div *ngIf="(sidenavOpen$ | async) === true" class="close-menu-item w-full py-2" fxLayoutAlign="start center">
+        <mat-icon class="mr-10" fxLayout fxLayoutAlign="right center">menu_open</mat-icon>
+        <span>Close menu</span>
+      </div>
+      <div *ngIf="(sidenavOpen$ | async) === false" class="close-menu-item w-full py-2" fxLayoutAlign="start center">
+        <mat-icon>menu</mat-icon>
+      </div>
+    </button>
+  </div>
+</mat-nav-list>
