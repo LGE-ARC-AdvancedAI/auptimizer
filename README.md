@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.com/LGE-ARC-AdvancedAI/auptimizer.svg?branch=master)](https://travis-ci.com/LGE-ARC-AdvancedAI/auptimizer)
 [![coverage report](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer/branch/master/graph/badge.svg)](https://codecov.io/gh/LGE-ARC-AdvancedAI/auptimizer)
 
-**Auptimizer** is an optimization tool for Machine Learning (ML) that automates many of the tedious parts of the model building and deployment process.
+**Auptimizer** is an optimization tool for Machine Learning that automates many of the tedious parts of the model building and deployment process.
 Currently, **Auptimizer** helps with:
 
 + **Getting the best models in minimum time** - Generate optimal models and achieve better performance by employing
