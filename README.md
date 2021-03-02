@@ -18,7 +18,7 @@ state-of-the-art hyperparameter optimization (HPO) and model compression techniq
 Best of all, **Auptimizer** offers a consistent interface that allows users to switch between different HPO and compression algorithms, conversion frameworks, and computing resources with minimal changes to the existing code.
 
 ## What's New in Auptimizer v2.0
-Auptimizer v2.0 introduces two core capabilites - Dashboard and Compressor!
+Auptimizer v2.0 introduces two core capabilities - Dashboard and Compressor!
 
 ### Dashboard
 
