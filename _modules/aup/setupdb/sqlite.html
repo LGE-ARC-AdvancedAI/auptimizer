@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.setupdb.sqlite &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -91,13 +93,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../developer.html">For Developers</a></li>
@@ -129,6 +137,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -244,13 +254,16 @@
     <span class="c1"># Experiment Table</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS experiment;&quot;</span><span class="p">)</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE experiment </span>
-<span class="s2">        (eid INTEGER PRIMARY KEY NOT NULL, uid INTEGER, start_time INTEGER, end_time INTEGER, exp_config BLOB,</span>
+<span class="s2">        (eid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid INTEGER, start_time INTEGER, end_time INTEGER,</span>
+<span class="s2">         status TEXT CHECK(status IN (&#39;CREATED&#39;, &#39;RUNNING&#39;, &#39;STOPPED&#39;, &#39;FINISHED&#39;, &#39;FAILED&#39;, &#39;STOPPING&#39;, &#39;REQUEST_STOP&#39;)),</span>
+<span class="s2">         exp_config BLOB, error_msg TEXT NULL,</span>
 <span class="s2">        FOREIGN KEY(uid) REFERENCES user(uid));&quot;&quot;&quot;</span><span class="p">)</span>
 
     <span class="c1"># Job Table</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS job;&quot;</span><span class="p">)</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE job</span>
-<span class="s2">        (jid INTEGER PRIMARY KEY NOT NULL, score REAL, eid INTEGER, start_time INTEGER, end_time INTEGER, </span>
+<span class="s2">        (jid INTEGER PRIMARY KEY NOT NULL, score REAL, eid INTEGER, start_time INTEGER, end_time INTEGER,</span>
+<span class="s2">        status TEXT CHECK(status IN (&#39;RUNNING&#39;, &#39;EARLY_STOPPED&#39;, &#39;FINISHED&#39;, &#39;FAILED&#39;)),</span>
 <span class="s2">        job_config BLOB,</span>
 <span class="s2">        FOREIGN KEY(eid) REFERENCES experiment(eid));&quot;&quot;&quot;</span><span class="p">)</span>
 
@@ -260,6 +273,21 @@
 <span class="s2">        (jaid INTEGER PRIMARY KEY NOT NULL, jid INTEGER, num INTEGER, rid INTEGER, start_time INTEGER, end_time INTEGER,</span>
 <span class="s2">        FOREIGN KEY(jid) REFERENCES job(jid),</span>
 <span class="s2">        FOREIGN KEY(rid) REFERENCES resource(rid));&quot;&quot;&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Intermediate result table</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS intermediate_result;&quot;</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE intermediate_result</span>
+<span class="s2">        (irid INTEGER PRIMARY KEY NOT NULL, num INTEGER, score REAL, jid INTEGER, receive_time INTEGER,</span>
+<span class="s2">        FOREIGN KEY(jid) REFERENCES job(jid));&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Multiple results table</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS multiple_result;&quot;</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE multiple_result</span>
+<span class="s2">        (mrid INTEGER PRIMARY KEY NOT NULL, label_order INTEGER, value REAL, receive_time INTEGER, </span><span class="se">\</span>
+<span class="s2">            jid INTEGER, irid INTEGER, eid INTEGER, is_last_result INTERGER,</span>
+<span class="s2">        FOREIGN KEY(jid) REFERENCES job(jid),</span>
+<span class="s2">        FOREIGN KEY(irid) REFERENCES intermediate_result(irid),</span>
+<span class="s2">        FOREIGN KEY(eid) REFERENCES experiment(eid));&quot;&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">usernames</span><span class="p">:</span>
         <span class="c1"># currently no specific limitation</span>
@@ -332,28 +360,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

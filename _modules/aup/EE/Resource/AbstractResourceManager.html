@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.EE.Resource.AbstractResourceManager &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -91,13 +93,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
@@ -129,6 +137,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -186,13 +196,22 @@
 <span class="sd">----</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">DEFAULT_AUPTIMIZER_PATH</span>
+<span class="kn">from</span> <span class="nn">.utils.curve_fitting</span> <span class="kn">import</span> <span class="n">CurveModel</span>
 
 <span class="n">ABC</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">(</span><span class="s1">&#39;ABC&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;__slots__&#39;</span><span class="p">:</span> <span class="p">()})</span>
+<span class="n">EARLY_STOPPING_SLEEP</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">CURVE_FITTING_MIN_ITS</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">_SupportResource</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;gpu&quot;</span><span class="p">:</span> <span class="s2">&quot;GPUResourceManager&quot;</span><span class="p">,</span>
@@ -234,25 +253,69 @@
 <span class="sd">    :type connector: AbstractConnector</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector</span><span class="p">,</span> <span class="n">n_parallel</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connector</span> <span class="o">=</span> <span class="n">connector</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-<div class="viewcode-block" id="AbstractResourceManager.finish"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_global_iteration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maximize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;maximize&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_parallel</span> <span class="o">=</span> <span class="n">n_parallel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eid</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;eid&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_labels</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;multi_res_labels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_intermediate_results</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track_intermediate_results&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_intermediate_results</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1"># variables for early stop impl</span>
+        <span class="k">if</span> <span class="s2">&quot;early_stop&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">][</span><span class="s2">&quot;aup_policy&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">policy_steps</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">][</span><span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warmup</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;warmup&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bandit_factor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bandit_factor&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">truncation_percentage</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;truncation_percentage&quot;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_threshold</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;curve_fitting_threshold&quot;</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_max_iters</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;curve_fitting_max_iters&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_timeout</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;early_stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;curve_fitting_timeout&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon_finished</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;curve_fitting&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_max_iters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Curve fitting policy requires argument </span><span class="se">\&quot;</span><span class="s2">curve_fitting_max_iters</span><span class="se">\&quot;</span><span class="s2"> representing &quot;</span> <span class="o">+</span>
+                                 <span class="s2">&quot;the total number of intermediate results that the script will provide.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">AbstractResourceManager</span><span class="o">.</span><span class="n">early_stop_daemon_fun</span><span class="p">,</span>
+                                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warmup</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">policy_steps</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon_finished</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="AbstractResourceManager.finish"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finish up the resource allocation.</span>
+<span class="sd">        :param status: status of the experiment</span>
+<span class="sd">        :type status: string</span>
 
-<span class="sd">        :param eid: Experiment ID</span>
-<span class="sd">        :type eid: int</span>
-<span class="sd">        :param maximize: Report Max or Min of resources</span>
-<span class="sd">        :type maximize: bool</span>
 <span class="sd">        :return: Max/Min result in experiment (job id, score)</span>
 <span class="sd">        :rtype: None | [int, float]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">get_best_result</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">end_experiment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon_finished</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">get_best_result</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maximize</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AbstractResourceManager.finish_job"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish_job">[docs]</a>    <span class="k">def</span> <span class="nf">finish_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+<div class="viewcode-block" id="AbstractResourceManager.finish_job"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.finish_job">[docs]</a>    <span class="k">def</span> <span class="nf">finish_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finish one job</span>
 
@@ -263,7 +326,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">jid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
             <span class="n">rid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">job_finished</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">job_finished</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> finished after job suspension, result may lose&quot;</span> <span class="o">%</span> <span class="n">jid</span><span class="p">)</span></div>
 
@@ -301,12 +364,73 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">take_available_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">]</span> <span class="o">=</span> <span class="n">rid</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">,</span> <span class="n">call_back_func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">EnvironmentError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">free_used_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Experiment interrupted.&quot;</span><span class="p">)</span>
             <span class="k">raise</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.append_interm_res"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.append_interm_res">[docs]</a>    <span class="k">def</span> <span class="nf">append_interm_res</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">interm_res</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">jid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interm_job_res</span><span class="p">[</span><span class="n">jid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">interm_res</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">save_intermediate_result</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">interm_res</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not save intermediate result: no connector attached to resource manager&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">{}</span><span class="s2"> should have already started!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jid</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.append_multiple_results"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.append_multiple_results">[docs]</a>    <span class="k">def</span> <span class="nf">append_multiple_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">irid</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">scores</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_labels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_labels</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> \
+                <span class="s2">&quot;labels size mismatch with the provided scores&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">save_multiple_results</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">irid</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_labels</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.set_last_multiple_results"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.set_last_multiple_results">[docs]</a>    <span class="k">def</span> <span class="nf">set_last_multiple_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">set_last_multiple_results</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_labels</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.stop_job"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.stop_job">[docs]</a>    <span class="k">def</span> <span class="nf">stop_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stop a job for early stopping strategies</span>
+
+<span class="sd">        :param jid: job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">jid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Tried to stop job </span><span class="si">{}</span><span class="s2"> not in currently running jobs.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jid</span><span class="p">))</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.is_job_stopped"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.is_job_stopped">[docs]</a>    <span class="k">def</span> <span class="nf">is_job_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns whether or not a specific job stop is pending</span>
+
+<span class="sd">        :param jid: job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :return: whether or not the given job ID is in the list of pending job stops</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">jid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span></div>
 
 <div class="viewcode-block" id="AbstractResourceManager.run"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">,</span> <span class="n">call_back_func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -331,35 +455,139 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">jid</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is canceled&quot;</span> <span class="o">%</span> <span class="n">jid</span><span class="p">)</span></div></div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is canceled&quot;</span> <span class="o">%</span> <span class="n">jid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.run_curve_fitting"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.run_curve_fitting">[docs]</a>    <span class="k">def</span> <span class="nf">run_curve_fitting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interm_res</span><span class="p">,</span> <span class="n">c_jid</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">comp_fn</span><span class="p">,</span> <span class="n">curve_fitting_threshold</span><span class="p">,</span> <span class="n">best_val</span><span class="p">):</span>
+        <span class="n">curvemodel</span> <span class="o">=</span> <span class="n">CurveModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_max_iters</span><span class="p">)</span>
+        <span class="n">predict_y</span> <span class="o">=</span> <span class="n">curvemodel</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">interm_res</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_timeout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">predict_y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">comp_fn</span><span class="p">(</span><span class="n">predict_y</span><span class="p">,</span> <span class="n">curve_fitting_threshold</span> <span class="o">*</span> <span class="n">best_val</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_job_stopped</span><span class="p">(</span><span class="n">c_jid</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_job</span><span class="p">(</span><span class="n">c_jid</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping job </span><span class="si">{}</span><span class="s2"> early (step </span><span class="si">{}</span><span class="s2">): predicted end value </span><span class="si">{:.4f}</span><span class="s2"> is lower than the best value so far </span><span class="si">{:.4f}</span><span class="s2"> within the given </span><span class="si">{:.2f}</span><span class="s2">% threshold (=</span><span class="si">{:.4f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">c_jid</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">predict_y</span><span class="p">,</span> <span class="n">best_val</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">curve_fitting_threshold</span><span class="p">,</span> <span class="n">curve_fitting_threshold</span> <span class="o">*</span> <span class="n">best_val</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.early_stop_daemon_fun"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.early_stop_daemon_fun">[docs]</a>    <span class="k">def</span> <span class="nf">early_stop_daemon_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">early_stop_daemon_finished</span><span class="p">:</span>
+            <span class="c1"># do not consider the early stopped jobs</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs_lock</span><span class="p">:</span>
+                <span class="n">current_jobs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped_jobs</span>
+
+            <span class="n">finished_interm_job_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">get_intermediate_results_experiment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">,</span> <span class="s2">&quot;FINISHED&quot;</span><span class="p">)</span>
+            <span class="n">current_interm_job_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">get_intermediate_results_jobs</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">current_jobs</span><span class="p">))</span>
+            <span class="n">interm_job_res</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">current_interm_job_res</span><span class="p">,</span> <span class="o">**</span><span class="n">finished_interm_job_res</span><span class="p">}</span>
+
+            <span class="n">best_fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximize</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span>
+            <span class="n">comp_fn</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximize</span> <span class="k">else</span> \
+                      <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="p">)</span>
+
+            <span class="n">curve_fitting_threads</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">c_jid</span><span class="p">,</span> <span class="n">c_interm_res</span> <span class="ow">in</span> <span class="n">current_interm_job_res</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_interm_res</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">warmup</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">c_jid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span><span class="p">[</span><span class="n">c_jid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_interm_res</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy_steps</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">EARLY_STOPPING_SLEEP</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">step</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy_steps</span>
+                <span class="k">if</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span><span class="p">[</span><span class="n">c_jid</span><span class="p">]:</span> <span class="c1"># job already compared up until this step, waiting for next k multiple</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">EARLY_STOPPING_SLEEP</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">comp_interm_job_res</span> <span class="o">=</span> <span class="p">{</span><span class="n">jid</span><span class="p">:</span> <span class="n">vals</span> <span class="k">for</span> <span class="n">jid</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">interm_job_res</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">step</span> <span class="ow">and</span> <span class="n">jid</span> <span class="o">!=</span> <span class="n">c_jid</span><span class="p">}</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">comp_interm_job_res</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># too few jobs </span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">EARLY_STOPPING_SLEEP</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;median&quot;</span><span class="p">:</span>
+                    <span class="n">avgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">vals</span><span class="p">[:</span><span class="n">step</span><span class="p">])</span> <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">comp_interm_job_res</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+                    <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">avgs</span><span class="p">)</span>
+                    <span class="n">best_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">c_interm_res</span><span class="p">[:</span><span class="n">step</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">comp_fn</span><span class="p">(</span><span class="n">best_val</span><span class="p">,</span> <span class="n">median</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">stop_job</span><span class="p">(</span><span class="n">c_jid</span><span class="p">)</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping job </span><span class="si">{}</span><span class="s2"> early (step </span><span class="si">{}</span><span class="s2">): best value so far </span><span class="si">{:.4f}</span><span class="s2"> worse than median of averages </span><span class="si">{:.4f}</span><span class="s2"> for </span><span class="si">{}</span><span class="s2"> other jobs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">c_jid</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">best_val</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">comp_interm_job_res</span><span class="p">)))</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;bandit&quot;</span><span class="p">:</span>
+                    <span class="n">bandit_best_val</span> <span class="o">=</span> <span class="n">best_fn</span><span class="p">([</span><span class="n">best_fn</span><span class="p">(</span><span class="n">vals</span><span class="p">[:</span><span class="n">step</span><span class="p">])</span> <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">comp_interm_job_res</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+                    <span class="n">best_val</span> <span class="o">=</span> <span class="n">best_fn</span><span class="p">(</span><span class="n">c_interm_res</span><span class="p">[:</span><span class="n">step</span><span class="p">])</span>
+                    <span class="n">bandit_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bandit_factor</span> <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">maximize</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">bandit_best_val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximize</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">bandit_best_val</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">else</span> \
+                                    <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bandit_factor</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">comp_fn</span><span class="p">(</span><span class="n">best_val</span><span class="p">,</span> <span class="n">bandit_factor</span> <span class="o">*</span> <span class="n">bandit_best_val</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">stop_job</span><span class="p">(</span><span class="n">c_jid</span><span class="p">)</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping job </span><span class="si">{}</span><span class="s2"> early (step </span><span class="si">{}</span><span class="s2">): best value so far </span><span class="si">{:.4f}</span><span class="s2"> worse than a factor </span><span class="si">{:.4f}</span><span class="s2"> of best overall value </span><span class="si">{:.4f}</span><span class="s2"> (=</span><span class="si">{:.4f}</span><span class="s2">) for </span><span class="si">{}</span><span class="s2"> other jobs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">c_jid</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">best_val</span><span class="p">,</span> <span class="n">bandit_factor</span><span class="p">,</span> <span class="n">bandit_best_val</span><span class="p">,</span> <span class="n">bandit_factor</span> <span class="o">*</span> <span class="n">bandit_best_val</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">comp_interm_job_res</span><span class="p">)))</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;truncation&quot;</span><span class="p">:</span>
+                    <span class="n">best_vals</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([(</span><span class="n">jid</span><span class="p">,</span> <span class="n">best_fn</span><span class="p">(</span><span class="n">vals</span><span class="p">[:</span><span class="n">step</span><span class="p">]))</span> <span class="k">for</span> <span class="n">jid</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">comp_interm_job_res</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="p">[(</span><span class="n">c_jid</span><span class="p">,</span> <span class="n">c_interm_res</span><span class="p">)])],</span> 
+                                        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximize</span><span class="p">)</span>
+                    <span class="n">best_val_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">best_vals</span><span class="p">)</span> <span class="k">if</span> <span class="n">jid</span> <span class="o">==</span> <span class="n">c_jid</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">perc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">best_val_idx</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_vals</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">perc</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">truncation_percentage</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">stop_job</span><span class="p">(</span><span class="n">c_jid</span><span class="p">)</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping job </span><span class="si">{}</span><span class="s2"> early (step </span><span class="si">{}</span><span class="s2">): best value so far </span><span class="si">{:.4f}</span><span class="s2"> is in the bottom </span><span class="si">{:.2f}% o</span><span class="s2">f </span><span class="si">{}</span><span class="s2"> jobs, which is lower than the </span><span class="si">{:.2f}% c</span><span class="s2">utoff&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">c_jid</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">best_vals</span><span class="p">[</span><span class="n">best_val_idx</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">best_val_idx</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_vals</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_vals</span><span class="p">),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">truncation_percentage</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">==</span> <span class="s2">&quot;curve_fitting&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">finished_interm_job_res</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="n">CURVE_FITTING_MIN_ITS</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">interm_res</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">c_interm_res</span><span class="p">)</span>
+                    <span class="n">best_val</span> <span class="o">=</span> <span class="n">best_fn</span><span class="p">([</span><span class="n">best_fn</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">finished_interm_job_res</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximize</span><span class="p">:</span>
+                        <span class="n">interm_res</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+                        <span class="n">best_val</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">curve_fitting_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_threshold</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">best_val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> \
+                                              <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve_fitting_threshold</span>
+                    <span class="n">cf_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_curve_fitting</span><span class="p">,</span> 
+                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">interm_res</span><span class="p">[:</span><span class="n">step</span><span class="p">],</span> <span class="n">c_jid</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="p">),</span> <span class="n">curve_fitting_threshold</span><span class="p">,</span> <span class="n">best_val</span><span class="p">))</span>
+                    <span class="n">cf_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                    <span class="n">curve_fitting_threads</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cf_thread</span><span class="p">]</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">job_checked</span><span class="p">[</span><span class="n">c_jid</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">step</span><span class="p">]</span>
+            
+            <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">curve_fitting_threads</span><span class="p">:</span>
+                <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">EARLY_STOPPING_SLEEP</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.refresh"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Method for refreshing timers/variables etc</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="AbstractResourceManager.log_error_message"><a class="viewcode-back" href="../../../../aup.EE.Resource.html#aup.EE.Resource.AbstractResourceManager.AbstractResourceManager.log_error_message">[docs]</a>    <span class="k">def</span> <span class="nf">log_error_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">log_error_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

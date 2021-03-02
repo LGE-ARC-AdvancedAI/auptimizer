@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Compressor &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supported Compression Algorithms" href="compressors.html" />
+    <link rel="prev" title="Model Compression" href="compression_main.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="compression_main.html">Model Compression</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compressor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-run-compression-experiments">How to run compression experiments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-installation-and-environment-setup">Step #1. Installation and environment setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-prepare-an-experiment-configuration-file">Step #2. Prepare an experiment configuration file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-modify-the-training-script">Step #3. Modify the training script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-run-experiment">Step #4. Run experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-usages">Advanced usages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-decorator-to-modify-training-script">Use decorator to modify training script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save-the-best-model">Save the best model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#model-speed-up">Model Speed-up</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html">Supported Compression Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compression_utilities.html">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="compression_main.html">Model Compression</a> &raquo;</li>
+        
+      <li>Compressor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/compression.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compressor">
+<h1>Compressor<a class="headerlink" href="#compressor" title="Permalink to this headline">¶</a></h1>
+<p><strong>Compressor</strong> is a model compression tool that helps reduce memory complexity and inference time of neural networks.</p>
+<p>With Compressor, you can:</p>
+<ol class="arabic simple">
+<li><p><strong>Make your ML models suitable for deployment on resource-constrained devices.</strong> Use Compressor to optimize models for Edge device’s limited memory, compute, or power and enable uncompromised on-device intelligence.</p></li>
+<li><p><strong>Slash latency and enhance the user experience of your AI-powered application.</strong> Tap Compressor’s speed-up functionality to accelerate your model’s inference time.</p></li>
+<li><p><strong>Maximize the cost-effectiveness of your neural nets.</strong> Cut down on cloud or on-prem model storage and compute costs by reducing their footprint.</p></li>
+</ol>
+<p>Similar to Auptimizer-Hyperparameter Optimization (HPO), Compressor aims to provide a unified interface to the existing state-of-the-art toolkits. Currently, Compressor leverages <a class="reference external" href="https://nni.readthedocs.io/en/latest/model_compression.html">NNI (version 2.0)</a> model compression modules. NNI is an open-source toolkit that supports two types of compression, pruning and quantization, for TensorFlow, and PyTorch models. You can find more detail on supported compression algorithms (compressors) in the <a class="reference external" href="https://nni.readthedocs.io/en/stable/model_compression.html">NNI Compression documentation</a>.</p>
+<p>In the future, we will be integrating other off-the-shelf toolkits to expand the selection of model compression approaches.</p>
+<div class="section" id="how-to-run-compression-experiments">
+<h2>How to run compression experiments<a class="headerlink" href="#how-to-run-compression-experiments" title="Permalink to this headline">¶</a></h2>
+<p>Running a compression experiment is similar to running an HPO experiment and requires just a few steps:</p>
+<ol class="arabic simple">
+<li><p>Install Auptimizer and set up Auptimizer environment</p></li>
+<li><p>Prepare an experiment configuration file</p></li>
+<li><p>Modify a few lines in the training script</p></li>
+<li><p>Run the experiment</p></li>
+</ol>
+<p>Auptimizer also includes the NNI <a class="reference external" href="https://nni.readthedocs.io/en/stable/Compression/CompressionUtils.html">compression utility functions</a> that will help
+you design compression experiments more efficiently. These utility functions enable layer sensitivity
+and channel dependency analysis, which can guide the selection of layers to be pruned and the target
+sparsity levels. We recommend running this analysis to have a better understanding of the model architecture.
+For more details, please check <a class="reference internal" href="compression_utilities.html"><span class="doc">Utility functions</span></a>.</p>
+<div class="section" id="step-1-installation-and-environment-setup">
+<h3>Step #1. Installation and environment setup<a class="headerlink" href="#step-1-installation-and-environment-setup" title="Permalink to this headline">¶</a></h3>
+<p>Compressor is automatically installed as a part of Auptimizer.</p>
+<p>For PyTorch compression algorithms, Pytorch version &gt;= 1.7.0 is required. For
+Tensorflow compression algorithms, TensorFlow version &gt;= 2.0 is required.</p>
+<p>Compression experiments use the same Auptimizer environment as the HPO experiments. Please refer
+to the <a class="reference internal" href="setup.html"><span class="doc">Install and setup Auptimizer</span></a> and <a class="reference internal" href="environment.html"><span class="doc">Set up environment</span></a> sections for detail on how to set up your Auptimizer environment.</p>
+</div>
+<div class="section" id="step-2-prepare-an-experiment-configuration-file">
+<h3>Step #2. Prepare an experiment configuration file<a class="headerlink" href="#step-2-prepare-an-experiment-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>Compressor supports two compression paradigms:</p>
+<ol class="arabic simple">
+<li><p>one-time compression</p></li>
+<li><p>automatic compression.</p></li>
+</ol>
+<p>A <strong>one-time compression</strong> experiment runs one compression job with a fixed set of parameters.
+Whereas an <strong>automatic compression</strong> experiment leverages Auptimizer’s HPO
+module to find the best possible parameters of a compression algorithm that generates the
+best compressed model.</p>
+<p>One-time approach is a good option for performing a dry-run or an experiment with a specific set of parameters. Alternatively, use automatic compression if you are not certain about
+the compression parameters or would like to explore the relationship between compressed model performance
+and different parameter settings.</p>
+<p>Below, we explain the differences between one-time and automatic compression configuration files.</p>
+<div class="section" id="one-time-compression-configuration">
+<h4>One-time compression configuration<a class="headerlink" href="#one-time-compression-configuration" title="Permalink to this headline">¶</a></h4>
+<p>Here is an example of the configuration file for one-time compression using the <cite>L1Filter</cite> pruning method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MNIST L1 Filter Pruner&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;mnist.py&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;compression&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;framework&quot;</span><span class="p">:</span> <span class="s2">&quot;torch&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pruning&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;compressor&quot;</span><span class="p">:</span> <span class="s2">&quot;l1_filter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;config_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;sparsity&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+                <span class="s2">&quot;op_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Conv2d&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;sparsity&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+                <span class="s2">&quot;op_names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;conv1&quot;</span><span class="p">,</span> <span class="s2">&quot;conv2&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;exclude&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;op_names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;conv3&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>One-time compression experiment configurations take the following parameters, where all parameters except for <strong>compression</strong>
+have the same meaning as in <a class="reference internal" href="algorithm.html"><span class="doc">Configure HPO Algorithm</span></a>:</p>
+<ul>
+<li><p><strong>name</strong>: name of the experiment</p></li>
+<li><p><strong>script</strong>: script to run</p></li>
+<li><p><strong>resource</strong>: type of resource to run the experiment, [cpu, gpu, passive, node]</p></li>
+<li><p><strong>workingdir</strong>: path to run the script, important for running jobs remotely (SSH/AWS)</p></li>
+<li><p><strong>compression</strong>: compression-specific parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>framework</strong>: either “torch” or “tensorflow”</p></li>
+<li><p><strong>type</strong>: either “pruning” or “quantization”</p></li>
+<li><p><strong>compressor</strong>: string, one from the list of supported compression algorithms for the given
+framework and type (see below)</p></li>
+<li><p><strong>config_list</strong>: a list of parameters which define the specific requirements for the chosen NNI
+compression algorithm</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">config_list</span></code> parameter is specific to individual NNI compression algorithms. However, there a few parameters
+common among all compressors:</p>
+<ul class="simple">
+<li><p><strong>op_types</strong>: list of strings, the names of the specific type of layers to be compressed.
+If not specified, will use <code class="docutils literal notranslate"><span class="pre">default</span></code> as the value which denotes the default layer types
+supported by the chosen compression algorithm.</p></li>
+<li><p><strong>op_names</strong>: list of strings, the names of the layers to be compressed. Will overwrite
+<code class="docutils literal notranslate"><span class="pre">op_types</span></code> if both are provided. The layer names can be found using <code class="docutils literal notranslate"><span class="pre">model.state_dict().keys()</span></code>.</p></li>
+<li><p><strong>exclude</strong>: “True” or “False” (default is “False”). When set to “True”, the layers
+defined in <code class="docutils literal notranslate"><span class="pre">op_types</span></code> or <code class="docutils literal notranslate"><span class="pre">op_names</span></code> will be excluded from compression.</p></li>
+</ul>
+<p>In the above example, “config_list” means pruning all layers of the type “Conv2d” to 0.8 sparsity, except for
+layers named “conv1” and “conv2” which should be pruned to 0.6 sparsity and layer “conv3” which should be
+excluded from the pruning.</p>
+<p>Please refer to the <a class="reference external" href="https://nni.readthedocs.io/en/stable/Compression/QuickStart.html#specification-of-config-list">NNI docs</a>
+for more description of the “config_list” parameter. Each compressor will have
+an example of its supported “config_list”.</p>
+</div>
+<div class="section" id="automatic-compression-configuration">
+<h4>Automatic compression configuration<a class="headerlink" href="#automatic-compression-configuration" title="Permalink to this headline">¶</a></h4>
+<p>Here is an example of the configuration file for automatic compression using the
+<cite>L1Filter</cite> pruning method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MNIST L1 Filter Pruner (automatic)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;mnist.py&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;compression&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;framework&quot;</span><span class="p">:</span> <span class="s2">&quot;torch&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pruning&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;compressor&quot;</span><span class="p">:</span> <span class="s2">&quot;l1_filter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;config_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;sparsity&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span>
+                <span class="p">}</span>
+                <span class="s2">&quot;op_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Conv2d&#39;</span><span class="p">]</span>
+            <span class="p">},</span>
+
+            <span class="p">{</span>
+                <span class="s2">&quot;sparsity&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;op_names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;conv1&quot;</span><span class="p">,</span> <span class="s2">&quot;conv2&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+
+            <span class="p">{</span>
+                <span class="s2">&quot;exclude&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;op_names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;conv3&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;proposer&quot;</span><span class="p">:</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n_parallel&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;n_samples&quot;</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>An automatic compression experiment uses HPO to find the best hyperparameters of a chosen compression algorithm.
+The experiment is launched as an HPO experiment, therefore, its configuration recognizes all parameters
+in an HPO experiment (see <a class="reference internal" href="algorithm.html"><span class="doc">Configure HPO Algorithm</span></a> for parameter definitions).
+Some important parameters include:</p>
+<ul class="simple">
+<li><p><strong>proposer</strong>: HPO method used to propose new hyperparameter values</p></li>
+<li><p><strong>target</strong>: “min” or “max”, minimizing or maximizing user-defined HPO metric</p></li>
+<li><p><strong>n_samples</strong>: total number of jobs to run</p></li>
+<li><p><strong>n_parallel</strong>: number of parallel jobs</p></li>
+</ul>
+<p>Another notable difference in automatic compression configuration is that for the values of the
+parameters in <code class="docutils literal notranslate"><span class="pre">config_list</span></code>, a search space is defined via the following parameters:</p>
+<ul class="simple">
+<li><p><strong>range</strong>: [min, max] or a list of values</p></li>
+<li><p><strong>type</strong>:  <cite>float</cite>, <cite>int</cite>, <cite>choice</cite> types are supported</p></li>
+</ul>
+<p>Additional parameters may be needed for specific Proposers (see
+<a class="reference internal" href="algorithm.html"><span class="doc">Configure HPO Algorithm</span></a>).</p>
+<p>There are two potential scenarios for identifying the best hyperparameters. We will
+use hyperparameter “sparsity” as an example. In the first scenario, the user may set the same search range for the sparsity for
+a group of layers defined in <code class="docutils literal notranslate"><span class="pre">op_names</span></code> or <code class="docutils literal notranslate"><span class="pre">op_types</span></code>, however, the user allows the Proposer to choose a different value in the defined
+range for each layer in the group. While in the second scenario, the user would like to use the same sparsity value for
+all layers in the group due to the dependency among those layers.</p>
+<p>To handle these two scenarios, we introduce an additional parameter <code class="docutils literal notranslate"><span class="pre">expand_op_names</span></code> (“true” or “false”, default is “true”).
+If set to “true”, Auptimizer will propose a different hyperparameter value for each layer defined in the group; whereas
+when set to “false”, the same hyperparameter value will apply to all layers defined in the group.</p>
+<p>For example, if the configuration is written as follows, in one job, the hyperparameter Proposer may assign sparsity value 0.2 and 0.4
+to “conv1” and “conv2” layers, respectively.  However, if the <code class="docutils literal notranslate"><span class="pre">expand_op_names</span></code> is set to “false” in the following example, the Proposer
+will always assign the same value (e.g., 0.2) to both “conv1” and “conv2” layers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;sparsity&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;op_names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;conv1&#39;</span><span class="p">,</span> <span class="s1">&#39;conv2&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;expand_op_names&#39;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s1">&#39;op_types&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="step-3-modify-the-training-script">
+<h3>Step #3. Modify the training script<a class="headerlink" href="#step-3-modify-the-training-script" title="Permalink to this headline">¶</a></h3>
+<p>Only a few modifications to the training script are needed to run a compression experiment. The
+modifications are the same for both one-time and automatic compression experiments. We first present
+an example training script and then explain the changes below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python   #Step 1: add shebang line to make script executable</span>
+
+<span class="kn">import</span> <span class="nn">aup</span>               <span class="c1">#Step 2: import auptimizer package</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>        <span class="c1">#Step 3a: the main function should take &quot;config&quot; as argument</span>
+
+    <span class="o">...</span> <span class="c1"># code to generate model and load dataset ...</span>
+
+    <span class="c1">#Step 4: create a compressor and call the compress method to compress the model</span>
+    <span class="n">compressor</span> <span class="o">=</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span><span class="o">.</span><span class="n">create_compressor</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">compressor</span><span class="o">.</span><span class="n">compress</span><span class="p">()</span>
+
+    <span class="c1">#Step 5 (optional): speed-up the model by removing zero weights</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">compressor</span><span class="o">.</span><span class="n">apply_speedup</span><span class="p">(</span><span class="n">dummy_input</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+
+    <span class="o">...</span> <span class="n">code</span> <span class="k">for</span> <span class="n">model</span> <span class="n">fine</span><span class="o">-</span><span class="n">tuning</span> <span class="n">after</span> <span class="n">compression</span> <span class="o">...</span>
+
+    <span class="c1">#Step 6 (optional): export the compressed model and the mask</span>
+    <span class="n">compressor</span><span class="o">.</span><span class="n">export_model</span><span class="p">(</span>
+        <span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;model_compressed.pth&quot;</span><span class="p">,</span>
+        <span class="n">mask_path</span><span class="o">=</span><span class="s2">&quot;model_mask.pth&quot;</span><span class="p">,</span>
+        <span class="n">speedup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">folder_name</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+    <span class="c1">#Step 7: return the metric for HPO or any metric for one-time compression</span>
+    <span class="n">aup</span><span class="o">.</span><span class="n">print_result</span><span class="p">(</span><span class="n">validation_acc</span><span class="p">)</span>
+
+<span class="c1"># Step 3b: parse the configuration file and call the main function as follows</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">aup</span><span class="o">.</span><span class="n">BasicConfig</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p>Add Shebang line <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">python</span></code> on top of the script and make the script executable
+(<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+x</span> <span class="pre">script.py</span></code>).</p></li>
+<li><p>Import Auptimizer package by <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">aup</span></code></p></li>
+<li><p>Parse the configuration file using <code class="docutils literal notranslate"><span class="pre">aup.BasicConfig.load(sys.argv[1])</span></code>.</p></li>
+<li><p>Create the compressor and apply compression</p>
+<ul class="simple">
+<li><p>this can happen before the optimizer is created:
+<code class="docutils literal notranslate"><span class="pre">compressor</span> <span class="pre">=</span> <span class="pre">aup.compression.create_compressor(model,</span> <span class="pre">config)</span></code></p></li>
+<li><p>or after the optimizer is defined:
+<code class="docutils literal notranslate"><span class="pre">compressor</span> <span class="pre">=</span> <span class="pre">aup.compression.create_compressor(model,</span> <span class="pre">config,</span> <span class="pre">optimizer=optimizer)</span></code></p></li>
+</ul>
+<p>Note: any additional arguments specifically required by the compression algorithms must be
+passed here.</p>
+<p>Apply compression by <code class="docutils literal notranslate"><span class="pre">compressor.compress()</span></code>.</p>
+</li>
+<li><p>(Optional) Speed-up can be applied for pruned models:
+<code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">=</span> <span class="pre">compressor.apply_speedup(dummy_input=torch.randn(*input_shape).to(device))</span></code>
+This will modify the actual architecture of the model by removing zero parameters.
+<code class="docutils literal notranslate"><span class="pre">dummy_input</span></code> should be a <code class="docutils literal notranslate"><span class="pre">pytorch</span> <span class="pre">tensor</span></code> that conforms
+to the model input shape. We recommend fine-tuning the model after applying model speed-up
+as pruning zero parameters may affect the accuracy of the model.</p>
+<p>Note: Not all pruners support speed-up, please refer to the <strong>Model Speed-Up</strong> section below for more detail.</p>
+</li>
+<li><p>(Optional) Export the model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">compressor</span><span class="o">.</span><span class="n">export_model</span><span class="p">(</span>
+        <span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;model_compressed.pth&quot;</span><span class="p">,</span>
+        <span class="n">mask_path</span><span class="o">=</span><span class="s2">&quot;model_mask.pth&quot;</span><span class="p">,</span>
+        <span class="n">speedup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">folder_name</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This saves the model to disk. Note that the speed-up is only applied if it has not been applied
+yet; otherwise, the model is saved as it is.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code>: the path where the compressed model will be saved</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mask_path</span></code>: is a pruning-only argument, the path where the pruning mask will be saved.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speedup</span></code>: must be present and True if speed-up has been applied; can be True if speed-up has not
+been applied yet, and will apply speed-up before saving the model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">folder_name</span></code>: (optional) the directory relative to the working directory to save the model,
+the model and mask files will be saved to <code class="docutils literal notranslate"><span class="pre">working_directory/folder_name/model(mask)_path</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dummy_input</span></code>: (optional) a <code class="docutils literal notranslate"><span class="pre">pytorch</span> <span class="pre">tensor</span></code> that conforms to the model input
+shape required only for applying speedup when speedup has not been applied yet.</p></li>
+</ul>
+</li>
+<li><p>Return the final result or any intermediate result by using <code class="docutils literal notranslate"><span class="pre">aup.print_result</span></code>:</p>
+<ul class="simple">
+<li><p>For one-time compression, this result can be any metric the user would like to visualize on the dashboard</p></li>
+<li><p>For automatic compression, this result should be the metric to use in HPO</p></li>
+</ul>
+</li>
+</ol>
+<p>A few compression algorithms require additional changes in training procedures.
+Please refer to <a class="reference internal" href="compressors.html"><span class="doc">Supported Compression Algorithms</span></a> section for specific requirements
+of each compressor.</p>
+</div>
+<div class="section" id="step-4-run-experiment">
+<h3>Step #4. Run experiment<a class="headerlink" href="#step-4-run-experiment" title="Permalink to this headline">¶</a></h3>
+<p>A one-shot compression experiment is run by issuing the <code class="docutils literal notranslate"><span class="pre">aup.compression</span></code>
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span> <span class="n">experiment</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Automatic compression experiments require the <code class="docutils literal notranslate"><span class="pre">--automatic</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span> <span class="n">experiment</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">automatic</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="advanced-usages">
+<h2>Advanced usages<a class="headerlink" href="#advanced-usages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-decorator-to-modify-training-script">
+<h3>Use decorator to modify training script<a class="headerlink" href="#use-decorator-to-modify-training-script" title="Permalink to this headline">¶</a></h3>
+<p>An alternative way to pass the configuration file to the training script is to use the decorator
+<code class="docutils literal notranslate"><span class="pre">aup_args</span></code> with the following changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@aup</span><span class="o">.</span><span class="n">aup_args</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">compression_type</span><span class="p">,</span> <span class="n">compression_framework</span><span class="p">,</span> <span class="n">compressor</span><span class="p">,</span> <span class="n">config_list</span><span class="p">,</span> <span class="n">folder_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">save_model</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+    <span class="o">...</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save-the-best-model">
+<h3>Save the best model<a class="headerlink" href="#save-the-best-model" title="Permalink to this headline">¶</a></h3>
+<p>Automatic compression experiments can use the “save best model” feature in HPO. If this
+feature is enabled, only the compressed model and mask obtained using the best hyperparameter
+combination will be exported, instead of all the models and masks for every hyperparameter
+combinations explored.</p>
+<p>To use this feature, please make sure to define the following in the configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;save_model&quot;</span><span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are two ways to modify the code for exporting only the best model and its mask:</p>
+<ul>
+<li><p>In case the <code class="docutils literal notranslate"><span class="pre">&#64;aup_args</span></code> decorator is used, then the compressor’s export_model method
+can be registered as a model saving function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aup_save_model</span><span class="p">(</span>
+    <span class="n">compressor</span><span class="o">.</span><span class="n">export_model</span><span class="p">,</span>
+    <span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;model_compressed.pth&quot;</span><span class="p">,</span>
+    <span class="n">mask_path</span><span class="o">=</span><span class="s2">&quot;model_mask.pth&quot;</span><span class="p">,</span>
+    <span class="n">speedup</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Alternatively, if the decorator is not used, apply the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s2">&quot;save_model&quot;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">and</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;save_model&quot;</span><span class="p">]:</span>
+    <span class="n">compressor</span><span class="o">.</span><span class="n">export_model</span><span class="p">(</span>
+        <span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;model_compressed.pth&quot;</span><span class="p">,</span>
+        <span class="n">mask_path</span><span class="o">=</span><span class="s2">&quot;model_mask.pth&quot;</span><span class="p">,</span>
+        <span class="n">speedup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">folder_name</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;folder_name&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="model-speed-up">
+<h2>Model Speed-up<a class="headerlink" href="#model-speed-up" title="Permalink to this headline">¶</a></h2>
+<p>NNI compression provides a <a class="reference external" href="https://nni.readthedocs.io/en/stable/Compression/ModelSpeedup.html">model speedup module</a>
+which aims to export models with their architecture modified to reflect
+the effect of pruning methods. Normally, users would export the model with its
+structure unchanged and, for pruning, a mask of the pruned weights. However, with
+model speed-up, the mask is applied to the model before exporting.</p>
+<p><strong>Important:</strong> Note that without applying model speed-up, compression will not result in model size reduction or inference acceleration.</p>
+<p>In order to use model speed-up, the script should call <code class="docutils literal notranslate"><span class="pre">compressor.apply_speedup</span></code>
+with the appropriate parameters. Model speed-up can also be used
+during <code class="docutils literal notranslate"><span class="pre">compressor.export_model</span></code>. Please see <cite>Modify the Training Script</cite> step above for detailed usages.</p>
+<p>Not all compression algorithms support model speed-up. Compressors that support model speed-up include:</p>
+<ul class="simple">
+<li><p>ActivationAPoZRankFilter Pruner</p></li>
+<li><p>ActivationMeanRankFilter Pruner</p></li>
+<li><p>ADMM Pruner</p></li>
+<li><p>FPGM Pruner</p></li>
+<li><p>L1Filter Pruner</p></li>
+<li><p>L2Filter Pruner</p></li>
+<li><p>NetAdapt Pruner</p></li>
+<li><p>Sensitivity Pruner</p></li>
+<li><p>TaylorFOWeightFilter Pruner</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="compressors.html" class="btn btn-neutral float-right" title="Supported Compression Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="compression_main.html" class="btn btn-neutral float-left" title="Model Compression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, LG Electronics Inc..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

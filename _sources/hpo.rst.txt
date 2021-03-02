@@ -5,5 +5,6 @@ Hyperparameter Optimization
 
    experiment
    algorithm
+   early_stop
    demo
    r_user

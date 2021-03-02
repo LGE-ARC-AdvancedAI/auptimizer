@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Profiler - Profiling model scripts &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,13 +95,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -107,11 +115,11 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="aup.html#main-entry">Main Entry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer HPO main entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.compression.html">Compression main entry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.setup.html">Setup scripts for Auptimizer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.init.html">Initialize experiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.convert.html">Convert python code for Auptimizer automatically</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer main entry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.visualize.html">Visualize one experiment result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.setupdb.html">Database setup and reset</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Profiler - Profiling model scripts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#profiler-main-entry">Profiler main entry</a></li>
@@ -163,6 +171,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -176,7 +186,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/aup.profiler.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -202,7 +212,7 @@
 <p>The usage is detailed in <a class="reference internal" href="profiler.html"><span class="doc">Profiler</span></a>.</p>
 <dl class="py function">
 <dt id="aup.profiler.__main__.main">
-<code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/profiler/__main__.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.profiler.__main__.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/profiler/__main__.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.profiler.__main__.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -213,37 +223,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aup.dlconvert.html" class="btn btn-neutral float-right" title="DLconvert - Model conversion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="aup.setupdb.html" class="btn btn-neutral float-left" title="Database setup and reset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="aup.dlconvert.html" class="btn btn-neutral float-right" title="DLconvert - Model conversion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.setupdb.html" class="btn btn-neutral float-left" title="Database setup and reset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

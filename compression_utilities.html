@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Utility Functions &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Edge Deployment Tools" href="edge.html" />
+    <link rel="prev" title="Supported Compression Algorithms" href="compressors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="compression_main.html">Model Compression</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compression.html">Compressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html">Supported Compression Algorithms</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utility Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sensitivity-analysis">Sensitivity analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#channel-dependency">Channel dependency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-flops-counter">Parameters / FLOPs counter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="compression_main.html">Model Compression</a> &raquo;</li>
+        
+      <li>Utility Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/compression_utilities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utility-functions">
+<h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
+<p>The utility functions of the NNI compression module are also integrated into Auptimizer. They are useful for analyzing
+the network topology, making informed decisions on the target sparsity levels, and measuring model parameters and FLOPS.
+The basic usages are presented below. Please refer to <a class="reference external" href="https://nni.readthedocs.io/en/stable/Compression/CompressionUtils.html">NNI compression utilities</a>
+for more advanced applications.</p>
+<div class="section" id="sensitivity-analysis">
+<h2>Sensitivity analysis<a class="headerlink" href="#sensitivity-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Sensitivity analysis prunes the layers one-by-one to measure the sentivity of each layer to different levels of target sparsity:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of Sensitivity Analysis usage</span>
+<span class="c1"># Define a test function to measure the model performance after pruning each layer</span>
+<span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">accuracy</span> <span class="c1"># return a metric for evaluation</span>
+
+<span class="n">s_analyzer</span> <span class="o">=</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span><span class="o">.</span><span class="n">sensitivity_analysis</span><span class="o">.</span><span class="n">SensitivityAnalysis</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">val_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">model</span><span class="p">:</span> <span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">))</span>
+<span class="n">sensitivity</span> <span class="o">=</span> <span class="n">s_analyzer</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">val_args</span><span class="o">=</span><span class="p">[</span><span class="n">model</span><span class="p">])</span>
+<span class="n">s_analyzer</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUT_DIR</span><span class="p">,</span> <span class="s2">&quot;sensitivity_analysis.log&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The sensitivity analysis result will be saved to “sensitivity_analysis.log”.</p>
+</div>
+<div class="section" id="channel-dependency">
+<h2>Channel dependency<a class="headerlink" href="#channel-dependency" title="Permalink to this headline">¶</a></h2>
+<p>We recommend that users run a channel dependency analysis if they want to manually assign target sparsity levels to selected layers, as the
+layers with dependency on each other need to be assigned the same sparsity. Channel dependency can be
+done as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assume input has dimension (1, 1, 28, 28)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">channel_depen</span> <span class="o">=</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span><span class="o">.</span><span class="n">shape_dependency</span><span class="o">.</span><span class="n">ChannelDependency</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">channel_depen</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUT_DIR</span><span class="p">,</span> <span class="s2">&quot;channel_dependency.csv&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The channel dependency result will be saved to “channel_dependency.csv”.</p>
+</div>
+<div class="section" id="parameters-flops-counter">
+<h2>Parameters / FLOPs counter<a class="headerlink" href="#parameters-flops-counter" title="Permalink to this headline">¶</a></h2>
+<p>The FLOPs, number of parameters, and detailed information per layer (“flops”, “params”,
+“weight_size”, “input_size”, “output_size”, etc) can be measured using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flops</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">results</span> <span class="o">=</span> <span class="n">compressor</span><span class="o">.</span><span class="n">count_flops_params</span><span class="p">(</span><span class="n">input_shape_tuple</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The per layer information is saved in “results”.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="edge.html" class="btn btn-neutral float-right" title="Edge Deployment Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="compressors.html" class="btn btn-neutral float-left" title="Supported Compression Algorithms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, LG Electronics Inc..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.Proposer.SpearmintProposer &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,14 +32,13 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="aup.Proposer.BOHBProposer" href="aup.Proposer.BOHBProposer.html" />
+    <link rel="next" title="&lt;no title&gt;" href="aup.Proposer.BOHBProposer.html" />
     <link rel="prev" title="aup.Proposer.SequenceProposer" href="aup.Proposer.SequenceProposer.html" /> 
 </head>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,13 +95,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -162,6 +170,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -177,7 +187,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/aup.Proposer.SpearmintProposer.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -284,11 +294,11 @@ Mainly wrap main.py</p>
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer">
-<em class="property">class </em><code class="sig-name descname">SpearmintProposer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">SpearmintProposer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.failed">
-<code class="sig-name descname">failed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">job</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.failed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.failed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">failed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.failed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mark job as failed in proposer history.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -299,13 +309,13 @@ Mainly wrap main.py</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.get_param">
-<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_param</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.get_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.get_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get new proposed parameter values</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.reload">
-<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.reload" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reload</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.reload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload Proposer state from path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -316,7 +326,7 @@ Mainly wrap main.py</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save Proposer state to path.</p>
 <p><strong>Some proposer can not generate new parameters after saving.</strong></p>
 <dl class="field-list simple">
@@ -328,12 +338,12 @@ Mainly wrap main.py</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.setup_config">
-<em class="property">static </em><code class="sig-name descname">setup_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.setup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.setup_config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setup_config</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.setup_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.setup_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">job</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update scores in proposer history</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -347,7 +357,7 @@ Mainly wrap main.py</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.SpearmintProposer.SpearmintProposer.verify_config">
-<code class="sig-name descname">verify_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.verify_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.verify_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">verify_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SpearmintProposer.html#SpearmintProposer.verify_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SpearmintProposer.SpearmintProposer.verify_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify the input configuration is enough for the proposer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -372,37 +382,29 @@ Mainly wrap main.py</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aup.Proposer.BOHBProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.BOHBProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="aup.Proposer.SequenceProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.SequenceProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="aup.Proposer.BOHBProposer.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.Proposer.SequenceProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.SequenceProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

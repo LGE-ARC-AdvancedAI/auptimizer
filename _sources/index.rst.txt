@@ -28,12 +28,31 @@ HPO
 
    hpo
 
+   
+Compression
+-----------
+
+.. toctree::
+   :maxdepth: 2
+
+   compression_main
+
+   
 Tools
 -----
 .. toctree::
    :maxdepth: 2
 
    edge
+
+
+Dashboard
+---------
+
+.. toctree::
+   :maxdepth: 2
+
+   dashboard
 
 For developers
 --------------

@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Early Stopping &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="demo.html" />
+    <link rel="prev" title="Configure HPO Algorithm" href="algorithm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Early Stopping</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strategies">Strategies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bandit">Bandit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#truncation">Truncation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#median">Median</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#curve-fitting">Curve Fitting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="demo.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hpo.html">Hyperparameter Optimization</a> &raquo;</li>
+        
+      <li>Early Stopping</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/early_stop.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="early-stopping">
+<h1>Early Stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">¶</a></h1>
+<p>Early stopping (ES) strategies provide increased efficiency for HPO algorithms by reducing the computational cost. This is
+done by detecting the poor performance of certain hyperparameter settings early in the training and stopping the corresponding jobs.
+As a result, better hyperparameter configurations can be found sooner with reduced compute resources.</p>
+<p>ES is especially useful in the context of deep learning where the search space grows exponentially over increasing hyperparameters.
+ES strategies provide users with advanced tools to aggressively explore larger search spaces over limited resources,
+with tradeoffs between HPO speed and final model performance.</p>
+<p>Auptimizer provides 4 popular ES strategies namely – Bandit, Median, Truncation and Curve-Fitting, which can be applied to all Proposers.
+The Bandit, Median and Curve-Fitting strategies are inspired by the following papers, while the Truncation strategy is provided to be used
+as a benchmark for other ES strategies:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 93%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Strategy</p></th>
+<th class="head"><p>Algorithm</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bandit</p></td>
+<td><p><a class="reference external" href="https://openreview.net/pdf?id=ry18Ww5ee">HYPERBAND: Bandit-Based Configuration Evaluation For Hyperparameter Optimization</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Median</p></td>
+<td><p><a class="reference external" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46180.pdf">Google Vizier: A Service for Black-Box Optimization</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Curve-fitting</p></td>
+<td><p><a class="reference external" href="http://aad.informatik.uni-freiburg.de/papers/15-IJCAI-Extrapolation_of_Learning_Curves.pdf">Speeding up Automatic Hyperparameter Optimization of Deep Neural Networks by Extrapolation of Learning Curves</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The feature can be used by adding the following parameter to the experiment configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;early_stop&quot;</span><span class="p">:</span>
+      <span class="p">{</span>
+          <span class="s2">&quot;aup_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;bandit&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">:</span> <span class="mi">5</span>
+          <span class="o">...</span>
+      <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aup_policy</span></code>: the early stopping strategy in [“bandit”, “median”, “truncation” or “curve_fitting”].</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aup_policy_steps</span></code>: integer, the interval of epochs, by which the intermediate results are compared among jobs and the ES policy is applied.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">aup_policy</span></code> and <code class="docutils literal notranslate"><span class="pre">aup_policy_steps</span></code> are the two parameters required for all ES strategies. There are also strategy-specifc parameters, which will be introduced below.</p>
+<p>In order to track the intermediate results to be used in ES, <code class="docutils literal notranslate"><span class="pre">aup.print_result</span></code> should be called from the user script in the training loop, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="c1"># model and data preparation code</span>
+  <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+      <span class="c1"># training code for one epoch</span>
+      <span class="n">aup</span><span class="o">.</span><span class="n">print_result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examples can be found in Auptimizer Gibhub repository at <code class="docutils literal notranslate"><span class="pre">Examples/early_stopping/quad_equation_min</span></code> and <code class="docutils literal notranslate"><span class="pre">Examples/early_stopping/mnist_keras</span></code>.</p>
+<p>Additionally, when using ES, the <code class="docutils literal notranslate"><span class="pre">track_intermediate_results</span></code> feature will be triggerd automatically. This means that the resulting intermediate results will be stored in the database in the <code class="docutils literal notranslate"><span class="pre">intermediate_results</span></code> table and
+can be visualized via dashboard. This also means that the presence of <code class="docutils literal notranslate"><span class="pre">track_intermediate_results</span></code> in the experiment configuration file with any value, even false, will be ignored.</p>
+<p>An optional parameter of <code class="docutils literal notranslate"><span class="pre">warmup</span></code> can also be used for all ES strategies (default is 0). <code class="docutils literal notranslate"><span class="pre">warmup</span></code> defines the number of initial epochs that should finish before the ES strategy starts to apply.</p>
+</div>
+<div class="section" id="strategies">
+<h2>Strategies<a class="headerlink" href="#strategies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bandit">
+<h3>Bandit<a class="headerlink" href="#bandit" title="Permalink to this headline">¶</a></h3>
+<p>The bandit policy stops jobs that have a result lower than a specified percentage of the global best result of all jobs. This percentage is defined by the parameter <code class="docutils literal notranslate"><span class="pre">bandit_factor</span></code>. The result to be compared among jobs is the best result obtained by
+the job up to the same epoch.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;early_stop&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;aup_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;bandit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;bandit_factor&quot;</span><span class="p">:</span> <span class="mf">0.5</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, we stop jobs with the best result which is worse than 0.5 of the global best result.
+This comparison and job cut-off is carried out every 10 epochs.
+Default value for <code class="docutils literal notranslate"><span class="pre">bandit_factor</span></code> is 0.5, with higher values indicating more aggressive ES strategy.</p>
+</div>
+<div class="section" id="truncation">
+<h3>Truncation<a class="headerlink" href="#truncation" title="Permalink to this headline">¶</a></h3>
+<p>The truncation policy cuts a fraction of the worst performing jobs, based on the jobs’ best result obtained up to the same epoch. The fraction is specified by the parameter <code class="docutils literal notranslate"><span class="pre">truncation_percentage</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;early_stop&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;aup_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;truncation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;truncation_percentage&quot;</span><span class="p">:</span> <span class="mf">0.6</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example stops 60% of the jobs every 10 epochs. Default value for <code class="docutils literal notranslate"><span class="pre">truncation_percentage</span></code> is 0.3, with higher values indicating more aggressive ES strategy.</p>
+</div>
+<div class="section" id="median">
+<h3>Median<a class="headerlink" href="#median" title="Permalink to this headline">¶</a></h3>
+<p>The median policy stops the jobs that yield worse results than the median of the running average of results of all jobs up to the same epoch.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;early_stop&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;aup_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;median&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">:</span> <span class="mi">10</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="curve-fitting">
+<h3>Curve Fitting<a class="headerlink" href="#curve-fitting" title="Permalink to this headline">¶</a></h3>
+<p>The curve fitting policy attempts to fit each job’s history to a weighted combination of multiple, pre-selected functions, in order to predict its final (best) value. It then stops jobs that fail to attain at least a threshold of the best overall result across all jobs. The implementation is adapted from <a class="reference external" href="https://github.com/microsoft/nni/blob/master/docs/en_US/Assessor/CurvefittingAssessor.md">NNI</a>.</p>
+<p><strong>Caveats:</strong> the biggest downside to curve fitting is that it is usually time-consuming. This makes curve fitting less applicable for small datasets, or tasks that train quickly. In order to address this issue, users should always provide a timeout for the maximum time allowed for each curve fitting process (default: 30s). After the specified time has run out, the curve-fitting process will be stopped and the last result obtained will be used. The longer the timeout, the better the results.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;early_stop&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;aup_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;curve_fitting&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;curve_fitting_threshold&quot;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span>
+        <span class="s2">&quot;curve_fitting_timeout&quot;</span><span class="p">:</span> <span class="mi">60</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example for scripts that use <code class="docutils literal notranslate"><span class="pre">aup.print_result</span></code> for result reporting instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;early_stop&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;aup_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;curve_fitting&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aup_policy_steps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;curve_fitting_threshold&quot;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span>
+        <span class="s2">&quot;curve_fitting_timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="s2">&quot;curve_fitting_max_iters&quot;</span><span class="p">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Default values for <code class="docutils literal notranslate"><span class="pre">curve_fitting_threshold</span></code>, <code class="docutils literal notranslate"><span class="pre">curve_fitting_timeout</span></code> are 0.95 and 60. <code class="docutils literal notranslate"><span class="pre">curve_fitting_max_iters</span></code> defaults to None.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="demo.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="algorithm.html" class="btn btn-neutral float-left" title="Configure HPO Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, LG Electronics Inc..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

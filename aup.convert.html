@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Convert python code for Auptimizer automatically &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,14 +32,13 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Auptimizer main entry" href="aup.__main__.html" />
+    <link rel="next" title="Database setup and reset" href="aup.setupdb.html" />
     <link rel="prev" title="Initialize experiment" href="aup.init.html" /> 
 </head>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,13 +95,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -107,6 +115,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="aup.html#main-entry">Main Entry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer HPO main entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.compression.html">Compression main entry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.setup.html">Setup scripts for Auptimizer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.init.html">Initialize experiment</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Convert python code for Auptimizer automatically</a><ul>
@@ -116,8 +126,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#apis">APIs</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer main entry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.visualize.html">Visualize one experiment result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.setupdb.html">Database setup and reset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.profiler.html">Profiler - Profiling model scripts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.dlconvert.html">DLconvert - Model conversion</a></li>
@@ -166,6 +174,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -179,7 +189,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/aup.convert.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -204,7 +214,9 @@
 </div>
 <div class="section" id="additional-arguments">
 <h2>Additional arguments<a class="headerlink" href="#additional-arguments" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: convert.py [OPTIONS] SCRIPT EXP_JSON FUNC_NAME
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2021-03-02 02:41:19.233822: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library &#39;libcudart.so.10.1&#39;; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-02 02:41:19.233856: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Usage: convert.py [OPTIONS] SCRIPT EXP_JSON FUNC_NAME
 
   Convert script for Auptimizer 
 
@@ -224,6 +236,10 @@
 Options:
   -o, --output TEXT  output file name
   -h, --help         Show this message and exit.
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/scipy/__init__.py:137: UserWarning: NumPy 1.16.5 or above is required for this version of SciPy (detected version 1.16.4)
+  UserWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() &gt; 0
 </pre></div>
 </div>
 </div>
@@ -235,31 +251,31 @@ Options:
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="aup.convert.add_func">
-<code class="sig-name descname">add_func</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">script</span></em>, <em class="sig-param"><span class="n">func_name</span></em>, <em class="sig-param"><span class="n">variables</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_func" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_func</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.convert.add_func" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds wrapper function to the python script.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="aup.convert.add_main">
-<code class="sig-name descname">add_main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">script</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_main</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.convert.add_main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a main function to the executable Python file.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="aup.convert.add_shenbang">
-<code class="sig-name descname">add_shenbang</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">script</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_shenbang"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.add_shenbang" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_shenbang</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#add_shenbang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.convert.add_shenbang" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes the Python script executable.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="aup.convert.get_output_name">
-<code class="sig-name descname">get_output_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_output_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_output_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_output_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_output_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.convert.get_output_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the Python script to be executed from the experiment json file</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="aup.convert.get_param">
-<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.convert.get_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_param</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/convert.html#get_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.convert.get_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse experiment file to retrieve hyperparameter names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -282,37 +298,29 @@ Options:
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aup.__main__.html" class="btn btn-neutral float-right" title="Auptimizer main entry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="aup.init.html" class="btn btn-neutral float-left" title="Initialize experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="aup.setupdb.html" class="btn btn-neutral float-right" title="Database setup and reset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.init.html" class="btn btn-neutral float-left" title="Initialize experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

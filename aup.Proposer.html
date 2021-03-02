@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.Proposer package &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,13 +95,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -162,6 +170,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -175,7 +185,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/aup.Proposer.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -203,7 +213,6 @@
 <li class="toctree-l1"><a class="reference internal" href="aup.Proposer.RandomProposer.html">aup.Proposer.RandomProposer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aup.Proposer.SequenceProposer.html">aup.Proposer.SequenceProposer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aup.Proposer.SpearmintProposer.html">aup.Proposer.SpearmintProposer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aup.Proposer.BOHBProposer.html">aup.Proposer.BOHBProposer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aup.Proposer.EASProposer.html">aup.Proposer.EASProposer</a></li>
 </ul>
 </div>
@@ -214,7 +223,7 @@
 <h4>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h4>
 <dl class="py class">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer">
-<em class="property">class </em><code class="sig-name descname">AbstractProposer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">AbstractProposer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Proposer to generate new values for hyperparameters</p>
 <dl class="field-list simple">
@@ -223,8 +232,13 @@
 </dd>
 </dl>
 <dl class="py method">
+<dt id="aup.Proposer.AbstractProposer.AbstractProposer.check_termination">
+<code class="sig-name descname"><span class="pre">check_termination</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.check_termination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.check_termination" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.failed">
-<code class="sig-name descname">failed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">job</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.failed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.failed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">failed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.failed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mark job as failed in proposer history.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -235,7 +249,7 @@
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.get">
-<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for specific <a class="reference internal" href="#aup.Proposer.AbstractProposer.AbstractProposer.get_param" title="aup.Proposer.AbstractProposer.AbstractProposer.get_param"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_param()</span></code></a> to update <code class="docutils literal notranslate"><span class="pre">current_proposal</span></code> and <code class="docutils literal notranslate"><span class="pre">counter</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -252,13 +266,28 @@
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.get_param">
-<em class="property">abstract </em><code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">get_param</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.get_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.get_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get new proposed parameter values</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="aup.Proposer.AbstractProposer.AbstractProposer.get_remaining_jobs">
+<code class="sig-name descname"><span class="pre">get_remaining_jobs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.get_remaining_jobs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.get_remaining_jobs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="aup.Proposer.AbstractProposer.AbstractProposer.get_status">
+<code class="sig-name descname"><span class="pre">get_status</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.get_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="aup.Proposer.AbstractProposer.AbstractProposer.increment_job_counter">
+<code class="sig-name descname"><span class="pre">increment_job_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.increment_job_counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.increment_job_counter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.parse_param_config">
-<em class="property">static </em><code class="sig-name descname">parse_param_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.parse_param_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.parse_param_config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">parse_param_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.parse_param_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.parse_param_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse the given experiment configuration of <code class="docutils literal notranslate"><span class="pre">parameter_config</span></code>
 If values are missing, fill in defaults.</p>
 <dl class="field-list simple">
@@ -276,7 +305,7 @@ If values are missing, fill in defaults.</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.reload">
-<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.reload" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reload</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.reload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload Proposer state from path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -287,13 +316,13 @@ If values are missing, fill in defaults.</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.reset">
-<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.reset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset proposer</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save Proposer state to path.</p>
 <p><strong>Some proposer can not generate new parameters after saving.</strong></p>
 <dl class="field-list simple">
@@ -304,13 +333,18 @@ If values are missing, fill in defaults.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="aup.Proposer.AbstractProposer.AbstractProposer.set_status">
+<code class="sig-name descname"><span class="pre">set_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.set_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.set_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.setup_config">
-<em class="property">static </em><code class="sig-name descname">setup_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.setup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.setup_config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setup_config</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.setup_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.setup_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">job</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update scores in proposer history</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -324,7 +358,7 @@ If values are missing, fill in defaults.</p>
 
 <dl class="py method">
 <dt id="aup.Proposer.AbstractProposer.AbstractProposer.verify_config">
-<code class="sig-name descname">verify_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.verify_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.verify_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">verify_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#AbstractProposer.verify_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.AbstractProposer.verify_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify the input configuration is enough for the proposer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -343,7 +377,7 @@ If values are missing, fill in defaults.</p>
 
 <dl class="py function">
 <dt id="aup.Proposer.AbstractProposer.create_param_config">
-<code class="sig-name descname">create_param_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">vrange</span></em>, <em class="sig-param"><span class="n">vtype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#create_param_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.create_param_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_param_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vrange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/AbstractProposer.html#create_param_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.AbstractProposer.create_param_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads the configuration file and checks for errors.</p>
 </dd></dl>
 
@@ -357,37 +391,29 @@ If values are missing, fill in defaults.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aup.Proposer.HyperbandProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.HyperbandProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="aup.ET.Connector.html" class="btn btn-neutral float-left" title="aup.ET.Connector package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="aup.Proposer.HyperbandProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.HyperbandProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.ET.Connector.html" class="btn btn-neutral float-left" title="aup.ET.Connector package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

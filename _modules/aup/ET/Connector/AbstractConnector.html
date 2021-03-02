@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.ET.Connector.AbstractConnector &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -91,13 +93,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">For Developers</a></li>
@@ -129,6 +137,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -191,6 +201,21 @@
 
 
 <div class="viewcode-block" id="AbstractConnector"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector">[docs]</a><span class="k">class</span> <span class="nc">AbstractConnector</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="c1"># ################ General Part #################</span>
+<div class="viewcode-block" id="AbstractConnector.close"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.close">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark the connector as closed. A closed connector should not be used anymore.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.is_closed"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.is_closed">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">is_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return whether or not the connector is closed. A closed connector should not be used anymore.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
     <span class="c1"># ################ Resource Related Part #################</span>
 <div class="viewcode-block" id="AbstractConnector.free_used_resource"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.free_used_resource">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">free_used_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">):</span>
@@ -265,14 +290,16 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="AbstractConnector.start_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">exp_config_blob</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an Experiment and track it</span>
 
 <span class="sd">        :param username: username</span>
 <span class="sd">        :type username: str</span>
-<span class="sd">        :param exp_config_blob: configuration of experiment</span>
-<span class="sd">        :type exp_config_blob: str</span>
+<span class="sd">        :param name: experiment name</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param exp_config: configuration of experiment</span>
+<span class="sd">        :type exp_config: dict</span>
 <span class="sd">        :return: experiment ID</span>
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -280,7 +307,7 @@
 
     <span class="c1"># ################ Job Related Part #######################</span>
 <div class="viewcode-block" id="AbstractConnector.end_job"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.end_job">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">end_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">end_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mark a job ended</span>
 
@@ -288,6 +315,8 @@
 <span class="sd">        :type jid: int</span>
 <span class="sd">        :param score: score of the Job</span>
 <span class="sd">        :type score: str</span>
+<span class="sd">        :param status: status of the Job</span>
+<span class="sd">        :type status: enumeration</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
@@ -366,8 +395,19 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
+<div class="viewcode-block" id="AbstractConnector.update_job_status"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.update_job_status">[docs]</a>    <span class="k">def</span> <span class="nf">update_job_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change a job&#39;s status</span>
+
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :param status: new status</span>
+<span class="sd">        :type status: enumeration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
     <span class="c1"># ################ Job interface for Experiment ##############</span>
-<div class="viewcode-block" id="AbstractConnector.job_finished"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_finished">[docs]</a>    <span class="k">def</span> <span class="nf">job_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="AbstractConnector.job_finished"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_finished">[docs]</a>    <span class="k">def</span> <span class="nf">job_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clean up Job when it is finished</span>
 
@@ -377,11 +417,13 @@
 <span class="sd">        :type jid: int</span>
 <span class="sd">        :param score: score returned by Job (error case will be ERROR)</span>
 <span class="sd">        :type score: float / str</span>
+<span class="sd">        :param status: job status</span>
+<span class="sd">        :type status: enumeration</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is finished on </span><span class="si">%d</span><span class="s2">, score is </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">free_used_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">end_job_attempt</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">end_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AbstractConnector.job_started"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_started">[docs]</a>    <span class="k">def</span> <span class="nf">job_started</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">job_config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -414,42 +456,130 @@
 <div class="viewcode-block" id="AbstractConnector.job_retry"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.job_retry">[docs]</a>    <span class="k">def</span> <span class="nf">job_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Interface to mark the beginning of a job retry</span>
-<span class="sd">        </span>
+
 <span class="sd">        :param rid: Resource ID</span>
 <span class="sd">        :type rid: int</span>
 <span class="sd">        :param jid: Job ID</span>
 <span class="sd">        :type jid: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">take_available_resource</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_job_attempt</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_job_attempt</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">jid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.save_intermediate_result"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.save_intermediate_result">[docs]</a>    <span class="k">def</span> <span class="nf">save_intermediate_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for saving intermediate result for a job.</span>
+
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :param score: the intermediate result</span>
+<span class="sd">        :type score: float</span>
+<span class="sd">        :return: intermediate_result table id</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_intermediate_results_job"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_intermediate_results_job">[docs]</a>    <span class="k">def</span> <span class="nf">get_intermediate_results_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for extracting all intermediate results available for a given job.</span>
+
+<span class="sd">        :param jid: Job ID</span>
+<span class="sd">        :type jid: int</span>
+<span class="sd">        :return: list of intermediate results, in order</span>
+<span class="sd">        :rtype: float list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_intermediate_results_jobs"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_intermediate_results_jobs">[docs]</a>    <span class="k">def</span> <span class="nf">get_intermediate_results_jobs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for extracting all intermediate results available for a given list of jobs.</span>
+
+<span class="sd">        :param jids: Job IDs</span>
+<span class="sd">        :type jids: int list</span>
+<span class="sd">        :return: dictionary mapping job IDs to lists of intermediate results, in order</span>
+<span class="sd">        :rtype: dict&lt;int, float list&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_intermediate_results_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_intermediate_results_experiment">[docs]</a>    <span class="k">def</span> <span class="nf">get_intermediate_results_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for extracting all intermediate results for all jobs of a given experiment, </span>
+<span class="sd">        fitting a given status.</span>
+
+<span class="sd">        :param eid: Experiment ID</span>
+<span class="sd">        :type eid: int</span>
+<span class="sd">        :param status: Desired status for filtering jobs</span>
+<span class="sd">        :type status: enumeration</span>
+<span class="sd">        :return: dictionary mapping job IDs to lists of intermediate results, in order</span>
+<span class="sd">        :rtype: dict&lt;int, float list&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.create_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.create_experiment">[docs]</a>    <span class="k">def</span> <span class="nf">create_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for creating an experiment without starting it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.delete_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.delete_experiment">[docs]</a>    <span class="k">def</span> <span class="nf">delete_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for deleting an experiment by eid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.get_experiment_status"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.get_experiment_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_experiment_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for getting the database status of an experiment</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.start_experiment_by_eid"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment_by_eid">[docs]</a>    <span class="k">def</span> <span class="nf">start_experiment_by_eid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interface for (re)starting an experiment by eid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.log_error_message"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.log_error_message">[docs]</a>    <span class="k">def</span> <span class="nf">log_error_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Log in database the error message</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.save_multiple_results"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.save_multiple_results">[docs]</a>    <span class="k">def</span> <span class="nf">save_multiple_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">irid</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">scores</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save in database other results desired by user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AbstractConnector.set_last_multiple_results"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.set_last_multiple_results">[docs]</a>    <span class="k">def</span> <span class="nf">set_last_multiple_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">num_labels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the &#39;is_last_result&#39; flag to true for this jid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

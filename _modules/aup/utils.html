@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.utils &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -91,13 +93,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developer.html">For Developers</a></li>
@@ -129,6 +137,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -287,7 +297,8 @@
 
 <span class="sd">    :param auppath: aup environment folder, contains `env.ini` file</span>
 <span class="sd">    :type auppath: str</span>
-<span class="sd">    :param log: logger obj to trace where the function is called, default is aup.utils</span>
+<span class="sd">    :param log: logger obj to trace where the function is called, default is aup.utils, </span>
+<span class="sd">                if None, then no logging is performed</span>
 <span class="sd">    :type log: logging.Logger</span>
 <span class="sd">    :param use_default: if auppath is empty, use user&#39;s home folder instead.</span>
 <span class="sd">    :type use_default: bool</span>
@@ -297,12 +308,14 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">auppath</span><span class="p">,</span> <span class="s2">&quot;env.ini&quot;</span><span class="p">)):</span>
         <span class="k">if</span> <span class="n">use_default</span><span class="p">:</span>
             <span class="n">auppath</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;.aup&quot;</span><span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Use default env at </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">auppath</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Use default env at </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">auppath</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">auppath</span><span class="p">,</span> <span class="s2">&quot;env.ini&quot;</span><span class="p">)):</span>  <span class="c1"># pragma: no cover</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to find env.ini&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Auptimizer folder </span><span class="si">%s</span><span class="s2"> is missing&quot;</span> <span class="o">%</span> <span class="n">auppath</span><span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Auptimizer environment at </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">auppath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Auptimizer environment at </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">auppath</span><span class="p">)</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
     <span class="n">config</span><span class="o">.</span><span class="n">optionxform</span> <span class="o">=</span> <span class="nb">str</span>
     <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">auppath</span><span class="p">,</span> <span class="s2">&quot;env.ini&quot;</span><span class="p">))</span>
@@ -327,10 +340,22 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Result is not float - potential support for mutli-value result separated by ,&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cannot convert the result to float - trying to convert the result to a list&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
+
     <span class="n">log</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Result `</span><span class="si">%s</span><span class="s2">` is not created by aup&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Result `</span><span class="si">%s</span><span class="s2">` is not created by aup print_result&quot;</span> <span class="o">%</span> <span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="parse_one_line"><a class="viewcode-back" href="../../aup.utils.html#aup.utils.parse_one_line">[docs]</a><span class="k">def</span> <span class="nf">parse_one_line</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;#Auptimizer:&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">12</span><span class="p">:]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">)]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cannot convert the result to float - trying to convert the result to a list&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="set_default_keyvalue"><a class="viewcode-back" href="../../aup.utils.html#aup.utils.set_default_keyvalue">[docs]</a><span class="k">def</span> <span class="nf">set_default_keyvalue</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">):</span>
@@ -366,12 +391,11 @@
     <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
     <span class="kn">import</span> <span class="nn">paramiko</span> <span class="k">as</span> <span class="nn">pm</span>
 
-    <span class="n">sleep_time_s</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">sleep_time_s</span> <span class="o">=</span> <span class="mf">0.1</span>
     <span class="n">timeout_time_s</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">nop_linux_command</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span>
 
     <span class="k">while</span> <span class="n">socket</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">exit_status_ready</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-
         <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">nop_linux_command</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_time_s</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Command executed successfully, now sleeping&quot;</span><span class="p">)</span>
         <span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time_s</span><span class="p">)</span></div>
@@ -388,34 +412,41 @@
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">chan</span><span class="o">.</span><span class="n">invoke_subsystem</span><span class="p">(</span><span class="s2">&quot;sftp&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">SFTPClient</span><span class="p">(</span><span class="n">chan</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_available_port"><a class="viewcode-back" href="../../aup.utils.html#aup.utils.get_available_port">[docs]</a><span class="k">def</span> <span class="nf">get_available_port</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns first open port available.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">socket</span>
+    <span class="k">with</span> <span class="n">socket</span><span class="p">()</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">getsockname</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">port</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

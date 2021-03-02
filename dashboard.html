@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Auptimizer Dashboard &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="For Developers" href="developer.html" />
+    <link rel="prev" title="Examples" href="dlconvert_example.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Auptimizer Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#launch-the-dashboard">Launch the dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#track-experiment-status-and-visualize-results">Track experiment status and visualize results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-page">Main page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiment-overview">Experiment overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#job-status">Job status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hyperparameter-interaction-graph">Hyperparameter interaction graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intermediate-results">Intermediate results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-experiment-comparison">Multi-experiment comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#create-new-experiment">Create new experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reset-auptimizer-environment">Reset Auptimizer environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compression-experiments">Compression experiments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dark-mode">Dark mode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Auptimizer Dashboard</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/dashboard.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="auptimizer-dashboard">
+<h1>Auptimizer Dashboard<a class="headerlink" href="#auptimizer-dashboard" title="Permalink to this headline">¶</a></h1>
+<p><strong>Dashboard</strong> is a powerful analytics tool that complements Auptimizer’s core hyperparameter optimization (HPO) and model compression capabilities.</p>
+<p>Use the Dashboard to:</p>
+<ul class="simple">
+<li><p><strong>Supercharge the analysis of your HPO or model compression experiments.</strong> The dashboard provides insightful visualizations to help you analyze and contrast jobs, experiments, and optimization approaches. Get to the root of your experiment results by exploring the interplay of hyperparameters, the progression of intermediate results, and the efficacies of different HPO algorithms.</p></li>
+<li><p><strong>Get a snapshot of the information that matters.</strong> Use the dashboard to track experiment progress and get clutter-free insights on the ongoing and completed experiments.</p></li>
+<li><p><strong>Run your experiments with ease.</strong> Create, launch or stop an experiment or even set up a new Auptimizer environment using the dashboard.</p></li>
+</ul>
+<div class="section" id="launch-the-dashboard">
+<h2>Launch the dashboard<a class="headerlink" href="#launch-the-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to launch the dashboard:</p>
+<ol class="arabic">
+<li><p>In terminal, use the <code class="docutils literal notranslate"><span class="pre">dashboard</span></code> command to visualize an exisiting Auptimizer experiment that is currently running or has been completed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dashboard</span> <span class="o">--</span><span class="n">port</span> <span class="o">&lt;</span><span class="n">port_number</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">path</span> <span class="o">&lt;</span><span class="n">path_to_database</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">port</span></code> is the port number to show the dashboard on the local machine. The <code class="docutils literal notranslate"><span class="pre">path</span></code> should point to the database (default is <cite>sqlite3.db</cite>) for the corresponding experiment.</p>
+</li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">launch_dashboard</span></code> flag and the <code class="docutils literal notranslate"><span class="pre">dashboard_port</span></code> flag (optional) when starting an HPO or compression experiment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span> <span class="n">exp_config</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">launch_dashboard</span> <span class="o">--</span><span class="n">dashboard_port</span> <span class="o">&lt;</span><span class="n">port_number</span><span class="o">&gt;</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span> <span class="n">exp_compression</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">launch_dashboard</span> <span class="o">--</span><span class="n">dashboard_port</span> <span class="o">&lt;</span><span class="n">port_number</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">dashboard_port</span></code> is not provided, a random port will be assigned. The local host address will be shown in the console when the experiment starts.</p>
+<p><strong>Important:</strong> With this second approach, some dashboard functionalities, like starting a new experiment or restarting a past experiment, will be disabled. For full functionalities of the dashboard, please, use the first approach.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="track-experiment-status-and-visualize-results">
+<h2>Track experiment status and visualize results<a class="headerlink" href="#track-experiment-status-and-visualize-results" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="main-page">
+<h3>Main page<a class="headerlink" href="#main-page" title="Permalink to this headline">¶</a></h3>
+<p>When you open the dashboard in a web browser, you will first land on the main page with a list of completed and active experiments. This page presents the meta info of each experiment.</p>
+<p>You can check the experiment configuration via the <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code> button, and access detailed results via the <code class="docutils literal notranslate"><span class="pre">RESULTS</span></code> button. Here, you can also stop or start an experiment.</p>
+<p>The page also offers a <em>tile view</em> layout that provides the same information as the <em>list view</em>.</p>
+<div class="figure align-default" id="id1">
+<img alt="main_page_list" src="_images/main_page_list.png" />
+<p class="caption"><span class="caption-text">Main Page List View</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id2">
+<img alt="main_page_tile" src="_images/main_page_tile.png" />
+<p class="caption"><span class="caption-text">Main Page Tile View</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="experiment-overview">
+<h3>Experiment overview<a class="headerlink" href="#experiment-overview" title="Permalink to this headline">¶</a></h3>
+<p>This page provides a summary of an experiment’s status and the best result and corresponding best hyperparameters so far.
+You can also select other experiments to view without going back to the main page.</p>
+<div class="figure align-default" id="id3">
+<img alt="overview" src="_images/overview.png" />
+<p class="caption"><span class="caption-text">Experiment Overview</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="job-status">
+<h3>Job status<a class="headerlink" href="#job-status" title="Permalink to this headline">¶</a></h3>
+<p>The Job Status page shows the status, result, and hyperparameters of each job. Job details are presented in a scatter plot and a table.</p>
+<p>By default, the user-defined score used for HPO will be plotted for each job, while the best result over finished jobs is shown with a line. You can zoom in/out,
+check out details of each data point, and change the range of axes on the plot. Please refer to <code class="docutils literal notranslate"><span class="pre">INTERACTION</span> <span class="pre">GUIDE</span></code> for exploring the plot. If you return multiple
+metrics in an experiment, the other metrics can be shown on this plot as well.</p>
+<div class="figure align-default" id="id4">
+<img alt="job_status_plot" src="_images/job_status_plot.png" />
+<p class="caption"><span class="caption-text">Job Status Plot</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>The job status table presents more detail for each job, including status, score, start/end time, all hyperparameters, etc.
+The table can be sorted by each column and exported as xls/xlsx/csv/txt file.</p>
+<div class="figure align-default" id="id5">
+<img alt="job_status_table" src="_images/job_status_table.png" />
+<p class="caption"><span class="caption-text">Job Status Table</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="hyperparameter-interaction-graph">
+<h3>Hyperparameter interaction graph<a class="headerlink" href="#hyperparameter-interaction-graph" title="Permalink to this headline">¶</a></h3>
+<p>The hyperparameter interaction graph (HIG) is a parallel coordinate graph that is commonly used to show the interplay among different hyperparameters.
+Each vertical axis represents the range of one hyperparameter. You can interact with this graph by selecting certain hyperparameters, moving the
+vertical axes, highlighting certain ranges of one or multiple hyperparameters, etc. This HIG can provide more insights into the impact of each hyperparameter
+on the evaluation metric.</p>
+<div class="figure align-default" id="id6">
+<img alt="hig" src="_images/hig.png" />
+<p class="caption"><span class="caption-text">Hyperparameter Interaction Graph</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="intermediate-results">
+<h3>Intermediate results<a class="headerlink" href="#intermediate-results" title="Permalink to this headline">¶</a></h3>
+<p>If you enable tracking intermediate results or use early stopping strategies, this page will show the intermediate
+results plotted over time for the selected jobs within one experiment.</p>
+<div class="figure align-default" id="id7">
+<img alt="intermediate_results" src="_images/intermediate_results.png" />
+<p class="caption"><span class="caption-text">Intermediate Results</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="multi-experiment-comparison">
+<h3>Multi-experiment comparison<a class="headerlink" href="#multi-experiment-comparison" title="Permalink to this headline">¶</a></h3>
+<p>You can view the HPO progress for multiple experiments on this page. The best result for each experiment can be plotted
+over jobs or time. This can be particularly useful if you want to compare different HPO strategies.</p>
+<div class="figure align-default" id="id8">
+<img alt="multi_experiment" src="_images/multi_experiment.png" />
+<p class="caption"><span class="caption-text">Multi-Experiment Comparison</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="create-new-experiment">
+<h2>Create new experiment<a class="headerlink" href="#create-new-experiment" title="Permalink to this headline">¶</a></h2>
+<p>In addition to visualizing the results of existing experiments, you can also use the dashboard to create and run new experiments.
+There are two ways to do so:</p>
+<ol class="arabic simple">
+<li><p>click on the <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">NEW</span> <span class="pre">EXPERIMENT</span></code> button on the main page,</p></li>
+<li><p>click on the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">experiment</span> <span class="pre">from</span> <span class="pre">copy</span></code> button located on each experiment entry on the main page.</p></li>
+</ol>
+<p>Both approaches will open the following page, where on the top you will need to specify your working directory for the
+new experiment, and in the left panel, you can input the experiment configuration in json format. If you choose
+<code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">experiment</span> <span class="pre">from</span> <span class="pre">copy</span></code>, the configuration json file of the selected experiment will be copied over to the left panel for
+further modification. The right panel is for validation purposes. You can check the argument values parsed from
+the json file in the right panel to make sure everything in the configuration json file is correct.</p>
+<div class="figure align-default" id="id9">
+<img alt="create_experiment" src="_images/create_experiment.png" />
+<p class="caption"><span class="caption-text">Create New Experiment</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>Please review the <code class="docutils literal notranslate"><span class="pre">INTERACTION</span> <span class="pre">GUIDE</span></code> for a complete guide on setting up the experiment. After clicking on
+the <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">EXPERIMENT</span></code> button, this experiment will be shown on top of the experiment list on the main page. You can
+click on the <code class="docutils literal notranslate"><span class="pre">START</span></code> button to run the experiment.</p>
+</div>
+<div class="section" id="reset-auptimizer-environment">
+<h2>Reset Auptimizer environment<a class="headerlink" href="#reset-auptimizer-environment" title="Permalink to this headline">¶</a></h2>
+<p>You can also reset the Auptimizer environment via the dashboard. After you click on the <code class="docutils literal notranslate"><span class="pre">RESET</span> <span class="pre">AUPTIMIZER</span> <span class="pre">ENVIRONMENT</span></code> button on the
+main page, a software wizard will lead you through the Auptimizer environment set-up process.</p>
+<p><strong>Important:</strong> the existing Auptimizer environment in the same working directory will be overwritten, which will erase existing databases. We
+suggest the user back up their databases for finished experiments before resetting the Auptimizer environment in the same working directory.</p>
+<div class="figure align-default" id="id10">
+<img alt="setup_environment" src="_images/setup_environment.png" />
+<p class="caption"><span class="caption-text">Set Up Auptimizer Environment</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="compression-experiments">
+<h2>Compression experiments<a class="headerlink" href="#compression-experiments" title="Permalink to this headline">¶</a></h2>
+<p>For <strong>one-shot compression experiments</strong>, as each experiment contains only one job and there are no hyperparameters to be tuned or visualized, the dashboard will have a few modifications:</p>
+<ol class="arabic simple">
+<li><p>The <cite>Experiment Overview</cite> page will only show the experiment configuration instead of hyperparameters.</p></li>
+<li><p>The <cite>Job status</cite> page will only show one job.</p></li>
+<li><p>The <cite>Hyperparameter Interaction Graph</cite> page will not show a graph.</p></li>
+<li><p>The <cite>Multi-Experiment Comparison</cite> page will show one data point for the experiment.</p></li>
+</ol>
+<p>For <strong>automatic compression experiments</strong>, the dashboard will function in the same way as for the HPO experiments. Note that in compression experiments, the hyperparameter names may not be explicitly specified
+in the configuration file. For example, the target sparsity for multiple layers might be a single hyperparameter. However, on the dashboard, the hyperparameter names will be rephrased for better clarity.</p>
+<div class="figure align-default" id="id11">
+<img alt="overview_compression" src="_images/overview_compression.png" />
+<p class="caption"><span class="caption-text">Experiment Overview for Automatic Compression experiments</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id12">
+<img alt="hig_compression" src="_images/hig_compression.png" />
+<p class="caption"><span class="caption-text">Hyperparameter Interaction Graph for Automatic Compression experiments</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="dark-mode">
+<h2>Dark mode<a class="headerlink" href="#dark-mode" title="Permalink to this headline">¶</a></h2>
+<p>All pages are also available in the <em>dark mode</em>.</p>
+<div class="figure align-default" id="id13">
+<img alt="dark_mode" src="_images/dark_mode.png" />
+<p class="caption"><span class="caption-text">Experiment Overview in Dark Mode</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="developer.html" class="btn btn-neutral float-right" title="For Developers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="dlconvert_example.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, LG Electronics Inc..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

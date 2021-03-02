@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.EE.Experiment &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -91,13 +93,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../developer.html">For Developers</a></li>
@@ -129,6 +137,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -189,6 +199,8 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">signal</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">_thread</span>
+<span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">from</span> <span class="nn">..Proposer</span> <span class="kn">import</span> <span class="n">get_proposer</span><span class="p">,</span> <span class="n">SPECIAL_EXIT_PROPOSERS</span>
@@ -196,6 +208,8 @@
 <span class="kn">from</span> <span class="nn">.Resource</span> <span class="kn">import</span> <span class="n">get_resource_manager</span>
 <span class="kn">from</span> <span class="nn">..aup</span> <span class="kn">import</span> <span class="n">BasicConfig</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">set_default_keyvalue</span><span class="p">,</span> <span class="n">check_missing_key</span><span class="p">,</span> <span class="n">get_default_connector</span><span class="p">,</span> <span class="n">get_default_username</span>
+<span class="kn">from</span> <span class="nn">..compression.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..Proposer</span> <span class="kn">import</span> <span class="n">ProposerStatus</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -209,6 +223,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_missing_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="s2">&quot;Missing required value for &#39;script&#39;.&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
     <span class="n">check_missing_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;resource&quot;</span><span class="p">,</span> <span class="s2">&quot;Missing required value for &#39;resource&#39;&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">check_missing_key</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;Missing required value for &#39;name&#39;&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">config</span>
 
 
@@ -233,41 +248,79 @@
                  <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">connector</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">auppath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;.aup&quot;</span><span class="p">),</span>
-                 <span class="n">sleep_time</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                 <span class="n">sleep_time</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">eid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">request_stop_time</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fail_safe</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">job_retries</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span> <span class="o">=</span> <span class="n">_verify_config</span><span class="p">(</span><span class="n">exp_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_args</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connector</span> <span class="o">=</span> <span class="n">connector</span> <span class="k">if</span> <span class="n">connector</span> <span class="k">else</span> <span class="n">get_default_connector</span><span class="p">(</span><span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">get_default_username</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_compression_exp</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compression_params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_time</span> <span class="o">=</span> <span class="n">request_stop_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">submitted</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="s2">&quot;job_failure&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">:</span>
             <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;ignore_fail&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;job_failure&quot;</span><span class="p">],</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
-            <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;job_retries&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;job_failure&quot;</span><span class="p">],</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+            <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;job_retries&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;job_failure&quot;</span><span class="p">],</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fail_safe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;job_failure&quot;</span><span class="p">][</span><span class="s2">&quot;ignore_fail&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">job_retries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;job_failure&quot;</span><span class="p">][</span><span class="s2">&quot;job_retries&quot;</span><span class="p">]</span>
 
+        <span class="k">if</span> <span class="s2">&quot;compression&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_compression_exp</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compression_params</span> <span class="o">=</span> <span class="n">translate_compression_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">)</span>
+
+        <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;cwd&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
         <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;workingdir&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
         <span class="n">set_default_keyvalue</span><span class="p">(</span><span class="s2">&quot;n_parallel&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
         <span class="n">check_missing_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;Specify max/min for target&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
         <span class="n">check_missing_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="s2">&quot;proposer&quot;</span><span class="p">,</span> <span class="s2">&quot;Specify the optimization `proposer`&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span> <span class="o">=</span> <span class="n">get_proposer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;proposer&#39;</span><span class="p">])(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;resource_args&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;early_stop&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource_args&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource_args&quot;</span><span class="p">][</span><span class="s2">&quot;track_intermediate_results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span> <span class="o">=</span> <span class="n">get_resource_manager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="p">,</span>
                                                          <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;n_parallel&quot;</span><span class="p">],</span> <span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">,</span>
-                                                         <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource_args&quot;</span><span class="p">])</span>
+                                                         <span class="n">maximize</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">),</span>
+                                                         <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource_args&quot;</span><span class="p">],</span>
+                                                         <span class="n">workingdir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;workingdir&#39;</span><span class="p">],</span>
+                                                         <span class="n">script</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">],</span>
+                                                         <span class="n">runtime_args</span> <span class="o">=</span> <span class="n">exp_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;runtime_args&#39;</span><span class="p">,</span> <span class="p">{}))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource_args&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span> <span class="o">=</span> <span class="n">get_resource_manager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="p">,</span>
-                                                         <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;n_parallel&quot;</span><span class="p">],</span> <span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">))</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;n_parallel&quot;</span><span class="p">],</span> <span class="n">auppath</span><span class="o">=</span><span class="n">auppath</span><span class="p">,</span>
+                                                         <span class="n">maximize</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">),</span>
+                                                         <span class="n">workingdir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;workingdir&#39;</span><span class="p">],</span>
+                                                         <span class="n">script</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">],</span>
+                                                         <span class="n">runtime_args</span> <span class="o">=</span> <span class="n">exp_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;runtime_args&#39;</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="k">if</span> <span class="n">eid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">eid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">eid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">create_experiment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eid</span> <span class="o">=</span> <span class="n">eid</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">start_experiment_by_eid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">eid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="s1">&#39;runtime_args&#39;</span> <span class="ow">in</span> <span class="n">exp_config</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">runtime_args</span> <span class="o">=</span> <span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;runtime_args&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">runtime_args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suspend</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Experiment </span><span class="si">%d</span><span class="s2"> is created&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Experiment config is </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Experiment.add_suspend_signal"><a class="viewcode-back" href="../../../aup.EE.Experiment.html#aup.EE.Experiment.Experiment.add_suspend_signal">[docs]</a>    <span class="k">def</span> <span class="nf">add_suspend_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suspend</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Experiment.add_refresh_signal"><a class="viewcode-back" href="../../../aup.EE.Experiment.html#aup.EE.Experiment.Experiment.add_refresh_signal">[docs]</a>    <span class="k">def</span> <span class="nf">add_refresh_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_refresh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Experiment.finish"><a class="viewcode-back" href="../../../aup.EE.Experiment.html#aup.EE.Experiment.Experiment.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -276,7 +329,7 @@
 <span class="sd">        :return: job id, best score</span>
 <span class="sd">        :rtype: (int, float)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span> <span class="o">==</span> <span class="n">ProposerStatus</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Waiting for proposer&quot;</span><span class="p">)</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sleep_time</span><span class="p">)</span>
 
@@ -286,10 +339,13 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Waiting for pending job&quot;</span><span class="p">)</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sleep_time</span><span class="p">)</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No result so far&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
@@ -315,14 +371,21 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start experiment</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="o">.</span><span class="n">n_parallel</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="p">)):</span>
-            <span class="n">submitted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit_job</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fail_safe</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">submitted</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;No job is running; quit&quot;</span><span class="p">)</span>
-                    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job submission failed, keep running&quot;</span><span class="p">)</span></div>
+        <span class="n">remaining_jobs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get_remaining_jobs</span><span class="p">()</span>
+        <span class="n">parallel_jobs</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">remaining_jobs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="o">.</span><span class="n">n_parallel</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_status</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">parallel_jobs</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="p">)):</span>
+            <span class="n">rc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit_job</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submitted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submitted</span> <span class="ow">or</span> <span class="n">rc</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">submitted</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;No job is running; quit&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">ProposerStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Cannot run experiment!&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">rc</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job submission failed, keep running&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Experiment.submit_job"><a class="viewcode-back" href="../../../aup.EE.Experiment.html#aup.EE.Experiment.Experiment.submit_job">[docs]</a>    <span class="k">def</span> <span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rid_blacklist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -336,11 +399,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">get_available</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;resource&quot;</span><span class="p">],</span> <span class="n">rid_blacklist</span><span class="o">=</span><span class="n">rid_blacklist</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">rid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">log_error_message</span><span class="p">(</span><span class="s2">&quot;Not enough resources!&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Increase resource or reduce n_parallel, no enough resources&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="n">job</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">proposal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">proposal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_compression_exp</span><span class="p">:</span>
+                <span class="n">proposal</span> <span class="o">=</span> <span class="n">deserialize_compression_proposal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compression_params</span><span class="p">,</span> <span class="n">proposal</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">increment_job_counter</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">job</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">proposal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;proposer&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">SPECIAL_EXIT_PROPOSERS</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is waiting to finish.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s1">&#39;proposer&#39;</span><span class="p">])</span>
@@ -359,6 +426,9 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Submitting job </span><span class="si">%d</span><span class="s2"> with resource </span><span class="si">%d</span><span class="s2"> in experiment </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">))</span>
             <span class="n">job</span><span class="o">.</span><span class="n">was_executed</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="p">[</span><span class="n">job</span><span class="o">.</span><span class="n">jid</span><span class="p">]</span> <span class="o">=</span> <span class="n">job</span>
+            <span class="c1"># update the status, but after appending to pending_jobs</span>
+            <span class="c1"># to avoid premature termination</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">check_termination</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">run_job</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">runtime_args</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span></div>
 
@@ -372,7 +442,7 @@
 <span class="sd">        :param jid: job id</span>
 <span class="sd">        :type jid: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">score</span> <span class="o">==</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">:</span> 
+        <span class="k">if</span> <span class="n">score</span> <span class="o">==</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">:</span>
             <span class="n">job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">jid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">jobs</span> <span class="ow">and</span> \
                 <span class="n">job</span><span class="o">.</span><span class="n">curr_retries</span> <span class="o">&lt;</span> <span class="n">job</span><span class="o">.</span><span class="n">retries</span><span class="p">:</span>
@@ -383,26 +453,32 @@
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrying job </span><span class="si">%d</span><span class="s2"> (</span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">curr_retries</span><span class="p">,</span> <span class="n">job</span><span class="o">.</span><span class="n">retries</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">submit_job</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">rid_blacklist</span><span class="o">=</span><span class="n">job</span><span class="o">.</span><span class="n">rid_blacklist</span><span class="p">)</span>
             <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fail_safe</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;FAILED&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">ProposerStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Stop Experiment due to job failure (ignore_fail flag set to false)&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;FAILED&quot;</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">failed</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">ProposerStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">)</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Stop Experiment due to job failure (failed jobs unsupported by proposer)&quot;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is finished (failed)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jid</span><span class="p">))</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span> <span class="o">==</span> <span class="n">ProposerStatus</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">==</span> <span class="s2">&quot;EARLY STOPPED&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="s2">&quot;EARLY_STOPPED&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> was early stopped&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jid</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span> <span class="o">==</span> <span class="n">ProposerStatus</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="p">[</span><span class="n">jid</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish_job</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="s2">&quot;FINISHED&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Job </span><span class="si">%d</span><span class="s2"> is finished with result </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span> <span class="o">==</span> <span class="n">ProposerStatus</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
@@ -412,42 +488,75 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Experiment ended at user&#39;s request&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_jobs</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Job with ID </span><span class="si">%d</span><span class="s2"> is cancelled&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>         <span class="c1"># Note: cancelled job won&#39;t be run again.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;exp</span><span class="si">%d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proposer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;exp</span><span class="si">%d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">suspend</span><span class="p">()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">,</span> <span class="n">maximize</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exp_config</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;STOPPED&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No valid result so far&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best job (</span><span class="si">%d</span><span class="s2">) with score </span><span class="si">%f</span><span class="s2"> in experiment </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">))</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Best job (</span><span class="si">%d</span><span class="s2">) with score </span><span class="si">%f</span><span class="s2"> in experiment </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request_stop_thr</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the database status of the experiment for external stopping requests</span>
+
+<span class="sd">        This method is run continuously in a separate &quot;clean-up&quot; thread in order to check for</span>
+<span class="sd">        external modifications to the experiment status in the database, in case a user</span>
+<span class="sd">        wants to stop an experiment remotely (e.g. from another process).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">eid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not start thread for checking external experiment stopping requests.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">is_closed</span><span class="p">():</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Closing down clean-up thread.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span>
+
+                <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">maybe_get_experiment_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eid</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;REQUEST_STOP&quot;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">_thread</span><span class="o">.</span><span class="n">interrupt_main</span><span class="p">()</span>
+
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_stop_time</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Error in clean-up thread: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_force_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="c1"># currently useful for async resource manager timers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_manager</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

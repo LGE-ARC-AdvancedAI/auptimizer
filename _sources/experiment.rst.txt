@@ -7,7 +7,7 @@ Create and run a new experiment
 
 2. Modify your training script. We provide three approaches for modifying the training script:
 
-   + `Manual conversion <#how-to-modify-existing-code-for-auptimizer>`_;
+   + `Manual conversion <#manual-modification-of-training-code>`_;
    + `Python decorator <#code-conversion-with-decorator>`_;
    + `Auto conversion for script (beta) <#auto-code-conversion>`_.  
 

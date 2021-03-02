@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Version History &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,18 +95,25 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="developer.html">For Developers</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Version History</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-2-0">version 2.0</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#version-1-4">version 1.4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#version-1-3">version 1.3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#version-1-2">version 1.2</a></li>
@@ -158,6 +167,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -171,7 +182,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/version.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -187,6 +198,20 @@
             
   <div class="section" id="version-history">
 <h1>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-2-0">
+<h2>version 2.0<a class="headerlink" href="#version-2-0" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add Dashboard to provide insightful visualizations to help users track experiment progress, analyze and contrast jobs, experiments, and optimization approaches</p></li>
+<li><p>Add Compressor - a model compression tool that helps reduce memory complexity and inference time of neural networks</p></li>
+<li><p>Add 4 early stopping strategies to improve the efficiency of HPO experiments</p></li>
+<li><p>Add feature to track intermediate results of both HPO and compression experiments</p></li>
+<li><p>Add feature to save the best model with the best hyperparameter combination</p></li>
+<li><p>Add feature to track multiple results returned from the HPO experiment</p></li>
+<li><p>Refactor documentation</p></li>
+<li><p>Minor bug fixes</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/6392f5a091b20580b4d5a1185650fc39/Auptimizer-2.0-py2.py3-none-any.whl"><code class="xref download docutils literal notranslate"><span class="pre">Auptimizer</span> <span class="pre">2.0</span> <span class="pre">wheel</span> <span class="pre">python2</span> <span class="pre">or</span> <span class="pre">python3</span></code></a></p></li>
+</ul>
+</div>
 <div class="section" id="version-1-4">
 <h2>version 1.4<a class="headerlink" href="#version-1-4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -240,37 +265,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="errors.html" class="btn btn-neutral float-right" title="Errors and Solutions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="developer_guide.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="errors.html" class="btn btn-neutral float-right" title="Errors and Solutions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="developer_guide.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

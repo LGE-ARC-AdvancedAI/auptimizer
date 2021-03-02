@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Auptimizer Quickstart &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -63,7 +65,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -92,13 +94,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -145,6 +153,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -156,7 +166,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -180,8 +190,8 @@ Currently, <strong>Auptimizer</strong> helps with:</p>
 <ul class="simple">
 <li><p><strong>Getting the best models in minimum time</strong> - Generate optimal models
 and achieve better performance by employing state-of-the-art hyperparameter
-optimization (HPO) techniques. Auptimizer will run and record sophisticated
-HPO experiments on compute resources of your choice with effortless consistency
+optimization (HPO) and model compression techniques techniques. Auptimizer will run and record sophisticated
+HPO and model compression experiments on compute resources of your choice with effortless consistency
 and reproducibility.</p></li>
 <li><p><strong>Making your models edge-ready</strong> - Get model-device compatibility and
 enhanced on-device performance by converting models into the industry-standard
@@ -194,10 +204,33 @@ the most efficient models without the hustle of going through multiple physical
 deployment cycles.</p></li>
 </ul>
 <p>Best of all, <strong>Auptimizer</strong> offers a consistent interface that allows
-users to switch between different HPO algorithms conversion frameworks,
-and computing resources with minimal changes to their existing code.</p>
-<p>In the future, <strong>Auptimizer</strong> will support end-to-end model building
-for edge devices, including model compression and neural architecture search.</p>
+users to switch between different HPO and compression algorithms, conversion frameworks,
+and computing resources with minimal changes to the existing code.</p>
+<div class="section" id="what-s-new-in-auptimizer-v2-0">
+<h2>What’s New in Auptimizer v2.0<a class="headerlink" href="#what-s-new-in-auptimizer-v2-0" title="Permalink to this headline">¶</a></h2>
+<p>Auptimizer v2.0 introduces two core capabilites - Dashboard and Compressor!</p>
+<div class="section" id="dashboard">
+<h3>Dashboard<a class="headerlink" href="#dashboard" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://lge-arc-advancedai.github.io/auptimizer/dashboard.html">Auptimizer Dashboard</a>
+is a powerful analytics tool that complements Auptimizer’s core hyperparameter optimization
+(HPO) and model compression capabilities. It provides insightful visualizations to help you
+track experiment progress, analyze and contrast jobs, experiments, and optimization approaches.
+Additionally, it can be used to control an experiment or even set up a new Auptimizer environment.</p>
+</div>
+<div class="section" id="compressor">
+<h3>Compressor<a class="headerlink" href="#compressor" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://lge-arc-advancedai.github.io/auptimizer/compression_main.html">Compressor</a>
+is a model compression tool that helps reduce memory complexity and inference time of
+neural networks. It is particularly useful for adapting ML models for deployment on
+resource-constrained edge devices.</p>
+<p>Similar to Auptimizer-Hyperparameter Optimization (HPO), Compressor aims to provide
+a unified interface to the existing state-of-the-art toolkits. Currently, Compressor
+leverages <a class="reference external" href="https://nni.readthedocs.io/en/latest/model_compression.html">NNI (version 2.0)</a>
+model compression modules. NNI is an open-source toolkit that supports two types of compression,
+pruning and quantization, for TensorFlow, and PyTorch models. In the future, we will be integrating
+other off-the-shelf toolkits to expand the selection of model compression approaches.</p>
+</div>
+</div>
 <div class="section" id="capabilities">
 <h2>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hyperparameter-optimization">
@@ -246,7 +279,7 @@ for hyperparameter optimization.</p>
 </div>
 <div class="section" id="profiler">
 <h3>Profiler<a class="headerlink" href="#profiler" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/profiler">Profiler</a>
+<p><a class="reference external" href="https://lge-arc-advancedai.github.io/auptimizer/profiler.html">Profiler</a>
 is a simulator for profiling performance of machine learning model scripts. Given compute- and memory
 resource constraints for a CPU-based Edge device, Profiler can provide estimates of compute and memory
 usage for model scripts on the device. These estimations can be used to choose best performing models or,
@@ -258,7 +291,7 @@ finding model-device fit. Please see <a class="reference internal" href="prof_re
 </div>
 <div class="section" id="converter">
 <h3>Converter<a class="headerlink" href="#converter" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/LGE-ARC-AdvancedAI/auptimizer/tree/master/src/aup/dlconvert">Converter</a>
+<p><a class="reference external" href="https://lge-arc-advancedai.github.io/auptimizer/dlconvert.html">Converter</a>
 is a format conversion tool for machine learning models. It encapsulates best practices of individual
 machine learning model conversions under a single API. Converter makes ML models suitable for edge
 (on-device) deployments by transforming them into the industry-standard ONNX and TensorFlow Lite formats
@@ -321,7 +354,7 @@ necessary libraries for all functionalities.</p>
 <h2>Install and setup<a class="headerlink" href="#install-and-setup" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a><ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="setup.html">First time installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environment.html">Set up environment</a></li>
 </ul>
@@ -336,8 +369,22 @@ necessary libraries for all functionalities.</p>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="experiment.html">Create and run a new experiment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="algorithm.html">Configure HPO Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="early_stop.html">Early Stopping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo.html">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="r_user.html">Setup for R</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="compression">
+<h2>Compression<a class="headerlink" href="#compression" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compression.html">Compressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html">Supported Compression Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compression_utilities.html">Utility Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -350,6 +397,22 @@ necessary libraries for all functionalities.</p>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="profiler.html">Profiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dlconvert.html">Converter</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Dashboard<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#launch-the-dashboard">Launch the dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#track-experiment-status-and-visualize-results">Track experiment status and visualize results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#create-new-experiment">Create new experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#reset-auptimizer-environment">Reset Auptimizer environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#compression-experiments">Compression experiments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#dark-mode">Dark mode</a></li>
 </ul>
 </li>
 </ul>
@@ -375,11 +438,11 @@ necessary libraries for all functionalities.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aup.html#main-entry">Main Entry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer HPO main entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.compression.html">Compression main entry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.setup.html">Setup scripts for Auptimizer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.init.html">Initialize experiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.convert.html">Convert python code for Auptimizer automatically</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer main entry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aup.visualize.html">Visualize one experiment result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.setupdb.html">Database setup and reset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.profiler.html">Profiler - Profiling model scripts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aup.dlconvert.html">DLconvert - Model conversion</a></li>
@@ -413,35 +476,28 @@ necessary libraries for all functionalities.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="README.html" class="btn btn-neutral float-right" title="Auptimizer Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
+        <a href="README.html" class="btn btn-neutral float-right" title="Auptimizer Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

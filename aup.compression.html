@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Compression main entry &mdash; Auptimizer  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup scripts for Auptimizer" href="aup.setup.html" />
+    <link rel="prev" title="Auptimizer HPO main entry" href="aup.__main__.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/AuptimizerWhiteLong.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aup.html"><strong>Auptimizer</strong> APIs</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aup.html#main-entry">Main Entry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aup.__main__.html">Auptimizer HPO main entry</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Compression main entry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#additional-arguments">Additional arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setup.html">Setup scripts for Auptimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.init.html">Initialize experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.convert.html">Convert python code for Auptimizer automatically</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.setupdb.html">Database setup and reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.profiler.html">Profiler - Profiling model scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aup.dlconvert.html">DLconvert - Model conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="aup.html#internal-modules-and-packages">Internal modules and packages</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Auptimizer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="aup.html"><strong>Auptimizer</strong> APIs</a> &raquo;</li>
+        
+      <li>Compression main entry</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/aup.compression.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aup.compression.__main__">
+<span id="compression-main-entry"></span><h1>Compression main entry<a class="headerlink" href="#module-aup.compression.__main__" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#module-aup.compression.__main__" title="aup.compression.__main__"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aup.compression.__main__</span></code></a> is the Auptimizer main entry point for compression experiments.</p>
+<p>Use it as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">aup</span><span class="o">.</span><span class="n">compression</span> <span class="o">&lt;</span><span class="n">experiment</span> <span class="n">configuration</span><span class="o">&gt;</span> 
+</pre></div>
+</div>
+<p>The usage is detailed in <a class="reference internal" href="compression.html"><span class="doc">Compressor</span></a>.</p>
+<div class="section" id="additional-arguments">
+<h2>Additional arguments<a class="headerlink" href="#additional-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2021-03-02 02:41:16.644336: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library &#39;libcudart.so.10.1&#39;; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2021-03-02 02:41:16.644369: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Usage: __main__.py [OPTIONS] EXPERIMENT_FILE
+
+  Compress a given model.
+
+  Arguments:
+      experiment_file {str} -- Compression configuration
+
+Options:
+  --automatic                    Whether or not running an automatic
+                                 compression experiment with hyperparameter
+                                 optimization.
+
+  --user TEXT                    User name for job scheduling
+  --aup_folder TEXT              Specify customized aup folder
+  --resume TEXT                  Resume from previous task
+  --log [debug|info|warn|error]  Log level
+  --sleep FLOAT                  Sleep interval to sync updates
+  --launch_dashboard             Launch the dashboard together with the
+                                 experiment.
+
+  --dashboard_port INTEGER       Port for the dashboard frontend.
+  -h, --help                     Show this message and exit.
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/scipy/__init__.py:137: UserWarning: NumPy 1.16.5 or above is required for this version of SciPy (detected version 1.16.4)
+  UserWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() &gt; 0
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="aup.setup.html" class="btn btn-neutral float-right" title="Setup scripts for Auptimizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.__main__.html" class="btn btn-neutral float-left" title="Auptimizer HPO main entry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, LG Electronics Inc..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

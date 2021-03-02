@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Configure HPO Algorithm &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,14 +32,13 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Examples" href="demo.html" />
+    <link rel="next" title="Early Stopping" href="early_stop.html" />
     <link rel="prev" title="Create and run a new experiment" href="experiment.html" /> 
 </head>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a><ul class="current">
@@ -101,16 +103,29 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Configure HPO Algorithm</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#supported-algorithms">Supported algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuration-details">Configuration details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#additional-functionalities">Additional functionalities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-functionalities">Additional functionalities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#track-intermediate-results">Track intermediate results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save-the-best-model">Save the best model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#return-multiple-results">Return multiple results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pause-and-resume-jobs">Pause and resume jobs</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="early_stop.html">Early Stopping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo.html">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="r_user.html">Setup for R</a></li>
 </ul>
 </li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -157,6 +172,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -170,7 +187,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/algorithm.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -251,6 +268,9 @@ documentation.</p>
    <span class="p">}</span>
  <span class="p">],</span>
  <span class="s2">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;resource_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;save_model&quot;</span><span class="p">:</span> <span class="n">true</span>
+ <span class="p">},</span>
  <span class="s2">&quot;job_failure&quot;</span><span class="p">:</span> <span class="p">{</span>
    <span class="s2">&quot;job_retries&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
    <span class="s2">&quot;ignore_fail&quot;</span><span class="p">:</span> <span class="n">true</span>
@@ -263,9 +283,9 @@ documentation.</p>
 </div>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 8%" />
-<col style="width: 76%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 82%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -310,7 +330,7 @@ documentation.</p>
 <li></li>
 </ul>
 </td>
-<td><p>type of resource to run the experiment, [cpu, gpu, passive, node]</p></td>
+<td><p>type of resource to run the experiment, [cpu, gpu, aws, node, passive]</p></td>
 </tr>
 <tr class="row-even"><td><p>parameter_config</p></td>
 <td><p>{}</p></td>
@@ -319,6 +339,10 @@ documentation.</p>
 <tr class="row-odd"><td><p>workingdir</p></td>
 <td><p>“./”</p></td>
 <td><p>path to run the script, important for running jobs remotely (SSH/AWS)</p></td>
+</tr>
+<tr class="row-even"><td><p>resource_args</p></td>
+<td><p>{}</p></td>
+<td><p>other parameters to enable features like tracking intermediate results, saving best model, etc (see below)</p></td>
 </tr>
 </tbody>
 </table>
@@ -347,6 +371,41 @@ documentation.</p>
 </table>
 <p>Minor modifications or changes may be required for each algorithm. These options can be found at the corresponding API
 pages under <a class="reference internal" href="aup.Proposer.html"><span class="doc">aup.Proposer package</span></a> (see API links below).</p>
+<p>for <code class="docutils literal notranslate"><span class="pre">resource_args</span></code>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 7%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>save_model</p></td>
+<td><p>False</p></td>
+<td><p>whether to save the best performing model (see below)</p></td>
+</tr>
+<tr class="row-odd"><td><p>multi_res_labels</p></td>
+<td><p>None</p></td>
+<td><p>a list of additional results to be tracked, e.g. [“flops”, “param”]</p></td>
+</tr>
+<tr class="row-even"><td><p>track_intermediate_results</p></td>
+<td><p>False</p></td>
+<td><p>if true, intermediate results during training epoches will be tracked</p></td>
+</tr>
+<tr class="row-odd"><td><p>early_stop</p></td>
+<td><p>None</p></td>
+<td><p>parameters related to early stopping strategies</p></td>
+</tr>
+</tbody>
+</table>
+<p>For details of the <code class="docutils literal notranslate"><span class="pre">early_stop</span></code> parameter and how to apply early stopping strategies to HPO experiments, please refer to
+<a class="reference internal" href="early_stop.html"><span class="doc">Early Stopping</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">resource_args</span></code> can also include SSH/AWS specific parameters, please refer to <a class="reference internal" href="experiment.html#awsruntimeanchor"><span class="std std-ref">Additional runtime configuration for Node/AWS</span></a> for more details.</p>
 <p><strong>Note</strong>:</p>
 <div class="line-block">
 <div class="line">If <code class="docutils literal notranslate"><span class="pre">job_failure</span></code> is not specified, the experiment will stop whenever a job fails.</div>
@@ -356,6 +415,114 @@ pages under <a class="reference internal" href="aup.Proposer.html"><span class="
 </div>
 <div class="section" id="additional-functionalities">
 <h2>Additional functionalities<a class="headerlink" href="#additional-functionalities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="track-intermediate-results">
+<h3>Track intermediate results<a class="headerlink" href="#track-intermediate-results" title="Permalink to this headline">¶</a></h3>
+<p>This feature allows the user to save and track multiple intermediate results at different points during the HPO experiment. Auptimizer still uses the final result as the main result for the HPO algorithm, but saves the intermediate records in the database under the table <code class="docutils literal notranslate"><span class="pre">intermediate_results</span></code>.</p>
+<div class="section" id="usage">
+<h4>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h4>
+<p>The feature can be used by adding the following parameter to the experiment configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;track_intermediate_results&quot;</span><span class="p">:</span> <span class="n">true</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>Then in the training script, <code class="docutils literal notranslate"><span class="pre">aup.print_result(res)</span></code> should be placed where the user wants the results to be tracked:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># model and data preparation</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">):</span>
+        <span class="c1"># training for one epoch</span>
+        <span class="n">aup</span><span class="o">.</span><span class="n">print_result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the above example, the intermediate results are returned every epoch. The result at last epoch is regarded as the main result for the user script and is then used by the HPO algorithm.</p>
+<p>The intermediate results will be shown on the dashboard if tracked.</p>
+<p><strong>Note</strong>: It is possible to use multiple results feature in conjunction with intermediate results to track multiple intermediate results as well.</p>
+</div>
+</div>
+<div class="section" id="save-the-best-model">
+<h3>Save the best model<a class="headerlink" href="#save-the-best-model" title="Permalink to this headline">¶</a></h3>
+<p>This feature allows the user to save the best performing model after running the HPO experiment. This is achieved by
+running the training script again using the best hyperparamters obtained during HPO the experiment.
+The model, by default, will be saved to path <code class="docutils literal notranslate"><span class="pre">aup_models/models_&lt;eid&gt;/&lt;user_defined_model_path&gt;</span></code>.</p>
+<div class="section" id="id1">
+<h4>Usage<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>In order to use this feature, please add the following parameter to the experiment configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;save_model&quot;</span><span class="p">:</span> <span class="n">true</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>Depending on whether the <code class="docutils literal notranslate"><span class="pre">&#64;aup_args</span></code> decorator is used, the training script needs the following additional modifications.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">&#64;aup_args</span></code> is used, the user needs to define a funtion to save the model, and register this function with <code class="docutils literal notranslate"><span class="pre">aup_save_model</span></code>.
+We suggest using this approach if running the experiment on remote machines (SSH/AWS) to be able to correctly locate and retrieve the model saved
+on the remote machine.</p>
+<p>Please see the example below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a function &quot;save_model(model)&quot; to save the model to a user-defined path</span>
+<span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;model_train&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./model_train/mnist.h5&#39;</span><span class="p">)</span>
+
+<span class="nd">@aup_args</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># training code</span>
+    <span class="o">...</span>
+    <span class="c1"># register the model saving function with model as argument</span>
+    <span class="n">aup</span><span class="o">.</span><span class="n">aup_save_model</span><span class="p">(</span><span class="n">save_model</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">&#64;aup_args</span></code> is not used, the user needs to manually check whether the <code class="docutils literal notranslate"><span class="pre">save_model</span></code> parameter is True in the job’s
+configuration. The main function should also take <code class="docutils literal notranslate"><span class="pre">save_model</span></code> and <code class="docutils literal notranslate"><span class="pre">folder_name</span></code> as arguments. Please see the
+example below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">folder_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># training code</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="n">save_model</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># manually locate the path for saving the model</span>
+        <span class="c1"># this is important if running on remote machines</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;aup_models&#39;</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;aup_models&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;aup_models&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./model_train/mnist.h5&#39;</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="return-multiple-results">
+<h3>Return multiple results<a class="headerlink" href="#return-multiple-results" title="Permalink to this headline">¶</a></h3>
+<p>This feature allows the user to save and track multiple secondary results along with the primary result for the HPO experiment. Auptimizer still uses the main result for the HPO algorithm, but saves the secondary results in the database under the table <code class="docutils literal notranslate"><span class="pre">multiple_results</span></code>. There is no upper limit
+on how many secondary results the user can track.</p>
+<div class="section" id="id2">
+<h4>Usage<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>The feature can be used by adding the following parameter to the experiment configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;resource_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;multi_res_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the above configuration file, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are the secondary results the user wants to track and record. The user script would then return the results as a list including the primary result <code class="docutils literal notranslate"><span class="pre">res</span></code> along with the secondary parameters as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@aup_args</span>
+<span class="k">def</span> <span class="nf">HPO</span><span class="p">():</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">calculate_results</span><span class="p">()</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">res</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In the above example, <code class="docutils literal notranslate"><span class="pre">res</span></code> is the primary result which is always placed at the first index of the returned list, which will be used by the HPO algorithm. The remaining results are matched directly with the list provided in <code class="docutils literal notranslate"><span class="pre">multi_res_labels</span></code>. Hence, the length of the returned list from user script is  1 + length of <code class="docutils literal notranslate"><span class="pre">multi_res_labels</span></code> parameter.</p>
+<p><strong>Note</strong>: It is possible to use multiple results feature in conjunction with intermediate results to track multiple intermediate results as well.</p>
+</div>
+</div>
+<div class="section" id="pause-and-resume-jobs">
+<h3>Pause and resume jobs<a class="headerlink" href="#pause-and-resume-jobs" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Serial: optimize parameters by running jobs sequentially</p></li>
 <li><p>Parallel: optimize parameters by running jobs in parallel</p></li>
@@ -424,7 +591,7 @@ pages under <a class="reference internal" href="aup.Proposer.html"><span class="
 <td><p>❌</p></td>
 </tr>
 <tr class="row-even"><td><p>BOHB</p></td>
-<td><p><a class="reference internal" href="aup.Proposer.BOHBProposer.html#module-aup.Proposer.BOHBProposer" title="aup.Proposer.BOHBProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.BOHBProposer</span></code></a></p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.BOHBProposer</span></code></p></td>
 <td><p>✓</p></td>
 <td><p>✓</p></td>
 <td><p>❌</p></td>
@@ -441,43 +608,36 @@ pages under <a class="reference internal" href="aup.Proposer.html"><span class="
 </table>
 </div>
 </div>
+</div>
 
 
            </div>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="demo.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="experiment.html" class="btn btn-neutral float-left" title="Create and run a new experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="early_stop.html" class="btn btn-neutral float-right" title="Early Stopping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="experiment.html" class="btn btn-neutral float-left" title="Create and run a new experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

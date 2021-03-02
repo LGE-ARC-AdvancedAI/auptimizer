@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.Proposer.SequenceProposer &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,13 +95,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -162,6 +170,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -177,7 +187,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/aup.Proposer.SequenceProposer.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -251,17 +261,17 @@
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="aup.Proposer.SequenceProposer.SequenceProposer">
-<em class="property">class </em><code class="sig-name descname">SequenceProposer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SequenceProposer.html#SequenceProposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SequenceProposer.SequenceProposer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">SequenceProposer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SequenceProposer.html#SequenceProposer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SequenceProposer.SequenceProposer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="aup.Proposer.html#aup.Proposer.AbstractProposer.AbstractProposer" title="aup.Proposer.AbstractProposer.AbstractProposer"><code class="xref py py-class docutils literal notranslate"><span class="pre">aup.Proposer.AbstractProposer.AbstractProposer</span></code></a></p>
 <dl class="py method">
 <dt id="aup.Proposer.SequenceProposer.SequenceProposer.get_param">
-<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SequenceProposer.html#SequenceProposer.get_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SequenceProposer.SequenceProposer.get_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_param</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SequenceProposer.html#SequenceProposer.get_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SequenceProposer.SequenceProposer.get_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get new proposed parameter values</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="aup.Proposer.SequenceProposer.SequenceProposer.setup_config">
-<em class="property">static </em><code class="sig-name descname">setup_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SequenceProposer.html#SequenceProposer.setup_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.Proposer.SequenceProposer.SequenceProposer.setup_config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setup_config</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/Proposer/SequenceProposer.html#SequenceProposer.setup_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.Proposer.SequenceProposer.SequenceProposer.setup_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -274,37 +284,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aup.Proposer.SpearmintProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.SpearmintProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="aup.Proposer.RandomProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.RandomProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="aup.Proposer.SpearmintProposer.html" class="btn btn-neutral float-right" title="aup.Proposer.SpearmintProposer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.Proposer.RandomProposer.html" class="btn btn-neutral float-left" title="aup.Proposer.RandomProposer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

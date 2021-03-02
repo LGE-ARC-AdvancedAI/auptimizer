@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>aup.EE.Experiment module &mdash; Auptimizer  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                2.0
               </div>
             
           
@@ -93,13 +95,19 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">Auptimizer Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup <strong>Auptimizer</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install and Setup Auptimizer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hpo.html">Hyperparameter Optimization</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="compression_main.html">Model Compression</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="edge.html">Edge Deployment Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Auptimizer Dashboard</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">For Developers</a></li>
@@ -163,6 +171,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -178,7 +188,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/aup.EE.Experiment.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -200,7 +210,7 @@
 <h2>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="aup.EE.Experiment.Experiment">
-<em class="property">class </em><code class="sig-name descname">Experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_config</span></em>, <em class="sig-param"><span class="n">username</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">connector</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">auppath</span><span class="o">=</span><span class="default_value">'.aup'</span></em>, <em class="sig-param"><span class="n">sleep_time</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Experiment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auppath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.aup'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sleep_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_stop_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Experiment Class - create and run an experiment</p>
 <dl class="field-list simple">
@@ -215,8 +225,18 @@
 </dd>
 </dl>
 <dl class="py method">
+<dt id="aup.EE.Experiment.Experiment.add_refresh_signal">
+<code class="sig-name descname"><span class="pre">add_refresh_signal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.add_refresh_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.add_refresh_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="aup.EE.Experiment.Experiment.add_suspend_signal">
+<code class="sig-name descname"><span class="pre">add_suspend_signal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.add_suspend_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.add_suspend_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="aup.EE.Experiment.Experiment.finish">
-<code class="sig-name descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.finish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.finish" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">finish</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.finish" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finish experiment if no job is running</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -230,7 +250,7 @@
 
 <dl class="py method">
 <dt id="aup.EE.Experiment.Experiment.resume">
-<code class="sig-name descname">resume</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.resume" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">resume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.resume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore previous experiment, previous job during suspension won’t be run in this round</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -241,13 +261,13 @@
 
 <dl class="py method">
 <dt id="aup.EE.Experiment.Experiment.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start experiment</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="aup.EE.Experiment.Experiment.submit_job">
-<code class="sig-name descname">submit_job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">job</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rid_blacklist</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.submit_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.submit_job" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">submit_job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rid_blacklist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.submit_job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.submit_job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit a new job to run if there is resource available
 :param job: optional job parameter in case a job needs resubmitting
 :type job: aup.EE.Job.Job object
@@ -262,7 +282,7 @@
 
 <dl class="py method">
 <dt id="aup.EE.Experiment.Experiment.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">jid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/EE/Experiment.html#Experiment.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.EE.Experiment.Experiment.update" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Callback function passed to <a class="reference internal" href="aup.EE.Resource.html#module-aup.EE.Resource.AbstractResourceManager" title="aup.EE.Resource.AbstractResourceManager"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aup.EE.Resource.AbstractResourceManager</span></code></a> to</dt><dd><p>update the job history (also proposer and connector)</p>
 </dd>
@@ -287,37 +307,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aup.EE.Job.html" class="btn btn-neutral float-right" title="aup.EE.Job module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="aup.EE.html" class="btn btn-neutral float-left" title="aup.EE - Experiment execution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="aup.EE.Job.html" class="btn btn-neutral float-right" title="aup.EE.Job module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aup.EE.html" class="btn btn-neutral float-left" title="aup.EE - Experiment execution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2018, LG Electronics Inc.
+        &#169; Copyright 2018, LG Electronics Inc..
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
