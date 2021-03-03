@@ -110,7 +110,7 @@ class AbstractConnector(ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def start_experiment(self, username, exp_config):
+    def start_experiment(self, username, name, exp_config_blob):
         """
         Create an Experiment and track it
 
@@ -118,8 +118,8 @@ class AbstractConnector(ABC):
         :type username: str
         :param name: experiment name
         :type name: str
-        :param exp_config: configuration of experiment
-        :type exp_config: dict
+        :param exp_config_blob: configuration of experiment
+        :type exp_config_blob: str
         :return: experiment ID
         :rtype: int
         """
@@ -334,7 +334,7 @@ class AbstractConnector(ABC):
         """
         raise NotImplementedError
 
-    def create_experiment(self, username, exp_config):
+    def create_experiment(self, username, name, exp_config_blob):
         """
         Interface for creating an experiment without starting it
         """

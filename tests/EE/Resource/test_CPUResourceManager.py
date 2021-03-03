@@ -162,7 +162,7 @@ class CPUResourceManagerSaveModelTestCase(unittest.TestCase):
 
         self.val = 0
 
-        self.connector.start_experiment('test', {"name":"test"})
+        self.connector.start_experiment('test', 'test', '{}')
 
         curr_rid = self.rm.get_available("test", "cpu")
         self.connector.start_job(self.eid, curr_rid, self.job_1.config)
@@ -212,7 +212,7 @@ class CPUResourceManagerMultipleResTestCase(unittest.TestCase):
         def callback(*args):
             self.val = args
 
-        self.connector.start_experiment('test', {"name":"test"})
+        self.connector.start_experiment('test', 'test', '{}')
 
         curr_rid = self.rm.get_available("test", "cpu")
         self.connector.start_job(self.eid, curr_rid, self.job_7.config)

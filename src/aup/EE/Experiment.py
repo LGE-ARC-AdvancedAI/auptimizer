@@ -121,9 +121,11 @@ class Experiment:
                                                          runtime_args = exp_config.get('runtime_args', {}))
         if eid is None:
             if start is True:
-                self.eid = self.resource_manager.connector.start_experiment(self.username, self.exp_config)
+                self.eid = self.resource_manager.connector.start_experiment(self.username, self.exp_config["name"], \
+                                json.dumps(self.exp_config))
             else:
-                self.eid = self.resource_manager.connector.create_experiment(self.username, self.exp_config)
+                self.eid = self.resource_manager.connector.create_experiment(self.username, self.exp_config["name"], \
+                                json.dumps(self.exp_config))
         else:
             self.eid = eid
             self.resource_manager.connector.start_experiment_by_eid(self.eid)

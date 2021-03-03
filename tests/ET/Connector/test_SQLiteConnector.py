@@ -56,8 +56,8 @@ class SQLiteConnectorTestCase(unittest.TestCase):
     def test_experiment(self):
         """test experiment start and stop"""
         connector = SQLiteConnector(self.db_file)
-        eid1 = connector.start_experiment(self.name, {'name':'exp1'})
-        eid2 = connector.start_experiment(self.name, {'name':'exp2'})
+        eid1 = connector.start_experiment(self.name, "exp1", '{}')
+        eid2 = connector.start_experiment(self.name, "exp2", '{}')
         connector.end_experiment(eid1)
         connector.end_experiment(eid2)
 
@@ -72,7 +72,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
     def test_job(self):
         """test job start and stop"""
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'exp1'})
+        eid = connector.start_experiment(self.name, 'exp1', '{}')
         rid = 1
         jid1 = connector.job_started(eid, rid, "job1")
         jid2 = connector.job_started(eid, rid, "job1")
@@ -89,7 +89,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
 
     def test_reset(self):
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'exp1'})
+        eid = connector.start_experiment(self.name, 'exp1', '{}')
         rids = connector.get_available_resource(self.username, 'gpu')
         self.assertEqual({1, 2}, set(rids))
         jid = connector.job_started(eid, 1, "job1")
@@ -103,7 +103,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
         """ Tests SQLiteConnector.start_job_attempt and SQLiteConnector.end_job_attempt"""
         rid = 1
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'test'})
+        eid = connector.start_experiment(self.name, 'test', '{}')
         jid = connector.job_started(eid, rid, "job1")
         connector.end_job_attempt(jid)
 
@@ -137,7 +137,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
         def test_save_intermediate_result(self):
             """Test saving of intermediate results"""
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'test'})
+        eid = connector.start_experiment(self.name, 'test', '{}')
         rid = 1
         jid1 = connector.job_started(eid, rid, "job1")
 
@@ -162,7 +162,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
     def test_get_intermediate_results_job(self):
         """Test for getting intermediate results for a given job"""
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'exp1'})
+        eid = connector.start_experiment(self.name, 'exp1', '{}')
         rid = 1
         jid1 = connector.job_started(eid, rid, "job1")
 
@@ -182,7 +182,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
     def test_get_intermediate_results_jobs(self):        
         """Test for getting intermediate results for some given jobs"""
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'exp1'})
+        eid = connector.start_experiment(self.name, 'exp1', '{}')
         jid1 = connector.job_started(eid, 1, "job1")
         jid2 = connector.job_started(eid, 2, "job2")
 
@@ -212,7 +212,7 @@ class SQLiteConnectorTestCase(unittest.TestCase):
     def test_get_intermediate_results_experiment(self):
         """Test for getting intermediate results for a given experiment"""
         connector = SQLiteConnector(self.db_file)
-        eid = connector.start_experiment(self.name, {'name':'exp1'})
+        eid = connector.start_experiment(self.name, 'exp1', '{}')
         jid1 = connector.job_started(eid, 1, "job1")
         jid2 = connector.job_started(eid, 2, "job2")
 

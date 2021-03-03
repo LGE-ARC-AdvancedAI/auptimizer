@@ -74,7 +74,7 @@ def create_database(config, usernames, cpu, name):
     # Experiment Table
     c.execute("DROP TABLE IF EXISTS experiment;")
     c.execute("""CREATE TABLE experiment 
-        (eid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid INTEGER, start_time INTEGER, end_time INTEGER,
+        (eid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid INTEGER, name TEXT, start_time INTEGER, end_time INTEGER,
          status TEXT CHECK(status IN ('CREATED', 'RUNNING', 'STOPPED', 'FINISHED', 'FAILED', 'STOPPING', 'REQUEST_STOP')),
          exp_config BLOB, error_msg TEXT NULL,
         FOREIGN KEY(uid) REFERENCES user(uid));""")

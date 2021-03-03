@@ -50,7 +50,7 @@ EXPERIMENT_STATUS_TRANSLATE_DICT = {
     "FAILED": "FAILED",
     "STOPPING": "STOPPING",
     "REQUEST_STOP": "STOPPING",
-    None: None
+
 }
 
 
@@ -234,10 +234,10 @@ def get_resource_types():
 def get_experiment(eid):
     with sql.connect(app.app.config['db_file'], check_same_thread=False) as con:
         cur = con.cursor()
-        experiment = query_db(cur, "SELECT *, json_extract(exp_config, '$.name') as experiment_name, \
+        experiment = experiment = query_db(cur, "SELECT *, name as experiment_name, \
                                         json_extract(exp_config, '$.script') as script_name \
                                     from experiment where eid={eid};".format(eid=eid))
-        experiment[0]['status'] = EXPERIMENT_STATUS_TRANSLATE_DICT[experiment[0].get('status', None)]
+        experiment[0]['status'] = EXPERIMENT_STATUS_TRANSLATE_DICT[experiment[0]['status']]
         cur = con.cursor()
         cur.execute("SELECT count(*) from job where (end_time is NULL or \
                     (typeof(score) is not 'real' and score is not 'EARLY STOPPED')) and eid={eid}".format(eid=eid))
@@ -335,7 +335,7 @@ def get_experiments():
     with sql.connect(app.app.config['db_file'], check_same_thread=False) as con:
         cur = con.cursor()
         experiment = query_db(cur, "SELECT *, json_extract(exp_config, '$.script') as script_name, \
-                                    json_extract(exp_config, '$.name') as experiment_name, \
+                                    name as experiment_name,  \
                                     (SELECT case when (SELECT json_extract(exp_config, '$.target') from experiment where eid=experiment.eid) is \"min\" \
                                     then min(score) else max(score) end from job where job.eid=experiment.eid and typeof(score) is 'real') as best_score, \
                                     (SELECT json_group_array(job.score) from job where job.eid=experiment.eid) as scores, \
@@ -346,7 +346,7 @@ def get_experiments():
                                     (SELECT * from job where eid=experiment.eid order by end_time)) as jobs \
                                     from experiment order by start_time DESC;")
         for e in experiment:
-            e['status'] = EXPERIMENT_STATUS_TRANSLATE_DICT[e.get('status', None)]
+            e['status'] = EXPERIMENT_STATUS_TRANSLATE_DICT[e['status']]
 
         mult_res_labels = query_db(cur, "SELECT JSON_EXTRACT(exp_config, '$.resource_args.multi_res_labels') \
                                         AS labels FROM experiment ORDER BY start_time DESC")
@@ -703,7 +703,7 @@ def create_experiment():
 
             with sql.connect(app.app.config['db_file'], check_same_thread=False) as con:
                 cur = con.cursor()
-                experiment = query_db(cur, "SELECT *, json_extract(exp_config, '$.name') as experiment_name, \
+                experiment = query_db(cur, "SELECT *, name as experiment_name, \
                                                             json_extract(exp_config, '$.script') as script_name \
                                                         from experiment where eid={eid};".format(eid=eid))
                 experiment = experiment[0]
@@ -752,7 +752,7 @@ def start_experiment():
 
             with sql.connect(app.app.config['db_file'], check_same_thread=False) as con:
                 cur = con.cursor()
-                experiment = query_db(cur, "SELECT *, json_extract(exp_config, '$.name') as experiment_name, \
+                experiment = query_db(cur, "SELECT *, name as experiment_name, \
                                                     json_extract(exp_config, '$.script') as script_name \
                                                 from experiment where eid={eid};".format(eid=eid))
                 experiment = experiment[0]
@@ -787,7 +787,7 @@ def stop_experiment():
             
             with sql.connect(app.app.config['db_file'], check_same_thread=False) as con:
                 cur = con.cursor()
-                experiment = query_db(cur, "SELECT *, json_extract(exp_config, '$.name') as experiment_name, \
+                experiment = query_db(cur, "SELECT *, name as experiment_name, \
                                                         json_extract(exp_config, '$.script') as script_name \
                                                     from experiment where eid={eid};".format(eid=eid))
                 experiment = experiment[0]
