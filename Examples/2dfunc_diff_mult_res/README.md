@@ -1,7 +1,7 @@
 # Return multiple results
 
 This feature allows the user to save and track multiple secondary results along with the primary result for the HPO experiment. 
-Auptimizer still uses the primary result for the HPO algorithm, but saves the secondary results in the database under the table `multiple_results`.
+Auptimizer still uses the primary result for the HPO algorithms, but saves the secondary results in the database under the table `multiple_results`.
 
 ## Usage 
 
