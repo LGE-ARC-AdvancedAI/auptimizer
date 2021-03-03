@@ -57,14 +57,11 @@ class SQLiteConnector(AbstractConnector):
         self.closed = False
 
     def _fix_name(self, name):
-        if name is None:
-            return None
-
-        self.cursor.execute("SELECT JSON_EXTRACT(exp_config, '$.name') as name FROM experiment WHERE name = ?", (name,))
+        self.cursor.execute("SELECT name FROM experiment WHERE name = ?", (name,))
         names = [i[0] for i in self.cursor.fetchall()]
         if not names:
             return name
-        self.cursor.execute("SELECT JSON_EXTRACT(exp_config, '$.name') as name FROM experiment WHERE name LIKE ?", ("{} (%)".format(name),))
+        self.cursor.execute("SELECT name FROM experiment WHERE name LIKE ?", ("{} (%)".format(name),))
         last_index = 0
         names = [i[0] for i in self.cursor.fetchall()]
         if names:
@@ -200,16 +197,17 @@ class SQLiteConnector(AbstractConnector):
         return [i[0] for i in self.cursor.fetchall()]
 
     @_delayed
-    def start_experiment(self, username, exp_config):
+    def start_experiment(self, username, name, exp_config_blob):
         self.cursor.execute("SELECT uid FROM user WHERE name = ?", (username,))
         uid = self.cursor.fetchone()
         if uid is None:
             raise ValueError("username %s is not existed" % username)
         uid = uid[0]
-        exp_config['name'] = self._fix_name(exp_config.get('name', None))
-        self.cursor.execute("INSERT INTO experiment (uid, exp_config, start_time, error_msg, status) \
-                                VALUES (?,?, strftime('%s','now'), NULL, 'RUNNING')",
-                            (uid, json.dumps(exp_config)))
+        name = self._fix_name(name)
+        self.cursor.execute("INSERT INTO experiment (uid, name, exp_config, start_time, error_msg, status) \
+                                VALUES (?,?,?, strftime('%s','now'), NULL, 'RUNNING')",
+                            (uid, name, exp_config_blob))
+
         self.connector.commit()
         return self.cursor.lastrowid
 
@@ -309,16 +307,16 @@ class SQLiteConnector(AbstractConnector):
         return results
 
     @_delayed
-    def create_experiment(self, username, exp_config):
+    def create_experiment(self, username, name, exp_config_blob):
         self.cursor.execute("SELECT uid FROM user WHERE name = ?", (username,))
         uid = self.cursor.fetchone()
         if uid is None:
             raise ValueError("username %s is not existed" % username)
         uid = uid[0]
-        exp_config['name'] = self._fix_name(exp_config.get('name', None))
-        self.cursor.execute("INSERT INTO experiment (uid, exp_config, start_time, end_time, error_msg, status) \
-                            VALUES (?,?, NULL, NULL, NULL, 'CREATED')",
-                            (uid, json.dumps(exp_config)))
+        name = self._fix_name(name)
+        self.cursor.execute("INSERT INTO experiment (uid, name, exp_config, start_time, end_time, error_msg, status) \
+                            VALUES (?,?,?, NULL, NULL, NULL, 'CREATED')",
+                            (uid, name, exp_config_blob))
         self.connector.commit()
         return self.cursor.lastrowid
 

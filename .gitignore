@@ -123,3 +123,4 @@ venv.bak/
 analysis_test
 jobs
 tests/mnist_compressed.pth
+dashboard_logs
