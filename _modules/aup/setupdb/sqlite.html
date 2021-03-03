@@ -254,7 +254,7 @@
     <span class="c1"># Experiment Table</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE IF EXISTS experiment;&quot;</span><span class="p">)</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE experiment </span>
-<span class="s2">        (eid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid INTEGER, start_time INTEGER, end_time INTEGER,</span>
+<span class="s2">        (eid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid INTEGER, name TEXT, start_time INTEGER, end_time INTEGER,</span>
 <span class="s2">         status TEXT CHECK(status IN (&#39;CREATED&#39;, &#39;RUNNING&#39;, &#39;STOPPED&#39;, &#39;FINISHED&#39;, &#39;FAILED&#39;, &#39;STOPPING&#39;, &#39;REQUEST_STOP&#39;)),</span>
 <span class="s2">         exp_config BLOB, error_msg TEXT NULL,</span>
 <span class="s2">        FOREIGN KEY(uid) REFERENCES user(uid));&quot;&quot;&quot;</span><span class="p">)</span>

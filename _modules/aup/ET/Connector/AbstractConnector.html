@@ -290,7 +290,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="AbstractConnector.start_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">start_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">exp_config_blob</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an Experiment and track it</span>
 
@@ -298,8 +298,8 @@
 <span class="sd">        :type username: str</span>
 <span class="sd">        :param name: experiment name</span>
 <span class="sd">        :type name: str</span>
-<span class="sd">        :param exp_config: configuration of experiment</span>
-<span class="sd">        :type exp_config: dict</span>
+<span class="sd">        :param exp_config_blob: configuration of experiment</span>
+<span class="sd">        :type exp_config_blob: str</span>
 <span class="sd">        :return: experiment ID</span>
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -514,7 +514,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="AbstractConnector.create_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.create_experiment">[docs]</a>    <span class="k">def</span> <span class="nf">create_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">exp_config</span><span class="p">):</span>
+<div class="viewcode-block" id="AbstractConnector.create_experiment"><a class="viewcode-back" href="../../../../aup.ET.Connector.html#aup.ET.Connector.AbstractConnector.AbstractConnector.create_experiment">[docs]</a>    <span class="k">def</span> <span class="nf">create_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">exp_config_blob</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Interface for creating an experiment without starting it</span>
 <span class="sd">        &quot;&quot;&quot;</span>

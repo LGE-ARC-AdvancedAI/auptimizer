@@ -221,7 +221,7 @@
 
 <dl class="py method">
 <dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.create_experiment">
-<code class="sig-name descname"><span class="pre">create_experiment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.create_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.create_experiment" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_experiment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_config_blob</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.create_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.create_experiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface for creating an experiment without starting it</p>
 </dd></dl>
 
@@ -548,14 +548,14 @@ fitting a given status.</p>
 
 <dl class="py method">
 <dt id="aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">start_experiment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.start_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">start_experiment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_config_blob</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aup/ET/Connector/AbstractConnector.html#AbstractConnector.start_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aup.ET.Connector.AbstractConnector.AbstractConnector.start_experiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an Experiment and track it</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>username</strong> (<em>str</em>) – username</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – experiment name</p></li>
-<li><p><strong>exp_config</strong> (<em>dict</em>) – configuration of experiment</p></li>
+<li><p><strong>exp_config_blob</strong> (<em>str</em>) – configuration of experiment</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -954,7 +954,7 @@ fitting a given status.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>username</strong> (<em>str</em>) – username</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – experiment name</p></li>
-<li><p><strong>exp_config</strong> (<em>dict</em>) – configuration of experiment</p></li>
+<li><p><strong>exp_config_blob</strong> (<em>str</em>) – configuration of experiment</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
