@@ -4,5 +4,5 @@ pytest
 pytest-cov
 torch
 pytorch2keras
-tensorflow==2.4.0
+tensorflow==2.5.1
 onnx
