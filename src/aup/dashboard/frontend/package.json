@@ -35,7 +35,7 @@
     "angular-plotly.js": "^3.0.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "jsoneditor": "^9.1.8",
+    "jsoneditor": "^9.5.6",
     "mat-table-exporter": "^9.1.0",
     "moment": "^2.29.1",
     "ngx-pagination": "^5.0.0",
